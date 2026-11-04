@@ -1848,24 +1848,253 @@
         </div>
       </section>
 
-      <!-- VIEW 9: SELF-CARE -->
+      <!-- VIEW 9: SELF-CARE (ADHD NERVOUS SYSTEM REGULATION & DOPAMINE SANCTUARY) -->
       <section id="view-selfcare" class="hidden flex-1 p-4 sm:p-6 lg:p-8 max-w-7xl w-full mx-auto space-y-6">
-        <div class="flex items-center justify-between pb-4 border-b border-[#F4E1EC] dark:border-[#3E2445]">
+        <!-- Header -->
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-[#F4E1EC] dark:border-[#3E2445]">
           <div>
             <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-[#FCECF3] dark:bg-[#3E2242] text-xs font-semibold text-[#994B78] dark:text-[#E889B5] mb-2">
               <i data-lucide="heart" class="w-3.5 h-3.5"></i>
-              <span>Mindful Well-Being</span>
+              <span>ADHD Sensory & Nervous System Sanctuary</span>
             </div>
-            <h2 class="text-2xl font-bold text-[#38283A] dark:text-[#FDF7FB]">Self-Care</h2>
-            <p class="text-xs text-[#887487] dark:text-[#D4BFD2]">Rest is productive. Be kind to yourself today 🌸</p>
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-[#38283A] dark:text-[#FDF7FB]">Self-Care & Brain Reset</h2>
+            <p class="text-xs sm:text-sm text-[#887487] dark:text-[#D4BFD2] mt-0.5">
+              Refuel executive dopamine, dissolve money overwhelm, and celebrate tiny wins 🌸
+            </p>
           </div>
-          <button onclick="switchView('overview')" class="px-3.5 py-2 rounded-2xl bg-white dark:bg-[#28182D] border border-[#F4E1EC] dark:border-[#3E2445] text-xs font-semibold text-[#38283A] dark:text-[#FDF7FB] hover:bg-[#FCECF3] dark:hover:bg-[#3E2242] transition-colors">
-            Back to Overview
-          </button>
+          <div class="flex items-center space-x-2 sm:space-x-3">
+            <button onclick="startGroundingResetModal()" class="ios-glass-btn px-4 py-2.5 rounded-2xl bg-white/70 dark:bg-[#28182D]/70 border border-[#F4E1EC] dark:border-[#3E2445] text-xs font-semibold text-[#994B78] dark:text-[#E889B5] hover:shadow-md transition-all flex items-center space-x-2">
+              <i data-lucide="compass" class="w-4 h-4"></i>
+              <span>Grounding Reset</span>
+            </button>
+            <button onclick="switchView('overview')" class="ios-glass-btn px-4 py-2.5 rounded-2xl bg-white/70 dark:bg-[#28182D]/70 border border-[#F4E1EC] dark:border-[#3E2445] text-xs font-semibold text-[#38283A] dark:text-[#FDF7FB] hover:shadow-md transition-all">
+              Overview
+            </button>
+          </div>
         </div>
-        <div class="p-6 rounded-3xl bg-gradient-to-br from-[#FFF5F9] via-white to-[#FCECF3] dark:from-[#251528] dark:via-[#28182D] dark:to-[#221226] border border-[#F4E1EC] dark:border-[#3E2445] shadow-card space-y-3">
-          <h3 class="font-bold text-base text-[#38283A] dark:text-[#FDF7FB]">Today's ADHD Self-Compassion Reminder</h3>
-          <p class="text-xs text-[#887487] dark:text-[#D4BFD2] leading-relaxed">Financial overwhelm isn't a character flaw—it's just executive function doing its best with limited dopamine. Take three deep breaths, log what you can, and leave the rest for tomorrow.</p>
+
+        <!-- 1. Top Gentle Compassion & Energy Gauge Card -->
+        <div class="p-6 sm:p-7 rounded-3xl bg-gradient-to-br from-[#FFF5F9] via-white to-[#FCECF3] dark:from-[#2A172F] dark:via-[#28182D] dark:to-[#221226] border border-[#F4E1EC] dark:border-[#3E2445] shadow-card space-y-4">
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div class="space-y-1.5 max-w-2xl">
+              <div class="flex items-center space-x-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-[#D66A9A] animate-pulse"></span>
+                <span class="text-xs font-bold uppercase tracking-wider text-[#994B78] dark:text-[#E889B5]">ADHD Compassion Protocol</span>
+              </div>
+              <h3 class="font-extrabold text-base sm:text-lg text-[#38283A] dark:text-[#FDF7FB]">
+                "Financial overwhelm is not a personal failure—it's just low dopamine."
+              </h3>
+              <p class="text-xs sm:text-sm text-[#887487] dark:text-[#D4BFD2] leading-relaxed">
+                When executive dysfunction strikes, your brain cannot force motivation. Step back, soothe your nervous system first, and numbers will feel manageable again.
+              </p>
+            </div>
+            <!-- Brain Battery Energy Selector -->
+            <div class="p-3.5 rounded-2xl bg-white/80 dark:bg-[#201024]/80 border border-[#F4E1EC] dark:border-[#3E2445] flex flex-col space-y-2 shrink-0">
+              <span class="text-[11px] font-bold text-[#38283A] dark:text-[#FDF7FB]">Current Brain Energy:</span>
+              <div class="flex items-center space-x-1.5">
+                <button onclick="setSelfCareEnergy('low')" id="sc-energy-low" class="px-3 py-1.5 rounded-xl text-xs font-bold transition-all bg-[#FCECF3] text-[#994B78] border border-[#D66A9A]/30">🪫 Low</button>
+                <button onclick="setSelfCareEnergy('medium')" id="sc-energy-medium" class="px-3 py-1.5 rounded-xl text-xs font-semibold transition-all hover:bg-[#FCECF3] text-[#887487] border border-transparent">🔋 Medium</button>
+                <button onclick="setSelfCareEnergy('high')" id="sc-energy-high" class="px-3 py-1.5 rounded-xl text-xs font-semibold transition-all hover:bg-[#FCECF3] text-[#887487] border border-transparent">⚡ Sparked</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. Dual Column: The ADHD Dopamine Menu & Ambient Sound Generator -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <!-- Left 2 Cols: The Dopamine Menu -->
+          <div class="lg:col-span-2 p-5 sm:p-6 rounded-3xl bg-white dark:bg-[#28182D] border border-[#F4E1EC] dark:border-[#3E2445] shadow-card space-y-5">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-[#F4E1EC] dark:border-[#3E2445]">
+              <div>
+                <div class="flex items-center space-x-2">
+                  <div class="w-8 h-8 rounded-xl bg-gradient-to-br from-[#FCECF3] to-[#F9DFEB] dark:from-[#3E2242] dark:to-[#4A264F] flex items-center justify-center text-[#994B78] dark:text-[#E889B5]">
+                    <i data-lucide="coffee" class="w-4 h-4"></i>
+                  </div>
+                  <div>
+                    <h3 class="font-bold text-base text-[#38283A] dark:text-[#FDF7FB]">The ADHD Dopamine Menu</h3>
+                    <p class="text-[11px] text-[#887487] dark:text-[#D4BFD2]">Healthy brain stimulation instead of guilt or doomscrolling</p>
+                  </div>
+                </div>
+              </div>
+              <span class="text-xs font-bold text-[#994B78] dark:text-[#E889B5] px-3 py-1 rounded-full bg-[#FCECF3] dark:bg-[#3E2242]">
+                Pick 1 bite whenever stuck ✨
+              </span>
+            </div>
+
+            <!-- Categories Tabs -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+              <button onclick="switchDopamineTab('appetizers')" id="dopa-tab-appetizers" class="py-2 px-3 rounded-2xl text-xs font-bold text-center transition-all bg-gradient-to-r from-[#994B78] to-[#BA5382] text-white shadow-sm">
+                ☕ Appetizers (5m)
+              </button>
+              <button onclick="switchDopamineTab('mains')" id="dopa-tab-mains" class="py-2 px-3 rounded-2xl text-xs font-semibold text-center transition-all bg-[#FFF9FC] dark:bg-[#201024] text-[#887487] dark:text-[#D4BFD2] border border-[#F4E1EC] dark:border-[#3E2445]">
+                🍲 Mains (20m+)
+              </button>
+              <button onclick="switchDopamineTab('desserts')" id="dopa-tab-desserts" class="py-2 px-3 rounded-2xl text-xs font-semibold text-center transition-all bg-[#FFF9FC] dark:bg-[#201024] text-[#887487] dark:text-[#D4BFD2] border border-[#F4E1EC] dark:border-[#3E2445]">
+                🍰 Desserts (Fun)
+              </button>
+              <button onclick="switchDopamineTab('snacks')" id="dopa-tab-snacks" class="py-2 px-3 rounded-2xl text-xs font-semibold text-center transition-all bg-[#FFF9FC] dark:bg-[#201024] text-[#887487] dark:text-[#D4BFD2] border border-[#F4E1EC] dark:border-[#3E2445]">
+                🥨 Snacks (Quick)
+              </button>
+            </div>
+
+            <!-- Dopamine Items Grid Container -->
+            <div id="dopamine-items-container" class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+              <!-- Rendered via JS -->
+            </div>
+          </div>
+
+          <!-- Right Col: Ambient Pink Noise Generator & Sensory Calmer -->
+          <div class="p-5 sm:p-6 rounded-3xl bg-white dark:bg-[#28182D] border border-[#F4E1EC] dark:border-[#3E2445] shadow-card flex flex-col justify-between space-y-5">
+            <div>
+              <div class="flex items-center space-x-3 pb-3 border-b border-[#F4E1EC] dark:border-[#3E2445]">
+                <div class="w-8 h-8 rounded-xl bg-gradient-to-br from-[#FCECF3] to-[#F9DFEB] dark:from-[#3E2242] dark:to-[#4A264F] flex items-center justify-center text-[#994B78] dark:text-[#E889B5]">
+                  <i data-lucide="headphones" class="w-4 h-4"></i>
+                </div>
+                <div>
+                  <h3 class="font-bold text-sm text-[#38283A] dark:text-[#FDF7FB]">Ambient Soundscape</h3>
+                  <p class="text-[11px] text-[#887487] dark:text-[#D4BFD2]">Masks intrusive ADHD racing thoughts</p>
+                </div>
+              </div>
+
+              <!-- Sound Player Box -->
+              <div class="mt-4 p-4 rounded-2xl bg-[#FFF9FC] dark:bg-[#201024] border border-[#F4E1EC] dark:border-[#3E2445] text-center space-y-4">
+                <div id="sound-indicator" class="w-16 h-16 mx-auto rounded-full bg-gradient-to-br from-[#FCECF3] to-[#F9DFEB] dark:from-[#3E2242] dark:to-[#4A264F] flex items-center justify-center border-2 border-dashed border-[#D66A9A]/40 transition-all">
+                  <i id="sound-icon" data-lucide="volume-x" class="w-7 h-7 text-[#994B78] dark:text-[#E889B5]"></i>
+                </div>
+                <div>
+                  <div id="sound-status-text" class="text-xs font-bold text-[#38283A] dark:text-[#FDF7FB]">Soundscape: Paused</div>
+                  <div class="text-[10px] text-[#887487] dark:text-[#D4BFD2]">100% native audio, zero download needed</div>
+                </div>
+
+                <!-- Sound Modes -->
+                <div class="flex items-center justify-center space-x-2">
+                  <button onclick="setSoundMode('pink')" id="mode-pink-btn" class="px-2.5 py-1 rounded-xl text-[11px] font-bold bg-[#FCECF3] dark:bg-[#3E2242] text-[#994B78] dark:text-[#E889B5] border border-[#D66A9A]/30">🌸 Pink Noise</button>
+                  <button onclick="setSoundMode('brown')" id="mode-brown-btn" class="px-2.5 py-1 rounded-xl text-[11px] font-semibold text-[#887487] dark:text-[#D4BFD2] hover:bg-[#FCECF3] dark:hover:bg-[#3E2242]">🌧️ Soft Rain</button>
+                </div>
+
+                <!-- Volume Slider -->
+                <div class="space-y-1">
+                  <div class="flex justify-between text-[10px] text-[#887487] dark:text-[#D4BFD2] px-1 font-medium">
+                    <span>Softer</span>
+                    <span>Volume</span>
+                    <span>Louder</span>
+                  </div>
+                  <input type="range" id="ambient-volume" min="0.05" max="0.8" step="0.05" value="0.25" oninput="changeAmbientVolume(this.value)" class="w-full accent-[#D66A9A] cursor-pointer">
+                </div>
+
+                <!-- Big Toggle Button -->
+                <button onclick="toggleAmbientNoise()" id="ambient-play-btn" class="ios-glass-primary w-full py-2.5 rounded-2xl bg-gradient-to-r from-[#D66A9A] to-[#994B78] text-white font-bold text-xs shadow-md hover:opacity-95 transition-all flex items-center justify-center space-x-2">
+                  <i data-lucide="play" class="w-4 h-4"></i>
+                  <span id="ambient-btn-label">Start Calming Sound</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- ADHD Note -->
+            <div class="p-3 rounded-2xl bg-[#FCECF3]/60 dark:bg-[#3E2242]/40 border border-[#F4E1EC] dark:border-[#3E2445] flex items-start space-x-2.5">
+              <i data-lucide="sparkles" class="w-4 h-4 text-[#994B78] dark:text-[#E889B5] shrink-0 mt-0.5"></i>
+              <p class="text-[11px] text-[#887487] dark:text-[#D4BFD2] leading-relaxed">
+                Pink noise has equal energy per octave, calming sensory overload so your brain feels steady while organizing finances.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. Dual Column: 5-4-3-2-1 Sensory Grounding & ADHD Tiny Wins Jar -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <!-- Left: 5-4-3-2-1 Grounding Lifeline -->
+          <div class="p-5 sm:p-6 rounded-3xl bg-white dark:bg-[#28182D] border border-[#F4E1EC] dark:border-[#3E2445] shadow-card space-y-4">
+            <div class="flex items-center justify-between pb-3 border-b border-[#F4E1EC] dark:border-[#3E2445]">
+              <div class="flex items-center space-x-2.5">
+                <div class="w-8 h-8 rounded-xl bg-gradient-to-br from-[#FCECF3] to-[#F9DFEB] dark:from-[#3E2242] dark:to-[#4A264F] flex items-center justify-center text-[#994B78] dark:text-[#E889B5]">
+                  <i data-lucide="anchor" class="w-4 h-4"></i>
+                </div>
+                <div>
+                  <h3 class="font-bold text-sm text-[#38283A] dark:text-[#FDF7FB]">5-4-3-2-1 Grounding Lifeline</h3>
+                  <p class="text-[11px] text-[#887487] dark:text-[#D4BFD2]">For anxiety spikes or executive paralysis</p>
+                </div>
+              </div>
+              <span id="grounding-step-badge" class="text-xs font-bold px-2.5 py-1 rounded-full bg-[#FCECF3] dark:bg-[#3E2242] text-[#994B78] dark:text-[#E889B5]">
+                Step 1 of 5
+              </span>
+            </div>
+
+            <!-- Grounding Interactive Step Card -->
+            <div id="grounding-card" class="p-5 rounded-2xl bg-gradient-to-br from-[#FFF9FC] to-[#FCECF3] dark:from-[#201024] dark:to-[#2A142E] border border-[#F4E1EC] dark:border-[#3E2445] space-y-3">
+              <div class="flex items-center space-x-3">
+                <div id="grounding-icon-box" class="w-10 h-10 rounded-2xl bg-white dark:bg-[#28182D] shadow-sm flex items-center justify-center text-xl">
+                  👁️
+                </div>
+                <div>
+                  <div id="grounding-title" class="text-sm font-extrabold text-[#38283A] dark:text-[#FDF7FB]">
+                    5 Things You See
+                  </div>
+                  <div id="grounding-prompt" class="text-xs text-[#887487] dark:text-[#D4BFD2]">
+                    Look around the room right now. Notice 5 objects (a pen, your window, light reflection).
+                  </div>
+                </div>
+              </div>
+
+              <!-- Step Progress Indicators -->
+              <div class="grid grid-cols-5 gap-1.5 pt-2">
+                <div id="g-bar-1" class="h-1.5 rounded-full bg-[#D66A9A] transition-all"></div>
+                <div id="g-bar-2" class="h-1.5 rounded-full bg-[#F4E1EC] dark:bg-[#3E2445] transition-all"></div>
+                <div id="g-bar-3" class="h-1.5 rounded-full bg-[#F4E1EC] dark:bg-[#3E2445] transition-all"></div>
+                <div id="g-bar-4" class="h-1.5 rounded-full bg-[#F4E1EC] dark:bg-[#3E2445] transition-all"></div>
+                <div id="g-bar-5" class="h-1.5 rounded-full bg-[#F4E1EC] dark:bg-[#3E2445] transition-all"></div>
+              </div>
+            </div>
+
+            <!-- Controls -->
+            <div class="flex items-center justify-between pt-1">
+              <button onclick="resetGrounding()" class="px-3.5 py-2 rounded-xl text-xs font-semibold text-[#887487] hover:bg-[#FCECF3] dark:hover:bg-[#3E2242] transition-colors">
+                Reset
+              </button>
+              <button onclick="nextGroundingStep()" id="grounding-next-btn" class="ios-glass-primary px-5 py-2 rounded-2xl bg-gradient-to-r from-[#D66A9A] to-[#994B78] text-white font-bold text-xs shadow-sm hover:opacity-95 transition-all flex items-center space-x-2">
+                <span>Next Sense</span>
+                <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Right: ADHD Tiny Wins Jar -->
+          <div class="p-5 sm:p-6 rounded-3xl bg-white dark:bg-[#28182D] border border-[#F4E1EC] dark:border-[#3E2445] shadow-card space-y-4">
+            <div class="flex items-center justify-between pb-3 border-b border-[#F4E1EC] dark:border-[#3E2445]">
+              <div class="flex items-center space-x-2.5">
+                <div class="w-8 h-8 rounded-xl bg-gradient-to-br from-[#FCECF3] to-[#F9DFEB] dark:from-[#3E2242] dark:to-[#4A264F] flex items-center justify-center text-[#994B78] dark:text-[#E889B5]">
+                  <i data-lucide="sparkle" class="w-4 h-4"></i>
+                </div>
+                <div>
+                  <h3 class="font-bold text-sm text-[#38283A] dark:text-[#FDF7FB]">Today's Tiny Wins Jar</h3>
+                  <p class="text-[11px] text-[#887487] dark:text-[#D4BFD2]">ADHD brains forget wins easily. Record even tiny steps!</p>
+                </div>
+              </div>
+              <span id="wins-count-badge" class="text-xs font-bold text-[#994B78] dark:text-[#E889B5] px-2.5 py-1 rounded-full bg-[#FCECF3] dark:bg-[#3E2242]">
+                2 Wins Today 🎉
+              </span>
+            </div>
+
+            <!-- Quick Add Input -->
+            <div class="flex items-center space-x-2">
+              <input type="text" id="custom-win-input" placeholder="What went right today? (e.g. drank water, opened budget)" class="flex-1 px-3.5 py-2 rounded-2xl text-xs bg-[#FFF9FC] dark:bg-[#201024] border border-[#F4E1EC] dark:border-[#3E2445] text-[#38283A] dark:text-[#FDF7FB] focus:outline-none focus:ring-2 focus:ring-[#D66A9A]/40" onkeydown="if(event.key==='Enter') addCustomTinyWin()">
+              <button onclick="addCustomTinyWin()" class="ios-glass-primary px-4 py-2 rounded-2xl bg-gradient-to-r from-[#D66A9A] to-[#994B78] text-white text-xs font-bold shrink-0 hover:opacity-95 shadow-sm">
+                + Add Win
+              </button>
+            </div>
+
+            <!-- One-tap Preset Win Buttons -->
+            <div class="flex flex-wrap gap-1.5">
+              <button onclick="addPresetWin('Opened budget calmly 🌸')" class="px-2.5 py-1 rounded-xl text-[10px] font-semibold bg-[#FCECF3] dark:bg-[#3E2242] text-[#994B78] dark:text-[#E889B5] hover:opacity-85 transition-opacity">+ Opened budget 🌸</button>
+              <button onclick="addPresetWin('Drank fresh water 💧')" class="px-2.5 py-1 rounded-xl text-[10px] font-semibold bg-[#FCECF3] dark:bg-[#3E2242] text-[#994B78] dark:text-[#E889B5] hover:opacity-85 transition-opacity">+ Drank water 💧</button>
+              <button onclick="addPresetWin('Didn\'t impulse spend 🛡️')" class="px-2.5 py-1 rounded-xl text-[10px] font-semibold bg-[#FCECF3] dark:bg-[#3E2242] text-[#994B78] dark:text-[#E889B5] hover:opacity-85 transition-opacity">+ Resisted impulse 🛡️</button>
+              <button onclick="addPresetWin('Rested without feeling guilty 🛋️')" class="px-2.5 py-1 rounded-xl text-[10px] font-semibold bg-[#FCECF3] dark:bg-[#3E2242] text-[#994B78] dark:text-[#E889B5] hover:opacity-85 transition-opacity">+ Guilt-free rest 🛋️</button>
+            </div>
+
+            <!-- Saved Wins List Container -->
+            <div id="tiny-wins-list" class="space-y-2 max-h-56 overflow-y-auto pr-1">
+              <!-- Rendered via JS -->
+            </div>
+          </div>
         </div>
       </section>
 
@@ -3544,6 +3773,20 @@
           ]
         };
       }
+
+      // Guarantee selfCareState exists & default state
+      if (!data.selfCareState) {
+        data.selfCareState = {
+          energy: 'medium',
+          dopamineCategory: 'appetizers',
+          completedDopamine: [],
+          groundingStep: 0,
+          wins: [
+            { id: 'w_1', text: 'Checked budget peacefully without anxiety 🌸', time: '10:00 AM' },
+            { id: 'w_2', text: 'Drank a tall glass of water 💧', time: '11:15 AM' }
+          ]
+        };
+      }
     }
 
     function calculateFinancials() {
@@ -4682,6 +4925,435 @@
       }
     }
 
+    // --- 11. ADHD SELF-CARE SANCTUARY LOGIC ---
+    const DOPAMINE_MENU_DATA = {
+      appetizers: [
+        { id: 'd_sun', title: '5-Min Bright Sunlight', desc: 'Step outside or open window to reset circadian clock', icon: 'sun' },
+        { id: 'd_water', title: 'Splash Cold Water', desc: 'Activates the mammalian dive reflex to drop heart rate', icon: 'droplet' },
+        { id: 'd_song', title: '1 Favorite Hype Song', desc: 'Instant dopamine spike without getting lost in playlists', icon: 'music' },
+        { id: 'd_stretch', title: 'Full Body Shoulder Roll', desc: 'Releases subconscious neck tension from screen hunch', icon: 'activity' }
+      ],
+      mains: [
+        { id: 'd_shower', title: 'Warm Soothing Shower', desc: 'Sensory reset to wash away sticky executive guilt', icon: 'sparkles' },
+        { id: 'd_floor', title: '10-Min Floor Time (Constructive Rest)', desc: 'Lie on floor/rug with legs up to decompress nervous system', icon: 'heart' },
+        { id: 'd_tea', title: 'Mindful Warm Tea Ritual', desc: 'Hold warm mug with both hands, feel the heat and aroma', icon: 'coffee' },
+        { id: 'd_nap', title: '15-Min Power Snooze', desc: 'Eye rest sprint—even closing eyes restores prefrontal cortex', icon: 'moon' }
+      ],
+      desserts: [
+        { id: 'd_game', title: 'Guilt-Free 20-Min Gaming', desc: 'Set a friendly timer and play without an ounce of shame', icon: 'gamepad-2' },
+        { id: 'd_doodle', title: 'Mindless Doodling', desc: 'Draw squiggles, shapes, or color with bright markers', icon: 'pen-tool' },
+        { id: 'd_episode', title: 'One Comfort Show Episode', desc: 'Re-watch a familiar show that requires zero new processing', icon: 'tv' }
+      ],
+      snacks: [
+        { id: 'd_socks', title: 'Wear Softest Fuzzy Socks', desc: 'Immediate cozy tactile stimulation for feet', icon: 'smile' },
+        { id: 'd_fidget', title: 'Fidget Toy / Stress Ball', desc: 'Keep hands busy to help frontal lobe stay calm', icon: 'disc' },
+        { id: 'd_pet', title: '5-Min Pet Cuddle', desc: 'Instant oxytocin boost by petting dog or cat', icon: 'heart-handshake' }
+      ]
+    };
+
+    const GROUNDING_STEPS = [
+      { step: 1, count: 5, icon: '👁️', title: '5 Things You Can See', prompt: 'Look around your room right now. Notice 5 objects (a pen, your window, light reflection, keyboard, door).' },
+      { step: 2, count: 4, icon: '✋', title: '4 Things You Can Touch', prompt: 'Feel the texture of your clothes, the smooth desk, your chair cushion, or your phone case.' },
+      { step: 3, count: 3, icon: '👂', title: '3 Things You Can Hear', prompt: 'Listen closely. Notice the hum of the fan, distant traffic, your own steady breathing.' },
+      { step: 4, count: 2, icon: '👃', title: '2 Things You Can Smell', prompt: 'Notice any scent in the air, your coffee, fresh air from the window, or your clean sleeve.' },
+      { step: 5, count: 1, icon: '👅', title: '1 Thing You Can Taste', prompt: 'Notice the lingering taste of mint, tea, or take a fresh mindful sip of water right now.' }
+    ];
+
+    let audioCtx = null;
+    let noiseNode = null;
+    let gainNode = null;
+    let isAudioPlaying = false;
+    let currentNoiseMode = 'pink';
+
+    function renderSelfCareView() {
+      if (!currentUserData || !currentUserData.selfCareState) return;
+      const state = currentUserData.selfCareState;
+
+      // 1. Render Energy Level UI
+      const energy = state.energy || 'medium';
+      ['low', 'medium', 'high'].forEach(lvl => {
+        const btn = document.getElementById(`sc-energy-${lvl}`);
+        if (!btn) return;
+        if (lvl === energy) {
+          btn.className = 'px-3 py-1.5 rounded-xl text-xs font-bold transition-all bg-[#FCECF3] dark:bg-[#3E2242] text-[#994B78] dark:text-[#E889B5] border border-[#D66A9A]/40 shadow-sm';
+        } else {
+          btn.className = 'px-3 py-1.5 rounded-xl text-xs font-semibold transition-all hover:bg-[#FCECF3] dark:hover:bg-[#3E2242] text-[#887487] dark:text-[#D4BFD2] border border-transparent';
+        }
+      });
+
+      // 2. Render Dopamine Menu Items
+      renderDopamineMenu();
+
+      // 3. Render Grounding Step
+      renderGroundingStep();
+
+      // 4. Render Tiny Wins List
+      renderTinyWins();
+
+      // 5. Update Ambient Audio UI
+      updateAmbientAudioUI();
+
+      if (window.lucide) lucide.createIcons();
+    }
+
+    function switchDopamineTab(category) {
+      if (!currentUserData || !currentUserData.selfCareState) return;
+      currentUserData.selfCareState.dopamineCategory = category;
+      saveUserData(currentUser.id, currentUserData);
+
+      ['appetizers', 'mains', 'desserts', 'snacks'].forEach(cat => {
+        const tabBtn = document.getElementById(`dopa-tab-${cat}`);
+        if (!tabBtn) return;
+        if (cat === category) {
+          tabBtn.className = 'py-2 px-3 rounded-2xl text-xs font-bold text-center transition-all bg-gradient-to-r from-[#994B78] to-[#BA5382] text-white shadow-sm';
+        } else {
+          tabBtn.className = 'py-2 px-3 rounded-2xl text-xs font-semibold text-center transition-all bg-[#FFF9FC] dark:bg-[#201024] text-[#887487] dark:text-[#D4BFD2] border border-[#F4E1EC] dark:border-[#3E2445] hover:bg-[#FCECF3] dark:hover:bg-[#3E2242]';
+        }
+      });
+
+      renderDopamineMenu();
+      if (window.lucide) lucide.createIcons();
+    }
+
+    function renderDopamineMenu() {
+      const container = document.getElementById('dopamine-items-container');
+      if (!container || !currentUserData || !currentUserData.selfCareState) return;
+      const state = currentUserData.selfCareState;
+      const cat = state.dopamineCategory || 'appetizers';
+      const items = DOPAMINE_MENU_DATA[cat] || [];
+      const completed = state.completedDopamine || [];
+
+      container.innerHTML = items.map(item => {
+        const isDone = completed.includes(item.id);
+        return `
+          <div class="p-3.5 rounded-2xl border transition-all ${
+            isDone
+              ? 'bg-[#FCECF3]/50 dark:bg-[#3E2242]/30 border-[#D66A9A]/30 opacity-90'
+              : 'bg-[#FFF9FC] dark:bg-[#201024] border-[#F4E1EC] dark:border-[#3E2445] hover:border-[#D66A9A]/40'
+          } flex items-start justify-between gap-3">
+            <div class="flex items-start space-x-3">
+              <div class="w-8 h-8 rounded-xl shrink-0 flex items-center justify-center ${
+                isDone
+                  ? 'bg-[#994B78] text-white'
+                  : 'bg-white dark:bg-[#28182D] text-[#994B78] dark:text-[#E889B5] border border-[#F4E1EC] dark:border-[#3E2445]'
+              }">
+                <i data-lucide="${item.icon}" class="w-4 h-4"></i>
+              </div>
+              <div>
+                <h4 class="text-xs font-bold text-[#38283A] dark:text-[#FDF7FB] ${isDone ? 'line-through opacity-75' : ''}">
+                  ${escapeHtml(item.title)}
+                </h4>
+                <p class="text-[11px] text-[#887487] dark:text-[#D4BFD2] mt-0.5 leading-tight">
+                  ${escapeHtml(item.desc)}
+                </p>
+              </div>
+            </div>
+            <button onclick="toggleDopamineAction('${item.id}', '${escapeHtml(item.title)}')" class="shrink-0 p-1.5 rounded-xl transition-all ${
+              isDone
+                ? 'bg-[#994B78] text-white'
+                : 'bg-white dark:bg-[#28182D] border border-[#F4E1EC] dark:border-[#3E2445] text-[#887487] hover:text-[#994B78]'
+            }" title="${isDone ? 'Completed' : 'Mark Done'}">
+              <i data-lucide="${isDone ? 'check' : 'plus'}" class="w-3.5 h-3.5"></i>
+            </button>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function toggleDopamineAction(id, title) {
+      if (!currentUserData || !currentUserData.selfCareState) return;
+      const state = currentUserData.selfCareState;
+      state.completedDopamine = state.completedDopamine || [];
+      const idx = state.completedDopamine.indexOf(id);
+      if (idx > -1) {
+        state.completedDopamine.splice(idx, 1);
+        showToast('Item uncompleted.');
+      } else {
+        state.completedDopamine.push(id);
+        triggerGentleConfetti();
+        showToast(`Nice! "${title}" enjoyed ✨`);
+        addPresetWin(`Dopamine Boost: ${title}`);
+      }
+      saveUserData(currentUser.id, currentUserData);
+      renderDopamineMenu();
+      if (window.lucide) lucide.createIcons();
+    }
+
+    function setSelfCareEnergy(level) {
+      if (!currentUserData || !currentUserData.selfCareState) return;
+      currentUserData.selfCareState.energy = level;
+      saveUserData(currentUser.id, currentUserData);
+      renderSelfCareView();
+      if (level === 'low') {
+        showToast('Low battery mode: Pick one gentle Appetizer or lie on the floor 🌸');
+      } else if (level === 'high') {
+        showToast('Energy is sparked! Great time for a quick 10-min budget sprint ⚡');
+      }
+    }
+
+    function renderGroundingStep() {
+      if (!currentUserData || !currentUserData.selfCareState) return;
+      const stepIdx = currentUserData.selfCareState.groundingStep || 0;
+      const stepData = GROUNDING_STEPS[stepIdx] || GROUNDING_STEPS[0];
+
+      const badge = document.getElementById('grounding-step-badge');
+      const iconBox = document.getElementById('grounding-icon-box');
+      const titleEl = document.getElementById('grounding-title');
+      const promptEl = document.getElementById('grounding-prompt');
+      const nextBtn = document.getElementById('grounding-next-btn');
+
+      if (badge) badge.textContent = `Step ${stepIdx + 1} of 5`;
+      if (iconBox) iconBox.textContent = stepData.icon;
+      if (titleEl) titleEl.textContent = stepData.title;
+      if (promptEl) promptEl.textContent = stepData.prompt;
+
+      for (let i = 1; i <= 5; i++) {
+        const bar = document.getElementById(`g-bar-${i}`);
+        if (bar) {
+          if (i <= stepIdx + 1) {
+            bar.className = 'h-1.5 rounded-full bg-[#D66A9A] transition-all';
+          } else {
+            bar.className = 'h-1.5 rounded-full bg-[#F4E1EC] dark:bg-[#3E2445] transition-all';
+          }
+        }
+      }
+
+      if (nextBtn) {
+        if (stepIdx === 4) {
+          nextBtn.innerHTML = `<span>Complete Reset</span><i data-lucide="check" class="w-3.5 h-3.5"></i>`;
+        } else {
+          nextBtn.innerHTML = `<span>Next Sense</span><i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>`;
+        }
+      }
+    }
+
+    function nextGroundingStep() {
+      if (!currentUserData || !currentUserData.selfCareState) return;
+      let stepIdx = currentUserData.selfCareState.groundingStep || 0;
+      if (stepIdx < 4) {
+        currentUserData.selfCareState.groundingStep = stepIdx + 1;
+        saveUserData(currentUser.id, currentUserData);
+        renderGroundingStep();
+        if (window.lucide) lucide.createIcons();
+      } else {
+        currentUserData.selfCareState.groundingStep = 0;
+        saveUserData(currentUser.id, currentUserData);
+        renderGroundingStep();
+        triggerGentleConfetti();
+        showToast('Grounding complete! You are centered, safe, and doing great 🌸');
+        addPresetWin('Completed 5-4-3-2-1 Sensory Grounding Reset 🧘‍♀️');
+      }
+    }
+
+    function resetGrounding() {
+      if (!currentUserData || !currentUserData.selfCareState) return;
+      currentUserData.selfCareState.groundingStep = 0;
+      saveUserData(currentUser.id, currentUserData);
+      renderGroundingStep();
+      if (window.lucide) lucide.createIcons();
+      showToast('Grounding reset to Step 1.');
+    }
+
+    function startGroundingResetModal() {
+      switchView('selfcare');
+      const card = document.getElementById('grounding-card');
+      if (card) {
+        card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        card.classList.add('ring-2', 'ring-[#D66A9A]');
+        setTimeout(() => card.classList.remove('ring-2', 'ring-[#D66A9A]'), 2000);
+      }
+    }
+
+    function toggleAmbientNoise() {
+      if (isAudioPlaying) {
+        stopAmbientNoise();
+      } else {
+        startAmbientNoise();
+      }
+    }
+
+    function startAmbientNoise() {
+      try {
+        if (!audioCtx) {
+          audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+        if (audioCtx.state === 'suspended') {
+          audioCtx.resume();
+        }
+        const bufferSize = audioCtx.sampleRate * 2;
+        const noiseBuffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+        const output = noiseBuffer.getChannelData(0);
+        let b0 = 0, b1 = 0, b2 = 0, b3 = 0, b4 = 0, b5 = 0, b6 = 0;
+        for (let i = 0; i < bufferSize; i++) {
+          const white = Math.random() * 2 - 1;
+          if (currentNoiseMode === 'pink') {
+            b0 = 0.99886 * b0 + white * 0.0555179;
+            b1 = 0.99332 * b1 + white * 0.0750759;
+            b2 = 0.96900 * b2 + white * 0.1538520;
+            b3 = 0.86650 * b3 + white * 0.3104856;
+            b4 = 0.55000 * b4 + white * 0.5329522;
+            b5 = -0.7616 * b5 - white * 0.0168980;
+            output[i] = (b0 + b1 + b2 + b3 + b4 + b5 + b6 + white * 0.5362) * 0.04;
+            b6 = white * 0.115926;
+          } else {
+            b0 = (b0 + (0.02 * white)) / 1.02;
+            output[i] = b0 * 0.35;
+          }
+        }
+        noiseNode = audioCtx.createBufferSource();
+        noiseNode.buffer = noiseBuffer;
+        noiseNode.loop = true;
+
+        gainNode = audioCtx.createGain();
+        const volSlider = document.getElementById('ambient-volume');
+        const vol = volSlider ? parseFloat(volSlider.value) : 0.25;
+        gainNode.gain.setValueAtTime(vol, audioCtx.currentTime);
+
+        noiseNode.connect(gainNode);
+        gainNode.connect(audioCtx.destination);
+        noiseNode.start();
+        isAudioPlaying = true;
+        updateAmbientAudioUI();
+        showToast('Calm soundscape playing 🌸');
+      } catch (err) {
+        console.warn('Web Audio error:', err);
+        showToast('Sound error. Please tap once to allow audio.');
+      }
+    }
+
+    function stopAmbientNoise() {
+      if (noiseNode) {
+        try { noiseNode.stop(); } catch(e){}
+        noiseNode.disconnect();
+        noiseNode = null;
+      }
+      isAudioPlaying = false;
+      updateAmbientAudioUI();
+      showToast('Soundscape paused.');
+    }
+
+    function setSoundMode(mode) {
+      currentNoiseMode = mode;
+      const pinkBtn = document.getElementById('mode-pink-btn');
+      const brownBtn = document.getElementById('mode-brown-btn');
+      if (pinkBtn && brownBtn) {
+        if (mode === 'pink') {
+          pinkBtn.className = 'px-2.5 py-1 rounded-xl text-[11px] font-bold bg-[#FCECF3] dark:bg-[#3E2242] text-[#994B78] dark:text-[#E889B5] border border-[#D66A9A]/30';
+          brownBtn.className = 'px-2.5 py-1 rounded-xl text-[11px] font-semibold text-[#887487] dark:text-[#D4BFD2] hover:bg-[#FCECF3] dark:hover:bg-[#3E2242]';
+        } else {
+          brownBtn.className = 'px-2.5 py-1 rounded-xl text-[11px] font-bold bg-[#FCECF3] dark:bg-[#3E2242] text-[#994B78] dark:text-[#E889B5] border border-[#D66A9A]/30';
+          pinkBtn.className = 'px-2.5 py-1 rounded-xl text-[11px] font-semibold text-[#887487] dark:text-[#D4BFD2] hover:bg-[#FCECF3] dark:hover:bg-[#3E2242]';
+        }
+      }
+      if (isAudioPlaying) {
+        stopAmbientNoise();
+        startAmbientNoise();
+      }
+    }
+
+    function changeAmbientVolume(val) {
+      if (gainNode && audioCtx) {
+        gainNode.gain.setValueAtTime(parseFloat(val), audioCtx.currentTime);
+      }
+    }
+
+    function updateAmbientAudioUI() {
+      const statusText = document.getElementById('sound-status-text');
+      const btnLabel = document.getElementById('ambient-btn-label');
+      const icon = document.getElementById('sound-icon');
+      const indicator = document.getElementById('sound-indicator');
+      const playBtn = document.getElementById('ambient-play-btn');
+
+      if (!statusText || !btnLabel) return;
+
+      if (isAudioPlaying) {
+        statusText.textContent = `Playing: ${currentNoiseMode === 'pink' ? 'Pink Noise (Focus)' : 'Soft Rain Murmur'}`;
+        btnLabel.textContent = 'Pause Soundscape';
+        if (icon) icon.setAttribute('data-lucide', 'volume-2');
+        if (indicator) {
+          indicator.className = 'w-16 h-16 mx-auto rounded-full bg-gradient-to-br from-[#D66A9A] to-[#BA5382] text-white flex items-center justify-center shadow-md animate-pulse transition-all';
+        }
+        if (playBtn) {
+          playBtn.innerHTML = `<i data-lucide="pause" class="w-4 h-4"></i><span>Pause Soundscape</span>`;
+        }
+      } else {
+        statusText.textContent = 'Soundscape: Paused';
+        btnLabel.textContent = 'Start Calming Sound';
+        if (icon) icon.setAttribute('data-lucide', 'volume-x');
+        if (indicator) {
+          indicator.className = 'w-16 h-16 mx-auto rounded-full bg-gradient-to-br from-[#FCECF3] to-[#F9DFEB] dark:from-[#3E2242] dark:to-[#4A264F] flex items-center justify-center border-2 border-dashed border-[#D66A9A]/40 transition-all';
+        }
+        if (playBtn) {
+          playBtn.innerHTML = `<i data-lucide="play" class="w-4 h-4"></i><span>Start Calming Sound</span>`;
+        }
+      }
+      if (window.lucide) lucide.createIcons();
+    }
+
+    function renderTinyWins() {
+      const container = document.getElementById('tiny-wins-list');
+      const badge = document.getElementById('wins-count-badge');
+      if (!container || !currentUserData || !currentUserData.selfCareState) return;
+      const wins = currentUserData.selfCareState.wins || [];
+
+      if (badge) badge.textContent = `${wins.length} Win${wins.length === 1 ? '' : 's'} Today 🎉`;
+
+      if (wins.length === 0) {
+        container.innerHTML = `
+          <div class="text-center py-6 text-xs text-[#887487] dark:text-[#D4BFD2]">
+            No wins logged yet today. Even drinking water or getting out of bed counts! ☀️
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = wins.map(w => `
+        <div class="flex items-center justify-between p-2.5 rounded-2xl bg-[#FFF9FC] dark:bg-[#201024] border border-[#F4E1EC] dark:border-[#3E2445] text-xs">
+          <div class="flex items-center space-x-2.5">
+            <span class="w-2 h-2 rounded-full bg-[#6A9B76]"></span>
+            <span class="font-medium text-[#38283A] dark:text-[#FDF7FB]">${escapeHtml(w.text)}</span>
+            <span class="text-[10px] text-[#887487] dark:text-[#D4BFD2]">(${escapeHtml(w.time || '')})</span>
+          </div>
+          <button onclick="deleteTinyWin('${w.id}')" class="p-1 text-[#887487] hover:text-[#D66A9A] rounded-lg">
+            <i data-lucide="x" class="w-3.5 h-3.5"></i>
+          </button>
+        </div>
+      `).join('');
+
+      if (window.lucide) lucide.createIcons();
+    }
+
+    function addCustomTinyWin() {
+      const input = document.getElementById('custom-win-input');
+      if (!input || !input.value.trim()) return;
+      const text = input.value.trim();
+      addPresetWin(text);
+      input.value = '';
+    }
+
+    function addPresetWin(text) {
+      if (!currentUserData || !currentUserData.selfCareState) return;
+      currentUserData.selfCareState.wins = currentUserData.selfCareState.wins || [];
+      const timeStr = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      currentUserData.selfCareState.wins.unshift({
+        id: 'w_' + Date.now(),
+        text: text,
+        time: timeStr
+      });
+      saveUserData(currentUser.id, currentUserData);
+      renderTinyWins();
+      triggerGentleConfetti();
+      showToast(`Logged win: "${text}" ✨`);
+    }
+
+    function deleteTinyWin(winId) {
+      if (!currentUserData || !currentUserData.selfCareState) return;
+      currentUserData.selfCareState.wins = (currentUserData.selfCareState.wins || []).filter(w => w.id !== winId);
+      saveUserData(currentUser.id, currentUserData);
+      renderTinyWins();
+      showToast('Win removed.');
+    }
+
     function renderAll() {
       if (!currentUserData) return;
       ensureDataIntegrity(currentUserData);
@@ -4697,6 +5369,7 @@
       renderBillsListFull();
       renderBudgetViewCategories();
       renderHabitsView();
+      renderSelfCareView();
       populateExpenseCategorySelect();
       populateBillCategorySelect();
       populateTaskCategoryDropdowns();
@@ -6105,6 +6778,7 @@
       if (viewName === 'budget') renderBudgetViewCategories();
       if (viewName === 'bills') renderBillsListFull();
       if (viewName === 'habits') renderHabitsView();
+      if (viewName === 'selfcare') renderSelfCareView();
 
       window.scrollTo({ top: 0, behavior: 'smooth' });
       if (window.lucide) lucide.createIcons();
