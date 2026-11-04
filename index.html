@@ -705,7 +705,40 @@
             <span class="nav-dot w-2 h-2 rounded-full bg-white"></span>
           </button>
 
-          <!-- 2. Monthly Budget -->
+          <!-- 2. Focus Space (Image 1) -->
+          <button id="nav-focus" onclick="switchView('focus')" class="nav-item ios-nav-inactive w-full flex items-center justify-between px-3.5 py-2.5 rounded-2xl text-xs sm:text-sm font-medium transition-all duration-200">
+            <div class="flex items-center space-x-3">
+              <i data-lucide="compass" class="w-4 h-4 text-[#994B78] dark:text-[#E889B5]"></i>
+              <span>Focus Space</span>
+            </div>
+            <span class="nav-dot hidden w-2 h-2 rounded-full bg-white"></span>
+          </button>
+
+          <!-- 3. Mood & Energy (Image 1) -->
+          <button id="nav-mood" onclick="switchView('mood')" class="nav-item ios-nav-inactive w-full flex items-center justify-between px-3.5 py-2.5 rounded-2xl text-xs sm:text-sm font-medium transition-all duration-200">
+            <div class="flex items-center space-x-3">
+              <i data-lucide="smile" class="w-4 h-4 text-[#994B78] dark:text-[#E889B5]"></i>
+              <span>Mood & Energy</span>
+            </div>
+            <div class="flex items-center space-x-1.5">
+              <span id="nav-mood-badge" class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-[#EAF5EC] dark:bg-[#1E3B27] text-[#2E7D32] dark:text-[#81C784]">Done</span>
+              <span class="nav-dot hidden w-2 h-2 rounded-full bg-white"></span>
+            </div>
+          </button>
+
+          <!-- 4. Meals & Groceries (Image 1) -->
+          <button id="nav-meals" onclick="switchView('meals')" class="nav-item ios-nav-inactive w-full flex items-center justify-between px-3.5 py-2.5 rounded-2xl text-xs sm:text-sm font-medium transition-all duration-200">
+            <div class="flex items-center space-x-3">
+              <i data-lucide="utensils" class="w-4 h-4 text-[#994B78] dark:text-[#E889B5]"></i>
+              <span>Meals & Groceries</span>
+            </div>
+            <div class="flex items-center space-x-1.5">
+              <span id="nav-meals-badge" class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-[#FDE7F0] dark:bg-[#4A1D34] text-[#D66A9A] dark:text-[#F4A7C7]">3</span>
+              <span class="nav-dot hidden w-2 h-2 rounded-full bg-white"></span>
+            </div>
+          </button>
+
+          <!-- 5. Monthly Budget -->
           <button id="nav-budget" onclick="switchView('budget')" class="nav-item ios-nav-inactive w-full flex items-center justify-between px-3.5 py-2.5 rounded-2xl text-xs sm:text-sm font-medium transition-all duration-200">
             <div class="flex items-center space-x-3">
               <i data-lucide="calculator" class="w-4 h-4 text-[#994B78] dark:text-[#E889B5]"></i>
@@ -768,7 +801,34 @@
             <span class="nav-dot hidden w-2 h-2 rounded-full bg-white"></span>
           </button>
 
-          <!-- 9. Settings -->
+          <!-- 9. Debt -->
+          <button id="nav-debt" onclick="switchView('debt')" class="nav-item ios-nav-inactive w-full flex items-center justify-between px-3.5 py-2.5 rounded-2xl text-xs sm:text-sm font-medium transition-all duration-200">
+            <div class="flex items-center space-x-3">
+              <i data-lucide="credit-card" class="w-4 h-4 text-[#994B78] dark:text-[#E889B5]"></i>
+              <span>Debt</span>
+            </div>
+            <span class="nav-dot hidden w-2 h-2 rounded-full bg-white"></span>
+          </button>
+
+          <!-- 10. ADHD Tax Check -->
+          <button id="nav-adhdtax" onclick="switchView('adhdtax')" class="nav-item ios-nav-inactive w-full flex items-center justify-between px-3.5 py-2.5 rounded-2xl text-xs sm:text-sm font-medium transition-all duration-200">
+            <div class="flex items-center space-x-3">
+              <i data-lucide="search" class="w-4 h-4 text-[#994B78] dark:text-[#E889B5]"></i>
+              <span>ADHD tax check</span>
+            </div>
+            <span class="nav-dot hidden w-2 h-2 rounded-full bg-white"></span>
+          </button>
+
+          <!-- 11. Money Back -->
+          <button id="nav-moneyback" onclick="switchView('moneyback')" class="nav-item ios-nav-inactive w-full flex items-center justify-between px-3.5 py-2.5 rounded-2xl text-xs sm:text-sm font-medium transition-all duration-200">
+            <div class="flex items-center space-x-3">
+              <i data-lucide="banknote" class="w-4 h-4 text-[#994B78] dark:text-[#E889B5]"></i>
+              <span>Money back</span>
+            </div>
+            <span class="nav-dot hidden w-2 h-2 rounded-full bg-white"></span>
+          </button>
+
+          <!-- 12. Settings -->
           <button id="nav-settings" onclick="switchView('settings')" class="nav-item ios-nav-inactive w-full flex items-center justify-between px-3.5 py-2.5 rounded-2xl text-xs sm:text-sm font-medium transition-all duration-200">
             <div class="flex items-center space-x-3">
               <i data-lucide="settings" class="w-4 h-4 text-[#994B78] dark:text-[#E889B5]"></i>
@@ -2087,6 +2147,533 @@
         </div>
       </section>
 
+      <!-- VIEW: FOCUS SPACE (ADHD SENSORY & TASK ISOLATION) -->
+      <section id="view-focus" class="hidden flex-1 p-4 sm:p-6 lg:p-8 max-w-7xl w-full mx-auto space-y-6">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-[#F4E1EC] dark:border-[#3E2445]">
+          <div>
+            <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-[#FCECF3] dark:bg-[#3E2242] text-xs font-semibold text-[#994B78] dark:text-[#E889B5] mb-2">
+              <i data-lucide="compass" class="w-3.5 h-3.5"></i>
+              <span>One Thing at a Time • Zero Overwhelm</span>
+            </div>
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-[#38283A] dark:text-[#FDF7FB]">Focus Space</h2>
+            <p class="text-xs sm:text-sm text-[#887487] dark:text-[#D4BFD2] mt-0.5">Isolate a single target, tame distraction urges, and lock into calm momentum.</p>
+          </div>
+          <div class="flex items-center space-x-2">
+            <span class="px-3.5 py-1.5 rounded-2xl bg-white dark:bg-[#28182D] border border-[#F4E1EC] dark:border-[#3E2445] text-xs font-bold text-[#994B78] dark:text-[#E889B5] shadow-sm flex items-center space-x-1.5">
+              <span>🔥</span>
+              <span id="focus-completed-sessions">2 Focus Sprints Done</span>
+            </span>
+          </div>
+        </div>
+
+        <!-- FOCUS TIMER & ACTIVE TARGET GRID -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+          <!-- LEFT: THE VISUAL TIMER CARD (7 COLS) -->
+          <div class="lg:col-span-7 bg-white dark:bg-[#28182D] rounded-3xl p-6 sm:p-8 border border-[#F4E1EC] dark:border-[#3E2445] shadow-card dark:shadow-card-dark flex flex-col items-center justify-center text-center relative overflow-hidden">
+            <div class="absolute -top-20 -right-20 w-56 h-56 rounded-full bg-[#FCECF3] dark:bg-[#3E2242]/40 blur-3xl pointer-events-none"></div>
+            
+            <!-- Interval Mode Pills -->
+            <div class="inline-flex items-center p-1 rounded-2xl bg-[#FFF9FC] dark:bg-[#201024] border border-[#F4E1EC] dark:border-[#3E2445] mb-6">
+              <button onclick="setFocusTimerMode(25, 'Focus')" id="btn-timer-25" class="px-3.5 py-1.5 rounded-xl text-xs font-bold bg-[#994B78] text-white shadow-sm transition-all">25m Focus</button>
+              <button onclick="setFocusTimerMode(15, 'Sprint')" id="btn-timer-15" class="px-3.5 py-1.5 rounded-xl text-xs font-semibold text-[#887487] dark:text-[#D4BFD2] hover:bg-[#FCECF3] dark:hover:bg-[#3E2242] transition-all">15m Sprint</button>
+              <button onclick="setFocusTimerMode(5, 'Quick Break')" id="btn-timer-5" class="px-3.5 py-1.5 rounded-xl text-xs font-semibold text-[#887487] dark:text-[#D4BFD2] hover:bg-[#FCECF3] dark:hover:bg-[#3E2242] transition-all">5m Break</button>
+              <button onclick="setFocusTimerMode(15, 'Deep Rest')" id="btn-timer-deep" class="px-3.5 py-1.5 rounded-xl text-xs font-semibold text-[#887487] dark:text-[#D4BFD2] hover:bg-[#FCECF3] dark:hover:bg-[#3E2242] transition-all">15m Rest</button>
+            </div>
+
+            <!-- Big Clock Display -->
+            <div id="focus-clock-display" class="text-6xl sm:text-7xl md:text-8xl font-black font-mono tracking-tight text-[#994B78] dark:text-[#E889B5] my-2 select-none">
+              25:00
+            </div>
+            
+            <p id="focus-timer-label" class="text-xs font-semibold text-[#887487] dark:text-[#D4BFD2] mb-6 uppercase tracking-wider">
+              Focus Interval
+            </p>
+
+            <!-- Timer Controls -->
+            <div class="flex items-center space-x-3 mb-6">
+              <button onclick="toggleFocusTimer()" id="focus-play-btn" class="px-7 py-3 rounded-2xl bg-gradient-to-r from-[#D66A9A] to-[#994B78] text-white font-bold text-sm shadow-md hover:opacity-95 transition-all flex items-center space-x-2">
+                <i data-lucide="play" class="w-4 h-4 fill-white"></i>
+                <span id="focus-play-btn-text">Start Focus</span>
+              </button>
+              <button onclick="resetFocusTimer()" class="p-3 rounded-2xl bg-[#FFF9FC] dark:bg-[#201024] border border-[#F4E1EC] dark:border-[#3E2445] text-[#887487] hover:text-[#994B78] dark:hover:text-[#E889B5] transition-all" title="Reset Timer">
+                <i data-lucide="rotate-ccw" class="w-4 h-4"></i>
+              </button>
+            </div>
+
+            <!-- Sensory Calm Sound Player -->
+            <div class="w-full pt-4 border-t border-[#F4E1EC] dark:border-[#3E2445] flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
+              <div class="flex items-center space-x-2">
+                <i data-lucide="headphones" class="w-4 h-4 text-[#994B78] dark:text-[#E889B5]"></i>
+                <span class="font-bold text-[#38283A] dark:text-[#FDF7FB]">Sensory Sound:</span>
+                <span id="ambient-sound-status" class="text-[#887487] dark:text-[#D4BFD2]">Muted</span>
+              </div>
+              <div class="flex items-center space-x-2">
+                <button onclick="toggleAmbientSound('rain')" id="sound-btn-rain" class="px-2.5 py-1 rounded-xl bg-[#FCECF3] dark:bg-[#3E2242] text-[#994B78] dark:text-[#E889B5] text-[11px] font-bold hover:opacity-90">🌧️ Rain</button>
+                <button onclick="toggleAmbientSound('pink')" id="sound-btn-pink" class="px-2.5 py-1 rounded-xl bg-[#FCECF3] dark:bg-[#3E2242] text-[#994B78] dark:text-[#E889B5] text-[11px] font-bold hover:opacity-90">🌸 Pink Noise</button>
+                <button onclick="toggleAmbientSound('stop')" id="sound-btn-stop" class="px-2.5 py-1 rounded-xl bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-300 text-[11px] font-bold hover:opacity-90">⏹️ Stop</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- RIGHT: THE ONE TARGET & BRAIN DUMP (5 COLS) -->
+          <div class="lg:col-span-5 space-y-6">
+            <!-- 1. The ONE Thing -->
+            <div class="bg-gradient-to-br from-[#FFF5F8] to-white dark:from-[#2E1A33] dark:to-[#241328] rounded-3xl p-6 border border-[#F4E1EC] dark:border-[#3E2445] shadow-card dark:shadow-card-dark space-y-3">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-2">
+                  <div class="w-7 h-7 rounded-xl bg-[#FCECF3] dark:bg-[#3E2242] text-[#994B78] dark:text-[#E889B5] flex items-center justify-center">
+                    <i data-lucide="target" class="w-4 h-4"></i>
+                  </div>
+                  <h3 class="text-sm font-bold text-[#38283A] dark:text-[#FDF7FB]">The ONE Target Right Now</h3>
+                </div>
+                <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#FCECF3] text-[#994B78]">Isolated</span>
+              </div>
+              
+              <div id="focus-active-target-box" class="p-3.5 rounded-2xl bg-white dark:bg-[#201024] border border-[#F4E1EC] dark:border-[#3E2445] flex items-center justify-between">
+                <div>
+                  <p class="text-[10px] text-[#887487] dark:text-[#D4BFD2] uppercase font-semibold">Active Objective</p>
+                  <p id="focus-active-target-text" class="text-xs sm:text-sm font-bold text-[#38283A] dark:text-[#FDF7FB]">Finish Q3 budget reconciliation & invoices</p>
+                </div>
+                <button onclick="completeActiveTarget()" class="p-2 rounded-xl bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300 hover:scale-105 transition-all" title="Mark Target Finished!">
+                  <i data-lucide="check" class="w-4 h-4"></i>
+                </button>
+              </div>
+
+              <div class="flex items-center space-x-2">
+                <input type="text" id="focus-new-target-input" placeholder="Change or set next target..." class="flex-1 px-3.5 py-2 rounded-xl bg-white dark:bg-[#201024] border border-[#F4E1EC] dark:border-[#3E2445] text-xs text-[#38283A] dark:text-[#FDF7FB]">
+                <button onclick="saveNewActiveTarget()" class="px-3.5 py-2 rounded-xl bg-[#994B78] text-white text-xs font-bold shadow-sm hover:opacity-90">Lock In 🎯</button>
+              </div>
+            </div>
+
+            <!-- 2. Distraction Pad -->
+            <div class="bg-white dark:bg-[#28182D] rounded-3xl p-6 border border-[#F4E1EC] dark:border-[#3E2445] shadow-card dark:shadow-card-dark space-y-3">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-2">
+                  <div class="w-7 h-7 rounded-xl bg-[#FCECF3] dark:bg-[#3E2242] text-[#994B78] dark:text-[#E889B5] flex items-center justify-center">
+                    <i data-lucide="sparkles" class="w-4 h-4"></i>
+                  </div>
+                  <div>
+                    <h3 class="text-sm font-bold text-[#38283A] dark:text-[#FDF7FB]">Distraction Pad</h3>
+                    <p class="text-[10px] text-[#887487] dark:text-[#D4BFD2]">Park random thoughts so you don't break focus</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="flex items-center space-x-2">
+                <input type="text" id="brain-dump-input" onkeydown="if(event.key==='Enter')addBrainDumpItem()" placeholder="Random urge or thought? Type here..." class="flex-1 px-3.5 py-2 rounded-xl bg-[#FFF9FC] dark:bg-[#201024] border border-[#F4E1EC] dark:border-[#3E2445] text-xs text-[#38283A] dark:text-[#FDF7FB]">
+                <button onclick="addBrainDumpItem()" class="px-3 py-2 rounded-xl bg-[#FCECF3] dark:bg-[#3E2242] text-[#994B78] dark:text-[#E889B5] text-xs font-bold hover:opacity-90">Park 📝</button>
+              </div>
+
+              <div id="brain-dump-list" class="space-y-2 max-h-48 overflow-y-auto pr-1">
+                <!-- Rendered via JS -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- VIEW: MOOD & ENERGY (SPOONS & EXECUTIVE FUNCTION) -->
+      <section id="view-mood" class="hidden flex-1 p-4 sm:p-6 lg:p-8 max-w-7xl w-full mx-auto space-y-6">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-[#F4E1EC] dark:border-[#3E2445]">
+          <div>
+            <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-[#FCECF3] dark:bg-[#3E2242] text-xs font-semibold text-[#994B78] dark:text-[#E889B5] mb-2">
+              <i data-lucide="smile" class="w-3.5 h-3.5"></i>
+              <span>Spoon Theory & Dopamine Awareness</span>
+            </div>
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-[#38283A] dark:text-[#FDF7FB]">Mood & Energy Tracker</h2>
+            <p class="text-xs sm:text-sm text-[#887487] dark:text-[#D4BFD2] mt-0.5">Understand your capacity, forgive low-spoon days, and prevent burnout spending.</p>
+          </div>
+          <div class="flex items-center space-x-2">
+            <span id="mood-today-badge-top" class="px-3.5 py-1.5 rounded-2xl bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800 text-xs font-bold shadow-sm flex items-center space-x-1.5">
+              <span>✓</span>
+              <span>Today's Check-in Done</span>
+            </span>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+          <!-- TODAY'S CHECK-IN FORM (7 COLS) -->
+          <div class="lg:col-span-7 bg-white dark:bg-[#28182D] rounded-3xl p-6 sm:p-7 border border-[#F4E1EC] dark:border-[#3E2445] shadow-card dark:shadow-card-dark space-y-5">
+            <div class="flex items-center space-x-2.5 pb-3 border-b border-[#F4E1EC] dark:border-[#3E2445]">
+              <div class="w-8 h-8 rounded-xl bg-[#FCECF3] dark:bg-[#3E2242] text-[#994B78] dark:text-[#E889B5] flex items-center justify-center">
+                <i data-lucide="sparkles" class="w-4 h-4"></i>
+              </div>
+              <div>
+                <h3 class="text-base font-bold text-[#38283A] dark:text-[#FDF7FB]">Today's Capacity Check-In</h3>
+                <p class="text-[11px] text-[#887487] dark:text-[#D4BFD2]">Check in honestly without judgment.</p>
+              </div>
+            </div>
+
+            <!-- 1. SPOONS SELECTION (1 to 5) -->
+            <div>
+              <label class="block text-xs font-semibold text-[#887487] dark:text-[#D4BFD2] uppercase tracking-wider mb-2">
+                How many spoons do you have today? 🥄 <span id="spoon-count-label" class="font-bold text-[#994B78] dark:text-[#E889B5]">(4 Spoons - Good Capacity)</span>
+              </label>
+              <div class="flex items-center space-x-2" id="spoons-selector-container">
+                <button type="button" onclick="selectSpoons(1)" class="spoon-btn flex-1 py-2.5 rounded-2xl bg-[#FFF9FC] dark:bg-[#201024] border border-[#F4E1EC] dark:border-[#3E2445] text-xs font-bold text-[#38283A] dark:text-[#FDF7FB] hover:border-[#994B78] transition-all">🥄 1</button>
+                <button type="button" onclick="selectSpoons(2)" class="spoon-btn flex-1 py-2.5 rounded-2xl bg-[#FFF9FC] dark:bg-[#201024] border border-[#F4E1EC] dark:border-[#3E2445] text-xs font-bold text-[#38283A] dark:text-[#FDF7FB] hover:border-[#994B78] transition-all">🥄 2</button>
+                <button type="button" onclick="selectSpoons(3)" class="spoon-btn flex-1 py-2.5 rounded-2xl bg-[#FFF9FC] dark:bg-[#201024] border border-[#F4E1EC] dark:border-[#3E2445] text-xs font-bold text-[#38283A] dark:text-[#FDF7FB] hover:border-[#994B78] transition-all">🥄 3</button>
+                <button type="button" onclick="selectSpoons(4)" class="spoon-btn spoon-active flex-1 py-2.5 rounded-2xl bg-[#994B78] text-white border border-[#994B78] text-xs font-bold transition-all">🥄 4</button>
+                <button type="button" onclick="selectSpoons(5)" class="spoon-btn flex-1 py-2.5 rounded-2xl bg-[#FFF9FC] dark:bg-[#201024] border border-[#F4E1EC] dark:border-[#3E2445] text-xs font-bold text-[#38283A] dark:text-[#FDF7FB] hover:border-[#994B78] transition-all">🥄 5</button>
+              </div>
+            </div>
+
+            <!-- 2. ENERGY LEVEL SELECTION -->
+            <div>
+              <label class="block text-xs font-semibold text-[#887487] dark:text-[#D4BFD2] uppercase tracking-wider mb-2">
+                Executive Function / Energy
+              </label>
+              <div class="grid grid-cols-3 gap-2" id="energy-selector-container">
+                <button type="button" onclick="selectEnergy('Low')" id="energy-btn-low" class="py-2.5 rounded-2xl bg-[#FFF9FC] dark:bg-[#201024] border border-[#F4E1EC] dark:border-[#3E2445] text-xs font-semibold text-[#38283A] dark:text-[#FDF7FB] transition-all">🪫 Low / Burnout</button>
+                <button type="button" onclick="selectEnergy('Medium')" id="energy-btn-medium" class="py-2.5 rounded-2xl bg-[#994B78] text-white border border-[#994B78] text-xs font-bold transition-all">⚡ Medium / Steady</button>
+                <button type="button" onclick="selectEnergy('High')" id="energy-btn-high" class="py-2.5 rounded-2xl bg-[#FFF9FC] dark:bg-[#201024] border border-[#F4E1EC] dark:border-[#3E2445] text-xs font-semibold text-[#38283A] dark:text-[#FDF7FB] transition-all">🚀 High / Focus</button>
+              </div>
+            </div>
+
+            <!-- 3. DOMINANT MOOD / VIBE -->
+            <div>
+              <label class="block text-xs font-semibold text-[#887487] dark:text-[#D4BFD2] uppercase tracking-wider mb-2">
+                Dominant Feeling
+              </label>
+              <div class="grid grid-cols-3 sm:grid-cols-6 gap-2" id="mood-selector-container">
+                <button type="button" onclick="selectMood('Calm')" class="mood-pill py-2 rounded-xl text-xs font-bold bg-[#FCECF3] dark:bg-[#3E2242] text-[#994B78] dark:text-[#E889B5] border border-[#994B78]">😌 Calm</button>
+                <button type="button" onclick="selectMood('Happy')" class="mood-pill py-2 rounded-xl text-xs font-semibold text-[#887487] dark:text-[#D4BFD2] bg-[#FFF9FC] dark:bg-[#201024] border border-[#F4E1EC]">💖 Happy</button>
+                <button type="button" onclick="selectMood('Overwhelmed')" class="mood-pill py-2 rounded-xl text-xs font-semibold text-[#887487] dark:text-[#D4BFD2] bg-[#FFF9FC] dark:bg-[#201024] border border-[#F4E1EC]">🤯 Overwhelmed</button>
+                <button type="button" onclick="selectMood('Brain Fog')" class="mood-pill py-2 rounded-xl text-xs font-semibold text-[#887487] dark:text-[#D4BFD2] bg-[#FFF9FC] dark:bg-[#201024] border border-[#F4E1EC]">🌫️ Brain Fog</button>
+                <button type="button" onclick="selectMood('Anxious')" class="mood-pill py-2 rounded-xl text-xs font-semibold text-[#887487] dark:text-[#D4BFD2] bg-[#FFF9FC] dark:bg-[#201024] border border-[#F4E1EC]">😰 Anxious</button>
+                <button type="button" onclick="selectMood('Focused')" class="mood-pill py-2 rounded-xl text-xs font-semibold text-[#887487] dark:text-[#D4BFD2] bg-[#FFF9FC] dark:bg-[#201024] border border-[#F4E1EC]">🎯 Focused</button>
+              </div>
+            </div>
+
+            <!-- 4. NOTE -->
+            <div>
+              <label class="block text-xs font-semibold text-[#887487] dark:text-[#D4BFD2] uppercase tracking-wider mb-1">
+                Reflections or Triggers (Optional)
+              </label>
+              <input type="text" id="mood-note-input" placeholder="e.g. Took morning meds, had great walk, felt good about progress..." class="w-full px-4 py-2.5 rounded-2xl bg-[#FFF9FC] dark:bg-[#201024] border border-[#F4E1EC] dark:border-[#3E2445] text-xs text-[#38283A] dark:text-[#FDF7FB]">
+            </div>
+
+            <div class="flex justify-end pt-2">
+              <button onclick="saveMoodCheckIn()" class="ios-glass-primary px-6 py-2.5 rounded-2xl bg-gradient-to-r from-[#D66A9A] to-[#994B78] text-white font-bold text-xs shadow-md hover:opacity-95 transition-all flex items-center space-x-2">
+                <i data-lucide="heart" class="w-4 h-4"></i>
+                <span>Save Today's Check-In ✨</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- INSIGHTS & 7-DAY HISTORY (5 COLS) -->
+          <div class="lg:col-span-5 space-y-6">
+            <!-- Dopamine Spending Guard Banner -->
+            <div id="mood-insight-card" class="bg-gradient-to-br from-[#FFF5F8] to-[#FCECF3] dark:from-[#2E1A33] dark:to-[#381F3D] rounded-3xl p-6 border border-[#F4E1EC] dark:border-[#3E2445] shadow-card space-y-2.5">
+              <div class="flex items-center space-x-2 text-[#994B78] dark:text-[#E889B5]">
+                <i data-lucide="shield-alert" class="w-4 h-4"></i>
+                <h4 class="text-xs font-bold uppercase tracking-wider">ADHD Spending Shield</h4>
+              </div>
+              <p id="mood-insight-text" class="text-xs text-[#38283A] dark:text-[#FDF7FB] leading-relaxed">
+                You have good spoon capacity today! Remember: don't start 5 projects simultaneously. Pick one main priority and rest when done.
+              </p>
+            </div>
+
+            <!-- Recent Mood History -->
+            <div class="bg-white dark:bg-[#28182D] rounded-3xl p-6 border border-[#F4E1EC] dark:border-[#3E2445] shadow-card dark:shadow-card-dark space-y-3">
+              <div class="flex items-center justify-between pb-2 border-b border-[#F4E1EC] dark:border-[#3E2445]">
+                <h4 class="text-xs font-bold text-[#38283A] dark:text-[#FDF7FB] uppercase tracking-wider">Past Check-Ins</h4>
+                <span class="text-[10px] text-[#887487] dark:text-[#D4BFD2]">Last 7 entries</span>
+              </div>
+              <div id="mood-history-list" class="space-y-2 max-h-64 overflow-y-auto pr-1">
+                <!-- Rendered via JS -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- VIEW: MEALS & GROCERIES (LOW-SPOONS MEAL PLANNING & SMART GROCERY) -->
+      <section id="view-meals" class="hidden flex-1 p-4 sm:p-6 lg:p-8 max-w-7xl w-full mx-auto space-y-6">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-[#F4E1EC] dark:border-[#3E2445]">
+          <div>
+            <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-[#FCECF3] dark:bg-[#3E2242] text-xs font-semibold text-[#994B78] dark:text-[#E889B5] mb-2">
+              <i data-lucide="utensils" class="w-3.5 h-3.5"></i>
+              <span>Low Executive Function Nutrition</span>
+            </div>
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-[#38283A] dark:text-[#FDF7FB]">Meals & Groceries</h2>
+            <p class="text-xs sm:text-sm text-[#887487] dark:text-[#D4BFD2] mt-0.5">Low-spoons meal plan, expiring food radar, and smart grocery checklist.</p>
+          </div>
+          <div class="flex items-center space-x-2">
+            <button onclick="openModal('addGroceryModal')" class="ios-glass-primary px-4 py-2.5 rounded-2xl bg-gradient-to-r from-[#D66A9A] to-[#994B78] text-white text-xs font-bold shadow-md hover:opacity-95 transition-all flex items-center space-x-2">
+              <i data-lucide="plus" class="w-4 h-4"></i>
+              <span>Add Grocery Item</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- 3-COL / TOP SUMMARY CARDS -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <!-- Card 1: Eat First (Expiring Soon) -->
+          <div class="bg-amber-50/70 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-900/40 rounded-3xl p-5 space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold text-amber-800 dark:text-amber-300 flex items-center space-x-1.5">
+                <span>⚠️</span>
+                <span>Eat First! Spoiling Soon</span>
+              </span>
+              <button onclick="openModal('addSpoilingModal')" class="text-[10px] font-bold text-amber-800 dark:text-amber-300 hover:underline">+ Add</button>
+            </div>
+            <div id="spoiling-items-list" class="space-y-1.5 pt-1">
+              <!-- Rendered via JS -->
+            </div>
+          </div>
+
+          <!-- Card 2: Today's Meal Plan -->
+          <div class="bg-white dark:bg-[#28182D] border border-[#F4E1EC] dark:border-[#3E2445] rounded-3xl p-5 space-y-2 shadow-card">
+            <span class="text-xs font-bold text-[#994B78] dark:text-[#E889B5] flex items-center space-x-1.5">
+              <span>🍲</span>
+              <span>Today's Meal Plan</span>
+            </span>
+            <div class="text-[11px] space-y-1 text-[#38283A] dark:text-[#FDF7FB]">
+              <p><strong class="text-[#887487]">Breakfast:</strong> <span id="meal-breakfast-display">Oatmeal & Berries</span></p>
+              <p><strong class="text-[#887487]">Lunch:</strong> <span id="meal-lunch-display">Chicken wrap leftovers</span></p>
+              <p><strong class="text-[#887487]">Dinner:</strong> <span id="meal-dinner-display">Sheet pan roasted veggies</span></p>
+            </div>
+          </div>
+
+          <!-- Card 3: Low-Spoons Emergency Meals -->
+          <div class="bg-[#FFF9FC] dark:bg-[#241328] border border-[#F4E1EC] dark:border-[#3E2445] rounded-3xl p-5 space-y-2 shadow-card">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold text-[#994B78] dark:text-[#E889B5] flex items-center space-x-1.5">
+                <span>⚡</span>
+                <span>Zero-Cook Emergency Meals</span>
+              </span>
+            </div>
+            <div id="emergency-meals-list" class="flex flex-wrap gap-1.5 pt-1">
+              <!-- Rendered via JS -->
+            </div>
+          </div>
+        </div>
+
+        <!-- GROCERY CHECKLIST SECTION -->
+        <div class="bg-white dark:bg-[#28182D] rounded-3xl p-6 sm:p-7 border border-[#F4E1EC] dark:border-[#3E2445] shadow-card dark:shadow-card-dark space-y-4">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-[#F4E1EC] dark:border-[#3E2445]">
+            <div class="flex items-center space-x-3">
+              <div class="w-8 h-8 rounded-xl bg-[#FCECF3] dark:bg-[#3E2242] text-[#994B78] dark:text-[#E889B5] flex items-center justify-center">
+                <i data-lucide="shopping-cart" class="w-4 h-4"></i>
+              </div>
+              <div>
+                <h3 class="text-base font-bold text-[#38283A] dark:text-[#FDF7FB]">Smart ADHD Grocery List</h3>
+                <p class="text-[11px] text-[#887487] dark:text-[#D4BFD2]">Check off items as you buy. Unbought items badge appears in sidebar.</p>
+              </div>
+            </div>
+
+            <div class="flex items-center space-x-2">
+              <button onclick="logGroceriesToExpenses()" class="px-3.5 py-1.5 rounded-xl bg-[#FCECF3] dark:bg-[#3E2242] text-[#994B78] dark:text-[#E889B5] text-xs font-bold hover:opacity-90 flex items-center space-x-1.5">
+                <i data-lucide="receipt" class="w-3.5 h-3.5"></i>
+                <span>Log to Expenses 💳</span>
+              </button>
+            </div>
+          </div>
+
+          <div id="grocery-items-container" class="space-y-2">
+            <!-- Rendered via JS -->
+          </div>
+        </div>
+      </section>
+
+      <!-- VIEW 10: DEBT (LOW-SHAME ADHD PAYOFF PLANNER) -->
+      <section id="view-debt" class="hidden flex-1 p-4 sm:p-6 lg:p-8 max-w-7xl w-full mx-auto space-y-6">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-[#F4E1EC] dark:border-[#3E2445]">
+          <div>
+            <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-[#FCECF3] dark:bg-[#3E2242] text-xs font-semibold text-[#994B78] dark:text-[#E889B5] mb-2">
+              <i data-lucide="credit-card" class="w-3.5 h-3.5"></i>
+              <span>Zero-Shame Payoff Journey</span>
+            </div>
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-[#38283A] dark:text-[#FDF7FB]">Debt Snowball & Tracker</h2>
+            <p class="text-xs sm:text-sm text-[#887487] dark:text-[#D4BFD2] mt-0.5">
+              Debt is just numbers, not a measure of your worth. Celebrate every payment 🌸
+            </p>
+          </div>
+          <div class="flex items-center space-x-2 sm:space-x-3">
+            <button onclick="openModal('addDebtModal')" class="ios-glass-primary px-4 py-2.5 rounded-2xl bg-gradient-to-r from-[#D66A9A] to-[#994B78] text-white text-xs font-bold shadow-md hover:opacity-95 transition-all flex items-center space-x-2">
+              <i data-lucide="plus" class="w-4 h-4"></i>
+              <span>Add Debt</span>
+            </button>
+            <button onclick="switchView('overview')" class="ios-glass-btn px-4 py-2.5 rounded-2xl bg-white/70 dark:bg-[#28182D]/70 border border-[#F4E1EC] dark:border-[#3E2445] text-xs font-semibold text-[#38283A] dark:text-[#FDF7FB]">
+              Overview
+            </button>
+          </div>
+        </div>
+
+        <!-- Summary Cards -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div class="p-5 rounded-3xl bg-white dark:bg-[#28182D] border border-[#F4E1EC] dark:border-[#3E2445] shadow-card space-y-1">
+            <span class="text-xs font-semibold text-[#887487] dark:text-[#D4BFD2]">Total Debt Remaining</span>
+            <div id="debt-total-remaining" class="text-2xl font-extrabold text-[#994B78] dark:text-[#E889B5]">$3,480</div>
+            <span class="text-[11px] text-[#887487] dark:text-[#D4BFD2]">Across all active accounts</span>
+          </div>
+          <div class="p-5 rounded-3xl bg-white dark:bg-[#28182D] border border-[#F4E1EC] dark:border-[#3E2445] shadow-card space-y-1">
+            <span class="text-xs font-semibold text-[#887487] dark:text-[#D4BFD2]">Total Paid Off So Far</span>
+            <div id="debt-total-paid" class="text-2xl font-extrabold text-[#6A9B76]">$1,620</div>
+            <div id="debt-paid-pct" class="text-[11px] font-bold text-[#6A9B76]">31.8% crushed! 🎉</div>
+          </div>
+          <div class="p-5 rounded-3xl bg-white dark:bg-[#28182D] border border-[#F4E1EC] dark:border-[#3E2445] shadow-card space-y-1">
+            <span class="text-xs font-semibold text-[#887487] dark:text-[#D4BFD2]">Total Min. Monthly</span>
+            <div id="debt-monthly-mins" class="text-2xl font-extrabold text-[#38283A] dark:text-[#FDF7FB]">$265/mo</div>
+            <span class="text-[11px] text-[#887487] dark:text-[#D4BFD2]">Required monthly payments</span>
+          </div>
+          <div class="p-5 rounded-3xl bg-gradient-to-br from-[#FFF5F9] to-[#FCECF3] dark:from-[#3E2242] dark:to-[#28182D] border border-[#D66A9A]/30 shadow-card space-y-1">
+            <span class="text-xs font-bold text-[#994B78] dark:text-[#E889B5]">ADHD Snowball Focus</span>
+            <div id="debt-focus-target" class="text-sm font-extrabold text-[#38283A] dark:text-[#FDF7FB]">Klarna Pay-in-4</div>
+            <span id="debt-focus-desc" class="text-[11px] text-[#887487] dark:text-[#D4BFD2]">Only $180 left to complete victory!</span>
+          </div>
+        </div>
+
+        <!-- Strategy Pill & Debts List -->
+        <div class="p-6 rounded-3xl bg-white dark:bg-[#28182D] border border-[#F4E1EC] dark:border-[#3E2445] shadow-card space-y-5">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-[#F4E1EC] dark:border-[#3E2445]">
+            <h3 class="font-bold text-base text-[#38283A] dark:text-[#FDF7FB]">Active Debt Accounts</h3>
+            <div class="flex items-center space-x-2">
+              <span class="text-xs text-[#887487] dark:text-[#D4BFD2] font-semibold">Strategy:</span>
+              <button onclick="setDebtStrategy('snowball')" id="strat-snowball-btn" class="px-3 py-1 rounded-xl text-xs font-bold bg-[#FCECF3] dark:bg-[#3E2242] text-[#994B78] dark:text-[#E889B5] border border-[#D66A9A]/30">☃️ Snowball (ADHD Fav)</button>
+              <button onclick="setDebtStrategy('avalanche')" id="strat-avalanche-btn" class="px-3 py-1 rounded-xl text-xs font-semibold text-[#887487] dark:text-[#D4BFD2] hover:bg-[#FCECF3]">🏔️ Avalanche</button>
+            </div>
+          </div>
+
+          <div id="debts-list-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <!-- Rendered via JS -->
+          </div>
+        </div>
+      </section>
+
+      <!-- VIEW 11: ADHD TAX CHECK -->
+      <section id="view-adhdtax" class="hidden flex-1 p-4 sm:p-6 lg:p-8 max-w-7xl w-full mx-auto space-y-6">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-[#F4E1EC] dark:border-[#3E2445]">
+          <div>
+            <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-[#FCECF3] dark:bg-[#3E2242] text-xs font-semibold text-[#994B78] dark:text-[#E889B5] mb-2">
+              <i data-lucide="search" class="w-3.5 h-3.5"></i>
+              <span>Executive Dysfunction Cost Analyzer</span>
+            </div>
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-[#38283A] dark:text-[#FDF7FB]">ADHD Tax Check</h2>
+            <p class="text-xs sm:text-sm text-[#887487] dark:text-[#D4BFD2] mt-0.5">
+              Lost keys, late fees, forgotten subscriptions—track with zero shame and plug the leaks 🌸
+            </p>
+          </div>
+          <div class="flex items-center space-x-2 sm:space-x-3">
+            <button onclick="openModal('addAdhdTaxModal')" class="ios-glass-primary px-4 py-2.5 rounded-2xl bg-gradient-to-r from-[#D66A9A] to-[#994B78] text-white text-xs font-bold shadow-md hover:opacity-95 transition-all flex items-center space-x-2">
+              <i data-lucide="plus" class="w-4 h-4"></i>
+              <span>Log Incident</span>
+            </button>
+            <button onclick="switchView('overview')" class="ios-glass-btn px-4 py-2.5 rounded-2xl bg-white/70 dark:bg-[#28182D]/70 border border-[#F4E1EC] dark:border-[#3E2445] text-xs font-semibold text-[#38283A] dark:text-[#FDF7FB]">
+              Overview
+            </button>
+          </div>
+        </div>
+
+        <!-- Summary Cards -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div class="p-5 rounded-3xl bg-white dark:bg-[#28182D] border border-[#F4E1EC] dark:border-[#3E2445] shadow-card space-y-1">
+            <span class="text-xs font-semibold text-[#887487] dark:text-[#D4BFD2]">ADHD Tax This Month</span>
+            <div id="adhdtax-monthly-total" class="text-2xl font-extrabold text-[#D66A9A]">$67.00</div>
+            <span class="text-[11px] text-[#887487] dark:text-[#D4BFD2]">Tracked without self-criticism</span>
+          </div>
+          <div class="p-5 rounded-3xl bg-white dark:bg-[#28182D] border border-[#F4E1EC] dark:border-[#3E2445] shadow-card space-y-1">
+            <span class="text-xs font-semibold text-[#887487] dark:text-[#D4BFD2]">Incidents Caught</span>
+            <div id="adhdtax-incidents-count" class="text-2xl font-extrabold text-[#38283A] dark:text-[#FDF7FB]">3</div>
+            <span class="text-[11px] text-[#887487] dark:text-[#D4BFD2]">Awareness is 80% of the battle</span>
+          </div>
+          <div class="p-5 rounded-3xl bg-gradient-to-br from-[#E8F5E9] to-white dark:from-[#1E3B27] dark:to-[#28182D] border border-[#6A9B76]/30 shadow-card space-y-1">
+            <span class="text-xs font-bold text-[#2E7D32] dark:text-[#81C784]">Protected by Safeguards</span>
+            <div class="text-2xl font-extrabold text-[#2E7D32] dark:text-[#81C784]">~$145</div>
+            <span class="text-[11px] text-[#2E7D32]/80 dark:text-[#81C784]/80">Saved through autopay & alarms</span>
+          </div>
+        </div>
+
+        <!-- Dual Column: Incidents Log & Prevention Safeguards Shield -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div class="lg:col-span-2 p-5 sm:p-6 rounded-3xl bg-white dark:bg-[#28182D] border border-[#F4E1EC] dark:border-[#3E2445] shadow-card space-y-4">
+            <div class="flex items-center justify-between pb-3 border-b border-[#F4E1EC] dark:border-[#3E2445]">
+              <h3 class="font-bold text-base text-[#38283A] dark:text-[#FDF7FB]">Recent ADHD Tax Incidents</h3>
+              <span class="text-xs text-[#887487] dark:text-[#D4BFD2]">Forgive, learn, automate 💡</span>
+            </div>
+            <div id="adhdtax-list-container" class="space-y-3">
+              <!-- Rendered via JS -->
+            </div>
+          </div>
+
+          <!-- Prevention Checklist -->
+          <div class="p-5 sm:p-6 rounded-3xl bg-white dark:bg-[#28182D] border border-[#F4E1EC] dark:border-[#3E2445] shadow-card space-y-4">
+            <div class="flex items-center space-x-2 pb-3 border-b border-[#F4E1EC] dark:border-[#3E2445]">
+              <i data-lucide="shield-check" class="w-5 h-5 text-[#6A9B76]"></i>
+              <h3 class="font-bold text-sm text-[#38283A] dark:text-[#FDF7FB]">ADHD Tax Shield</h3>
+            </div>
+            <p class="text-xs text-[#887487] dark:text-[#D4BFD2]">
+              Set up these automated friction-reducers so your future self doesn't have to remember:
+            </p>
+            <div class="space-y-3 text-xs" id="adhd-tax-shield-container">
+              <!-- Rendered via JS -->
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- VIEW 12: MONEY BACK -->
+      <section id="view-moneyback" class="hidden flex-1 p-4 sm:p-6 lg:p-8 max-w-7xl w-full mx-auto space-y-6">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-[#F4E1EC] dark:border-[#3E2445]">
+          <div>
+            <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-[#FCECF3] dark:bg-[#3E2242] text-xs font-semibold text-[#994B78] dark:text-[#E889B5] mb-2">
+              <i data-lucide="banknote" class="w-3.5 h-3.5"></i>
+              <span>Reimbursements & Claims Tracker</span>
+            </div>
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-[#38283A] dark:text-[#FDF7FB]">Money Back to You</h2>
+            <p class="text-xs sm:text-sm text-[#887487] dark:text-[#D4BFD2] mt-0.5">
+              Never lose track of store returns, friend split bills, or work reimbursements 🌸
+            </p>
+          </div>
+          <div class="flex items-center space-x-2 sm:space-x-3">
+            <button onclick="openModal('addMoneyBackModal')" class="ios-glass-primary px-4 py-2.5 rounded-2xl bg-gradient-to-r from-[#D66A9A] to-[#994B78] text-white text-xs font-bold shadow-md hover:opacity-95 transition-all flex items-center space-x-2">
+              <i data-lucide="plus" class="w-4 h-4"></i>
+              <span>Add Claim</span>
+            </button>
+            <button onclick="switchView('overview')" class="ios-glass-btn px-4 py-2.5 rounded-2xl bg-white/70 dark:bg-[#28182D]/70 border border-[#F4E1EC] dark:border-[#3E2445] text-xs font-semibold text-[#38283A] dark:text-[#FDF7FB]">
+              Overview
+            </button>
+          </div>
+        </div>
+
+        <!-- Summary Cards -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div class="p-5 rounded-3xl bg-white dark:bg-[#28182D] border border-[#F4E1EC] dark:border-[#3E2445] shadow-card space-y-1">
+            <span class="text-xs font-semibold text-[#887487] dark:text-[#D4BFD2]">Total Owed to You</span>
+            <div id="moneyback-pending-total" class="text-2xl font-extrabold text-[#994B78] dark:text-[#E889B5]">$165.00</div>
+            <span class="text-[11px] text-[#887487] dark:text-[#D4BFD2]">Waiting to come back to your wallet</span>
+          </div>
+          <div class="p-5 rounded-3xl bg-white dark:bg-[#28182D] border border-[#F4E1EC] dark:border-[#3E2445] shadow-card space-y-1">
+            <span class="text-xs font-semibold text-[#887487] dark:text-[#D4BFD2]">Pending Claims</span>
+            <div id="moneyback-claims-count" class="text-2xl font-extrabold text-[#38283A] dark:text-[#FDF7FB]">3</div>
+            <span class="text-[11px] text-[#887487] dark:text-[#D4BFD2]">Returns, IOUs & expenses</span>
+          </div>
+          <div class="p-5 rounded-3xl bg-gradient-to-br from-[#E8F5E9] to-white dark:from-[#1E3B27] dark:to-[#28182D] border border-[#6A9B76]/30 shadow-card space-y-1">
+            <span class="text-xs font-bold text-[#2E7D32] dark:text-[#81C784]">Collected & Reclaimed</span>
+            <div id="moneyback-recovered-total" class="text-2xl font-extrabold text-[#2E7D32] dark:text-[#81C784]">$410.00</div>
+            <span class="text-[11px] text-[#2E7D32]/80 dark:text-[#81C784]/80">Recovered that might have been forgotten!</span>
+          </div>
+        </div>
+
+        <!-- Claims List -->
+        <div class="p-6 rounded-3xl bg-white dark:bg-[#28182D] border border-[#F4E1EC] dark:border-[#3E2445] shadow-card space-y-5">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-[#F4E1EC] dark:border-[#3E2445]">
+            <h3 class="font-bold text-base text-[#38283A] dark:text-[#FDF7FB]">Claims & Reimbursements List</h3>
+            <div class="flex items-center space-x-1.5 overflow-x-auto pb-1 sm:pb-0">
+              <button onclick="setMoneyBackFilter('all')" id="mb-filter-all" class="px-3 py-1 rounded-xl text-xs font-bold bg-[#FCECF3] dark:bg-[#3E2242] text-[#994B78] dark:text-[#E889B5]">All</button>
+              <button onclick="setMoneyBackFilter('Friend')" id="mb-filter-Friend" class="px-3 py-1 rounded-xl text-xs font-semibold text-[#887487] hover:bg-[#FCECF3]">Friend IOUs</button>
+              <button onclick="setMoneyBackFilter('Return')" id="mb-filter-Return" class="px-3 py-1 rounded-xl text-xs font-semibold text-[#887487] hover:bg-[#FCECF3]">Returns</button>
+              <button onclick="setMoneyBackFilter('Work')" id="mb-filter-Work" class="px-3 py-1 rounded-xl text-xs font-semibold text-[#887487] hover:bg-[#FCECF3]">Work</button>
+            </div>
+          </div>
+
+          <div id="moneyback-list-container" class="space-y-3">
+            <!-- Rendered via JS -->
+          </div>
+        </div>
+      </section>
+
       <!-- FLOATING / BOTTOM THEME TOGGLE -->
       <div class="py-8 flex justify-center items-center">
         <div class="inline-flex items-center p-1.5 rounded-full bg-white dark:bg-[#28182D] border border-[#F4E1EC] dark:border-[#3E2445] shadow-card dark:shadow-card-dark">
@@ -2650,6 +3237,264 @@
         <div class="pt-3 flex items-center justify-end space-x-3">
           <button type="button" onclick="closeModal('addBillModal')" class="ios-glass-btn px-4 py-2.5 rounded-2xl text-xs font-semibold text-warm-textMuted hover:text-warm-text transition-colors">Cancel</button>
           <button type="submit" id="bill-submit-btn" class="ios-glass-primary px-5 py-2.5 rounded-2xl font-semibold text-xs shadow-sm transition-all">Save Bill</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ADD DEBT MODAL -->
+  <div id="addDebtModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4">
+    <div class="modal-backdrop fixed inset-0 bg-black/50 backdrop-blur-sm" onclick="closeModal('addDebtModal')"></div>
+    <div class="modal-content relative w-full max-w-md bg-white dark:bg-[#28182D] border border-[#F4E1EC] dark:border-[#3E2445] rounded-3xl p-6 sm:p-7 shadow-2xl z-10 space-y-5">
+      <div class="flex items-center justify-between pb-3 border-b border-[#F4E1EC] dark:border-[#3E2445]">
+        <div class="flex items-center space-x-2.5">
+          <div class="w-8 h-8 rounded-xl bg-[#FCECF3] dark:bg-[#3E2242] text-[#994B78] dark:text-[#E889B5] flex items-center justify-center">
+            <i data-lucide="credit-card" class="w-4 h-4"></i>
+          </div>
+          <h3 class="text-base font-bold text-[#38283A] dark:text-[#FDF7FB]">Add Debt Account</h3>
+        </div>
+        <button onclick="closeModal('addDebtModal')" class="p-1 rounded-lg text-[#887487] hover:bg-[#FCECF3]">
+          <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+      </div>
+      <form id="form-add-debt" onsubmit="handleAddDebtSubmit(event)" class="space-y-4">
+        <div>
+          <label class="block text-xs font-semibold text-[#887487] dark:text-[#D4BFD2] uppercase mb-1">Debt Name <span class="text-rose-500">*</span></label>
+          <input type="text" id="debt-name-input" required placeholder="e.g. Sapphire Card, Klarna, Student Loan" class="w-full px-4 py-2.5 rounded-2xl bg-[#FFF9FC] dark:bg-[#201024] border border-[#F4E1EC] dark:border-[#3E2445] text-xs font-medium text-[#38283A] dark:text-[#FDF7FB]">
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-semibold text-[#887487] dark:text-[#D4BFD2] uppercase mb-1">Current Balance (<span class="currency-symbol-label">$</span>)</label>
+            <input type="number" step="0.01" min="0" id="debt-balance-input" required placeholder="1450" class="w-full px-4 py-2.5 rounded-2xl bg-[#FFF9FC] dark:bg-[#201024] border border-[#F4E1EC] dark:border-[#3E2445] text-xs font-bold text-[#38283A] dark:text-[#FDF7FB]">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-[#887487] dark:text-[#D4BFD2] uppercase mb-1">Original Balance</label>
+            <input type="number" step="0.01" min="0" id="debt-start-input" placeholder="2000" class="w-full px-4 py-2.5 rounded-2xl bg-[#FFF9FC] dark:bg-[#201024] border border-[#F4E1EC] dark:border-[#3E2445] text-xs font-bold text-[#38283A] dark:text-[#FDF7FB]">
+          </div>
+        </div>
+        <div class="grid grid-cols-3 gap-3">
+          <div>
+            <label class="block text-xs font-semibold text-[#887487] dark:text-[#D4BFD2] uppercase mb-1">Min. Pay/mo</label>
+            <input type="number" step="0.01" min="0" id="debt-min-input" placeholder="65" class="w-full px-3 py-2.5 rounded-2xl bg-[#FFF9FC] dark:bg-[#201024] border border-[#F4E1EC] dark:border-[#3E2445] text-xs font-bold text-[#38283A] dark:text-[#FDF7FB]">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-[#887487] dark:text-[#D4BFD2] uppercase mb-1">Interest %</label>
+            <input type="number" step="0.01" min="0" id="debt-apr-input" placeholder="19.9" class="w-full px-3 py-2.5 rounded-2xl bg-[#FFF9FC] dark:bg-[#201024] border border-[#F4E1EC] dark:border-[#3E2445] text-xs font-bold text-[#38283A] dark:text-[#FDF7FB]">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-[#887487] dark:text-[#D4BFD2] uppercase mb-1">Due Day</label>
+            <input type="number" min="1" max="31" id="debt-day-input" placeholder="15" class="w-full px-3 py-2.5 rounded-2xl bg-[#FFF9FC] dark:bg-[#201024] border border-[#F4E1EC] dark:border-[#3E2445] text-xs font-bold text-[#38283A] dark:text-[#FDF7FB]">
+          </div>
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-[#887487] dark:text-[#D4BFD2] uppercase mb-1">Debt Type</label>
+          <select id="debt-type-input" class="w-full px-4 py-2.5 rounded-2xl bg-[#FFF9FC] dark:bg-[#201024] border border-[#F4E1EC] dark:border-[#3E2445] text-xs text-[#38283A] dark:text-[#FDF7FB]">
+            <option value="Credit Card">Credit Card</option>
+            <option value="BNPL">Buy Now Pay Later (Klarna / Affirm)</option>
+            <option value="Personal Loan">Personal Loan</option>
+            <option value="Student Loan">Student Loan</option>
+            <option value="Medical">Medical Debt</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+        <div class="pt-2 flex justify-end space-x-3">
+          <button type="button" onclick="closeModal('addDebtModal')" class="ios-glass-btn px-4 py-2 text-xs font-semibold text-[#887487]">Cancel</button>
+          <button type="submit" class="ios-glass-primary px-5 py-2.5 rounded-2xl bg-gradient-to-r from-[#D66A9A] to-[#994B78] text-white font-bold text-xs shadow-md">Add Debt Account</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ADD ADHD TAX INCIDENT MODAL -->
+  <div id="addAdhdTaxModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4">
+    <div class="modal-backdrop fixed inset-0 bg-black/50 backdrop-blur-sm" onclick="closeModal('addAdhdTaxModal')"></div>
+    <div class="modal-content relative w-full max-w-md bg-white dark:bg-[#28182D] border border-[#F4E1EC] dark:border-[#3E2445] rounded-3xl p-6 sm:p-7 shadow-2xl z-10 space-y-5">
+      <div class="flex items-center justify-between pb-3 border-b border-[#F4E1EC] dark:border-[#3E2445]">
+        <div class="flex items-center space-x-2.5">
+          <div class="w-8 h-8 rounded-xl bg-[#FCECF3] dark:bg-[#3E2242] text-[#994B78] dark:text-[#E889B5] flex items-center justify-center">
+            <i data-lucide="search" class="w-4 h-4"></i>
+          </div>
+          <div>
+            <h3 class="text-base font-bold text-[#38283A] dark:text-[#FDF7FB]">Log ADHD Tax Incident</h3>
+            <p class="text-[10px] text-[#887487] dark:text-[#D4BFD2]">Zero guilt. Forgive yourself and build a safeguard.</p>
+          </div>
+        </div>
+        <button onclick="closeModal('addAdhdTaxModal')" class="p-1 rounded-lg text-[#887487] hover:bg-[#FCECF3]">
+          <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+      </div>
+      <form id="form-add-adhdtax" onsubmit="handleAddAdhdTaxSubmit(event)" class="space-y-4">
+        <div>
+          <label class="block text-xs font-semibold text-[#887487] dark:text-[#D4BFD2] uppercase mb-1">What Happened? <span class="text-rose-500">*</span></label>
+          <input type="text" id="adhdtax-title-input" required placeholder="e.g. Forgot to cancel free trial, Late payment fee" class="w-full px-4 py-2.5 rounded-2xl bg-[#FFF9FC] dark:bg-[#201024] border border-[#F4E1EC] dark:border-[#3E2445] text-xs font-medium text-[#38283A] dark:text-[#FDF7FB]">
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-semibold text-[#887487] dark:text-[#D4BFD2] uppercase mb-1">Amount (<span class="currency-symbol-label">$</span>)</label>
+            <input type="number" step="0.01" min="0" id="adhdtax-amount-input" required placeholder="25.00" class="w-full px-4 py-2.5 rounded-2xl bg-[#FFF9FC] dark:bg-[#201024] border border-[#F4E1EC] dark:border-[#3E2445] text-xs font-bold text-[#38283A] dark:text-[#FDF7FB]">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-[#887487] dark:text-[#D4BFD2] uppercase mb-1">Category</label>
+            <select id="adhdtax-cat-input" class="w-full px-4 py-2.5 rounded-2xl bg-[#FFF9FC] dark:bg-[#201024] border border-[#F4E1EC] dark:border-[#3E2445] text-xs text-[#38283A] dark:text-[#FDF7FB]">
+              <option value="Subscription">Forgotten Subscription</option>
+              <option value="Late Fee">Late Fee / Penalty</option>
+              <option value="Wasted Food">Spoiled / Wasted Groceries</option>
+              <option value="Rush Shipping">Rush Shipping Procrastination</option>
+              <option value="Lost Item">Lost Item Replacement</option>
+              <option value="Missed Return">Missed Return Deadline</option>
+              <option value="Ticket">Parking / Traffic Ticket</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-[#887487] dark:text-[#D4BFD2] uppercase mb-1">Date</label>
+          <input type="date" id="adhdtax-date-input" class="w-full px-4 py-2.5 rounded-2xl bg-[#FFF9FC] dark:bg-[#201024] border border-[#F4E1EC] dark:border-[#3E2445] text-xs text-[#38283A] dark:text-[#FDF7FB]">
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-[#887487] dark:text-[#D4BFD2] uppercase mb-1">Safeguard Fix For Next Time</label>
+          <input type="text" id="adhdtax-rule-input" placeholder="e.g. Set recurring phone calendar alert, turn on autopay" class="w-full px-4 py-2.5 rounded-2xl bg-[#FFF9FC] dark:bg-[#201024] border border-[#F4E1EC] dark:border-[#3E2445] text-xs font-medium text-[#38283A] dark:text-[#FDF7FB]">
+        </div>
+        <div class="pt-2 flex justify-end space-x-3">
+          <button type="button" onclick="closeModal('addAdhdTaxModal')" class="ios-glass-btn px-4 py-2 text-xs font-semibold text-[#887487]">Cancel</button>
+          <button type="submit" class="ios-glass-primary px-5 py-2.5 rounded-2xl bg-gradient-to-r from-[#D66A9A] to-[#994B78] text-white font-bold text-xs shadow-md">Log Incident 💡</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ADD MONEY BACK CLAIM MODAL -->
+  <div id="addMoneyBackModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4">
+    <div class="modal-backdrop fixed inset-0 bg-black/50 backdrop-blur-sm" onclick="closeModal('addMoneyBackModal')"></div>
+    <div class="modal-content relative w-full max-w-md bg-white dark:bg-[#28182D] border border-[#F4E1EC] dark:border-[#3E2445] rounded-3xl p-6 sm:p-7 shadow-2xl z-10 space-y-5">
+      <div class="flex items-center justify-between pb-3 border-b border-[#F4E1EC] dark:border-[#3E2445]">
+        <div class="flex items-center space-x-2.5">
+          <div class="w-8 h-8 rounded-xl bg-[#FCECF3] dark:bg-[#3E2242] text-[#994B78] dark:text-[#E889B5] flex items-center justify-center">
+            <i data-lucide="banknote" class="w-4 h-4"></i>
+          </div>
+          <div>
+            <h3 class="text-base font-bold text-[#38283A] dark:text-[#FDF7FB]">Track Money Owed to You</h3>
+            <p class="text-[10px] text-[#887487] dark:text-[#D4BFD2]">Refunds, friend split tabs, or work reimbursements</p>
+          </div>
+        </div>
+        <button onclick="closeModal('addMoneyBackModal')" class="p-1 rounded-lg text-[#887487] hover:bg-[#FCECF3]">
+          <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+      </div>
+      <form id="form-add-moneyback" onsubmit="handleAddMoneyBackSubmit(event)" class="space-y-4">
+        <div>
+          <label class="block text-xs font-semibold text-[#887487] dark:text-[#D4BFD2] uppercase mb-1">What Is Owed? <span class="text-rose-500">*</span></label>
+          <input type="text" id="mb-title-input" required placeholder="e.g. Dinner split, Zara shirt return, Client Uber receipt" class="w-full px-4 py-2.5 rounded-2xl bg-[#FFF9FC] dark:bg-[#201024] border border-[#F4E1EC] dark:border-[#3E2445] text-xs font-medium text-[#38283A] dark:text-[#FDF7FB]">
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-semibold text-[#887487] dark:text-[#D4BFD2] uppercase mb-1">Amount (<span class="currency-symbol-label">$</span>)</label>
+            <input type="number" step="0.01" min="0" id="mb-amount-input" required placeholder="45.00" class="w-full px-4 py-2.5 rounded-2xl bg-[#FFF9FC] dark:bg-[#201024] border border-[#F4E1EC] dark:border-[#3E2445] text-xs font-bold text-[#38283A] dark:text-[#FDF7FB]">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-[#887487] dark:text-[#D4BFD2] uppercase mb-1">Category</label>
+            <select id="mb-cat-input" class="w-full px-4 py-2.5 rounded-2xl bg-[#FFF9FC] dark:bg-[#201024] border border-[#F4E1EC] dark:border-[#3E2445] text-xs text-[#38283A] dark:text-[#FDF7FB]">
+              <option value="Friend">Friend / Split Bill IOU</option>
+              <option value="Return">Store Return / Refund</option>
+              <option value="Work">Work Expense Reimbursement</option>
+              <option value="Deposit">Deposit / Cashback</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-semibold text-[#887487] dark:text-[#D4BFD2] uppercase mb-1">Who Owes You?</label>
+            <input type="text" id="mb-debtor-input" placeholder="e.g. Alex, Amazon, Employer" class="w-full px-4 py-2.5 rounded-2xl bg-[#FFF9FC] dark:bg-[#201024] border border-[#F4E1EC] dark:border-[#3E2445] text-xs text-[#38283A] dark:text-[#FDF7FB]">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-[#887487] dark:text-[#D4BFD2] uppercase mb-1">Expected Date</label>
+            <input type="date" id="mb-date-input" class="w-full px-4 py-2.5 rounded-2xl bg-[#FFF9FC] dark:bg-[#201024] border border-[#F4E1EC] dark:border-[#3E2445] text-xs text-[#38283A] dark:text-[#FDF7FB]">
+          </div>
+        </div>
+        <div class="pt-2 flex justify-end space-x-3">
+          <button type="button" onclick="closeModal('addMoneyBackModal')" class="ios-glass-btn px-4 py-2 text-xs font-semibold text-[#887487]">Cancel</button>
+          <button type="submit" class="ios-glass-primary px-5 py-2.5 rounded-2xl bg-gradient-to-r from-[#D66A9A] to-[#994B78] text-white font-bold text-xs shadow-md">Add Claim 💸</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ADD GROCERY ITEM MODAL -->
+  <div id="addGroceryModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4">
+    <div class="modal-backdrop fixed inset-0 bg-black/50 backdrop-blur-sm" onclick="closeModal('addGroceryModal')"></div>
+    <div class="modal-content relative w-full max-w-md bg-white dark:bg-[#28182D] border border-[#F4E1EC] dark:border-[#3E2445] rounded-3xl p-6 sm:p-7 shadow-2xl z-10 space-y-5">
+      <div class="flex items-center justify-between pb-3 border-b border-[#F4E1EC] dark:border-[#3E2445]">
+        <div class="flex items-center space-x-2.5">
+          <div class="w-8 h-8 rounded-xl bg-[#FCECF3] dark:bg-[#3E2242] text-[#994B78] dark:text-[#E889B5] flex items-center justify-center">
+            <i data-lucide="shopping-cart" class="w-4 h-4"></i>
+          </div>
+          <h3 class="text-base font-bold text-[#38283A] dark:text-[#FDF7FB]">Add Grocery Item</h3>
+        </div>
+        <button onclick="closeModal('addGroceryModal')" class="p-1 rounded-lg text-[#887487] hover:bg-[#FCECF3]">
+          <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+      </div>
+      <form id="form-add-grocery" onsubmit="handleAddGrocerySubmit(event)" class="space-y-4">
+        <div>
+          <label class="block text-xs font-semibold text-[#887487] dark:text-[#D4BFD2] uppercase mb-1">Item Name <span class="text-rose-500">*</span></label>
+          <input type="text" id="grocery-name-input" required placeholder="e.g. Greek yogurt, Gala apples, Peanut butter" class="w-full px-4 py-2.5 rounded-2xl bg-[#FFF9FC] dark:bg-[#201024] border border-[#F4E1EC] dark:border-[#3E2445] text-xs font-medium text-[#38283A] dark:text-[#FDF7FB]">
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-semibold text-[#887487] dark:text-[#D4BFD2] uppercase mb-1">Category</label>
+            <select id="grocery-cat-input" class="w-full px-3 py-2.5 rounded-2xl bg-[#FFF9FC] dark:bg-[#201024] border border-[#F4E1EC] dark:border-[#3E2445] text-xs text-[#38283A] dark:text-[#FDF7FB]">
+              <option value="Produce & Fresh">Produce & Fresh 🥦</option>
+              <option value="Fridge & Dairy">Fridge & Dairy 🥛</option>
+              <option value="Pantry & Carbs">Pantry & Carbs 🍞</option>
+              <option value="Dopamine Snacks">Dopamine Snacks 🍫</option>
+              <option value="Household">Household 🧼</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-[#887487] dark:text-[#D4BFD2] uppercase mb-1">Est. Cost (<span class="currency-symbol-label">$</span>)</label>
+            <input type="number" step="0.01" min="0" id="grocery-cost-input" placeholder="4.50" class="w-full px-3 py-2.5 rounded-2xl bg-[#FFF9FC] dark:bg-[#201024] border border-[#F4E1EC] dark:border-[#3E2445] text-xs font-bold text-[#38283A] dark:text-[#FDF7FB]">
+          </div>
+        </div>
+        <div class="pt-2 flex justify-end space-x-3">
+          <button type="button" onclick="closeModal('addGroceryModal')" class="ios-glass-btn px-4 py-2 text-xs font-semibold text-[#887487]">Cancel</button>
+          <button type="submit" class="ios-glass-primary px-5 py-2.5 rounded-2xl bg-gradient-to-r from-[#D66A9A] to-[#994B78] text-white font-bold text-xs shadow-md">Add to List 🛒</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ADD SPOILING SOON ITEM MODAL -->
+  <div id="addSpoilingModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4">
+    <div class="modal-backdrop fixed inset-0 bg-black/50 backdrop-blur-sm" onclick="closeModal('addSpoilingModal')"></div>
+    <div class="modal-content relative w-full max-w-sm bg-white dark:bg-[#28182D] border border-[#F4E1EC] dark:border-[#3E2445] rounded-3xl p-6 sm:p-7 shadow-2xl z-10 space-y-5">
+      <div class="flex items-center justify-between pb-3 border-b border-[#F4E1EC] dark:border-[#3E2445]">
+        <div class="flex items-center space-x-2.5">
+          <div class="w-8 h-8 rounded-xl bg-amber-100 dark:bg-amber-900/40 text-amber-800 dark:text-amber-300 flex items-center justify-center font-bold">
+            ⚠️
+          </div>
+          <h3 class="text-base font-bold text-[#38283A] dark:text-[#FDF7FB]">Eat First Radar</h3>
+        </div>
+        <button onclick="closeModal('addSpoilingModal')" class="p-1 rounded-lg text-[#887487] hover:bg-[#FCECF3]">
+          <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+      </div>
+      <form id="form-add-spoiling" onsubmit="handleAddSpoilingSubmit(event)" class="space-y-4">
+        <div>
+          <label class="block text-xs font-semibold text-[#887487] dark:text-[#D4BFD2] uppercase mb-1">Perishable Food <span class="text-rose-500">*</span></label>
+          <input type="text" id="spoiling-name-input" required placeholder="e.g. Fresh spinach, Berries, Milk" class="w-full px-4 py-2.5 rounded-2xl bg-[#FFF9FC] dark:bg-[#201024] border border-[#F4E1EC] dark:border-[#3E2445] text-xs font-medium text-[#38283A] dark:text-[#FDF7FB]">
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-[#887487] dark:text-[#D4BFD2] uppercase mb-1">Days Left Before Spoiling</label>
+          <select id="spoiling-days-input" class="w-full px-4 py-2.5 rounded-2xl bg-[#FFF9FC] dark:bg-[#201024] border border-[#F4E1EC] dark:border-[#3E2445] text-xs text-[#38283A] dark:text-[#FDF7FB]">
+            <option value="1">1 Day (Eat Today / Urgently)</option>
+            <option value="2" selected>2 Days</option>
+            <option value="3">3 Days</option>
+          </select>
+        </div>
+        <div class="pt-2 flex justify-end space-x-3">
+          <button type="button" onclick="closeModal('addSpoilingModal')" class="ios-glass-btn px-4 py-2 text-xs font-semibold text-[#887487]">Cancel</button>
+          <button type="submit" class="ios-glass-primary px-5 py-2.5 rounded-2xl bg-amber-600 hover:bg-amber-700 text-white font-bold text-xs shadow-md">Add to Radar</button>
         </div>
       </form>
     </div>
@@ -3657,6 +4502,99 @@
           wins: [
             { id: 'w_1', text: 'Checked budget peacefully without anxiety 🌸', time: '10:00 AM' },
             { id: 'w_2', text: 'Drank a tall glass of water 💧', time: '11:15 AM' }
+          ]
+        };
+      }
+
+      // Guarantee debts exists & defaults
+      if (!data.debts) {
+        data.debts = [
+          { id: 'debt_1', name: 'Sapphire Credit Card', type: 'Credit Card', balance: 1450, startingBalance: 2200, interestRate: 19.99, minPayment: 65, dueDay: 15 },
+          { id: 'debt_2', name: 'Klarna Pay-in-4', type: 'BNPL', balance: 180, startingBalance: 400, interestRate: 0, minPayment: 90, dueDay: 22 },
+          { id: 'debt_3', name: 'Personal Tech Loan', type: 'Loan', balance: 1850, startingBalance: 2500, interestRate: 8.5, minPayment: 110, dueDay: 28 }
+        ];
+      }
+
+      // Guarantee adhdTax exists & defaults
+      if (!data.adhdTax) {
+        data.adhdTax = {
+          incidents: [
+            { id: 'tax_1', title: 'Forgotten Streaming Subscription', category: 'Subscription', amount: 18, date: '2026-11-01', rule: 'Set cancel alert immediately on signup' },
+            { id: 'tax_2', title: 'Late Credit Card Payment Fee', category: 'Late Fee', amount: 35, date: '2026-10-25', rule: 'Turn on autopay minimums' },
+            { id: 'tax_3', title: 'Spoiled Spinach & Strawberries', category: 'Wasted Food', amount: 14, date: '2026-11-02', rule: 'Buy frozen fruits instead' }
+          ],
+          safeguards: {
+            autopay: true,
+            trialAlarm: true,
+            pauseRule: false,
+            emergencyMeals: true,
+            returnBag: true
+          }
+        };
+      }
+
+      // Guarantee moneyBack exists & defaults
+      if (!data.moneyBack) {
+        data.moneyBack = [
+          { id: 'mb_1', title: 'Group Dinner Split (Alex)', debtor: 'Alex M.', amount: 45, category: 'Friend', date: '2026-11-02', expectedDate: '2026-11-06', status: 'pending' },
+          { id: 'mb_2', title: 'Online Sweater Return', debtor: 'Nordstrom', amount: 68, category: 'Return', date: '2026-10-28', expectedDate: '2026-11-05', status: 'pending' },
+          { id: 'mb_3', title: 'Uber Airport Receipt Expense', debtor: 'Work / Employer', amount: 52, category: 'Work', date: '2026-10-30', expectedDate: '2026-11-10', status: 'pending' }
+        ];
+      }
+
+      // Guarantee focusSpace exists
+      if (!data.focusSpace) {
+        data.focusSpace = {
+          completedSessions: 2,
+          activeTarget: 'Finish Q3 budget reconciliation & invoices',
+          brainDump: [
+            { id: 'bd_1', text: 'Check if library book is overdue', date: '2026-11-04' },
+            { id: 'bd_2', text: 'Text Sarah about weekend picnic plan', date: '2026-11-04' }
+          ]
+        };
+      }
+
+      // Guarantee moodEnergy exists & defaults matching screenshot
+      if (!data.moodEnergy) {
+        data.moodEnergy = {
+          today: {
+            spoons: 4,
+            energy: 'Medium',
+            mood: 'Calm',
+            note: 'Feeling steady and organized today.',
+            date: new Date().toISOString().split('T')[0]
+          },
+          history: [
+            { id: 'me_1', date: '2026-11-03', spoons: 3, energy: 'Medium', mood: 'Calm', note: 'Steady momentum.' },
+            { id: 'me_2', date: '2026-11-02', spoons: 5, energy: 'High', mood: 'Focused', note: 'Hyperfocused, great session.' },
+            { id: 'me_3', date: '2026-11-01', spoons: 2, energy: 'Low', mood: 'Overwhelmed', note: 'Rest day, took things slow.' }
+          ]
+        };
+      }
+
+      // Guarantee mealsGroceries exists & defaults (3 unbought matching screenshot badge)
+      if (!data.mealsGroceries) {
+        data.mealsGroceries = {
+          todayMeals: {
+            breakfast: 'Oatmeal with berries & chia seeds',
+            lunch: 'Chicken wrap leftovers',
+            dinner: 'Sheet pan roasted veggies & quinoa'
+          },
+          spoilingSoon: [
+            { id: 'sp_1', name: 'Fresh Strawberries', daysLeft: 1, eaten: false },
+            { id: 'sp_2', name: 'Spinach Bag', daysLeft: 2, eaten: false }
+          ],
+          emergencyMeals: [
+            { id: 'em_1', name: 'Scrambled eggs on toast', time: '5 mins' },
+            { id: 'em_2', name: 'Frozen dumplings & chili oil', time: '7 mins' },
+            { id: 'em_3', name: 'PB & banana honey toast', time: '3 mins' },
+            { id: 'em_4', name: 'Warm ramen bowl with egg', time: '6 mins' }
+          ],
+          groceries: [
+            { id: 'gr_1', name: 'Almond milk & oat yogurt', category: 'Fridge & Dairy', bought: false, cost: 4.50 },
+            { id: 'gr_2', name: 'Fresh Gala apples & lemons', category: 'Produce & Fresh', bought: false, cost: 5.20 },
+            { id: 'gr_3', name: 'Dark chocolate peanut butter cups', category: 'Dopamine Snacks', bought: false, cost: 4.80 },
+            { id: 'gr_4', name: 'Sourdough bread loaf', category: 'Pantry & Carbs', bought: true, cost: 3.50 }
           ]
         };
       }
@@ -5227,6 +6165,1127 @@
       showToast('Win removed.');
     }
 
+    // --- 12. DEBT TRACKER LOGIC ---
+    let debtStrategy = 'snowball';
+
+    function setDebtStrategy(strat) {
+      debtStrategy = strat;
+      const snowBtn = document.getElementById('strat-snowball-btn');
+      const avaBtn = document.getElementById('strat-avalanche-btn');
+      if (snowBtn && avaBtn) {
+        if (strat === 'snowball') {
+          snowBtn.className = 'px-3 py-1 rounded-xl text-xs font-bold bg-[#FCECF3] dark:bg-[#3E2242] text-[#994B78] dark:text-[#E889B5] border border-[#D66A9A]/30';
+          avaBtn.className = 'px-3 py-1 rounded-xl text-xs font-semibold text-[#887487] dark:text-[#D4BFD2] hover:bg-[#FCECF3]';
+        } else {
+          avaBtn.className = 'px-3 py-1 rounded-xl text-xs font-bold bg-[#FCECF3] dark:bg-[#3E2242] text-[#994B78] dark:text-[#E889B5] border border-[#D66A9A]/30';
+          snowBtn.className = 'px-3 py-1 rounded-xl text-xs font-semibold text-[#887487] dark:text-[#D4BFD2] hover:bg-[#FCECF3]';
+        }
+      }
+      renderDebtView();
+    }
+
+    function renderDebtView() {
+      if (!currentUserData || !currentUserData.debts) return;
+      let debts = [...currentUserData.debts];
+
+      // Sort according to strategy
+      if (debtStrategy === 'snowball') {
+        debts.sort((a, b) => (parseFloat(a.balance) || 0) - (parseFloat(b.balance) || 0));
+      } else {
+        debts.sort((a, b) => (parseFloat(b.interestRate) || 0) - (parseFloat(a.interestRate) || 0));
+      }
+
+      const totalRemaining = debts.reduce((s, d) => s + (parseFloat(d.balance) || 0), 0);
+      const totalStarting = debts.reduce((s, d) => s + (parseFloat(d.startingBalance) || parseFloat(d.balance) || 0), 0);
+      const totalPaid = Math.max(0, totalStarting - totalRemaining);
+      const totalMin = debts.reduce((s, d) => s + (parseFloat(d.minPayment) || 0), 0);
+      const paidPct = totalStarting > 0 ? ((totalPaid / totalStarting) * 100).toFixed(1) : 0;
+
+      const remEl = document.getElementById('debt-total-remaining');
+      const paidEl = document.getElementById('debt-total-paid');
+      const pctEl = document.getElementById('debt-paid-pct');
+      const minsEl = document.getElementById('debt-monthly-mins');
+      const focusTargetEl = document.getElementById('debt-focus-target');
+      const focusDescEl = document.getElementById('debt-focus-desc');
+
+      if (remEl) remEl.textContent = formatMoney(totalRemaining);
+      if (paidEl) paidEl.textContent = formatMoney(totalPaid);
+      if (pctEl) pctEl.textContent = `${paidPct}% crushed! 🎉`;
+      if (minsEl) minsEl.textContent = `${formatMoney(totalMin)}/mo`;
+
+      const activeDebts = debts.filter(d => (parseFloat(d.balance) || 0) > 0);
+      if (activeDebts.length > 0) {
+        if (focusTargetEl) focusTargetEl.textContent = activeDebts[0].name;
+        if (focusDescEl) focusDescEl.textContent = `Only ${formatMoney(activeDebts[0].balance)} left to pay off completely! 🎯`;
+      } else {
+        if (focusTargetEl) focusTargetEl.textContent = 'Debt-Free! 🌟';
+        if (focusDescEl) focusDescEl.textContent = 'All debts crushed completely!';
+      }
+
+      const container = document.getElementById('debts-list-container');
+      if (!container) return;
+
+      if (debts.length === 0) {
+        container.innerHTML = `
+          <div class="col-span-full text-center py-8 text-xs text-[#887487] dark:text-[#D4BFD2]">
+            No debt accounts tracked. You are either debt-free or click "+ Add Debt" to organize your balances calmly! 🌸
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = debts.map((d, idx) => {
+        const bal = parseFloat(d.balance) || 0;
+        const start = parseFloat(d.startingBalance) || bal;
+        const pct = start > 0 ? Math.min(100, Math.round(((start - bal) / start) * 100)) : 0;
+        const isFocus = idx === 0 && bal > 0;
+
+        return `
+          <div class="p-5 rounded-3xl border transition-all ${
+            isFocus
+              ? 'bg-gradient-to-br from-[#FFF5F9] via-white to-[#FCECF3] dark:from-[#3E2242] dark:to-[#28182D] border-2 border-[#D66A9A] shadow-md'
+              : 'bg-white dark:bg-[#201024] border-[#F4E1EC] dark:border-[#3E2445] shadow-card'
+          } flex flex-col justify-between space-y-4">
+            <div>
+              <div class="flex items-start justify-between gap-2">
+                <div>
+                  <div class="flex items-center space-x-1.5">
+                    <h4 class="font-bold text-sm text-[#38283A] dark:text-[#FDF7FB]">${escapeHtml(d.name)}</h4>
+                    ${isFocus ? '<span class="text-[9px] font-extrabold px-2 py-0.5 rounded-full bg-[#D66A9A] text-white">Focus Target</span>' : ''}
+                  </div>
+                  <span class="text-[10px] text-[#887487] dark:text-[#D4BFD2] font-semibold">${escapeHtml(d.type || 'Debt')} • ${d.interestRate || 0}% APR</span>
+                </div>
+                <div class="text-right">
+                  <div class="text-base font-extrabold text-[#994B78] dark:text-[#E889B5]">${formatMoney(bal)}</div>
+                  <span class="text-[10px] text-[#887487] dark:text-[#D4BFD2]">of ${formatMoney(start)}</span>
+                </div>
+              </div>
+
+              <!-- Progress bar -->
+              <div class="space-y-1 mt-3">
+                <div class="flex justify-between text-[10px] text-[#887487] dark:text-[#D4BFD2] font-semibold">
+                  <span>${pct}% paid</span>
+                  <span>Min: ${formatMoney(d.minPayment || 0)}/mo</span>
+                </div>
+                <div class="w-full h-2 rounded-full bg-[#F4E1EC] dark:bg-[#3E2445] overflow-hidden">
+                  <div class="h-full rounded-full bg-gradient-to-r from-[#D66A9A] to-[#6A9B76] transition-all" style="width: ${pct}%"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="flex items-center justify-between pt-2 border-t border-[#F4E1EC] dark:border-[#3E2445]">
+              <span class="text-[10px] text-[#887487] dark:text-[#D4BFD2]">Due ${d.dueDay ? 'Day ' + d.dueDay : 'Monthly'}</span>
+              <div class="flex items-center space-x-1.5">
+                <button onclick="logDebtPayment('${d.id}')" class="px-3 py-1 rounded-xl text-[10px] font-bold bg-[#FCECF3] dark:bg-[#3E2242] text-[#994B78] dark:text-[#E889B5] hover:opacity-85">
+                  - Pay
+                </button>
+                <button onclick="deleteDebt('${d.id}')" class="p-1 rounded-lg text-[#887487] hover:text-[#D66A9A]" title="Remove">
+                  <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      if (window.lucide) lucide.createIcons();
+    }
+
+    function handleAddDebtSubmit(e) {
+      e.preventDefault();
+      const name = document.getElementById('debt-name-input').value.trim();
+      const bal = parseFloat(document.getElementById('debt-balance-input').value) || 0;
+      const start = parseFloat(document.getElementById('debt-start-input').value) || bal;
+      const apr = parseFloat(document.getElementById('debt-apr-input').value) || 0;
+      const min = parseFloat(document.getElementById('debt-min-input').value) || 0;
+      const dueDay = parseInt(document.getElementById('debt-day-input').value) || 1;
+      const type = document.getElementById('debt-type-input').value || 'Credit Card';
+
+      if (!name) return;
+
+      if (!currentUserData.debts) currentUserData.debts = [];
+      currentUserData.debts.push({
+        id: 'debt_' + Date.now(),
+        name,
+        type,
+        balance: bal,
+        startingBalance: start,
+        interestRate: apr,
+        minPayment: min,
+        dueDay
+      });
+
+      saveUserData(currentUser.id, currentUserData);
+      closeModal('addDebtModal');
+      document.getElementById('form-add-debt').reset();
+      renderDebtView();
+      triggerGentleConfetti();
+      showToast(`Added debt tracker: "${name}" 🌸`);
+    }
+
+    function logDebtPayment(debtId) {
+      const d = (currentUserData.debts || []).find(item => item.id === debtId);
+      if (!d) return;
+      const amtStr = prompt(`Enter payment amount towards "${d.name}":`, d.minPayment || 50);
+      if (!amtStr) return;
+      const amt = parseFloat(amtStr);
+      if (isNaN(amt) || amt <= 0) return;
+
+      d.balance = Math.max(0, (parseFloat(d.balance) || 0) - amt);
+      saveUserData(currentUser.id, currentUserData);
+      renderDebtView();
+      triggerGentleConfetti();
+      showToast(`Awesome! ${formatMoney(amt)} payment logged towards "${d.name}" 🎉`);
+    }
+
+    function deleteDebt(debtId) {
+      if (!confirm('Remove this debt account?')) return;
+      currentUserData.debts = (currentUserData.debts || []).filter(d => d.id !== debtId);
+      saveUserData(currentUser.id, currentUserData);
+      renderDebtView();
+      showToast('Debt account removed.');
+    }
+
+    // --- 13. ADHD TAX CHECK LOGIC ---
+    function renderAdhdTaxView() {
+      if (!currentUserData || !currentUserData.adhdTax) return;
+      const taxData = currentUserData.adhdTax;
+      const incidents = taxData.incidents || [];
+
+      const totalTax = incidents.reduce((s, i) => s + (parseFloat(i.amount) || 0), 0);
+      const totalEl = document.getElementById('adhdtax-monthly-total');
+      const countEl = document.getElementById('adhdtax-incidents-count');
+      if (totalEl) totalEl.textContent = formatMoney(totalTax);
+      if (countEl) countEl.textContent = incidents.length;
+
+      const listContainer = document.getElementById('adhdtax-list-container');
+      if (listContainer) {
+        if (incidents.length === 0) {
+          listContainer.innerHTML = `
+            <div class="text-center py-6 text-xs text-[#887487] dark:text-[#D4BFD2]">
+              Zero ADHD tax incidents recorded! Your executive safeguards are doing wonders ✨
+            </div>
+          `;
+        } else {
+          listContainer.innerHTML = incidents.map(item => `
+            <div class="p-3.5 rounded-2xl bg-[#FFF9FC] dark:bg-[#201024] border border-[#F4E1EC] dark:border-[#3E2445] flex items-center justify-between gap-3">
+              <div class="flex items-start space-x-3">
+                <div class="w-8 h-8 rounded-xl bg-[#FCECF3] dark:bg-[#3E2242] text-[#994B78] dark:text-[#E889B5] flex items-center justify-center shrink-0">
+                  <i data-lucide="alert-circle" class="w-4 h-4"></i>
+                </div>
+                <div>
+                  <div class="flex items-center space-x-2">
+                    <h4 class="text-xs font-bold text-[#38283A] dark:text-[#FDF7FB]">${escapeHtml(item.title)}</h4>
+                    <span class="text-[9px] font-semibold px-2 py-0.5 rounded-full bg-[#FCECF3] dark:bg-[#3E2242] text-[#994B78] dark:text-[#E889B5]">${escapeHtml(item.category)}</span>
+                  </div>
+                  <p class="text-[11px] text-[#887487] dark:text-[#D4BFD2] mt-0.5 leading-snug">
+                    <span class="font-semibold text-[#6A9B76]">Fix:</span> ${escapeHtml(item.rule || 'Automate for next time')}
+                  </p>
+                </div>
+              </div>
+              <div class="flex items-center space-x-2 shrink-0">
+                <span class="text-xs font-bold text-[#D66A9A]">${formatMoney(item.amount)}</span>
+                <button onclick="deleteAdhdTax('${item.id}')" class="p-1 rounded-lg text-[#887487] hover:text-[#D66A9A]">
+                  <i data-lucide="x" class="w-3.5 h-3.5"></i>
+                </button>
+              </div>
+            </div>
+          `).join('');
+        }
+      }
+
+      // Safeguards Checklist
+      const shieldContainer = document.getElementById('adhd-tax-shield-container');
+      if (shieldContainer) {
+        const safeguards = taxData.safeguards || {};
+        const items = [
+          { key: 'autopay', title: 'Auto-Pay Minimums Active', desc: 'Prevents $35 late fees on bills' },
+          { key: 'trialAlarm', title: '24h Free Trial Cancel Alert', desc: 'Phone alarm set when starting free trials' },
+          { key: 'pauseRule', title: '72-Hour Cart Pause Rule', desc: 'Items over $50 wait 3 days in cart' },
+          { key: 'emergencyMeals', title: 'Emergency Frozen Meals Ready', desc: 'Prevents $40 exhaustion takeout' },
+          { key: 'returnBag', title: 'Store Return Bag Kept by Door', desc: 'Ready for quick drop-offs on errands' }
+        ];
+
+        shieldContainer.innerHTML = items.map(sg => {
+          const isChecked = !!safeguards[sg.key];
+          return `
+            <label class="flex items-start space-x-2.5 p-2.5 rounded-xl hover:bg-[#FFF9FC] dark:hover:bg-[#201024] cursor-pointer transition-colors">
+              <input type="checkbox" ${isChecked ? 'checked' : ''} onchange="toggleSafeguard('${sg.key}', this.checked)" class="w-4 h-4 rounded text-[#994B78] accent-[#994B78] mt-0.5">
+              <div>
+                <div class="font-bold text-[#38283A] dark:text-[#FDF7FB] text-xs">${escapeHtml(sg.title)}</div>
+                <div class="text-[10px] text-[#887487] dark:text-[#D4BFD2]">${escapeHtml(sg.desc)}</div>
+              </div>
+            </label>
+          `;
+        }).join('');
+      }
+
+      if (window.lucide) lucide.createIcons();
+    }
+
+    function toggleSafeguard(key, checked) {
+      if (!currentUserData.adhdTax) currentUserData.adhdTax = { safeguards: {} };
+      if (!currentUserData.adhdTax.safeguards) currentUserData.adhdTax.safeguards = {};
+      currentUserData.adhdTax.safeguards[key] = checked;
+      saveUserData(currentUser.id, currentUserData);
+      if (checked) {
+        triggerGentleConfetti();
+        showToast('Safeguard activated! Protecting your hard-earned money 🛡️');
+      }
+    }
+
+    function handleAddAdhdTaxSubmit(e) {
+      e.preventDefault();
+      const title = document.getElementById('adhdtax-title-input').value.trim();
+      const amount = parseFloat(document.getElementById('adhdtax-amount-input').value) || 0;
+      const category = document.getElementById('adhdtax-cat-input').value || 'Subscription';
+      const date = document.getElementById('adhdtax-date-input').value || new Date().toISOString().split('T')[0];
+      const rule = document.getElementById('adhdtax-rule-input').value.trim() || 'Notice and automate next time';
+
+      if (!title || amount <= 0) return;
+
+      if (!currentUserData.adhdTax) currentUserData.adhdTax = { incidents: [], safeguards: {} };
+      if (!currentUserData.adhdTax.incidents) currentUserData.adhdTax.incidents = [];
+
+      currentUserData.adhdTax.incidents.unshift({
+        id: 'tax_' + Date.now(),
+        title,
+        amount,
+        category,
+        date,
+        rule
+      });
+
+      saveUserData(currentUser.id, currentUserData);
+      closeModal('addAdhdTaxModal');
+      document.getElementById('form-add-adhdtax').reset();
+      renderAdhdTaxView();
+      showToast(`Logged incident. No shame, only learning! 🌸`);
+    }
+
+    function deleteAdhdTax(id) {
+      if (!currentUserData.adhdTax || !currentUserData.adhdTax.incidents) return;
+      currentUserData.adhdTax.incidents = currentUserData.adhdTax.incidents.filter(i => i.id !== id);
+      saveUserData(currentUser.id, currentUserData);
+      renderAdhdTaxView();
+      showToast('Incident removed.');
+    }
+
+    // --- 14. MONEY BACK TRACKER LOGIC ---
+    let moneyBackFilter = 'all';
+
+    function setMoneyBackFilter(flt) {
+      moneyBackFilter = flt;
+      ['all', 'Friend', 'Return', 'Work'].forEach(f => {
+        const btn = document.getElementById(`mb-filter-${f}`);
+        if (!btn) return;
+        if (f === flt) {
+          btn.className = 'px-3 py-1 rounded-xl text-xs font-bold bg-[#FCECF3] dark:bg-[#3E2242] text-[#994B78] dark:text-[#E889B5]';
+        } else {
+          btn.className = 'px-3 py-1 rounded-xl text-xs font-semibold text-[#887487] hover:bg-[#FCECF3]';
+        }
+      });
+      renderMoneyBackView();
+    }
+
+    function renderMoneyBackView() {
+      if (!currentUserData || !currentUserData.moneyBack) return;
+      let claims = currentUserData.moneyBack;
+
+      const pendingClaims = claims.filter(c => c.status === 'pending');
+      const recoveredClaims = claims.filter(c => c.status === 'received');
+
+      const totalPending = pendingClaims.reduce((s, c) => s + (parseFloat(c.amount) || 0), 0);
+      const totalRecovered = recoveredClaims.reduce((s, c) => s + (parseFloat(c.amount) || 0), 0);
+
+      const pendEl = document.getElementById('moneyback-pending-total');
+      const countEl = document.getElementById('moneyback-claims-count');
+      const recovEl = document.getElementById('moneyback-recovered-total');
+
+      if (pendEl) pendEl.textContent = formatMoney(totalPending);
+      if (countEl) countEl.textContent = pendingClaims.length;
+      if (recovEl) recovEl.textContent = formatMoney(totalRecovered);
+
+      const container = document.getElementById('moneyback-list-container');
+      if (!container) return;
+
+      let filtered = claims;
+      if (moneyBackFilter !== 'all') {
+        filtered = claims.filter(c => c.category === moneyBackFilter);
+      }
+
+      if (filtered.length === 0) {
+        container.innerHTML = `
+          <div class="text-center py-6 text-xs text-[#887487] dark:text-[#D4BFD2]">
+            No claims found in this filter. Tap "+ Add Claim" to track refunds or money friends owe you! 🌸
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = filtered.map(c => {
+        const isReceived = c.status === 'received';
+        return `
+          <div class="p-4 rounded-2xl border transition-all ${
+            isReceived
+              ? 'bg-[#E8F5E9]/50 dark:bg-[#1E3B27]/30 border-[#6A9B76]/30 opacity-75'
+              : 'bg-[#FFF9FC] dark:bg-[#201024] border-[#F4E1EC] dark:border-[#3E2445] hover:border-[#D66A9A]/40'
+          } flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div class="flex items-start space-x-3">
+              <div class="w-9 h-9 rounded-xl flex items-center justify-center shrink-0 ${
+                isReceived
+                  ? 'bg-[#6A9B76] text-white'
+                  : 'bg-[#FCECF3] dark:bg-[#3E2242] text-[#994B78] dark:text-[#E889B5]'
+              }">
+                <i data-lucide="${isReceived ? 'check-circle' : 'banknote'}" class="w-4 h-4"></i>
+              </div>
+              <div>
+                <div class="flex items-center space-x-2">
+                  <h4 class="text-xs font-bold text-[#38283A] dark:text-[#FDF7FB] ${isReceived ? 'line-through' : ''}">
+                    ${escapeHtml(c.title)}
+                  </h4>
+                  <span class="text-[9px] font-semibold px-2 py-0.5 rounded-full bg-[#FCECF3] dark:bg-[#3E2242] text-[#994B78] dark:text-[#E889B5]">
+                    ${escapeHtml(c.category || 'Other')}
+                  </span>
+                </div>
+                <p class="text-[11px] text-[#887487] dark:text-[#D4BFD2] mt-0.5">
+                  Owed by <span class="font-semibold text-[#38283A] dark:text-[#FDF7FB]">${escapeHtml(c.debtor || 'Party')}</span>
+                  ${c.expectedDate ? `• Expected by ${escapeHtml(c.expectedDate)}` : ''}
+                </p>
+              </div>
+            </div>
+
+            <div class="flex items-center justify-between sm:justify-end space-x-3 shrink-0">
+              <span class="text-sm font-extrabold ${isReceived ? 'text-[#6A9B76]' : 'text-[#994B78] dark:text-[#E889B5]'}">
+                ${formatMoney(c.amount)}
+              </span>
+              <div class="flex items-center space-x-1.5">
+                ${
+                  !isReceived
+                    ? `<button onclick="markMoneyBackReceived('${c.id}')" class="px-3 py-1 rounded-xl text-[10px] font-bold bg-[#6A9B76] text-white hover:opacity-90 shadow-sm">
+                        Mark Received 💵
+                      </button>`
+                    : `<span class="text-[10px] font-bold text-[#6A9B76] px-2 py-0.5 rounded-full bg-[#E8F5E9] dark:bg-[#1E3B27]">Collected</span>`
+                }
+                <button onclick="deleteMoneyBack('${c.id}')" class="p-1 rounded-lg text-[#887487] hover:text-[#D66A9A]" title="Remove">
+                  <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      if (window.lucide) lucide.createIcons();
+    }
+
+    function handleAddMoneyBackSubmit(e) {
+      e.preventDefault();
+      const title = document.getElementById('mb-title-input').value.trim();
+      const debtor = document.getElementById('mb-debtor-input').value.trim();
+      const amount = parseFloat(document.getElementById('mb-amount-input').value) || 0;
+      const category = document.getElementById('mb-cat-input').value || 'Friend';
+      const expectedDate = document.getElementById('mb-date-input').value || '';
+
+      if (!title || amount <= 0) return;
+
+      if (!currentUserData.moneyBack) currentUserData.moneyBack = [];
+      currentUserData.moneyBack.unshift({
+        id: 'mb_' + Date.now(),
+        title,
+        debtor: debtor || 'Pending Source',
+        amount,
+        category,
+        expectedDate,
+        status: 'pending'
+      });
+
+      saveUserData(currentUser.id, currentUserData);
+      closeModal('addMoneyBackModal');
+      document.getElementById('form-add-moneyback').reset();
+      renderMoneyBackView();
+      triggerGentleConfetti();
+      showToast(`Added claim: "${title}" for ${formatMoney(amount)} 🌸`);
+    }
+
+    function markMoneyBackReceived(id) {
+      const c = (currentUserData.moneyBack || []).find(item => item.id === id);
+      if (!c) return;
+      c.status = 'received';
+      c.receivedDate = new Date().toISOString().split('T')[0];
+      saveUserData(currentUser.id, currentUserData);
+      renderMoneyBackView();
+      triggerGentleConfetti();
+      showToast(`Money back received! ${formatMoney(c.amount)} back in your hands 🎉`);
+    }
+
+    function deleteMoneyBack(id) {
+      if (!confirm('Remove this reimbursement claim?')) return;
+      currentUserData.moneyBack = (currentUserData.moneyBack || []).filter(c => c.id !== id);
+      saveUserData(currentUser.id, currentUserData);
+      renderMoneyBackView();
+      showToast('Claim removed.');
+    }
+
+    // ==========================================
+    // FOCUS SPACE CONTROLLER & WEB AUDIO ENGINE
+    // ==========================================
+    let focusTimerInterval = null;
+    let focusTimerSeconds = 25 * 60;
+    let focusTimerTotal = 25 * 60;
+    let focusTimerRunning = false;
+    let focusTimerModeName = 'Focus';
+    let audioCtx = null;
+    let ambientNoiseNode = null;
+    let ambientGainNode = null;
+    let currentAmbientType = 'stop';
+
+    function initAudioContext() {
+      if (!audioCtx) {
+        const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+        if (AudioContextClass) audioCtx = new AudioContextClass();
+      }
+      if (audioCtx && audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+    }
+
+    function toggleAmbientSound(type) {
+      initAudioContext();
+      if (!audioCtx) return;
+
+      if (ambientNoiseNode) {
+        try {
+          ambientNoiseNode.stop();
+          ambientNoiseNode.disconnect();
+        } catch (e) {}
+        ambientNoiseNode = null;
+      }
+      if (ambientGainNode) {
+        try { ambientGainNode.disconnect(); } catch (e) {}
+        ambientGainNode = null;
+      }
+
+      const statusEl = document.getElementById('ambient-sound-status');
+
+      if (type === 'stop' || currentAmbientType === type) {
+        currentAmbientType = 'stop';
+        if (statusEl) statusEl.textContent = 'Muted';
+        return;
+      }
+
+      currentAmbientType = type;
+      if (statusEl) statusEl.textContent = type === 'rain' ? '🌧️ Rain' : '🌸 Pink Noise';
+
+      const bufferSize = audioCtx.sampleRate * 4;
+      const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+      const data = buffer.getChannelData(0);
+
+      if (type === 'rain') {
+        let lastOut = 0.0;
+        for (let i = 0; i < bufferSize; i++) {
+          const white = Math.random() * 2 - 1;
+          data[i] = (lastOut + (0.02 * white)) / 1.02;
+          lastOut = data[i];
+          data[i] *= 3.5;
+        }
+      } else {
+        let b0 = 0, b1 = 0, b2 = 0, b3 = 0, b4 = 0, b5 = 0, b6 = 0;
+        for (let i = 0; i < bufferSize; i++) {
+          const white = Math.random() * 2 - 1;
+          b0 = 0.99886 * b0 + white * 0.0555179;
+          b1 = 0.99332 * b1 + white * 0.0750759;
+          b2 = 0.96900 * b2 + white * 0.1538520;
+          b3 = 0.86650 * b3 + white * 0.3104856;
+          b4 = 0.55000 * b4 + white * 0.5329522;
+          b5 = -0.7616 * b5 - white * 0.0168980;
+          data[i] = (b0 + b1 + b2 + b3 + b4 + b5 + b6 + white * 0.5362) * 0.08;
+          b6 = white * 0.115926;
+        }
+      }
+
+      const noiseSource = audioCtx.createBufferSource();
+      noiseSource.buffer = buffer;
+      noiseSource.loop = true;
+
+      ambientGainNode = audioCtx.createGain();
+      ambientGainNode.gain.value = 0.15;
+
+      noiseSource.connect(ambientGainNode);
+      ambientGainNode.connect(audioCtx.destination);
+      noiseSource.start();
+      ambientNoiseNode = noiseSource;
+    }
+
+    function setFocusTimerMode(mins, modeName) {
+      clearInterval(focusTimerInterval);
+      focusTimerRunning = false;
+      focusTimerSeconds = mins * 60;
+      focusTimerTotal = mins * 60;
+      focusTimerModeName = modeName;
+      updateFocusTimerDisplay();
+
+      const playBtnText = document.getElementById('focus-play-btn-text');
+      if (playBtnText) playBtnText.textContent = `Start ${modeName}`;
+
+      const modes = [
+        { id: 'btn-timer-25', min: 25 },
+        { id: 'btn-timer-15', min: 15 },
+        { id: 'btn-timer-5', min: 5 },
+        { id: 'btn-timer-deep', min: 15 }
+      ];
+      modes.forEach(m => {
+        const el = document.getElementById(m.id);
+        if (!el) return;
+        if (m.min === mins && (m.id !== 'btn-timer-deep' || modeName === 'Deep Rest')) {
+          el.className = 'px-3.5 py-1.5 rounded-xl text-xs font-bold bg-[#994B78] text-white shadow-sm transition-all';
+        } else {
+          el.className = 'px-3.5 py-1.5 rounded-xl text-xs font-semibold text-[#887487] dark:text-[#D4BFD2] hover:bg-[#FCECF3] dark:hover:bg-[#3E2242] transition-all';
+        }
+      });
+    }
+
+    function toggleFocusTimer() {
+      const playBtnText = document.getElementById('focus-play-btn-text');
+      if (focusTimerRunning) {
+        clearInterval(focusTimerInterval);
+        focusTimerRunning = false;
+        if (playBtnText) playBtnText.textContent = 'Resume';
+      } else {
+        focusTimerRunning = true;
+        if (playBtnText) playBtnText.textContent = 'Pause';
+        focusTimerInterval = setInterval(() => {
+          if (focusTimerSeconds > 0) {
+            focusTimerSeconds--;
+            updateFocusTimerDisplay();
+          } else {
+            clearInterval(focusTimerInterval);
+            focusTimerRunning = false;
+            handleFocusTimerComplete();
+          }
+        }, 1000);
+      }
+    }
+
+    function resetFocusTimer() {
+      clearInterval(focusTimerInterval);
+      focusTimerRunning = false;
+      focusTimerSeconds = focusTimerTotal;
+      updateFocusTimerDisplay();
+      const playBtnText = document.getElementById('focus-play-btn-text');
+      if (playBtnText) playBtnText.textContent = `Start ${focusTimerModeName}`;
+    }
+
+    function updateFocusTimerDisplay() {
+      const mins = Math.floor(focusTimerSeconds / 60);
+      const secs = focusTimerSeconds % 60;
+      const display = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+      const el = document.getElementById('focus-clock-display');
+      if (el) el.textContent = display;
+    }
+
+    function handleFocusTimerComplete() {
+      triggerGentleConfetti();
+      playChime();
+      if (!currentUserData.focusSpace) currentUserData.focusSpace = {};
+      currentUserData.focusSpace.completedSessions = (currentUserData.focusSpace.completedSessions || 0) + 1;
+      saveUserData(currentUser.id, currentUserData);
+      renderFocusView();
+      showToast(`🎉 Focus session completed! You gave your brain pure momentum.`);
+    }
+
+    function playChime() {
+      try {
+        initAudioContext();
+        if (!audioCtx) return;
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(587.33, audioCtx.currentTime);
+        osc.frequency.setValueAtTime(880, audioCtx.currentTime + 0.15);
+        gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.8);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + 0.8);
+      } catch (e) {}
+    }
+
+    function completeActiveTarget() {
+      if (!currentUserData.focusSpace) currentUserData.focusSpace = {};
+      const completedTarget = currentUserData.focusSpace.activeTarget || 'Target';
+      currentUserData.focusSpace.activeTarget = '';
+      currentUserData.focusSpace.completedSessions = (currentUserData.focusSpace.completedSessions || 0) + 1;
+      saveUserData(currentUser.id, currentUserData);
+      renderFocusView();
+      triggerGentleConfetti();
+      showToast(`🎯 Finished: "${completedTarget}"! Great job!`);
+    }
+
+    function saveNewActiveTarget() {
+      const input = document.getElementById('focus-new-target-input');
+      const val = input ? input.value.trim() : '';
+      if (!val) return;
+      if (!currentUserData.focusSpace) currentUserData.focusSpace = {};
+      currentUserData.focusSpace.activeTarget = val;
+      saveUserData(currentUser.id, currentUserData);
+      input.value = '';
+      renderFocusView();
+      showToast(`🎯 Target locked in: "${val}"`);
+    }
+
+    function addBrainDumpItem() {
+      const input = document.getElementById('brain-dump-input');
+      const val = input ? input.value.trim() : '';
+      if (!val) return;
+      if (!currentUserData.focusSpace) currentUserData.focusSpace = {};
+      if (!currentUserData.focusSpace.brainDump) currentUserData.focusSpace.brainDump = [];
+      currentUserData.focusSpace.brainDump.unshift({
+        id: 'bd_' + Date.now(),
+        text: val,
+        date: new Date().toISOString().split('T')[0]
+      });
+      saveUserData(currentUser.id, currentUserData);
+      input.value = '';
+      renderFocusView();
+      showToast(`Parked thought 💡 Focus preserved!`);
+    }
+
+    function deleteBrainDumpItem(id) {
+      if (!currentUserData.focusSpace || !currentUserData.focusSpace.brainDump) return;
+      currentUserData.focusSpace.brainDump = currentUserData.focusSpace.brainDump.filter(item => item.id !== id);
+      saveUserData(currentUser.id, currentUserData);
+      renderFocusView();
+    }
+
+    function convertBrainDumpToTask(id) {
+      if (!currentUserData.focusSpace || !currentUserData.focusSpace.brainDump) return;
+      const item = currentUserData.focusSpace.brainDump.find(b => b.id === id);
+      if (!item) return;
+      if (!currentUserData.calendarTasks) currentUserData.calendarTasks = [];
+      currentUserData.calendarTasks.push({
+        id: 'task_' + Date.now(),
+        title: item.text,
+        date: new Date().toISOString().split('T')[0],
+        completed: false,
+        category: 'tcat_personal'
+      });
+      currentUserData.focusSpace.brainDump = currentUserData.focusSpace.brainDump.filter(b => b.id !== id);
+      saveUserData(currentUser.id, currentUserData);
+      renderFocusView();
+      renderTodayTasks();
+      renderCalendarAndTasks();
+      showToast(`Moved "${item.text}" to Calendar Tasks! 📅`);
+    }
+
+    function renderFocusView() {
+      if (!currentUserData) return;
+      ensureDataIntegrity(currentUserData);
+      const fs = currentUserData.focusSpace || { completedSessions: 2, activeTarget: '', brainDump: [] };
+
+      const sessionsEl = document.getElementById('focus-completed-sessions');
+      if (sessionsEl) sessionsEl.textContent = `${fs.completedSessions || 0} Focus Sprints Done`;
+
+      const targetTextEl = document.getElementById('focus-active-target-text');
+      if (targetTextEl) {
+        targetTextEl.textContent = fs.activeTarget || 'No active target locked in. Type one below!';
+      }
+
+      const dumpListEl = document.getElementById('brain-dump-list');
+      if (dumpListEl) {
+        const items = fs.brainDump || [];
+        if (items.length === 0) {
+          dumpListEl.innerHTML = `<p class="text-xs text-[#887487] dark:text-[#D4BFD2] italic py-2">Distraction pad is empty. Park random thoughts here to stay in flow!</p>`;
+        } else {
+          dumpListEl.innerHTML = items.map(item => `
+            <div class="p-2.5 rounded-2xl bg-[#FFF9FC] dark:bg-[#201024] border border-[#F4E1EC] dark:border-[#3E2445] flex items-center justify-between gap-2 text-xs">
+              <span class="text-[#38283A] dark:text-[#FDF7FB] truncate">${escapeHtml(item.text)}</span>
+              <div class="flex items-center space-x-1 shrink-0">
+                <button onclick="convertBrainDumpToTask('${item.id}')" class="px-2 py-0.5 rounded-lg bg-[#FCECF3] dark:bg-[#3E2242] text-[10px] font-bold text-[#994B78] dark:text-[#E889B5] hover:opacity-90" title="Convert to Task">
+                  + Task
+                </button>
+                <button onclick="deleteBrainDumpItem('${item.id}')" class="p-1 text-[#887487] hover:text-[#D66A9A]">
+                  <i data-lucide="x" class="w-3.5 h-3.5"></i>
+                </button>
+              </div>
+            </div>
+          `).join('');
+        }
+      }
+
+      if (window.lucide) lucide.createIcons();
+    }
+
+    // ==========================================
+    // MOOD & ENERGY CONTROLLER
+    // ==========================================
+    let currentSelectedSpoons = 4;
+    let currentSelectedEnergy = 'Medium';
+    let currentSelectedMood = 'Calm';
+
+    function selectSpoons(n) {
+      currentSelectedSpoons = n;
+      const spoonDescriptions = {
+        1: '(1 Spoon - Depleted / Emergency Rest)',
+        2: '(2 Spoons - Low Energy / Gentle Day)',
+        3: '(3 Spoons - Moderate Capacity)',
+        4: '(4 Spoons - Good Capacity)',
+        5: '(5 Spoons - High Focus / Ready)'
+      };
+      const label = document.getElementById('spoon-count-label');
+      if (label) label.textContent = spoonDescriptions[n] || `(${n} Spoons)`;
+
+      const container = document.getElementById('spoons-selector-container');
+      if (container) {
+        const btns = container.querySelectorAll('.spoon-btn');
+        btns.forEach((btn, idx) => {
+          if (idx + 1 === n) {
+            btn.className = 'spoon-btn spoon-active flex-1 py-2.5 rounded-2xl bg-[#994B78] text-white border border-[#994B78] text-xs font-bold transition-all';
+          } else {
+            btn.className = 'spoon-btn flex-1 py-2.5 rounded-2xl bg-[#FFF9FC] dark:bg-[#201024] border border-[#F4E1EC] dark:border-[#3E2445] text-xs font-bold text-[#38283A] dark:text-[#FDF7FB] hover:border-[#994B78] transition-all';
+          }
+        });
+      }
+    }
+
+    function selectEnergy(lvl) {
+      currentSelectedEnergy = lvl;
+      const lowBtn = document.getElementById('energy-btn-low');
+      const medBtn = document.getElementById('energy-btn-medium');
+      const highBtn = document.getElementById('energy-btn-high');
+      const activeClass = 'py-2.5 rounded-2xl bg-[#994B78] text-white border border-[#994B78] text-xs font-bold transition-all';
+      const inactiveClass = 'py-2.5 rounded-2xl bg-[#FFF9FC] dark:bg-[#201024] border border-[#F4E1EC] dark:border-[#3E2445] text-xs font-semibold text-[#38283A] dark:text-[#FDF7FB] transition-all';
+
+      if (lowBtn) lowBtn.className = lvl === 'Low' ? activeClass : inactiveClass;
+      if (medBtn) medBtn.className = lvl === 'Medium' ? activeClass : inactiveClass;
+      if (highBtn) highBtn.className = lvl === 'High' ? activeClass : inactiveClass;
+    }
+
+    function selectMood(mood) {
+      currentSelectedMood = mood;
+      const container = document.getElementById('mood-selector-container');
+      if (container) {
+        const pills = container.querySelectorAll('.mood-pill');
+        pills.forEach(pill => {
+          if (pill.textContent.includes(mood)) {
+            pill.className = 'mood-pill py-2 rounded-xl text-xs font-bold bg-[#FCECF3] dark:bg-[#3E2242] text-[#994B78] dark:text-[#E889B5] border border-[#994B78]';
+          } else {
+            pill.className = 'mood-pill py-2 rounded-xl text-xs font-semibold text-[#887487] dark:text-[#D4BFD2] bg-[#FFF9FC] dark:bg-[#201024] border border-[#F4E1EC]';
+          }
+        });
+      }
+    }
+
+    function saveMoodCheckIn() {
+      const noteInput = document.getElementById('mood-note-input');
+      const note = noteInput ? noteInput.value.trim() : '';
+      const todayStr = new Date().toISOString().split('T')[0];
+
+      if (!currentUserData.moodEnergy) currentUserData.moodEnergy = { history: [] };
+      currentUserData.moodEnergy.today = {
+        spoons: currentSelectedSpoons,
+        energy: currentSelectedEnergy,
+        mood: currentSelectedMood,
+        note,
+        date: todayStr
+      };
+
+      if (!currentUserData.moodEnergy.history) currentUserData.moodEnergy.history = [];
+      currentUserData.moodEnergy.history = currentUserData.moodEnergy.history.filter(h => h.date !== todayStr);
+      currentUserData.moodEnergy.history.unshift({
+        id: 'me_' + Date.now(),
+        date: todayStr,
+        spoons: currentSelectedSpoons,
+        energy: currentSelectedEnergy,
+        mood: currentSelectedMood,
+        note
+      });
+
+      saveUserData(currentUser.id, currentUserData);
+      renderMoodView();
+      triggerGentleConfetti();
+      showToast(`Saved today's capacity check-in! Thank you for honoring your energy 💖`);
+    }
+
+    function renderMoodView() {
+      if (!currentUserData) return;
+      ensureDataIntegrity(currentUserData);
+      const me = currentUserData.moodEnergy || {};
+      const todayStr = new Date().toISOString().split('T')[0];
+      const isLoggedToday = me.today && me.today.date === todayStr;
+
+      const navBadge = document.getElementById('nav-mood-badge');
+      if (navBadge) {
+        if (isLoggedToday) {
+          navBadge.textContent = 'Done';
+          navBadge.className = 'px-2 py-0.5 rounded-full text-[10px] font-bold bg-[#EAF5EC] dark:bg-[#1E3B27] text-[#2E7D32] dark:text-[#81C784]';
+          navBadge.classList.remove('hidden');
+        } else {
+          navBadge.classList.add('hidden');
+        }
+      }
+
+      const topBadge = document.getElementById('mood-today-badge-top');
+      if (topBadge) {
+        if (isLoggedToday) {
+          topBadge.innerHTML = '<span>✓</span><span>Today\'s Check-in Done</span>';
+          topBadge.className = 'px-3.5 py-1.5 rounded-2xl bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800 text-xs font-bold shadow-sm flex items-center space-x-1.5';
+        } else {
+          topBadge.innerHTML = '<span>⚡</span><span>Check-in Pending</span>';
+          topBadge.className = 'px-3.5 py-1.5 rounded-2xl bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-amber-800 text-xs font-bold shadow-sm flex items-center space-x-1.5';
+        }
+      }
+
+      const insightText = document.getElementById('mood-insight-text');
+      if (insightText) {
+        const spoons = me.today ? me.today.spoons : currentSelectedSpoons;
+        if (spoons <= 2) {
+          insightText.textContent = `🚨 Low spoon alert (${spoons}/5)! Executive function is in conservation mode. Hide takeaway delivery apps and use your Low-Spoon emergency meals tonight!`;
+        } else if (spoons === 3) {
+          insightText.textContent = `⚖️ Steady balanced energy (${spoons}/5). Prioritize your top 1 financial goal and do not overwhelm yourself with big projects.`;
+        } else {
+          insightText.textContent = `🚀 High capacity day (${spoons}/5)! Perfect time to tackle bills, budget reconciliation, or debt payments. Remember to rest before feeling exhausted!`;
+        }
+      }
+
+      const histList = document.getElementById('mood-history-list');
+      if (histList) {
+        const list = me.history || [];
+        if (list.length === 0) {
+          histList.innerHTML = `<p class="text-xs text-[#887487] dark:text-[#D4BFD2] italic py-2">No past check-ins recorded yet.</p>`;
+        } else {
+          histList.innerHTML = list.slice(0, 7).map(item => `
+            <div class="p-3 rounded-2xl bg-[#FFF9FC] dark:bg-[#201024] border border-[#F4E1EC] dark:border-[#3E2445] flex items-center justify-between text-xs">
+              <div class="space-y-0.5">
+                <div class="flex items-center space-x-2">
+                  <span class="font-bold text-[#38283A] dark:text-[#FDF7FB]">${escapeHtml(item.date)}</span>
+                  <span class="text-[10px] px-2 py-0.5 rounded-full bg-[#FCECF3] dark:bg-[#3E2242] text-[#994B78] dark:text-[#E889B5] font-semibold">${escapeHtml(item.mood || 'Calm')}</span>
+                  <span class="text-[10px] font-bold text-[#887487]">${escapeHtml(item.energy || 'Medium')}</span>
+                </div>
+                ${item.note ? `<p class="text-[11px] text-[#887487] dark:text-[#D4BFD2]">${escapeHtml(item.note)}</p>` : ''}
+              </div>
+              <span class="text-sm font-bold text-[#994B78] dark:text-[#E889B5]">🥄 ${item.spoons || 3}</span>
+            </div>
+          `).join('');
+        }
+      }
+
+      if (window.lucide) lucide.createIcons();
+    }
+
+    // ==========================================
+    // MEALS & GROCERIES CONTROLLER
+    // ==========================================
+    function renderMealsView() {
+      if (!currentUserData) return;
+      ensureDataIntegrity(currentUserData);
+      const mg = currentUserData.mealsGroceries || {};
+
+      const groceries = mg.groceries || [];
+      const pendingCount = groceries.filter(g => !g.bought).length;
+      const navBadge = document.getElementById('nav-meals-badge');
+      if (navBadge) {
+        navBadge.textContent = pendingCount;
+        if (pendingCount > 0) {
+          navBadge.classList.remove('hidden');
+        } else {
+          navBadge.classList.add('hidden');
+        }
+      }
+
+      const spoilingList = document.getElementById('spoiling-items-list');
+      if (spoilingList) {
+        const items = mg.spoilingSoon || [];
+        if (items.length === 0) {
+          spoilingList.innerHTML = `<p class="text-[11px] text-amber-700 dark:text-amber-400 italic">No food at risk right now! Great job.</p>`;
+        } else {
+          spoilingList.innerHTML = items.map(item => `
+            <div class="flex items-center justify-between text-xs py-1 border-b border-amber-200/50 dark:border-amber-900/30 last:border-0">
+              <span class="font-medium text-[#38283A] dark:text-[#FDF7FB] truncate">${escapeHtml(item.name)}</span>
+              <div class="flex items-center space-x-1 shrink-0">
+                <span class="px-2 py-0.5 rounded-full text-[10px] font-bold ${item.daysLeft <= 1 ? 'bg-rose-100 text-rose-700' : 'bg-amber-100 text-amber-800'}">
+                  ${item.daysLeft}d left
+                </span>
+                <button onclick="markSpoilingEaten('${item.id}')" class="p-1 text-emerald-600 hover:scale-110" title="Mark Eaten">
+                  <i data-lucide="check" class="w-3.5 h-3.5"></i>
+                </button>
+                <button onclick="deleteSpoiling('${item.id}')" class="p-1 text-[#887487] hover:text-rose-600" title="Discard">
+                  <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
+                </button>
+              </div>
+            </div>
+          `).join('');
+        }
+      }
+
+      const emList = document.getElementById('emergency-meals-list');
+      if (emList) {
+        const ems = mg.emergencyMeals || [];
+        emList.innerHTML = ems.map(em => `
+          <button onclick="pickEmergencyMealForDinner('${escapeHtml(em.name)}')" class="px-2.5 py-1 rounded-xl bg-white dark:bg-[#201024] border border-[#F4E1EC] dark:border-[#3E2445] text-[10px] font-medium text-[#38283A] dark:text-[#FDF7FB] hover:border-[#994B78] flex items-center space-x-1 shadow-xs transition-all">
+            <span>✨</span>
+            <span>${escapeHtml(em.name)} (${escapeHtml(em.time)})</span>
+          </button>
+        `).join('');
+      }
+
+      const tm = mg.todayMeals || {};
+      const bEl = document.getElementById('meal-breakfast-display');
+      const lEl = document.getElementById('meal-lunch-display');
+      const dEl = document.getElementById('meal-dinner-display');
+      if (bEl) bEl.textContent = tm.breakfast || 'Not set yet';
+      if (lEl) lEl.textContent = tm.lunch || 'Not set yet';
+      if (dEl) dEl.textContent = tm.dinner || 'Not set yet';
+
+      const gContainer = document.getElementById('grocery-items-container');
+      if (gContainer) {
+        if (groceries.length === 0) {
+          gContainer.innerHTML = `<p class="text-xs text-[#887487] dark:text-[#D4BFD2] italic py-4 text-center">Grocery list is clear! Click '+ Add Grocery Item' to add fresh supplies.</p>`;
+        } else {
+          gContainer.innerHTML = groceries.map(item => `
+            <div class="p-3 rounded-2xl ${item.bought ? 'bg-[#F9F7F9] dark:bg-[#1C1220] opacity-60' : 'bg-[#FFF9FC] dark:bg-[#201024]'} border border-[#F4E1EC] dark:border-[#3E2445] flex items-center justify-between gap-3 text-xs transition-all">
+              <div class="flex items-center space-x-3">
+                <input type="checkbox" ${item.bought ? 'checked' : ''} onchange="toggleGroceryBought('${item.id}')" class="w-4 h-4 rounded text-[#994B78] focus:ring-[#994B78] cursor-pointer">
+                <div>
+                  <p class="font-bold ${item.bought ? 'line-through text-[#887487]' : 'text-[#38283A] dark:text-[#FDF7FB]'}">
+                    ${escapeHtml(item.name)}
+                  </p>
+                  <p class="text-[10px] text-[#887487] dark:text-[#D4BFD2]">
+                    ${escapeHtml(item.category || 'General')} ${item.cost ? `• ${formatMoney(item.cost)}` : ''}
+                  </p>
+                </div>
+              </div>
+
+              <div class="flex items-center space-x-2">
+                ${item.cost ? `<span class="font-extrabold text-xs text-[#994B78] dark:text-[#E889B5]">${formatMoney(item.cost)}</span>` : ''}
+                <button onclick="deleteGrocery('${item.id}')" class="p-1 rounded-lg text-[#887487] hover:text-[#D66A9A]">
+                  <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
+                </button>
+              </div>
+            </div>
+          `).join('');
+        }
+      }
+
+      if (window.lucide) lucide.createIcons();
+    }
+
+    function toggleGroceryBought(id) {
+      if (!currentUserData.mealsGroceries || !currentUserData.mealsGroceries.groceries) return;
+      const item = currentUserData.mealsGroceries.groceries.find(g => g.id === id);
+      if (item) {
+        item.bought = !item.bought;
+        saveUserData(currentUser.id, currentUserData);
+        renderMealsView();
+        if (item.bought) triggerGentleConfetti();
+      }
+    }
+
+    function handleAddGrocerySubmit(e) {
+      e.preventDefault();
+      const name = document.getElementById('grocery-name-input').value.trim();
+      const category = document.getElementById('grocery-cat-input').value || 'Produce & Fresh';
+      const cost = parseFloat(document.getElementById('grocery-cost-input').value) || 0;
+      if (!name) return;
+
+      if (!currentUserData.mealsGroceries) currentUserData.mealsGroceries = {};
+      if (!currentUserData.mealsGroceries.groceries) currentUserData.mealsGroceries.groceries = [];
+      currentUserData.mealsGroceries.groceries.push({
+        id: 'gr_' + Date.now(),
+        name,
+        category,
+        cost,
+        bought: false
+      });
+
+      saveUserData(currentUser.id, currentUserData);
+      closeModal('addGroceryModal');
+      document.getElementById('form-add-grocery').reset();
+      renderMealsView();
+      showToast(`Added "${name}" to grocery list 🛒`);
+    }
+
+    function deleteGrocery(id) {
+      if (!currentUserData.mealsGroceries || !currentUserData.mealsGroceries.groceries) return;
+      currentUserData.mealsGroceries.groceries = currentUserData.mealsGroceries.groceries.filter(g => g.id !== id);
+      saveUserData(currentUser.id, currentUserData);
+      renderMealsView();
+    }
+
+    function handleAddSpoilingSubmit(e) {
+      e.preventDefault();
+      const name = document.getElementById('spoiling-name-input').value.trim();
+      const daysLeft = parseInt(document.getElementById('spoiling-days-input').value) || 2;
+      if (!name) return;
+
+      if (!currentUserData.mealsGroceries) currentUserData.mealsGroceries = {};
+      if (!currentUserData.mealsGroceries.spoilingSoon) currentUserData.mealsGroceries.spoilingSoon = [];
+      currentUserData.mealsGroceries.spoilingSoon.push({
+        id: 'sp_' + Date.now(),
+        name,
+        daysLeft,
+        eaten: false
+      });
+
+      saveUserData(currentUser.id, currentUserData);
+      closeModal('addSpoilingModal');
+      document.getElementById('form-add-spoiling').reset();
+      renderMealsView();
+      showToast(`Added "${name}" to Spoiling Radar ⚠️ Eat soon!`);
+    }
+
+    function markSpoilingEaten(id) {
+      if (!currentUserData.mealsGroceries || !currentUserData.mealsGroceries.spoilingSoon) return;
+      currentUserData.mealsGroceries.spoilingSoon = currentUserData.mealsGroceries.spoilingSoon.filter(s => s.id !== id);
+      saveUserData(currentUser.id, currentUserData);
+      renderMealsView();
+      triggerGentleConfetti();
+      showToast(`Eaten in time! Saved food & stopped the ADHD tax 🥗`);
+    }
+
+    function deleteSpoiling(id) {
+      if (!currentUserData.mealsGroceries || !currentUserData.mealsGroceries.spoilingSoon) return;
+      currentUserData.mealsGroceries.spoilingSoon = currentUserData.mealsGroceries.spoilingSoon.filter(s => s.id !== id);
+      saveUserData(currentUser.id, currentUserData);
+      renderMealsView();
+    }
+
+    function pickEmergencyMealForDinner(name) {
+      if (!currentUserData.mealsGroceries) currentUserData.mealsGroceries = {};
+      if (!currentUserData.mealsGroceries.todayMeals) currentUserData.mealsGroceries.todayMeals = {};
+      currentUserData.mealsGroceries.todayMeals.dinner = name;
+      saveUserData(currentUser.id, currentUserData);
+      renderMealsView();
+      showToast(`Set "${name}" as tonight's dinner 🍲 Low-stress meal chosen!`);
+    }
+
+    function logGroceriesToExpenses() {
+      const groceries = (currentUserData.mealsGroceries && currentUserData.mealsGroceries.groceries) || [];
+      const totalCost = groceries.reduce((sum, g) => sum + (parseFloat(g.cost) || 0), 0);
+      if (totalCost <= 0) {
+        showToast('Please specify estimated cost on grocery items first!');
+        return;
+      }
+      if (!confirm(`Log ${formatMoney(totalCost)} of grocery purchases to your Expenses tracker?`)) return;
+
+      if (!currentUserData.expensesHistory) currentUserData.expensesHistory = [];
+      currentUserData.expensesHistory.unshift({
+        id: 'exp_' + Date.now(),
+        title: 'Weekly Grocery Haul',
+        amount: totalCost,
+        category: 'Food & Dining',
+        date: new Date().toISOString().split('T')[0],
+        type: 'Essential'
+      });
+
+      groceries.forEach(g => g.bought = true);
+      saveUserData(currentUser.id, currentUserData);
+      renderAll();
+      triggerGentleConfetti();
+      showToast(`Logged ${formatMoney(totalCost)} to Food & Dining expense! 🛒`);
+    }
+
     function renderAll() {
       if (!currentUserData) return;
       ensureDataIntegrity(currentUserData);
@@ -5243,6 +7302,12 @@
       renderBudgetViewCategories();
       renderHabitsView();
       renderSelfCareView();
+      renderDebtView();
+      renderAdhdTaxView();
+      renderMoneyBackView();
+      renderFocusView();
+      renderMoodView();
+      renderMealsView();
       populateExpenseCategorySelect();
       populateBillCategorySelect();
       populateTaskCategoryDropdowns();
@@ -6623,8 +8688,8 @@
 
     function switchView(viewName) {
       const views = [
-        'overview', 'budget', 'calendar', 'expenses', 'bills', 'settings',
-        'habits', 'goals', 'selfcare'
+        'overview', 'focus', 'mood', 'meals', 'budget', 'calendar', 'expenses', 'bills', 'settings',
+        'habits', 'goals', 'selfcare', 'debt', 'adhdtax', 'moneyback'
       ];
       views.forEach(v => {
         const el = document.getElementById(`view-${v}`);
@@ -6661,11 +8726,17 @@
         sidebar.classList.add('-translate-x-full');
       }
 
+      if (viewName === 'focus') renderFocusView();
+      if (viewName === 'mood') renderMoodView();
+      if (viewName === 'meals') renderMealsView();
       if (viewName === 'expenses') renderExpensesTable();
       if (viewName === 'budget') renderBudgetViewCategories();
       if (viewName === 'bills') renderBillsListFull();
       if (viewName === 'habits') renderHabitsView();
       if (viewName === 'selfcare') renderSelfCareView();
+      if (viewName === 'debt') renderDebtView();
+      if (viewName === 'adhdtax') renderAdhdTaxView();
+      if (viewName === 'moneyback') renderMoneyBackView();
 
       window.scrollTo({ top: 0, behavior: 'smooth' });
       if (window.lucide) lucide.createIcons();
