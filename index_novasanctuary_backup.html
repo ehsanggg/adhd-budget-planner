@@ -1,0 +1,2359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NovaSanctuary ✨ ADHD Life & Budget Sanctuary</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Canvas Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <!-- Google Fonts: Plus Jakarta Sans, Playfair Display & Alex Brush -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            serif: ['"Playfair Display"', 'serif'],
+            script: ['"Alex Brush"', 'cursive'],
+          },
+          colors: {
+            nova: {
+              cream: '#FFF6F3',
+              card: '#FFFFFF',
+              ink: '#51364E',
+              inkMuted: '#754A67',
+              border: '#F5C7DB',
+              borderLight: '#FBE9F1',
+              berry: '#863864',
+              berryHover: '#A34F78',
+              roseSoft: '#FDF2F7',
+              sage: '#2E7D32',
+              sageSoft: '#F0FDF4',
+              lavender: '#6B21A8',
+              lavenderSoft: '#FAF5FF',
+              amber: '#B45309',
+              amberSoft: '#FFFBEB',
+              darkBg: '#18121E',
+              darkCard: '#241B2D',
+              darkBorder: '#3E304B',
+              darkInk: '#F5EBF2',
+              darkInkMuted: '#B9A6B5'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      transition: background-color 0.25s ease, color 0.25s ease;
+    }
+    .custom-scroll::-webkit-scrollbar {
+      width: 5px;
+      height: 5px;
+    }
+    .custom-scroll::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    .custom-scroll::-webkit-scrollbar-thumb {
+      background: rgba(134, 56, 100, 0.2);
+      border-radius: 9999px;
+    }
+    .nova-card {
+      background-color: #FFFFFF;
+      border: 1px solid #F5C7DB;
+      box-shadow: 0 4px 18px -4px rgba(81, 54, 78, 0.05);
+      transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+    }
+    .dark .nova-card {
+      background-color: #241B2D;
+      border-color: #3E304B;
+      box-shadow: 0 4px 20px -4px rgba(0, 0, 0, 0.35);
+    }
+    .nova-card:hover {
+      border-color: #863864;
+    }
+    .dark .nova-card:hover {
+      border-color: #DB82A7;
+    }
+    .jar-level {
+      transition: height 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+  </style>
+</head>
+<body class="bg-[#FFF6F3] dark:bg-[#18121E] text-[#51364E] dark:text-[#F5EBF2] min-h-screen antialiased selection:bg-[#F5C7DB] selection:text-[#51364E]">
+
+  <!-- ==================== MAIN APPLICATION CONTAINER ==================== -->
+  <div id="appContainer" class="flex flex-col md:flex-row min-h-screen w-full transition-all duration-700">
+
+    <!-- Mobile Top Header Bar -->
+    <div class="md:hidden flex items-center justify-between p-4 bg-white/95 dark:bg-[#241B2D]/95 backdrop-blur border-b border-[#F5C7DB] dark:border-[#3E304B] sticky top-0 z-40">
+      <div class="flex items-center space-x-2">
+        <span class="text-xl">✧</span>
+        <span class="font-serif font-bold text-lg text-[#863864] dark:text-[#DB82A7]">NovaSanctuary</span>
+      </div>
+      <div class="flex items-center space-x-2">
+        <button onclick="openBudgetModal(false)" class="px-2.5 py-1.5 rounded-xl text-xs font-bold bg-[#FDF2F7] dark:bg-[#32233E] text-[#863864] dark:text-[#DB82A7] border border-[#F5C7DB] dark:border-[#3E304B]">
+          Budget $
+        </button>
+        <button onclick="toggleTheme()" class="p-2 rounded-xl bg-white dark:bg-[#32233E] text-[#51364E] dark:text-[#F5EBF2] border border-[#F5C7DB] dark:border-[#3E304B]">
+          <i data-lucide="moon" class="w-4 h-4 dark:hidden"></i>
+          <i data-lucide="sun" class="w-4 h-4 hidden dark:inline"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- SIDEBAR (Soft-weight, Clean, Solid Colors, Exact NovaTrack Layout) -->
+    <aside class="w-full md:w-64 bg-white/90 dark:bg-[#1E1627]/95 backdrop-blur-md border-r border-[#F5C7DB] dark:border-[#3E304B] flex flex-col justify-between shrink-0 p-5 md:min-h-screen z-30">
+      <div>
+        <!-- Brand / Sanctuary Header -->
+        <div class="hidden md:flex items-center space-x-3 mb-6 px-1">
+          <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-[#DB82A7] via-[#863864] to-[#6B21A8] flex items-center justify-center text-white shadow-sm">
+            <span class="text-lg">✧</span>
+          </div>
+          <div>
+            <div class="flex items-center gap-1.5">
+              <h1 class="font-serif font-bold text-lg text-[#863864] dark:text-[#DB82A7] tracking-tight">NovaSanctuary</h1>
+            </div>
+            <p class="text-[10px] font-semibold text-[#754A67] dark:text-[#B9A6B5] tracking-wider uppercase">ADHD Life & Budget Hub</p>
+          </div>
+        </div>
+
+        <!-- Overwhelm Mode Shield Switch -->
+        <div class="mb-5 p-3 rounded-2xl bg-[#FDF2F7] dark:bg-[#281D33] border border-[#F5C7DB] dark:border-[#3E304B]">
+          <div class="flex items-center justify-between mb-1">
+            <span class="text-xs font-bold text-[#863864] dark:text-[#DB82A7] flex items-center gap-1.5">
+              <i data-lucide="shield-alert" class="w-3.5 h-3.5"></i> Overwhelm Shield
+            </span>
+            <button onclick="toggleOverwhelmShield()" id="shieldToggle" class="relative inline-flex h-5 w-9 shrink-0 cursor-pointer rounded-full border border-transparent transition-colors duration-200 ease-in-out bg-gray-300 dark:bg-gray-700">
+              <span id="shieldToggleDot" class="pointer-events-none inline-block h-4 w-4 transform rounded-full bg-white shadow transition duration-200 ease-in-out translate-x-0"></span>
+            </button>
+          </div>
+          <p class="text-[10px] text-[#754A67] dark:text-[#B9A6B5] leading-tight">Zero-puzzle mode: hides all non-essentials so your brain can breathe.</p>
+        </div>
+
+        <!-- Navigation Links -->
+        <nav class="space-y-1 font-medium text-xs">
+          <!-- 1. Today / Dashboard -->
+          <button onclick="switchTab('dashboard')" id="nav-dashboard" class="nav-item w-full flex items-center space-x-3 px-3.5 py-2.5 rounded-xl transition-all bg-[#863864] text-white font-bold shadow-xs">
+            <i data-lucide="layout-dashboard" class="w-4 h-4"></i>
+            <span>Today / Sanctuary</span>
+          </button>
+
+          <!-- 2. Budget & Money -->
+          <button onclick="switchTab('budget')" id="nav-budget" class="nav-item w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl transition-all text-[#51364E] dark:text-[#F5EBF2] hover:bg-[#FDF2F7] dark:hover:bg-[#281D33] font-medium">
+            <div class="flex items-center space-x-3">
+              <i data-lucide="wallet" class="w-4 h-4 text-[#2E7D32]"></i>
+              <span>Budget & Money</span>
+            </div>
+            <span class="bg-[#F0FDF4] dark:bg-[#1E3823] text-[#2E7D32] dark:text-[#86EFAC] text-[10px] font-extrabold px-1.5 py-0.5 rounded-full" id="sidebarSafeBadge">$0</span>
+          </button>
+
+          <!-- 3. Smart Calendar -->
+          <button onclick="switchTab('calendar')" id="nav-calendar" class="nav-item w-full flex items-center space-x-3 px-3.5 py-2.5 rounded-xl transition-all text-[#51364E] dark:text-[#F5EBF2] hover:bg-[#FDF2F7] dark:hover:bg-[#281D33] font-medium">
+            <i data-lucide="calendar" class="w-4 h-4 text-[#6B21A8]"></i>
+            <span>Smart Calendar</span>
+          </button>
+
+          <!-- 4. 48h Impulse Vault -->
+          <button onclick="switchTab('impulse')" id="nav-impulse" class="nav-item w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl transition-all text-[#51364E] dark:text-[#F5EBF2] hover:bg-[#FDF2F7] dark:hover:bg-[#281D33] font-medium">
+            <div class="flex items-center space-x-3">
+              <i data-lucide="hourglass" class="w-4 h-4 text-[#B45309]"></i>
+              <span>48h Impulse Vault</span>
+            </div>
+            <span id="impulseBadge" class="bg-[#FFFBEB] dark:bg-[#3D2C17] text-[#B45309] dark:text-[#FDE68A] text-[10px] font-bold px-1.5 py-0.5 rounded-full">0</span>
+          </button>
+
+          <!-- 5. Savings Jars -->
+          <button onclick="switchTab('savings')" id="nav-savings" class="nav-item w-full flex items-center space-x-3 px-3.5 py-2.5 rounded-xl transition-all text-[#51364E] dark:text-[#F5EBF2] hover:bg-[#FDF2F7] dark:hover:bg-[#281D33] font-medium">
+            <i data-lucide="piggy-bank" class="w-4 h-4 text-[#863864]"></i>
+            <span>Savings Jars</span>
+          </button>
+
+          <!-- 6. Focus Space -->
+          <button onclick="switchTab('focus')" id="nav-focus" class="nav-item w-full flex items-center space-x-3 px-3.5 py-2.5 rounded-xl transition-all text-[#51364E] dark:text-[#F5EBF2] hover:bg-[#FDF2F7] dark:hover:bg-[#281D33] font-medium">
+            <i data-lucide="timer" class="w-4 h-4 text-[#4338CA]"></i>
+            <span>Focus Space (Timer)</span>
+          </button>
+
+          <!-- 7. Gentle Routines -->
+          <button onclick="switchTab('routines')" id="nav-routines" class="nav-item w-full flex items-center space-x-3 px-3.5 py-2.5 rounded-xl transition-all text-[#51364E] dark:text-[#F5EBF2] hover:bg-[#FDF2F7] dark:hover:bg-[#281D33] font-medium">
+            <i data-lucide="sun" class="w-4 h-4 text-[#D97706]"></i>
+            <span>Gentle Routines</span>
+          </button>
+        </nav>
+      </div>
+
+      <!-- Sidebar Bottom: Monthly Budget Capsule & Theme -->
+      <div class="pt-5 border-t border-[#F5C7DB] dark:border-[#3E304B] space-y-3">
+        <!-- Monthly Budget Capsule -->
+        <button onclick="openBudgetModal(false)" class="w-full p-3 rounded-2xl bg-[#FDF2F7] dark:bg-[#281D33] border border-[#F5C7DB] dark:border-[#3E304B] text-left hover:border-[#863864] transition">
+          <div class="flex items-center justify-between text-[11px] font-bold text-[#754A67] dark:text-[#B9A6B5] mb-0.5">
+            <span>Your Monthly Budget</span>
+            <i data-lucide="pencil" class="w-3 h-3 text-[#863864] dark:text-[#DB82A7]"></i>
+          </div>
+          <div class="font-serif font-bold text-base text-[#51364E] dark:text-[#F5EBF2]" id="sidebarIncomeDisplay">$0.00</div>
+          <span class="text-[9px] text-[#2E7D32] dark:text-[#86EFAC] font-semibold">Active & Personalized</span>
+        </button>
+
+        <div class="flex items-center justify-between">
+          <button onclick="toggleTheme()" class="flex items-center gap-2 text-xs font-semibold text-[#754A67] dark:text-[#B9A6B5] hover:text-[#863864] transition">
+            <i data-lucide="palette" class="w-4 h-4"></i>
+            <span id="themeLabel">Velvet Dark</span>
+          </button>
+
+          <div class="flex items-center space-x-1">
+            <button onclick="toggleSound()" id="soundBtn" title="Sound Effects" class="p-2 rounded-lg hover:bg-[#FDF2F7] dark:hover:bg-[#281D33] text-[#754A67] dark:text-[#B9A6B5]">
+              <i data-lucide="volume-2" class="w-4 h-4" id="soundIcon"></i>
+            </button>
+            <button onclick="resetPlanner()" title="Start Fresh" class="p-2 rounded-lg hover:bg-rose-100 dark:hover:bg-rose-950 text-rose-500">
+              <i data-lucide="refresh-cw" class="w-4 h-4"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- MAIN SCROLLABLE CONTENT -->
+    <main class="flex-1 flex flex-col p-4 md:p-8 max-w-7xl mx-auto w-full custom-scroll overflow-y-auto">
+
+      <!-- Header with Alex Brush script accent (NovaTrack style) -->
+      <header class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
+        <div>
+          <div class="flex items-center gap-2 mb-0.5">
+            <span class="text-xs font-bold px-2.5 py-0.5 rounded-full bg-[#FDF2F7] dark:bg-[#32233E] text-[#863864] dark:text-[#DB82A7] border border-[#F5C7DB] dark:border-[#3E304B] uppercase tracking-wider" id="todayDateStr">Monday, Nov 2</span>
+            <span class="text-xs text-[#2E7D32] dark:text-[#86EFAC] font-semibold flex items-center gap-1">
+              <span class="w-2 h-2 rounded-full bg-[#2E7D32] animate-ping"></span> Live Sanctuary
+            </span>
+          </div>
+          <h2 class="text-2xl md:text-3xl font-serif font-bold text-[#51364E] dark:text-[#F5EBF2]">
+            Welcome to your <span class="font-script text-3xl md:text-4xl text-[#863864] dark:text-[#DB82A7]">sanctuary</span> ✧
+          </h2>
+          <p class="text-xs text-[#754A67] dark:text-[#B9A6B5] mt-0.5">
+            Clean numbers. Solid clarity. Zero guilt.
+          </p>
+        </div>
+
+        <div class="flex items-center gap-2.5 w-full sm:w-auto">
+          <button onclick="openModal('addExpenseModal')" class="flex-1 sm:flex-none flex items-center justify-center gap-2 bg-[#863864] hover:bg-[#A34F78] text-white font-bold px-4 py-2.5 rounded-xl shadow-xs transition active:scale-95 text-xs">
+            <i data-lucide="plus-circle" class="w-4 h-4"></i>
+            <span>Log Expense</span>
+          </button>
+          <button onclick="openModal('addBillModal')" class="flex-1 sm:flex-none flex items-center justify-center gap-2 bg-white dark:bg-[#241B2D] text-[#863864] dark:text-[#DB82A7] border border-[#F5C7DB] dark:border-[#3E304B] hover:bg-[#FDF2F7] font-bold px-3.5 py-2.5 rounded-xl transition text-xs">
+            <i data-lucide="plus" class="w-4 h-4"></i>
+            <span>Add Bill</span>
+          </button>
+        </div>
+      </header>
+
+      <!-- OVERWHELM SHIELD BANNER (When Active) -->
+      <div id="overwhelmBanner" class="hidden mb-6 p-4 rounded-2xl bg-[#FDF2F7] dark:bg-[#281D33] border border-[#F5C7DB] dark:border-[#3E304B] flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <div class="p-2 rounded-xl bg-[#863864] text-white">
+            <i data-lucide="shield-check" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <h4 class="font-bold text-sm text-[#51364E] dark:text-[#F5EBF2]">Overwhelm Shield Active</h4>
+            <p class="text-xs text-[#754A67] dark:text-[#B9A6B5]">Non-essential modules are hidden. Take a calm breath and look at today's Safe-To-Spend.</p>
+          </div>
+        </div>
+        <button onclick="toggleOverwhelmShield()" class="text-xs font-bold px-3 py-1.5 rounded-lg bg-white dark:bg-[#1E1627] text-[#863864] dark:text-[#DB82A7] border border-[#F5C7DB] dark:border-[#3E304B]">
+          Exit Shield
+        </button>
+      </div>
+
+      <!-- 4 SOLID HERO METRIC CARDS (Clean, Solid Colors, Non-Puzzle) -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+        
+        <!-- 1. Safe To Spend (The Primary Star Metric) -->
+        <div class="nova-card rounded-2xl p-5 relative overflow-hidden bg-gradient-to-br from-[#863864] via-[#9F4377] to-[#B8508B] text-white border-0 shadow-md">
+          <div class="flex items-center justify-between mb-1.5">
+            <span class="text-xs font-bold uppercase tracking-wider text-rose-100 flex items-center gap-1.5">
+              <i data-lucide="shield" class="w-3.5 h-3.5"></i> Safe To Spend
+            </span>
+            <span class="text-[10px] font-bold bg-white/20 backdrop-blur px-2 py-0.5 rounded-full">Guilt-Free</span>
+          </div>
+          <div class="text-3xl font-serif font-bold tracking-tight mb-0.5" id="kpiSafeSpend">$0.00</div>
+          <p class="text-xs text-rose-100/90 leading-tight">After all bills & expenses are protected.</p>
+          <div class="mt-3 pt-3 border-t border-white/20 flex items-center justify-between text-[11px] text-rose-100">
+            <span>Daily safe pace:</span>
+            <span class="font-bold font-mono" id="kpiDailySafe">$0.00 / day</span>
+          </div>
+        </div>
+
+        <!-- 2. Total Monthly Income (Clickable to Edit) -->
+        <div class="nova-card rounded-2xl p-5 cursor-pointer" onclick="openBudgetModal(false)">
+          <div class="flex items-center justify-between mb-1.5">
+            <span class="text-xs font-bold uppercase tracking-wider text-[#754A67] dark:text-[#B9A6B5] flex items-center gap-1.5">
+              <i data-lucide="wallet" class="w-3.5 h-3.5 text-[#2E7D32]"></i> Total Budget
+            </span>
+            <span class="text-[10px] font-bold text-[#863864] dark:text-[#DB82A7] bg-[#FDF2F7] dark:bg-[#32233E] border border-[#F5C7DB] dark:border-[#3E304B] px-2 py-0.5 rounded-full flex items-center gap-1">
+              <i data-lucide="edit-2" class="w-3 h-3"></i> Set
+            </span>
+          </div>
+          <div class="text-3xl font-serif font-bold text-[#51364E] dark:text-[#F5EBF2] mb-0.5" id="kpiTotalIncome">$0.00</div>
+          <div class="flex items-center justify-between text-xs text-[#754A67] dark:text-[#B9A6B5] mt-2">
+            <span>Monthly allocation:</span>
+            <span class="font-bold text-[#2E7D32]" id="kpiIncomeSub">$0.00</span>
+          </div>
+          <div class="w-full bg-[#FBE9F1] dark:bg-[#342740] h-2 rounded-full mt-3 overflow-hidden">
+            <div class="bg-[#2E7D32] h-full rounded-full transition-all duration-700" style="width: 100%"></div>
+          </div>
+        </div>
+
+        <!-- 3. Total Expenses Logged -->
+        <div class="nova-card rounded-2xl p-5">
+          <div class="flex items-center justify-between mb-1.5">
+            <span class="text-xs font-bold uppercase tracking-wider text-[#754A67] dark:text-[#B9A6B5] flex items-center gap-1.5">
+              <i data-lucide="credit-card" class="w-3.5 h-3.5 text-[#863864]"></i> Expenses Logged
+            </span>
+            <span class="text-[10px] font-bold text-[#863864] dark:text-[#DB82A7] bg-[#FDF2F7] dark:bg-[#32233E] px-2 py-0.5 rounded-full" id="kpiExpenseCountBadge">0 logged</span>
+          </div>
+          <div class="text-3xl font-serif font-bold text-[#51364E] dark:text-[#F5EBF2] mb-0.5" id="kpiTotalExpenses">$0.00</div>
+          <div class="flex items-center justify-between text-xs text-[#754A67] dark:text-[#B9A6B5] mt-2">
+            <span>Fixed bills committed:</span>
+            <span class="font-bold text-[#51364E] dark:text-[#F5EBF2]" id="kpiTotalBillsSub">$0.00</span>
+          </div>
+          <div class="w-full bg-[#FBE9F1] dark:bg-[#342740] h-2 rounded-full mt-3 overflow-hidden">
+            <div class="bg-[#863864] h-full rounded-full transition-all duration-700" id="kpiExpenseBar" style="width: 0%"></div>
+          </div>
+        </div>
+
+        <!-- 4. Total Savings Jars -->
+        <div class="nova-card rounded-2xl p-5">
+          <div class="flex items-center justify-between mb-1.5">
+            <span class="text-xs font-bold uppercase tracking-wider text-[#754A67] dark:text-[#B9A6B5] flex items-center gap-1.5">
+              <i data-lucide="piggy-bank" class="w-3.5 h-3.5 text-[#6B21A8]"></i> Savings Jars
+            </span>
+            <span class="text-[10px] font-bold text-[#6B21A8] dark:text-[#C084FC] bg-[#FAF5FF] dark:bg-[#2F1C42] px-2 py-0.5 rounded-full" id="kpiJarsCountBadge">0 jars</span>
+          </div>
+          <div class="text-3xl font-serif font-bold text-[#51364E] dark:text-[#F5EBF2] mb-0.5" id="kpiTotalSavings">$0.00</div>
+          <div class="flex items-center justify-between text-xs text-[#754A67] dark:text-[#B9A6B5] mt-2">
+            <span>Savings Target:</span>
+            <span class="font-bold text-[#51364E] dark:text-[#F5EBF2]" id="kpiSavingsTargetSub">$0.00</span>
+          </div>
+          <div class="w-full bg-[#FBE9F1] dark:bg-[#342740] h-2 rounded-full mt-3 overflow-hidden">
+            <div class="bg-[#6B21A8] h-full rounded-full transition-all duration-700" id="kpiSavingsBar" style="width: 0%"></div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ==================== TAB 1: TODAY / SANCTUARY (DASHBOARD) ==================== -->
+      <section id="tab-dashboard" class="tab-content space-y-6">
+        
+        <!-- FINNEST SIGNATURE BLOCK: ONE HONEST NUMBER + CAN THIS FIT? + 1-TAP CHIPS -->
+        <div class="nova-card rounded-3xl p-6 bg-gradient-to-br from-[#FFF9F6] via-white to-[#FDF2F7] dark:from-[#241B2D] dark:to-[#1E1627] border-2 border-[#F5C7DB] dark:border-[#3E304B] shadow-sm">
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+            
+            <!-- Left: One Honest Number for Today (FinNest Core Concept) -->
+            <div class="lg:col-span-5 flex flex-col justify-between p-5 rounded-2xl bg-white dark:bg-[#1E1627] border border-[#F5C7DB] dark:border-[#3E304B] shadow-xs">
+              <div>
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-[11px] font-bold text-[#863864] dark:text-[#DB82A7] uppercase tracking-wider flex items-center gap-1.5">
+                    <span class="w-2 h-2 rounded-full bg-[#2E7D32]"></span> One Honest Number
+                  </span>
+                  <span class="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-[#F0FDF4] dark:bg-[#1E3823] text-[#2E7D32] dark:text-[#86EFAC] border border-[#BBF7D0] dark:border-[#2E5E35]" id="paydayCountdownBadge">
+                    28 days to Payday
+                  </span>
+                </div>
+                <div class="text-4xl md:text-5xl font-serif font-bold text-[#51364E] dark:text-[#F5EBF2] tracking-tight my-1.5" id="fnHonestNumber">
+                  $0.00
+                </div>
+                <p class="text-xs text-[#754A67] dark:text-[#B9A6B5] font-medium leading-relaxed">
+                  Safe to spend <strong>today</strong> without touching rent, fixed bills, or future days.
+                </p>
+              </div>
+
+              <div class="pt-4 mt-4 border-t border-[#F5C7DB]/50 dark:border-[#3E304B] flex items-center justify-between text-xs">
+                <span class="text-[#754A67] dark:text-[#B9A6B5]">Total Safe Buffer:</span>
+                <span class="font-serif font-bold text-[#2E7D32] dark:text-[#86EFAC] text-sm" id="fnTotalSafeBuffer">$0.00</span>
+              </div>
+            </div>
+
+            <!-- Right: "Can This Fit?" Impulse Check Micro-Calculator -->
+            <div class="lg:col-span-7 flex flex-col justify-between p-5 rounded-2xl bg-white dark:bg-[#1E1627] border border-[#F5C7DB] dark:border-[#3E304B] shadow-xs">
+              <div>
+                <div class="flex items-center justify-between mb-2">
+                  <h4 class="font-serif font-bold text-base text-[#51364E] dark:text-[#F5EBF2] flex items-center gap-2">
+                    <span>🧮</span> "Can This Fit?" Impulse Check
+                  </h4>
+                  <span class="text-[10px] text-[#754A67] dark:text-[#B9A6B5] font-semibold">Zero Math Friction</span>
+                </div>
+                <p class="text-xs text-[#754A67] dark:text-[#B9A6B5] mb-3">
+                  Thinking of buying something right now? Type the price to see if it gently fits today's pace.
+                </p>
+
+                <!-- Input Row -->
+                <div class="flex items-center gap-2 mb-3">
+                  <div class="relative flex-1">
+                    <span class="absolute left-3.5 top-2.5 font-bold text-[#754A67] text-sm">$</span>
+                    <input type="number" step="0.5" id="canFitInput" oninput="calculateCanFit()" placeholder="Enter item price (e.g. 28)" class="w-full pl-8 pr-3 py-2.5 rounded-xl border border-[#F5C7DB] dark:border-[#3E304B] bg-[#FFF6F3] dark:bg-[#241B2D] text-sm font-bold text-[#51364E] dark:text-[#F5EBF2] focus:outline-none focus:border-[#863864]">
+                  </div>
+                  <button type="button" onclick="clearCanFit()" class="px-3 py-2.5 rounded-xl text-xs font-semibold text-[#754A67] hover:text-[#51364E] hover:bg-[#FDF2F7] transition">
+                    Clear
+                  </button>
+                </div>
+
+                <!-- Live Evaluation Banner -->
+                <div id="canFitResult" class="p-3.5 rounded-xl bg-[#FDF2F7] dark:bg-[#281D33] border border-[#F5C7DB] dark:border-[#3E304B] transition-all duration-300">
+                  <div class="flex items-center gap-2 text-xs font-bold text-[#51364E] dark:text-[#F5EBF2]" id="canFitTitle">
+                    <span>✨</span> Enter an amount above to test
+                  </div>
+                  <p class="text-[11px] text-[#754A67] dark:text-[#B9A6B5] mt-1" id="canFitSubtitle">
+                    Instant check will tell you if it's 100% guilt-free or if pausing 48h is wiser.
+                  </p>
+                </div>
+              </div>
+
+              <!-- Quick Decision Action Buttons (Revealed when input > 0) -->
+              <div id="canFitActions" class="hidden pt-3 mt-3 border-t border-[#F5C7DB]/50 dark:border-[#3E304B] flex items-center gap-2">
+                <button type="button" onclick="logFromCanFit()" class="flex-1 py-2 px-3 rounded-xl bg-[#863864] hover:bg-[#A34F78] text-white text-xs font-bold shadow-xs transition flex items-center justify-center gap-1.5">
+                  <i data-lucide="check" class="w-3.5 h-3.5"></i> Log Spend Now
+                </button>
+                <button type="button" onclick="stashFromCanFit()" class="flex-1 py-2 px-3 rounded-xl bg-white dark:bg-[#241B2D] border border-[#F5C7DB] dark:border-[#3E304B] text-[#6B21A8] dark:text-[#C084FC] hover:bg-[#FAF5FF] text-xs font-bold transition flex items-center justify-center gap-1.5">
+                  <i data-lucide="clock" class="w-3.5 h-3.5"></i> Stash in 48h Vault
+                </button>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Bottom: 1-Tap Quick Spend Chips (FinNest Signature for ADHD) -->
+          <div class="mt-5 pt-4 border-t border-[#F5C7DB]/60 dark:border-[#3E304B]">
+            <div class="flex items-center justify-between mb-2.5">
+              <span class="text-xs font-bold text-[#51364E] dark:text-[#F5EBF2] flex items-center gap-1.5">
+                <span>⚡</span> 1-Tap Quick Spend Chips <span class="text-[10px] text-[#754A67] dark:text-[#B9A6B5] font-normal">(Zero mental load • Click to log)</span>
+              </span>
+              <span class="text-[10px] text-[#2E7D32] dark:text-[#86EFAC] font-semibold" id="quickLogToast"></span>
+            </div>
+            
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-2">
+              <button onclick="handleQuickSpend('Coffee & Pastry', 4.50, 'Coffee & Treats', '☕')" class="p-2.5 rounded-xl bg-white dark:bg-[#1E1627] hover:bg-[#FDF2F7] dark:hover:bg-[#32233E] border border-[#F5C7DB] dark:border-[#3E304B] transition active:scale-95 text-left flex items-center gap-2 shadow-2xs">
+                <span class="text-xl">☕</span>
+                <div class="truncate">
+                  <div class="text-[11px] font-bold text-[#51364E] dark:text-[#F5EBF2] truncate">Coffee</div>
+                  <div class="text-[10px] font-semibold text-[#863864] dark:text-[#DB82A7]">$4.50</div>
+                </div>
+              </button>
+
+              <button onclick="handleQuickSpend('Lunch / Takeout', 14.00, 'Groceries & Food', '🍱')" class="p-2.5 rounded-xl bg-white dark:bg-[#1E1627] hover:bg-[#FDF2F7] dark:hover:bg-[#32233E] border border-[#F5C7DB] dark:border-[#3E304B] transition active:scale-95 text-left flex items-center gap-2 shadow-2xs">
+                <span class="text-xl">🍱</span>
+                <div class="truncate">
+                  <div class="text-[11px] font-bold text-[#51364E] dark:text-[#F5EBF2] truncate">Lunch</div>
+                  <div class="text-[10px] font-semibold text-[#863864] dark:text-[#DB82A7]">$14.00</div>
+                </div>
+              </button>
+
+              <button onclick="handleQuickSpend('Grocery Run', 45.00, 'Groceries & Food', '🛒')" class="p-2.5 rounded-xl bg-white dark:bg-[#1E1627] hover:bg-[#FDF2F7] dark:hover:bg-[#32233E] border border-[#F5C7DB] dark:border-[#3E304B] transition active:scale-95 text-left flex items-center gap-2 shadow-2xs">
+                <span class="text-xl">🛒</span>
+                <div class="truncate">
+                  <div class="text-[11px] font-bold text-[#51364E] dark:text-[#F5EBF2] truncate">Groceries</div>
+                  <div class="text-[10px] font-semibold text-[#863864] dark:text-[#DB82A7]">$45.00</div>
+                </div>
+              </button>
+
+              <button onclick="handleQuickSpend('Ride / Fuel', 25.00, 'Groceries & Food', '⛽')" class="p-2.5 rounded-xl bg-white dark:bg-[#1E1627] hover:bg-[#FDF2F7] dark:hover:bg-[#32233E] border border-[#F5C7DB] dark:border-[#3E304B] transition active:scale-95 text-left flex items-center gap-2 shadow-2xs">
+                <span class="text-xl">⛽</span>
+                <div class="truncate">
+                  <div class="text-[11px] font-bold text-[#51364E] dark:text-[#F5EBF2] truncate">Fuel/Ride</div>
+                  <div class="text-[10px] font-semibold text-[#863864] dark:text-[#DB82A7]">$25.00</div>
+                </div>
+              </button>
+
+              <button onclick="handleQuickSpend('Dopamine Treat', 20.00, 'Dopamine & Fun', '🎁')" class="p-2.5 rounded-xl bg-white dark:bg-[#1E1627] hover:bg-[#FDF2F7] dark:hover:bg-[#32233E] border border-[#F5C7DB] dark:border-[#3E304B] transition active:scale-95 text-left flex items-center gap-2 shadow-2xs">
+                <span class="text-xl">🎁</span>
+                <div class="truncate">
+                  <div class="text-[11px] font-bold text-[#51364E] dark:text-[#F5EBF2] truncate">Treat</div>
+                  <div class="text-[10px] font-semibold text-[#863864] dark:text-[#DB82A7]">$20.00</div>
+                </div>
+              </button>
+
+              <button onclick="handleQuickSpend('Pharmacy / Meds', 15.00, 'Self-Care & Health', '💊')" class="p-2.5 rounded-xl bg-white dark:bg-[#1E1627] hover:bg-[#FDF2F7] dark:hover:bg-[#32233E] border border-[#F5C7DB] dark:border-[#3E304B] transition active:scale-95 text-left flex items-center gap-2 shadow-2xs">
+                <span class="text-xl">💊</span>
+                <div class="truncate">
+                  <div class="text-[11px] font-bold text-[#51364E] dark:text-[#F5EBF2] truncate">Meds</div>
+                  <div class="text-[10px] font-semibold text-[#863864] dark:text-[#DB82A7]">$15.00</div>
+                </div>
+              </button>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 2-Column: Top 3 ADHD Focus Tasks + Today's Needs Checklist -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          
+          <!-- Top 3 Focus Priorities (ADHD 3-Task Limit) -->
+          <div class="lg:col-span-2 nova-card rounded-2xl p-6">
+            <div class="flex items-center justify-between mb-4">
+              <div>
+                <h3 class="font-serif font-bold text-lg text-[#51364E] dark:text-[#F5EBF2] flex items-center gap-2">
+                  <span>🎯</span> Today's Top 3 Priorities
+                </h3>
+                <p class="text-xs text-[#754A67] dark:text-[#B9A6B5]">The ADHD golden rule: pick just 3 tasks today to prevent executive freeze.</p>
+              </div>
+              <span class="text-xs font-bold text-[#863864] dark:text-[#DB82A7]" id="focusTasksCompletedCount">0/3 Done</span>
+            </div>
+
+            <div class="space-y-2.5" id="focusTaskList">
+              <!-- Rendered via JS -->
+            </div>
+          </div>
+
+          <!-- Gentle Needs / Grocery Checklist -->
+          <div class="nova-card rounded-2xl p-6 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-3">
+                <h4 class="font-serif font-bold text-base text-[#51364E] dark:text-[#F5EBF2] flex items-center gap-2">
+                  <span>🛒</span> Gentle Needs List
+                </h4>
+                <button onclick="addGroceryItemPrompt()" class="text-xs font-bold text-[#863864] hover:text-[#A34F78] flex items-center gap-0.5">
+                  <i data-lucide="plus" class="w-3.5 h-3.5"></i> Add
+                </button>
+              </div>
+              <p class="text-[11px] text-[#754A67] dark:text-[#B9A6B5] mb-3">Items to buy today without overspending.</p>
+              <div class="space-y-2 max-h-48 overflow-y-auto custom-scroll" id="groceryListContainer">
+                <!-- Rendered via JS -->
+              </div>
+            </div>
+            <div class="pt-3 border-t border-[#F5C7DB]/50 dark:border-[#3E304B] text-[10px] text-[#754A67] dark:text-[#B9A6B5]">
+              Stick to this list to protect your Safe-to-Spend!
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Monthly Operating Progress Bar (Solid, Clean Fill) -->
+        <div class="nova-card rounded-2xl p-6">
+          <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 mb-3">
+            <div>
+              <h4 class="font-serif font-bold text-base text-[#51364E] dark:text-[#F5EBF2] flex items-center gap-2">
+                <span>📊</span> Monthly Operating Progress
+              </h4>
+              <p class="text-xs text-[#754A67] dark:text-[#B9A6B5]">Total proportion of your budget spent & committed so far.</p>
+            </div>
+            <span class="text-xs font-bold px-3 py-1 rounded-full bg-[#FDF2F7] dark:bg-[#32233E] text-[#863864] dark:text-[#DB82A7] border border-[#F5C7DB] dark:border-[#3E304B]" id="operatingProgressPill">
+              0% Spent • 100% Safe
+            </span>
+          </div>
+
+          <div class="w-full bg-[#FBE9F1] dark:bg-[#342740] h-3.5 rounded-full overflow-hidden p-0.5">
+            <div class="bg-[#863864] h-full rounded-full transition-all duration-700" id="operatingProgressBar" style="width: 0%"></div>
+          </div>
+          <div class="flex justify-between items-center text-[11px] text-[#754A67] dark:text-[#B9A6B5] mt-2 font-medium">
+            <span id="operatingSpentText">$0.00 spent & committed</span>
+            <span id="operatingRemainingText">$0.00 remaining safe</span>
+          </div>
+        </div>
+
+        <!-- Clean Ledger Table -->
+        <div class="nova-card rounded-2xl p-6">
+          <div class="flex items-center justify-between mb-4">
+            <div>
+              <h4 class="font-serif font-bold text-base text-[#51364E] dark:text-[#F5EBF2] flex items-center gap-2">
+                <span>🧾</span> Transactions Ledger
+              </h4>
+              <p class="text-xs text-[#754A67] dark:text-[#B9A6B5]">Your personal expenses logged with calm clarity.</p>
+            </div>
+            <button onclick="openModal('addExpenseModal')" class="text-xs font-bold px-3 py-1.5 rounded-xl bg-[#863864] text-white hover:bg-[#A34F78] transition">
+              + Log Expense
+            </button>
+          </div>
+
+          <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse">
+              <thead>
+                <tr class="border-b border-[#F5C7DB]/60 dark:border-[#3E304B] text-[10px] font-bold text-[#754A67] dark:text-[#B9A6B5] uppercase tracking-wider">
+                  <th class="py-2.5 px-3">Date</th>
+                  <th class="py-2.5 px-3">Description</th>
+                  <th class="py-2.5 px-3">Category</th>
+                  <th class="py-2.5 px-3">Mood Tag</th>
+                  <th class="py-2.5 px-3 text-right">Amount</th>
+                  <th class="py-2.5 px-3 text-center">Action</th>
+                </tr>
+              </thead>
+              <tbody id="transactionTableBody" class="divide-y divide-[#F5C7DB]/30 dark:divide-[#3E304B]/50 text-xs">
+                <!-- Rendered dynamically -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- ==================== TAB 2: BUDGET & MONEY ==================== -->
+      <section id="tab-budget" class="tab-content space-y-6 hidden">
+        
+        <!-- Envelopes Section -->
+        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+          <div>
+            <h3 class="font-serif font-bold text-xl text-[#51364E] dark:text-[#F5EBF2] flex items-center gap-2">
+              <span>🧁</span> Spending Envelopes
+            </h3>
+            <p class="text-xs text-[#754A67] dark:text-[#B9A6B5]">Color-coded spending buckets you can customize and track.</p>
+          </div>
+          <button onclick="openModal('addEnvelopeModal')" class="text-xs font-bold px-4 py-2.5 rounded-xl bg-[#863864] hover:bg-[#A34F78] text-white flex items-center gap-1.5 shadow-xs transition">
+            <i data-lucide="plus" class="w-4 h-4"></i> Add Envelope
+          </button>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5" id="envelopesGrid">
+          <!-- Rendered dynamically -->
+        </div>
+
+        <!-- Fixed Recurring Bills Section -->
+        <div class="mt-8 pt-6 border-t border-[#F5C7DB] dark:border-[#3E304B]">
+          <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 mb-4">
+            <div>
+              <h3 class="font-serif font-bold text-xl text-[#51364E] dark:text-[#F5EBF2] flex items-center gap-2">
+                <span>📅</span> Fixed Bills & Due Dates
+              </h3>
+              <p class="text-xs text-[#754A67] dark:text-[#B9A6B5]">Monthly subscriptions, rent, wifi, and utilities.</p>
+            </div>
+            <button onclick="openModal('addBillModal')" class="text-xs font-bold px-4 py-2.5 rounded-xl bg-[#6B21A8] hover:bg-[#7E22CE] text-white flex items-center gap-1.5 shadow-xs transition">
+              <i data-lucide="plus" class="w-4 h-4"></i> Add Recurring Bill
+            </button>
+          </div>
+
+          <div class="space-y-3" id="billsList">
+            <!-- Rendered dynamically -->
+          </div>
+        </div>
+
+      </section>
+
+      <!-- ==================== TAB 3: SMART CALENDAR ==================== -->
+      <section id="tab-calendar" class="tab-content space-y-6 hidden">
+        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <div>
+            <h3 class="font-serif font-bold text-xl text-[#51364E] dark:text-[#F5EBF2] flex items-center gap-2">
+              <span>📅</span> Smart Budget Calendar
+            </h3>
+            <p class="text-xs text-[#754A67] dark:text-[#B9A6B5]">All bills and spending mapped to days of the month.</p>
+          </div>
+
+          <div class="flex items-center gap-2 bg-white dark:bg-[#241B2D] p-1.5 rounded-2xl border border-[#F5C7DB] dark:border-[#3E304B] shadow-xs">
+            <button onclick="changeCalendarMonth(-1)" class="p-2 rounded-xl hover:bg-[#FDF2F7] dark:hover:bg-[#32233E] text-[#51364E] dark:text-[#F5EBF2] transition">
+              <i data-lucide="chevron-left" class="w-4 h-4"></i>
+            </button>
+            <span class="font-serif font-bold text-sm px-3 text-[#51364E] dark:text-[#F5EBF2] min-w-[140px] text-center" id="calendarMonthTitle">November 2026</span>
+            <button onclick="changeCalendarMonth(1)" class="p-2 rounded-xl hover:bg-[#FDF2F7] dark:hover:bg-[#32233E] text-[#51364E] dark:text-[#F5EBF2] transition">
+              <i data-lucide="chevron-right" class="w-4 h-4"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div class="lg:col-span-2 nova-card rounded-2xl p-6">
+            <div class="grid grid-cols-7 gap-1 text-center font-bold text-[11px] text-[#754A67] dark:text-[#B9A6B5] uppercase tracking-wider mb-2">
+              <div>Sun</div><div>Mon</div><div>Tue</div><div>Wed</div><div>Thu</div><div>Fri</div><div>Sat</div>
+            </div>
+            <div class="grid grid-cols-7 gap-1.5" id="calendarDaysGrid">
+              <!-- Rendered via JS -->
+            </div>
+          </div>
+
+          <!-- Selected Day Schedule Side Drawer -->
+          <div class="nova-card rounded-2xl p-6 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-4 pb-3 border-b border-[#F5C7DB]/60 dark:border-[#3E304B]">
+                <div>
+                  <span class="text-[10px] font-bold text-[#863864] dark:text-[#DB82A7] uppercase tracking-wider">Schedule & Due Dates</span>
+                  <h4 class="font-serif font-bold text-base text-[#51364E] dark:text-[#F5EBF2]" id="selectedDateTitle">Nov 2, 2026</h4>
+                </div>
+                <span class="p-2 rounded-xl bg-[#FDF2F7] dark:bg-[#32233E] text-[#863864] dark:text-[#DB82A7] text-xs font-bold" id="selectedDayBadge">Today</span>
+              </div>
+              <div class="space-y-3" id="selectedDateEventsList">
+                <!-- Rendered via JS -->
+              </div>
+            </div>
+
+            <div class="pt-4 border-t border-[#F5C7DB]/60 dark:border-[#3E304B] space-y-2">
+              <button onclick="openModal('addBillModal')" class="w-full py-2.5 rounded-xl bg-[#863864] hover:bg-[#A34F78] text-white font-bold text-xs flex items-center justify-center gap-2 shadow-xs transition">
+                <i data-lucide="plus" class="w-4 h-4"></i> Add Bill for this Date
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== TAB 4: 48h IMPULSE VAULT ==================== -->
+      <section id="tab-impulse" class="tab-content space-y-6 hidden">
+        <div class="nova-card rounded-2xl p-6 bg-[#FAF5FF] dark:bg-[#281D33] border border-[#F5C7DB] dark:border-[#3E304B]">
+          <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+            <div>
+              <span class="text-xs font-bold uppercase tracking-wider text-[#6B21A8] dark:text-[#C084FC]">ADHD Impulse Protection</span>
+              <h3 class="font-serif font-bold text-2xl text-[#51364E] dark:text-[#F5EBF2] mt-0.5">The 48-Hour Cooling Vault</h3>
+              <p class="text-xs text-[#754A67] dark:text-[#B9A6B5] max-w-xl mt-1">
+                Don't buy immediately! Put the item in this vault. When the dopamine surge cools off, you can claim your saved money!
+              </p>
+            </div>
+            <div class="text-right p-4 rounded-2xl bg-white dark:bg-[#241B2D] border border-[#F5C7DB] dark:border-[#3E304B] shadow-xs shrink-0">
+              <p class="text-[11px] font-bold text-[#754A67] dark:text-[#B9A6B5]">Total Money Saved:</p>
+              <p class="text-2xl font-serif font-bold text-[#2E7D32] dark:text-[#86EFAC]" id="totalSavedImpulseBig">$0.00</p>
+              <p class="text-[10px] text-[#754A67] dark:text-[#B9A6B5] mt-0.5">from resisted impulses 🎉</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex items-center justify-between">
+          <h4 class="font-serif font-bold text-base text-[#51364E] dark:text-[#F5EBF2] flex items-center gap-2">
+            <span>⏳</span> Items in 48h Cooling Period
+          </h4>
+          <button onclick="openModal('addImpulseModal')" class="text-xs font-bold px-4 py-2.5 rounded-xl bg-[#6B21A8] hover:bg-[#7E22CE] text-white flex items-center gap-1.5 transition">
+            <i data-lucide="plus" class="w-4 h-4"></i> Add Impulse Item
+          </button>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="impulseList">
+          <!-- Rendered via JS -->
+        </div>
+      </section>
+
+      <!-- ==================== TAB 5: SAVINGS JARS ==================== -->
+      <section id="tab-savings" class="tab-content space-y-6 hidden">
+        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+          <div>
+            <h3 class="font-serif font-bold text-xl text-[#51364E] dark:text-[#F5EBF2] flex items-center gap-2">
+              <span>🍯</span> Visual Savings Jars
+            </h3>
+            <p class="text-xs text-[#754A67] dark:text-[#B9A6B5]">Set goals for emergency peace of mind, tech, or travel.</p>
+          </div>
+          <button onclick="openModal('addJarModal')" class="text-xs font-bold px-4 py-2.5 rounded-xl bg-[#863864] hover:bg-[#A34F78] text-white flex items-center gap-1.5 shadow-xs transition">
+            <i data-lucide="plus" class="w-4 h-4"></i> Create Savings Jar
+          </button>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="savingsJarsGrid">
+          <!-- Rendered via JS -->
+        </div>
+      </section>
+
+      <!-- ==================== TAB 6: FOCUS SPACE ==================== -->
+      <section id="tab-focus" class="tab-content space-y-6 hidden">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          
+          <!-- Pomodoro Focus Timer (25:00) -->
+          <div class="nova-card rounded-2xl p-6 flex flex-col items-center justify-center text-center">
+            <span class="text-xs font-bold text-[#863864] dark:text-[#DB82A7] uppercase tracking-wider mb-1 flex items-center gap-1">
+              <i data-lucide="sparkles" class="w-3.5 h-3.5"></i> Focus Session
+            </span>
+            <h3 class="font-serif font-bold text-xl text-[#51364E] dark:text-[#F5EBF2] mb-6">25-Min ADHD Focus Sprint</h3>
+
+            <div class="relative w-48 h-48 rounded-full border-4 border-[#F5C7DB] dark:border-[#3E304B] flex flex-col items-center justify-center mb-6 shadow-inner bg-[#FDF2F7] dark:bg-[#281D33]">
+              <span class="text-5xl font-mono font-bold text-[#51364E] dark:text-[#F5EBF2]" id="timerDisplay">25:00</span>
+              <span class="text-xs text-[#754A67] dark:text-[#B9A6B5] mt-1" id="timerStatusLabel">Ready to begin</span>
+            </div>
+
+            <div class="flex items-center gap-3">
+              <button onclick="toggleTimer()" id="timerControlBtn" class="px-6 py-2.5 rounded-xl bg-[#863864] hover:bg-[#A34F78] text-white font-bold text-xs shadow-xs transition">
+                Start Session
+              </button>
+              <button onclick="resetTimer()" class="px-4 py-2.5 rounded-xl bg-white dark:bg-[#241B2D] border border-[#F5C7DB] dark:border-[#3E304B] text-[#51364E] dark:text-[#F5EBF2] font-bold text-xs hover:bg-[#FDF2F7] transition">
+                Reset
+              </button>
+            </div>
+          </div>
+
+          <!-- Financial Brain Dump -->
+          <div class="nova-card rounded-2xl p-6 flex flex-col justify-between bg-[#FFFBEB] dark:bg-[#281D33] border-[#FDE68A] dark:border-[#3E304B]">
+            <div>
+              <div class="flex items-center justify-between mb-3">
+                <h4 class="font-serif font-bold text-base text-[#51364E] dark:text-[#F5EBF2] flex items-center gap-2">
+                  <span>📝</span> Financial Brain Dump
+                </h4>
+                <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#FEF3C7] dark:bg-[#3D2C17] text-[#B45309] dark:text-[#FDE68A]">Auto-saved</span>
+              </div>
+              <p class="text-xs text-[#754A67] dark:text-[#B9A6B5] mb-3">
+                Park unorganized money thoughts here so you don't burn working memory!
+              </p>
+              <textarea id="brainDumpArea" oninput="saveBrainDump()" placeholder="Type whatever is in your head... (e.g. Return Zara parcel, check WiFi bill, ask accountant about tax form)" class="w-full h-44 p-4 rounded-xl bg-white dark:bg-[#1E1627] border border-[#FDE68A] dark:border-[#3E304B] text-xs text-[#51364E] dark:text-[#F5EBF2] focus:outline-none focus:ring-2 focus:ring-[#863864] resize-none font-sans leading-relaxed"></textarea>
+            </div>
+            <div class="flex justify-between items-center mt-3 text-[11px] text-[#754A67] dark:text-[#B9A6B5]">
+              <span>Clears mental clutter 🧠</span>
+              <button onclick="clearBrainDump()" class="text-rose-600 hover:underline font-bold">Clear Notes</button>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ==================== TAB 7: GENTLE ROUTINES ==================== -->
+      <section id="tab-routines" class="tab-content space-y-6 hidden">
+        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+          <div>
+            <h3 class="font-serif font-bold text-xl text-[#51364E] dark:text-[#F5EBF2] flex items-center gap-2">
+              <span>🧘</span> Gentle Routines & Habit Sanctuary
+            </h3>
+            <p class="text-xs text-[#754A67] dark:text-[#B9A6B5]">Low-pressure micro habits to keep your dopamine steady.</p>
+          </div>
+          <button onclick="addRoutinePrompt()" class="text-xs font-bold px-4 py-2.5 rounded-xl bg-[#863864] hover:bg-[#A34F78] text-white flex items-center gap-1.5 transition">
+            <i data-lucide="plus" class="w-4 h-4"></i> Add Routine Task
+          </button>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="nova-card rounded-2xl p-6">
+            <h4 class="font-serif font-bold text-base text-[#51364E] dark:text-[#F5EBF2] flex items-center gap-2 mb-3">
+              <span>☀️</span> Morning Reset
+            </h4>
+            <div class="space-y-2.5" id="morningRoutineList">
+              <!-- Rendered via JS -->
+            </div>
+          </div>
+
+          <div class="nova-card rounded-2xl p-6">
+            <h4 class="font-serif font-bold text-base text-[#51364E] dark:text-[#F5EBF2] flex items-center gap-2 mb-3">
+              <span>🌙</span> Evening Wind Down
+            </h4>
+            <div class="space-y-2.5" id="eveningRoutineList">
+              <!-- Rendered via JS -->
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div> <!-- end #appContainer -->
+
+  <!-- ==================== MANDATORY BUDGET GATE (SOLID, HARD LOCK) ==================== -->
+  <div id="onboardingModal" class="fixed inset-0 bg-[#51364E]/70 dark:bg-black/85 backdrop-blur-md z-[100] flex items-center justify-center p-4 hidden">
+    <div class="bg-white dark:bg-[#241B2D] border-2 border-[#F5C7DB] dark:border-[#3E304B] rounded-3xl p-6 md:p-8 w-full max-w-lg shadow-2xl relative animate-in fade-in zoom-in-95 duration-200">
+      
+      <!-- Close button (Hidden in initial mandatory lock, visible only when editing later) -->
+      <button id="onboardingCloseBtn" onclick="closeModal('onboardingModal')" class="absolute top-5 right-5 text-[#754A67] hover:text-[#51364E] dark:hover:text-white p-1 rounded-xl hover:bg-[#FDF2F7] dark:hover:bg-[#32233E] hidden">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+
+      <!-- Welcome Icon & Title -->
+      <div class="flex items-center gap-3 mb-2">
+        <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-[#DB82A7] to-[#863864] flex items-center justify-center text-white shadow-sm shrink-0">
+          <span class="text-xl">✧</span>
+        </div>
+        <div>
+          <span class="text-xs font-bold uppercase tracking-wider text-[#863864] dark:text-[#DB82A7] flex items-center gap-1" id="onboardingBadge">
+            <i data-lucide="lock" class="w-3.5 h-3.5"></i> Step 1: Set Your Monthly Budget
+          </span>
+          <h3 class="font-serif font-bold text-2xl text-[#51364E] dark:text-[#F5EBF2]" id="onboardingTitle">Welcome to NovaSanctuary</h3>
+        </div>
+      </div>
+
+      <div class="p-3.5 rounded-2xl bg-[#FDF2F7] dark:bg-[#281D33] border border-[#F5C7DB] dark:border-[#3E304B] text-xs text-[#51364E] dark:text-[#F5EBF2] mb-5 leading-relaxed">
+        <strong>✨ Clean Slate Guarantee:</strong> No fake pre-filled bills or dummy transactions! Enter your actual monthly budget below (e.g. <strong>$5,000</strong>) to unlock your clean, non-puzzling planner where you set up everything yourself.
+      </div>
+
+      <form onsubmit="handleSaveInitialBudget(event)" class="space-y-5">
+        <div>
+          <label class="block text-xs font-bold text-[#51364E] dark:text-[#F5EBF2] mb-1.5">What is your monthly budget / income?</label>
+          <div class="relative">
+            <span class="absolute left-4 top-3 text-lg font-bold text-[#754A67]">$</span>
+            <input type="number" step="1" id="onboardingIncomeInput" required min="1" placeholder="Enter amount e.g. 5000" class="w-full pl-10 pr-4 py-3 rounded-2xl border-2 border-[#F5C7DB] dark:border-[#3E304B] bg-white dark:bg-[#1E1627] text-2xl font-serif font-bold text-[#51364E] dark:text-[#F5EBF2] focus:outline-none focus:border-[#863864]">
+          </div>
+        </div>
+
+        <!-- Quick Presets -->
+        <div>
+          <label class="block text-[11px] font-semibold text-[#754A67] dark:text-[#B9A6B5] mb-2">Quick Presets:</label>
+          <div class="grid grid-cols-4 gap-2">
+            <button type="button" onclick="setOnboardingPreset(3000)" class="py-2 rounded-xl bg-white dark:bg-[#1E1627] hover:bg-[#FDF2F7] font-bold text-xs text-[#51364E] dark:text-[#F5EBF2] border border-[#F5C7DB] dark:border-[#3E304B] transition">$3,000</button>
+            <button type="button" onclick="setOnboardingPreset(5000)" class="py-2 rounded-xl bg-[#863864] text-white font-bold text-xs shadow-xs transition">$5,000</button>
+            <button type="button" onclick="setOnboardingPreset(7500)" class="py-2 rounded-xl bg-white dark:bg-[#1E1627] hover:bg-[#FDF2F7] font-bold text-xs text-[#51364E] dark:text-[#F5EBF2] border border-[#F5C7DB] dark:border-[#3E304B] transition">$7,500</button>
+            <button type="button" onclick="setOnboardingPreset(10000)" class="py-2 rounded-xl bg-white dark:bg-[#1E1627] hover:bg-[#FDF2F7] font-bold text-xs text-[#51364E] dark:text-[#F5EBF2] border border-[#F5C7DB] dark:border-[#3E304B] transition">$10,000</button>
+          </div>
+        </div>
+
+        <!-- Pay Cycle & Payday (FinNest Feature) -->
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-[11px] font-semibold text-[#754A67] dark:text-[#B9A6B5] mb-1">Pay Cycle</label>
+            <select id="onboardingCycleInput" class="w-full px-3 py-2.5 rounded-xl border border-[#F5C7DB] dark:border-[#3E304B] bg-white dark:bg-[#1E1627] text-xs font-semibold text-[#51364E] dark:text-[#F5EBF2] focus:outline-none focus:border-[#863864]">
+              <option value="30">Monthly (30 Days)</option>
+              <option value="14">Bi-Weekly (14 Days)</option>
+              <option value="7">Weekly (7 Days)</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-[11px] font-semibold text-[#754A67] dark:text-[#B9A6B5] mb-1">Next Payday (Day of Month)</label>
+            <input type="number" min="1" max="31" id="onboardingPaydayInput" value="30" class="w-full px-3 py-2.5 rounded-xl border border-[#F5C7DB] dark:border-[#3E304B] bg-white dark:bg-[#1E1627] text-xs font-semibold text-[#51364E] dark:text-[#F5EBF2] focus:outline-none focus:border-[#863864]">
+          </div>
+        </div>
+
+        <!-- Safe to Spend Instant Projection -->
+        <div class="p-4 rounded-2xl bg-[#F0FDF4] dark:bg-[#1E3823] border border-[#BBF7D0] dark:border-[#2E5E35]">
+          <div class="flex justify-between items-center text-xs font-bold text-[#2E7D32] dark:text-[#86EFAC]">
+            <span>🛡️ Initial Safe-To-Spend (100% Unspent):</span>
+            <span class="text-base font-serif font-bold text-[#2E7D32] dark:text-[#86EFAC]" id="onboardingPreviewSafe">$5,000.00</span>
+          </div>
+          <p class="text-[10px] text-[#2E7D32]/80 dark:text-[#86EFAC]/80 mt-1">Starts at 100% safe. As you add your own bills, this calculates in real time.</p>
+        </div>
+
+        <button type="submit" id="onboardingSubmitBtn" class="w-full py-3.5 rounded-2xl bg-[#863864] hover:bg-[#A34F78] text-white font-bold text-sm shadow-sm active:scale-98 transition flex items-center justify-center gap-2">
+          <i data-lucide="sparkles" class="w-4 h-4"></i>
+          <span id="onboardingSubmitBtnLabel">Lock In Budget & Unlock My Planner ✨</span>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==================== USER MODALS ==================== -->
+
+  <!-- Modal: Log Expense -->
+  <div id="addExpenseModal" class="fixed inset-0 bg-[#51364E]/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-white dark:bg-[#241B2D] border border-[#F5C7DB] dark:border-[#3E304B] rounded-3xl p-6 w-full max-w-md shadow-xl relative">
+      <button onclick="closeModal('addExpenseModal')" class="absolute top-5 right-5 text-[#754A67] hover:text-[#51364E]">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+
+      <h3 class="font-serif font-bold text-xl text-[#51364E] dark:text-[#F5EBF2] mb-1 flex items-center gap-2">
+        <span>💸</span> Log an Expense
+      </h3>
+      <p class="text-xs text-[#754A67] dark:text-[#B9A6B5] mb-5">Quick & gentle. Small amounts matter!</p>
+
+      <form id="expenseForm" onsubmit="handleCreateExpense(event)" class="space-y-4">
+        <div>
+          <label class="block text-xs font-bold text-[#51364E] dark:text-[#F5EBF2] mb-1">Amount ($)</label>
+          <div class="relative">
+            <span class="absolute left-3.5 top-2.5 text-[#754A67] font-bold">$</span>
+            <input type="number" step="0.01" id="expAmount" required placeholder="0.00" class="w-full pl-8 pr-4 py-2.5 rounded-xl border border-[#F5C7DB] dark:border-[#3E304B] bg-white dark:bg-[#1E1627] text-sm font-bold focus:outline-none focus:border-[#863864] text-[#51364E] dark:text-[#F5EBF2]">
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-[#51364E] dark:text-[#F5EBF2] mb-1">Description</label>
+          <input type="text" id="expTitle" required placeholder="e.g. Groceries, Iced Coffee, Books" class="w-full px-4 py-2.5 rounded-xl border border-[#F5C7DB] dark:border-[#3E304B] bg-white dark:bg-[#1E1627] text-xs focus:outline-none focus:border-[#863864] text-[#51364E] dark:text-[#F5EBF2]">
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-bold text-[#51364E] dark:text-[#F5EBF2] mb-1">Envelope</label>
+            <select id="expCategory" class="w-full px-3 py-2.5 rounded-xl border border-[#F5C7DB] dark:border-[#3E304B] bg-white dark:bg-[#1E1627] text-xs focus:outline-none focus:border-[#863864] text-[#51364E] dark:text-[#F5EBF2]">
+              <!-- Dynamically populated from state.envelopes -->
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-[#51364E] dark:text-[#F5EBF2] mb-1">Mood Tag</label>
+            <select id="expTag" class="w-full px-3 py-2.5 rounded-xl border border-[#F5C7DB] dark:border-[#3E304B] bg-white dark:bg-[#1E1627] text-xs focus:outline-none focus:border-[#863864] text-[#51364E] dark:text-[#F5EBF2]">
+              <option value="Essential 🌱">Essential 🌱</option>
+              <option value="Dopamine Hit ⚡">Dopamine Hit ⚡</option>
+              <option value="Comfort Food 🍕">Comfort Food 🍕</option>
+              <option value="Self Love 💖">Self Love 💖</option>
+            </select>
+          </div>
+        </div>
+
+        <button type="submit" class="w-full py-3 rounded-xl bg-[#863864] hover:bg-[#A34F78] text-white font-bold text-xs shadow-xs transition">
+          Save Expense
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: Add Recurring Bill -->
+  <div id="addBillModal" class="fixed inset-0 bg-[#51364E]/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-white dark:bg-[#241B2D] border border-[#F5C7DB] dark:border-[#3E304B] rounded-3xl p-6 w-full max-w-md shadow-xl relative">
+      <button onclick="closeModal('addBillModal')" class="absolute top-5 right-5 text-[#754A67] hover:text-[#51364E]">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+
+      <h3 class="font-serif font-bold text-xl text-[#51364E] dark:text-[#F5EBF2] mb-1 flex items-center gap-2">
+        <span>📅</span> Add Recurring Bill
+      </h3>
+      <p class="text-xs text-[#754A67] dark:text-[#B9A6B5] mb-5">Never get caught off guard by subscriptions or late fees.</p>
+
+      <form id="billForm" onsubmit="handleCreateBill(event)" class="space-y-4">
+        <div>
+          <label class="block text-xs font-bold text-[#51364E] dark:text-[#F5EBF2] mb-1">Bill Name</label>
+          <input type="text" id="billName" required placeholder="e.g. Rent, Internet, Gym, Netflix" class="w-full px-4 py-2.5 rounded-xl border border-[#F5C7DB] dark:border-[#3E304B] bg-white dark:bg-[#1E1627] text-xs focus:outline-none focus:border-[#863864] text-[#51364E] dark:text-[#F5EBF2]">
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-bold text-[#51364E] dark:text-[#F5EBF2] mb-1">Amount ($)</label>
+            <input type="number" step="0.01" id="billAmountInput" required placeholder="50.00" class="w-full px-4 py-2.5 rounded-xl border border-[#F5C7DB] dark:border-[#3E304B] bg-white dark:bg-[#1E1627] text-xs focus:outline-none focus:border-[#863864] text-[#51364E] dark:text-[#F5EBF2]">
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-[#51364E] dark:text-[#F5EBF2] mb-1">Due Day of Month (1-31)</label>
+            <input type="number" min="1" max="31" id="billDueDay" required placeholder="1" class="w-full px-4 py-2.5 rounded-xl border border-[#F5C7DB] dark:border-[#3E304B] bg-white dark:bg-[#1E1627] text-xs focus:outline-none focus:border-[#863864] text-[#51364E] dark:text-[#F5EBF2]">
+          </div>
+        </div>
+
+        <button type="submit" class="w-full py-3 rounded-xl bg-[#6B21A8] hover:bg-[#7E22CE] text-white font-bold text-xs shadow-xs transition">
+          Add Bill
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: Add Impulse Item -->
+  <div id="addImpulseModal" class="fixed inset-0 bg-[#51364E]/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-white dark:bg-[#241B2D] border border-[#F5C7DB] dark:border-[#3E304B] rounded-3xl p-6 w-full max-w-md shadow-xl relative">
+      <button onclick="closeModal('addImpulseModal')" class="absolute top-5 right-5 text-[#754A67] hover:text-[#51364E]">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+
+      <h3 class="font-serif font-bold text-xl text-[#51364E] dark:text-[#F5EBF2] mb-1 flex items-center gap-2">
+        <span>⏳</span> Pause The Impulse
+      </h3>
+      <p class="text-xs text-[#754A67] dark:text-[#B9A6B5] mb-5">Give your dopamine 48 hours to cool down before clicking buy.</p>
+
+      <form id="impulseForm" onsubmit="handleCreateImpulse(event)" class="space-y-4">
+        <div>
+          <label class="block text-xs font-bold text-[#51364E] dark:text-[#F5EBF2] mb-1">What do you urgently want to buy?</label>
+          <input type="text" id="impTitle" required placeholder="e.g. Shoes, gadget, keyboard" class="w-full px-4 py-2.5 rounded-xl border border-[#F5C7DB] dark:border-[#3E304B] bg-white dark:bg-[#1E1627] text-xs focus:outline-none focus:border-[#863864] text-[#51364E] dark:text-[#F5EBF2]">
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-[#51364E] dark:text-[#F5EBF2] mb-1">Price Tag ($)</label>
+          <div class="relative">
+            <span class="absolute left-3.5 top-2.5 text-[#754A67] font-bold">$</span>
+            <input type="number" step="0.01" id="impPrice" required placeholder="49.99" class="w-full pl-8 pr-4 py-2.5 rounded-xl border border-[#F5C7DB] dark:border-[#3E304B] bg-white dark:bg-[#1E1627] text-sm font-bold focus:outline-none focus:border-[#863864] text-[#51364E] dark:text-[#F5EBF2]">
+          </div>
+        </div>
+
+        <button type="submit" class="w-full py-3 rounded-xl bg-[#6B21A8] hover:bg-[#7E22CE] text-white font-bold text-xs shadow-xs transition">
+          Start 48h Countdown ⏳
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: Add Savings Jar -->
+  <div id="addJarModal" class="fixed inset-0 bg-[#51364E]/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-white dark:bg-[#241B2D] border border-[#F5C7DB] dark:border-[#3E304B] rounded-3xl p-6 w-full max-w-md shadow-xl relative">
+      <button onclick="closeModal('addJarModal')" class="absolute top-5 right-5 text-[#754A67] hover:text-[#51364E]">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+
+      <h3 class="font-serif font-bold text-xl text-[#51364E] dark:text-[#F5EBF2] mb-1 flex items-center gap-2">
+        <span>🍯</span> Create Savings Jar
+      </h3>
+      <p class="text-xs text-[#754A67] dark:text-[#B9A6B5] mb-5">Set a goal and watch your savings grow visually!</p>
+
+      <form id="jarForm" onsubmit="handleCreateJar(event)" class="space-y-4">
+        <div>
+          <label class="block text-xs font-bold text-[#51364E] dark:text-[#F5EBF2] mb-1">Goal Name</label>
+          <input type="text" id="jarName" required placeholder="e.g. Emergency Fund, New Laptop, Vacation" class="w-full px-4 py-2.5 rounded-xl border border-[#F5C7DB] dark:border-[#3E304B] bg-white dark:bg-[#1E1627] text-xs focus:outline-none focus:border-[#863864] text-[#51364E] dark:text-[#F5EBF2]">
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-bold text-[#51364E] dark:text-[#F5EBF2] mb-1">Target Amount ($)</label>
+            <input type="number" step="0.01" id="jarTarget" required placeholder="1000.00" class="w-full px-4 py-2.5 rounded-xl border border-[#F5C7DB] dark:border-[#3E304B] bg-white dark:bg-[#1E1627] text-xs focus:outline-none focus:border-[#863864] text-[#51364E] dark:text-[#F5EBF2]">
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-[#51364E] dark:text-[#F5EBF2] mb-1">Starting Saved ($)</label>
+            <input type="number" step="0.01" id="jarCurrent" value="0.00" class="w-full px-4 py-2.5 rounded-xl border border-[#F5C7DB] dark:border-[#3E304B] bg-white dark:bg-[#1E1627] text-xs focus:outline-none focus:border-[#863864] text-[#51364E] dark:text-[#F5EBF2]">
+          </div>
+        </div>
+
+        <button type="submit" class="w-full py-3 rounded-xl bg-[#863864] hover:bg-[#A34F78] text-white font-bold text-xs shadow-xs transition">
+          Create Jar
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: Add Envelope -->
+  <div id="addEnvelopeModal" class="fixed inset-0 bg-[#51364E]/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-white dark:bg-[#241B2D] border border-[#F5C7DB] dark:border-[#3E304B] rounded-3xl p-6 w-full max-w-md shadow-xl relative">
+      <button onclick="closeModal('addEnvelopeModal')" class="absolute top-5 right-5 text-[#754A67] hover:text-[#51364E]">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+
+      <h3 class="font-serif font-bold text-xl text-[#51364E] dark:text-[#F5EBF2] mb-1 flex items-center gap-2">
+        <span>🧁</span> Add Spending Envelope
+      </h3>
+      <p class="text-xs text-[#754A67] dark:text-[#B9A6B5] mb-5">Create a solid category for your spending.</p>
+
+      <form id="envelopeForm" onsubmit="handleCreateEnvelope(event)" class="space-y-4">
+        <div>
+          <label class="block text-xs font-bold text-[#51364E] dark:text-[#F5EBF2] mb-1">Envelope Name</label>
+          <input type="text" id="envName" required placeholder="e.g. Dining Out, Hobbies, Pet Care" class="w-full px-4 py-2.5 rounded-xl border border-[#F5C7DB] dark:border-[#3E304B] bg-white dark:bg-[#1E1627] text-xs focus:outline-none focus:border-[#863864] text-[#51364E] dark:text-[#F5EBF2]">
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-bold text-[#51364E] dark:text-[#F5EBF2] mb-1">Monthly Budget ($)</label>
+            <input type="number" step="1" id="envBudget" required placeholder="250" class="w-full px-4 py-2.5 rounded-xl border border-[#F5C7DB] dark:border-[#3E304B] bg-white dark:bg-[#1E1627] text-xs focus:outline-none focus:border-[#863864] text-[#51364E] dark:text-[#F5EBF2]">
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-[#51364E] dark:text-[#F5EBF2] mb-1">Emoji Icon</label>
+            <input type="text" id="envIcon" value="🛍️" class="w-full px-4 py-2.5 rounded-xl border border-[#F5C7DB] dark:border-[#3E304B] bg-white dark:bg-[#1E1627] text-xs text-center focus:outline-none focus:border-[#863864]">
+          </div>
+        </div>
+
+        <button type="submit" class="w-full py-3 rounded-xl bg-[#863864] hover:bg-[#A34F78] text-white font-bold text-xs shadow-xs transition">
+          Save Envelope
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: Deposit / Withdraw Jar -->
+  <div id="jarFundModal" class="fixed inset-0 bg-[#51364E]/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-white dark:bg-[#241B2D] border border-[#F5C7DB] dark:border-[#3E304B] rounded-3xl p-6 w-full max-w-sm shadow-xl relative">
+      <button onclick="closeModal('jarFundModal')" class="absolute top-5 right-5 text-[#754A67] hover:text-[#51364E]">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+
+      <h3 class="font-serif font-bold text-lg text-[#51364E] dark:text-[#F5EBF2] mb-1" id="jarFundTitle">Manage Jar</h3>
+      <p class="text-xs text-[#754A67] dark:text-[#B9A6B5] mb-4">Every dollar builds your peace of mind!</p>
+
+      <div class="space-y-4">
+        <div>
+          <label class="block text-xs font-bold text-[#51364E] dark:text-[#F5EBF2] mb-1">Amount ($)</label>
+          <input type="number" step="0.01" id="jarFundAmount" placeholder="25.00" class="w-full px-4 py-2.5 rounded-xl border border-[#F5C7DB] dark:border-[#3E304B] bg-white dark:bg-[#1E1627] text-sm font-bold focus:outline-none focus:border-[#863864] text-[#51364E] dark:text-[#F5EBF2]">
+        </div>
+        <div class="flex gap-2">
+          <button onclick="confirmJarFund(true)" class="flex-1 py-2.5 rounded-xl bg-[#2E7D32] hover:bg-[#388E3C] text-white font-bold text-xs shadow-xs transition">
+            + Deposit
+          </button>
+          <button onclick="confirmJarFund(false)" class="flex-1 py-2.5 rounded-xl bg-white dark:bg-[#1E1627] hover:bg-[#FDF2F7] border border-[#F5C7DB] dark:border-[#3E304B] text-[#51364E] dark:text-[#F5EBF2] font-bold text-xs transition">
+            - Withdraw
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== JAVASCRIPT APPLICATION LOGIC ==================== -->
+  <script>
+    // --- 100% CLEAN CANVAS INITIAL STATE (NO PRE-POPULATED FAKE DATA) ---
+    const BLANK_STATE = {
+      income: 0,
+      payCycleDays: 30,
+      paydayDay: 30,
+      hasOnboarded: false,
+      overwhelmShield: false,
+      soundEnabled: true,
+      brainDump: "",
+      // Clean, solid envelopes (user can customize)
+      envelopes: [
+        { id: 'env-1', name: 'Groceries & Food', budgeted: 500, spent: 0, icon: '🛒', color: 'bg-[#2E7D32]' },
+        { id: 'env-2', name: 'Dopamine & Fun', budgeted: 300, spent: 0, icon: '🎉', color: 'bg-[#863864]' },
+        { id: 'env-3', name: 'Coffee & Treats', budgeted: 80, spent: 0, icon: '☕', color: 'bg-[#B45309]' },
+        { id: 'env-4', name: 'Self-Care & Health', budgeted: 150, spent: 0, icon: '💆‍♀️', color: 'bg-[#6B21A8]' },
+      ],
+      // ZERO dummy bills!
+      bills: [],
+      // ZERO dummy impulses!
+      impulses: [],
+      // ZERO dummy savings jars!
+      savingsJars: [],
+      // ZERO dummy transactions!
+      transactions: [],
+      // Clean top 3 tasks for user to fill
+      topTasks: [
+        { id: 1, text: '', done: false },
+        { id: 2, text: '', done: false },
+        { id: 3, text: '', done: false },
+      ],
+      // Clean needs list
+      groceryItems: [],
+      // Routines
+      morningRoutines: [
+        { id: 'm-1', text: 'Drink glass of water 💧', done: false },
+        { id: 'm-2', text: 'Gentle 5-min stretch 🧘', done: false },
+        { id: 'm-3', text: 'Check Safe-to-Spend for today 🛡️', done: false }
+      ],
+      eveningRoutines: [
+        { id: 'e-1', text: 'Log any today purchases 💸', done: false },
+        { id: 'e-2', text: 'Park thoughts in Brain Dump 🧠', done: false },
+        { id: 'e-3', text: 'Celebrate today\'s wins 🎉', done: false }
+      ]
+    };
+
+    let state = JSON.parse(localStorage.getItem('novasanctuary_adhd')) || JSON.parse(JSON.stringify(BLANK_STATE));
+
+    function saveState() {
+      localStorage.setItem('novasanctuary_adhd', JSON.stringify(state));
+      renderAll();
+    }
+
+    function resetPlanner() {
+      if (confirm('Start fresh with a clean budget? This resets all data so you can set up everything yourself.')) {
+        state = JSON.parse(JSON.stringify(BLANK_STATE));
+        saveState();
+        checkBudgetGate();
+      }
+    }
+
+    // --- FinNest Cycle Calculation ---
+    function getDaysUntilPayday() {
+      const today = new Date();
+      const currentDay = today.getDate();
+      const targetDay = state.paydayDay || 30;
+      
+      if (currentDay <= targetDay) {
+        return Math.max(1, targetDay - currentDay);
+      } else {
+        const daysInMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0).getDate();
+        return (daysInMonth - currentDay) + targetDay;
+      }
+    }
+
+    // --- Soft Sound Synthesis ---
+    function playChime(freq = 587.33) {
+      if (!state.soundEnabled) return;
+      try {
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(880, audioCtx.currentTime + 0.22);
+        gain.gain.setValueAtTime(0.12, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.35);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + 0.35);
+      } catch (e) {}
+    }
+
+    function triggerConfetti() {
+      if (typeof confetti === 'function') {
+        confetti({
+          particleCount: 70,
+          spread: 75,
+          origin: { y: 0.65 },
+          colors: ['#863864', '#6B21A8', '#2E7D32', '#DB82A7']
+        });
+      }
+    }
+
+    // --- MANDATORY BUDGET HARD GATE ---
+    function checkBudgetGate() {
+      const appContainer = document.getElementById('appContainer');
+      if (!state.hasOnboarded || !state.income || state.income <= 0) {
+        if (appContainer) {
+          appContainer.classList.add('pointer-events-none', 'filter', 'blur-xl', 'opacity-20', 'select-none');
+        }
+        openBudgetModal(true); // Mandatory mode
+      } else {
+        if (appContainer) {
+          appContainer.classList.remove('pointer-events-none', 'filter', 'blur-xl', 'opacity-20', 'select-none');
+        }
+        closeModal('onboardingModal');
+      }
+    }
+
+    function openBudgetModal(isMandatory = false) {
+      const closeBtn = document.getElementById('onboardingCloseBtn');
+      const badge = document.getElementById('onboardingBadge');
+      const title = document.getElementById('onboardingTitle');
+      const submitLabel = document.getElementById('onboardingSubmitBtnLabel');
+      const input = document.getElementById('onboardingIncomeInput');
+      const cycleInput = document.getElementById('onboardingCycleInput');
+      const paydayInput = document.getElementById('onboardingPaydayInput');
+
+      if (!state.hasOnboarded || isMandatory) {
+        if (closeBtn) closeBtn.classList.add('hidden');
+        if (badge) badge.innerHTML = '<i data-lucide="lock" class="w-3.5 h-3.5"></i> Step 1: Set Your Monthly Budget';
+        if (title) title.innerText = 'Welcome to NovaSanctuary';
+        if (submitLabel) submitLabel.innerText = 'Lock In Budget & Unlock My Planner ✨';
+        input.value = state.income > 0 ? state.income : 5000;
+        if (cycleInput) cycleInput.value = state.payCycleDays || 30;
+        if (paydayInput) paydayInput.value = state.paydayDay || 30;
+      } else {
+        if (closeBtn) closeBtn.classList.remove('hidden');
+        if (badge) badge.innerHTML = '<i data-lucide="sliders" class="w-3.5 h-3.5"></i> Edit Active Budget';
+        if (title) title.innerText = 'Adjust Monthly Budget';
+        if (submitLabel) submitLabel.innerText = 'Update Budget ✨';
+        input.value = state.income;
+        if (cycleInput) cycleInput.value = state.payCycleDays || 30;
+        if (paydayInput) paydayInput.value = state.paydayDay || 30;
+      }
+
+      updateBudgetPreview();
+      openModal('onboardingModal');
+      lucide.createIcons();
+    }
+
+    function setOnboardingPreset(amt) {
+      document.getElementById('onboardingIncomeInput').value = amt;
+      updateBudgetPreview();
+    }
+
+    function updateBudgetPreview() {
+      const val = parseFloat(document.getElementById('onboardingIncomeInput')?.value) || 0;
+      const previewSafe = document.getElementById('onboardingPreviewSafe');
+      if (previewSafe) {
+        previewSafe.innerText = `$${val.toLocaleString()}.00`;
+      }
+    }
+
+    document.getElementById('onboardingIncomeInput')?.addEventListener('input', updateBudgetPreview);
+
+    function handleSaveInitialBudget(e) {
+      e.preventDefault();
+      const val = parseFloat(document.getElementById('onboardingIncomeInput').value);
+      if (isNaN(val) || val <= 0) {
+        alert('Please enter a valid positive budget amount.');
+        return;
+      }
+
+      state.income = val;
+      state.payCycleDays = parseInt(document.getElementById('onboardingCycleInput')?.value) || 30;
+      state.paydayDay = parseInt(document.getElementById('onboardingPaydayInput')?.value) || 30;
+      state.hasOnboarded = true;
+
+      const appContainer = document.getElementById('appContainer');
+      if (appContainer) {
+        appContainer.classList.remove('pointer-events-none', 'filter', 'blur-xl', 'opacity-20', 'select-none');
+      }
+
+      document.getElementById('onboardingModal').classList.add('hidden');
+      saveState();
+      playChime(659.25);
+      triggerConfetti();
+    }
+
+    // --- TAB SWITCHING ---
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+      const activeTab = document.getElementById(`tab-${tabId}`);
+      if (activeTab) activeTab.classList.remove('hidden');
+
+      document.querySelectorAll('.nav-item').forEach(el => {
+        el.className = 'nav-item w-full flex items-center space-x-3 px-3.5 py-2.5 rounded-xl transition-all text-[#51364E] dark:text-[#F5EBF2] hover:bg-[#FDF2F7] dark:hover:bg-[#281D33] font-medium text-xs';
+      });
+      const activeNav = document.getElementById(`nav-${tabId}`);
+      if (activeNav) {
+        activeNav.className = 'nav-item w-full flex items-center space-x-3 px-3.5 py-2.5 rounded-xl transition-all bg-[#863864] text-white font-bold shadow-xs text-xs';
+      }
+
+      if (tabId === 'calendar') renderCalendar();
+      playChime(440);
+    }
+
+    // --- OVERWHELM SHIELD ---
+    function toggleOverwhelmShield() {
+      state.overwhelmShield = !state.overwhelmShield;
+      saveState();
+      playChime(660);
+    }
+
+    function updateOverwhelmUI() {
+      const banner = document.getElementById('overwhelmBanner');
+      const dot = document.getElementById('shieldToggleDot');
+      const toggle = document.getElementById('shieldToggle');
+
+      if (state.overwhelmShield) {
+        banner?.classList.remove('hidden');
+        if (dot) dot.style.transform = 'translateX(16px)';
+        toggle?.classList.add('bg-[#863864]');
+        toggle?.classList.remove('bg-gray-300', 'dark:bg-gray-700');
+        document.querySelectorAll('.tab-content:not(#tab-dashboard)').forEach(el => el.classList.add('hidden'));
+        document.getElementById('tab-dashboard')?.classList.remove('hidden');
+      } else {
+        banner?.classList.add('hidden');
+        if (dot) dot.style.transform = 'translateX(0)';
+        toggle?.classList.remove('bg-[#863864]');
+        toggle?.classList.add('bg-gray-300');
+      }
+    }
+
+    // --- THEME & SOUND ---
+    function toggleTheme() {
+      const isDark = document.documentElement.classList.toggle('dark');
+      localStorage.setItem('theme', isDark ? 'dark' : 'light');
+      document.getElementById('themeLabel').innerText = isDark ? 'Pastel Light' : 'Velvet Dark';
+    }
+
+    function toggleSound() {
+      state.soundEnabled = !state.soundEnabled;
+      document.getElementById('soundIcon').setAttribute('data-lucide', state.soundEnabled ? 'volume-2' : 'volume-x');
+      lucide.createIcons();
+      saveState();
+    }
+
+    // --- CORE FINANCIAL CALCULATIONS ---
+    function calculateFinancials() {
+      const totalIncome = state.income || 0;
+      const totalBills = state.bills.reduce((acc, b) => acc + b.amount, 0);
+      const totalExpenses = state.transactions.reduce((acc, t) => acc + t.amount, 0);
+      const totalSavings = state.savingsJars.reduce((acc, j) => acc + j.current, 0);
+      const targetSavings = state.savingsJars.reduce((acc, j) => acc + j.target, 0);
+
+      // Safe To Spend = Income - (Bills + Expenses)
+      const safeToSpend = Math.max(0, totalIncome - totalBills - totalExpenses);
+      const daysLeft = getDaysUntilPayday();
+      const dailySafe = (safeToSpend / daysLeft).toFixed(2);
+
+      const totalCommitted = totalBills + totalExpenses;
+      const operatingPct = totalIncome > 0 ? Math.min(100, Math.round((totalCommitted / totalIncome) * 100)) : 0;
+
+      return {
+        totalIncome,
+        totalBills,
+        totalExpenses,
+        totalSavings,
+        targetSavings,
+        safeToSpend,
+        dailySafe,
+        operatingPct,
+        totalCommitted,
+        daysLeft
+      };
+    }
+
+    // --- RENDER FUNCTIONS ---
+    function renderMetrics() {
+      const fin = calculateFinancials();
+
+      // Top 4 Hero KPIs
+      document.getElementById('kpiSafeSpend').innerText = `$${fin.safeToSpend.toFixed(2)}`;
+      document.getElementById('kpiDailySafe').innerText = `$${fin.dailySafe} / day`;
+      document.getElementById('kpiTotalIncome').innerText = `$${fin.totalIncome.toLocaleString()}.00`;
+      document.getElementById('kpiIncomeSub').innerText = `$${fin.totalIncome.toLocaleString()}.00`;
+      document.getElementById('sidebarIncomeDisplay').innerText = `$${fin.totalIncome.toLocaleString()}.00`;
+      document.getElementById('sidebarSafeBadge').innerText = `$${Math.round(fin.safeToSpend)}`;
+
+      // FinNest Signature: One Honest Number + Payday Countdown
+      const fnHonest = document.getElementById('fnHonestNumber');
+      if (fnHonest) fnHonest.innerText = `$${fin.dailySafe}`;
+      const fnTotal = document.getElementById('fnTotalSafeBuffer');
+      if (fnTotal) fnTotal.innerText = `$${fin.safeToSpend.toFixed(2)}`;
+      const paydayBadge = document.getElementById('paydayCountdownBadge');
+      if (paydayBadge) paydayBadge.innerText = `${fin.daysLeft} days to Payday`;
+
+      document.getElementById('kpiTotalExpenses').innerText = `$${fin.totalExpenses.toFixed(2)}`;
+      document.getElementById('kpiExpenseCountBadge').innerText = `${state.transactions.length} logged`;
+      document.getElementById('kpiTotalBillsSub').innerText = `$${fin.totalBills.toFixed(2)}`;
+      const expBarPct = fin.totalIncome > 0 ? Math.min(100, Math.round((fin.totalExpenses / fin.totalIncome) * 100)) : 0;
+      document.getElementById('kpiExpenseBar').style.width = `${expBarPct}%`;
+
+      document.getElementById('kpiTotalSavings').innerText = `$${fin.totalSavings.toFixed(2)}`;
+      document.getElementById('kpiJarsCountBadge').innerText = `${state.savingsJars.length} jars`;
+      document.getElementById('kpiSavingsTargetSub').innerText = `$${fin.targetSavings.toFixed(2)}`;
+      const savBarPct = fin.targetSavings > 0 ? Math.min(100, Math.round((fin.totalSavings / fin.targetSavings) * 100)) : 0;
+      document.getElementById('kpiSavingsBar').style.width = `${savBarPct}%`;
+
+      // Monthly Operating Progress
+      document.getElementById('operatingProgressPill').innerText = `${fin.operatingPct}% Spent • ${100 - fin.operatingPct}% Safe`;
+      document.getElementById('operatingProgressBar').style.width = `${fin.operatingPct}%`;
+      document.getElementById('operatingSpentText').innerText = `$${fin.totalCommitted.toFixed(2)} spent & committed`;
+      document.getElementById('operatingRemainingText').innerText = `$${fin.safeToSpend.toFixed(2)} remaining safe`;
+    }
+
+    // --- FINNEST STUDIO SIGNATURE FEATURES ---
+    function handleQuickSpend(title, amount, category, emoji) {
+      state.transactions.unshift({
+        id: 'tx-' + Date.now(),
+        title: `${emoji} ${title}`,
+        amount: amount,
+        category: category,
+        tag: 'Quick Spend ⚡',
+        date: new Date().toISOString().split('T')[0]
+      });
+
+      const env = state.envelopes.find(e => e.name === category);
+      if (env) env.spent += amount;
+
+      saveState();
+      playChime(659.25);
+
+      const toast = document.getElementById('quickLogToast');
+      if (toast) {
+        toast.innerText = `✓ Logged $${amount.toFixed(2)} for ${title}!`;
+        setTimeout(() => { if (toast.innerText.includes(title)) toast.innerText = ''; }, 3000);
+      }
+    }
+
+    function calculateCanFit() {
+      const input = document.getElementById('canFitInput');
+      const val = parseFloat(input?.value);
+      const resultBox = document.getElementById('canFitResult');
+      const title = document.getElementById('canFitTitle');
+      const subtitle = document.getElementById('canFitSubtitle');
+      const actions = document.getElementById('canFitActions');
+
+      if (isNaN(val) || val <= 0) {
+        resultBox.className = 'p-3.5 rounded-xl bg-[#FDF2F7] dark:bg-[#281D33] border border-[#F5C7DB] dark:border-[#3E304B] transition-all duration-300';
+        title.innerHTML = '<span>✨</span> Enter an amount above to test';
+        subtitle.innerText = 'Instant check will tell you if it\'s 100% guilt-free or if pausing 48h is wiser.';
+        actions?.classList.add('hidden');
+        return;
+      }
+
+      actions?.classList.remove('hidden');
+      const fin = calculateFinancials();
+      const daily = parseFloat(fin.dailySafe);
+      const total = fin.safeToSpend;
+
+      if (val <= daily) {
+        const leftToday = (daily - val).toFixed(2);
+        resultBox.className = 'p-3.5 rounded-xl bg-[#F0FDF4] dark:bg-[#1E3823] border border-[#BBF7D0] dark:border-[#2E5E35] transition-all duration-300';
+        title.innerHTML = `<span class="text-[#2E7D32] dark:text-[#86EFAC] font-bold">🟢 Fits gently today!</span>`;
+        subtitle.innerHTML = `<span class="text-[#2E7D32] dark:text-[#86EFAC]">You have $${daily.toFixed(2)} daily allowance. After this $${val.toFixed(2)}, you will still have <strong>$${leftToday}</strong> safe today.</span>`;
+      } else if (val <= total) {
+        const overDaily = (val - daily).toFixed(2);
+        resultBox.className = 'p-3.5 rounded-xl bg-[#FFFBEB] dark:bg-[#3D2C14] border border-[#FDE68A] dark:border-[#78350F] transition-all duration-300';
+        title.innerHTML = `<span class="text-[#B45309] dark:text-[#FCD34D] font-bold">🟡 Exceeds daily pace by $${overDaily}</span>`;
+        subtitle.innerHTML = `<span class="text-[#B45309] dark:text-[#FCD34D]">Fits in your total monthly safe buffer ($${total.toFixed(2)}), but exceeds today's daily pace. Would you like to pause 48h or spend anyway?</span>`;
+      } else {
+        const overTotal = (val - total).toFixed(2);
+        resultBox.className = 'p-3.5 rounded-xl bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-900 transition-all duration-300';
+        title.innerHTML = `<span class="text-rose-600 dark:text-rose-400 font-bold">🔴 Over your safe monthly budget by $${overTotal}</span>`;
+        subtitle.innerHTML = `<span class="text-rose-600 dark:text-rose-400">Protect your peace! This purchase would break your budget. We strongly advise stashing it into your 48h Vault.</span>`;
+      }
+    }
+
+    function logFromCanFit() {
+      const input = document.getElementById('canFitInput');
+      const val = parseFloat(input?.value);
+      if (isNaN(val) || val <= 0) return;
+
+      const desc = prompt('Enter a short description:', 'Quick Purchase');
+      if (!desc) return;
+
+      state.transactions.unshift({
+        id: 'tx-' + Date.now(),
+        title: desc,
+        amount: val,
+        category: 'Dopamine & Fun',
+        tag: 'Considered Spend 💡',
+        date: new Date().toISOString().split('T')[0]
+      });
+
+      const env = state.envelopes.find(e => e.name === 'Dopamine & Fun') || state.envelopes[0];
+      if (env) env.spent += val;
+
+      input.value = '';
+      calculateCanFit();
+      saveState();
+      playChime(659.25);
+      triggerConfetti();
+    }
+
+    function stashFromCanFit() {
+      const input = document.getElementById('canFitInput');
+      const val = parseFloat(input?.value);
+      if (isNaN(val) || val <= 0) return;
+
+      const desc = prompt('What is this item called?', 'Impulse Item');
+      if (!desc) return;
+
+      state.impulses.unshift({
+        id: 'imp-' + Date.now(),
+        title: desc,
+        price: val,
+        addedAt: Date.now(),
+        totalHours: 48,
+        status: 'waiting'
+      });
+
+      input.value = '';
+      calculateCanFit();
+      saveState();
+      playChime(587.33);
+      switchTab('impulse');
+    }
+
+    function clearCanFit() {
+      const input = document.getElementById('canFitInput');
+      if (input) input.value = '';
+      calculateCanFit();
+    }
+
+    function renderEnvelopes() {
+      const grid = document.getElementById('envelopesGrid');
+      const select = document.getElementById('expCategory');
+      
+      let html = '';
+      let optionsHtml = '';
+
+      state.envelopes.forEach(env => {
+        const spent = env.spent || 0;
+        const left = Math.max(0, env.budgeted - spent);
+        const pct = env.budgeted > 0 ? Math.min(100, Math.round((spent / env.budgeted) * 100)) : 0;
+
+        optionsHtml += `<option value="${env.name}">${env.name}</option>`;
+
+        html += `
+          <div class="nova-card rounded-2xl p-5">
+            <div class="flex items-start justify-between mb-3">
+              <div class="flex items-center gap-2.5">
+                <span class="text-2xl p-2 rounded-2xl bg-[#FDF2F7] dark:bg-[#32233E] border border-[#F5C7DB] dark:border-[#3E304B]">${env.icon}</span>
+                <div>
+                  <h4 class="font-bold text-sm text-[#51364E] dark:text-[#F5EBF2]">${env.name}</h4>
+                  <span class="text-[11px] text-[#754A67] dark:text-[#B9A6B5]">$${spent.toFixed(2)} spent of $${env.budgeted.toFixed(2)}</span>
+                </div>
+              </div>
+              <span class="text-xs font-bold px-2.5 py-1 rounded-full ${pct > 85 ? 'bg-rose-100 text-rose-600' : 'bg-[#F0FDF4] text-[#2E7D32] dark:bg-[#1E3823] dark:text-[#86EFAC]'}">
+                $${left.toFixed(2)} left
+              </span>
+            </div>
+
+            <div class="w-full bg-[#FBE9F1] dark:bg-[#342740] h-2.5 rounded-full overflow-hidden my-3">
+              <div class="bg-[#863864] h-full rounded-full transition-all duration-500" style="width: ${pct}%"></div>
+            </div>
+
+            <div class="flex items-center justify-between pt-2 border-t border-[#F5C7DB]/50 dark:border-[#3E304B] text-xs">
+              <span class="text-[#754A67] dark:text-[#B9A6B5] text-[11px]">${pct}% used</span>
+              <button onclick="quickLogExpense('${env.name}')" class="font-bold text-[#863864] dark:text-[#DB82A7] hover:underline flex items-center gap-1 text-[11px]">
+                <i data-lucide="plus-circle" class="w-3.5 h-3.5"></i> Log Spend
+              </button>
+            </div>
+          </div>
+        `;
+      });
+
+      if (grid) grid.innerHTML = html;
+      if (select) select.innerHTML = optionsHtml;
+    }
+
+    function quickLogExpense(catName) {
+      const select = document.getElementById('expCategory');
+      if (select) select.value = catName;
+      openModal('addExpenseModal');
+    }
+
+    function renderBills() {
+      const container = document.getElementById('billsList');
+      if (!container) return;
+
+      if (state.bills.length === 0) {
+        container.innerHTML = `
+          <div class="text-center py-10 p-6 rounded-2xl nova-card border-dashed">
+            <span class="text-3xl block mb-2">🍃</span>
+            <h4 class="font-serif font-bold text-base text-[#51364E] dark:text-[#F5EBF2]">No recurring bills added yet</h4>
+            <p class="text-xs text-[#754A67] dark:text-[#B9A6B5] max-w-sm mx-auto mt-1 mb-4">Add your actual rent, wifi, electricity, or subscriptions so you never get hit with late fees.</p>
+            <button onclick="openModal('addBillModal')" class="px-4 py-2 rounded-xl bg-[#6B21A8] hover:bg-[#7E22CE] text-white font-bold text-xs inline-flex items-center gap-1 shadow-xs transition">
+              <i data-lucide="plus" class="w-4 h-4"></i> Add Your First Bill
+            </button>
+          </div>
+        `;
+        return;
+      }
+
+      let html = '';
+      state.bills.forEach(bill => {
+        html += `
+          <div class="flex items-center justify-between p-4 rounded-2xl ${bill.paid ? 'bg-[#F0FDF4] dark:bg-[#1E3823]/30 border-[#BBF7D0]' : 'nova-card'} border transition">
+            <div class="flex items-center gap-3.5">
+              <button onclick="toggleBillPaid('${bill.id}')" class="w-6 h-6 rounded-lg flex items-center justify-center transition ${bill.paid ? 'bg-[#2E7D32] text-white' : 'border-2 border-[#F5C7DB] dark:border-[#3E304B] hover:border-[#2E7D32]'}">
+                ${bill.paid ? '<i data-lucide="check" class="w-4 h-4"></i>' : ''}
+              </button>
+              <div>
+                <h5 class="font-bold text-sm ${bill.paid ? 'line-through text-gray-400' : 'text-[#51364E] dark:text-[#F5EBF2]'}">${bill.name}</h5>
+                <span class="text-[11px] text-[#754A67] dark:text-[#B9A6B5]">Due on the ${bill.dueDay}th of every month</span>
+              </div>
+            </div>
+
+            <div class="flex items-center gap-3">
+              <span class="font-serif font-bold text-sm ${bill.paid ? 'text-gray-400' : 'text-[#51364E] dark:text-[#F5EBF2]'}">$${bill.amount.toFixed(2)}</span>
+              <button onclick="deleteBill('${bill.id}')" class="text-[#754A67] hover:text-rose-500 p-1">
+                <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
+              </button>
+            </div>
+          </div>
+        `;
+      });
+      container.innerHTML = html;
+    }
+
+    function toggleBillPaid(id) {
+      const b = state.bills.find(x => x.id === id);
+      if (b) {
+        b.paid = !b.paid;
+        if (b.paid) {
+          playChime(784);
+          triggerConfetti();
+        }
+        saveState();
+      }
+    }
+
+    function deleteBill(id) {
+      state.bills = state.bills.filter(x => x.id !== id);
+      saveState();
+    }
+
+    // --- TRANSACTIONS ---
+    function renderTransactions() {
+      const tbody = document.getElementById('transactionTableBody');
+      if (!tbody) return;
+
+      if (state.transactions.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="6" class="text-center py-8 text-[#754A67] dark:text-[#B9A6B5]">
+              <span class="text-2xl block mb-1">✧</span>
+              <p class="font-bold text-xs">No expenses logged yet!</p>
+              <p class="text-[11px] mt-0.5">Your ledger is completely clean. Click "+ Log Expense" whenever you spend money.</p>
+            </td>
+          </tr>
+        `;
+        return;
+      }
+
+      let html = '';
+      state.transactions.forEach(tx => {
+        html += `
+          <tr class="hover:bg-[#FDF2F7]/50 dark:hover:bg-[#281D33]/40 transition">
+            <td class="py-3 px-3 text-[#754A67] dark:text-[#B9A6B5]">${tx.date}</td>
+            <td class="py-3 px-3 font-bold text-[#51364E] dark:text-[#F5EBF2]">${tx.title}</td>
+            <td class="py-3 px-3"><span class="px-2 py-0.5 rounded-lg bg-[#FDF2F7] dark:bg-[#32233E] text-[#863864] dark:text-[#DB82A7] text-[10px] font-semibold">${tx.category}</span></td>
+            <td class="py-3 px-3"><span class="px-2 py-0.5 rounded-full bg-[#FAF5FF] dark:bg-[#2F1C42] text-[#6B21A8] dark:text-[#C084FC] text-[10px] font-bold">${tx.tag}</span></td>
+            <td class="py-3 px-3 font-serif font-bold text-right text-rose-600 dark:text-rose-400">-$${tx.amount.toFixed(2)}</td>
+            <td class="py-3 px-3 text-center">
+              <button onclick="deleteTransaction('${tx.id}')" class="text-gray-300 hover:text-rose-500"><i data-lucide="trash-2" class="w-3.5 h-3.5"></i></button>
+            </td>
+          </tr>
+        `;
+      });
+      tbody.innerHTML = html;
+      lucide.createIcons();
+    }
+
+    function deleteTransaction(id) {
+      state.transactions = state.transactions.filter(x => x.id !== id);
+      saveState();
+    }
+
+    // --- IMPULSE VAULT ---
+    function renderImpulses() {
+      const container = document.getElementById('impulseList');
+      const badge = document.getElementById('impulseBadge');
+      if (!container) return;
+
+      const waiting = state.impulses.filter(i => i.status === 'waiting');
+      const saved = state.impulses.filter(i => i.status === 'saved');
+      const totalSaved = saved.reduce((acc, i) => acc + i.price, 0);
+
+      document.getElementById('totalSavedImpulseBig').innerText = `$${totalSaved.toFixed(2)}`;
+      if (badge) badge.innerText = waiting.length;
+
+      if (state.impulses.length === 0) {
+        container.innerHTML = `
+          <div class="md:col-span-2 text-center py-10 p-6 rounded-2xl nova-card border-dashed">
+            <span class="text-3xl block mb-2">🧘</span>
+            <h4 class="font-serif font-bold text-base text-[#51364E] dark:text-[#F5EBF2]">Impulse Vault is Calm</h4>
+            <p class="text-xs text-[#754A67] dark:text-[#B9A6B5] max-w-sm mx-auto mt-1 mb-4">When you feel a sudden urge to buy something online, park it here for 48 hours instead!</p>
+            <button onclick="openModal('addImpulseModal')" class="px-4 py-2 rounded-xl bg-[#6B21A8] hover:bg-[#7E22CE] text-white font-bold text-xs inline-flex items-center gap-1 shadow-xs transition">
+              <i data-lucide="plus" class="w-4 h-4"></i> Add An Item
+            </button>
+          </div>
+        `;
+        return;
+      }
+
+      let html = '';
+      state.impulses.forEach(item => {
+        const isWaiting = item.status === 'waiting';
+        const isSaved = item.status === 'saved';
+        const elapsedHours = (Date.now() - item.addedAt) / (3600 * 1000);
+        const hoursLeft = Math.max(0, Math.ceil(item.totalHours - elapsedHours));
+
+        html += `
+          <div class="nova-card rounded-2xl p-5">
+            <div class="flex items-start justify-between mb-2">
+              <div>
+                <span class="text-[10px] font-bold px-2 py-0.5 rounded-full ${isSaved ? 'bg-[#F0FDF4] text-[#2E7D32]' : 'bg-[#FAF5FF] text-[#6B21A8]'}">
+                  ${isSaved ? 'Dopamine Win 🎉 Saved!' : (hoursLeft === 0 ? 'Ready for Decision 🎯' : `⏳ ${hoursLeft}h Left in Vault`)}
+                </span>
+                <h4 class="font-bold text-base text-[#51364E] dark:text-[#F5EBF2] mt-1.5">${item.title}</h4>
+              </div>
+              <span class="font-serif font-bold text-lg text-[#6B21A8] dark:text-[#C084FC]">$${item.price.toFixed(2)}</span>
+            </div>
+
+            ${isWaiting ? `
+              <div class="flex items-center justify-between text-xs pt-3 mt-2 border-t border-[#F5C7DB]/50 dark:border-[#3E304B]">
+                <button onclick="resolveImpulse('${item.id}', 'saved')" class="px-3 py-1.5 rounded-xl bg-[#F0FDF4] text-[#2E7D32] font-bold hover:bg-[#DCFCE7] transition flex items-center gap-1">
+                  <i data-lucide="check" class="w-3.5 h-3.5"></i> Don't Need It (Save $$)
+                </button>
+                <button onclick="resolveImpulse('${item.id}', 'bought')" class="px-3 py-1.5 rounded-xl bg-white dark:bg-[#1E1627] border border-[#F5C7DB] text-[#51364E] dark:text-[#F5EBF2] font-semibold hover:bg-[#FDF2F7] transition">
+                  Still Want It (Buy)
+                </button>
+              </div>
+            ` : `
+              <p class="text-xs text-[#2E7D32] dark:text-[#86EFAC] font-medium mt-2">
+                ✨ Craving cooled down and you kept $${item.price.toFixed(2)} in your bank account!
+              </p>
+            `}
+          </div>
+        `;
+      });
+      container.innerHTML = html;
+    }
+
+    function resolveImpulse(id, action) {
+      const item = state.impulses.find(i => i.id === id);
+      if (!item) return;
+
+      if (action === 'saved') {
+        item.status = 'saved';
+        playChime(880);
+        triggerConfetti();
+      } else if (action === 'bought') {
+        state.transactions.unshift({
+          id: 'tx-' + Date.now(),
+          title: item.title,
+          amount: item.price,
+          category: 'Dopamine & Fun',
+          tag: 'Dopamine Hit ⚡',
+          date: new Date().toISOString().split('T')[0]
+        });
+        state.impulses = state.impulses.filter(i => i.id !== id);
+      }
+      saveState();
+    }
+
+    // --- SAVINGS JARS ---
+    let activeJar = null;
+    function renderSavingsJars() {
+      const container = document.getElementById('savingsJarsGrid');
+      if (!container) return;
+
+      if (state.savingsJars.length === 0) {
+        container.innerHTML = `
+          <div class="md:col-span-3 text-center py-10 p-6 rounded-2xl nova-card border-dashed">
+            <span class="text-3xl block mb-2">🍯</span>
+            <h4 class="font-serif font-bold text-base text-[#51364E] dark:text-[#F5EBF2]">No savings jars created yet</h4>
+            <p class="text-xs text-[#754A67] dark:text-[#B9A6B5] max-w-sm mx-auto mt-1 mb-4">Set your first visual goal (e.g. Emergency Fund, New Laptop, Holiday Trip).</p>
+            <button onclick="openModal('addJarModal')" class="px-4 py-2 rounded-xl bg-[#863864] hover:bg-[#A34F78] text-white font-bold text-xs inline-flex items-center gap-1 shadow-xs transition">
+              <i data-lucide="plus" class="w-4 h-4"></i> Create First Jar
+            </button>
+          </div>
+        `;
+        return;
+      }
+
+      let html = '';
+      state.savingsJars.forEach(jar => {
+        const pct = jar.target > 0 ? Math.min(100, Math.round((jar.current / jar.target) * 100)) : 0;
+        html += `
+          <div class="nova-card rounded-2xl p-6 flex flex-col items-center text-center">
+            <span class="text-3xl mb-1">${jar.emoji || '🍯'}</span>
+            <h4 class="font-serif font-bold text-base text-[#51364E] dark:text-[#F5EBF2]">${jar.name}</h4>
+            <p class="text-xs text-[#754A67] dark:text-[#B9A6B5] mb-4">Goal: $${jar.target.toFixed(2)}</p>
+
+            <div class="w-32 h-44 rounded-2xl border-4 border-[#F5C7DB] dark:border-[#3E304B] bg-[#FDF2F7] dark:bg-[#281D33] relative overflow-hidden mb-4 flex flex-col justify-end p-1">
+              <div class="w-full bg-[#863864] rounded-xl jar-level flex items-center justify-center text-[10px] font-bold text-white shadow-inner" style="height: ${pct}%;">
+                ${pct > 15 ? pct + '%' : ''}
+              </div>
+            </div>
+
+            <div class="text-lg font-serif font-bold text-[#51364E] dark:text-[#F5EBF2] mb-0.5">$${jar.current.toFixed(2)}</div>
+            <span class="text-xs text-[#2E7D32] dark:text-[#86EFAC] font-bold mb-4">${pct}% achieved</span>
+
+            <button onclick="openJarFund('${jar.id}')" class="w-full py-2 rounded-xl bg-[#863864] hover:bg-[#A34F78] text-white font-bold text-xs shadow-xs transition">
+              + Deposit / Withdraw
+            </button>
+          </div>
+        `;
+      });
+      container.innerHTML = html;
+    }
+
+    function openJarFund(id) {
+      activeJar = state.savingsJars.find(j => j.id === id);
+      if (!activeJar) return;
+      document.getElementById('jarFundTitle').innerText = `${activeJar.emoji || '🍯'} ${activeJar.name}`;
+      openModal('jarFundModal');
+    }
+
+    function confirmJarFund(isDeposit) {
+      const amt = parseFloat(document.getElementById('jarFundAmount').value);
+      if (isNaN(amt) || amt <= 0 || !activeJar) return;
+
+      if (isDeposit) {
+        activeJar.current += amt;
+        playChime(660);
+        triggerConfetti();
+      } else {
+        activeJar.current = Math.max(0, activeJar.current - amt);
+      }
+      document.getElementById('jarFundAmount').value = '';
+      closeModal('jarFundModal');
+      saveState();
+    }
+
+    // --- TOP 3 FOCUS TASKS ---
+    function renderFocusTasks() {
+      const container = document.getElementById('focusTaskList');
+      if (!container) return;
+
+      let completed = 0;
+      let html = '';
+
+      state.topTasks.forEach((task, idx) => {
+        if (task.done) completed++;
+        html += `
+          <div class="flex items-center gap-3 p-3 rounded-xl bg-[#FDF2F7]/70 dark:bg-[#1E1627] border border-[#F5C7DB]/60 dark:border-[#3E304B]">
+            <input type="checkbox" onchange="toggleFocusTask(${task.id})" ${task.done ? 'checked' : ''} class="w-4 h-4 rounded text-[#863864] focus:ring-[#863864] cursor-pointer">
+            <input type="text" onchange="updateFocusTaskText(${task.id}, this.value)" value="${task.text}" placeholder="Focus priority ${idx + 1} (click to type)..." class="flex-1 bg-transparent text-xs font-semibold text-[#51364E] dark:text-[#F5EBF2] focus:outline-none ${task.done ? 'line-through text-gray-400' : ''}">
+          </div>
+        `;
+      });
+
+      container.innerHTML = html;
+      document.getElementById('focusTasksCompletedCount').innerText = `${completed}/3 Done`;
+    }
+
+    function toggleFocusTask(id) {
+      const t = state.topTasks.find(x => x.id === id);
+      if (t) {
+        t.done = !t.done;
+        if (t.done) {
+          playChime(700);
+          triggerConfetti();
+        }
+        saveState();
+      }
+    }
+
+    function updateFocusTaskText(id, text) {
+      const t = state.topTasks.find(x => x.id === id);
+      if (t) {
+        t.text = text;
+        saveState();
+      }
+    }
+
+    // --- GROCERY LIST ---
+    function renderGroceryList() {
+      const container = document.getElementById('groceryListContainer');
+      if (!container) return;
+
+      if (state.groceryItems.length === 0) {
+        container.innerHTML = `<p class="text-xs text-[#754A67] dark:text-[#B9A6B5] py-3 text-center">List is empty. Click "+ Add" to add items.</p>`;
+        return;
+      }
+
+      let html = '';
+      state.groceryItems.forEach((item, idx) => {
+        html += `
+          <div class="flex items-center justify-between text-xs p-2 rounded-xl bg-[#FDF2F7] dark:bg-[#1E1627]">
+            <label class="flex items-center gap-2 cursor-pointer flex-1">
+              <input type="checkbox" onchange="toggleGroceryItem(${idx})" ${item.done ? 'checked' : ''} class="rounded text-[#863864]">
+              <span class="${item.done ? 'line-through text-gray-400' : 'text-[#51364E] dark:text-[#F5EBF2]'}">${item.text}</span>
+            </label>
+            <button onclick="deleteGroceryItem(${idx})" class="text-gray-300 hover:text-rose-500"><i data-lucide="x" class="w-3.5 h-3.5"></i></button>
+          </div>
+        `;
+      });
+      container.innerHTML = html;
+      lucide.createIcons();
+    }
+
+    function addGroceryItemPrompt() {
+      const text = prompt('Enter item to buy:');
+      if (text && text.trim()) {
+        state.groceryItems.push({ text: text.trim(), done: false });
+        saveState();
+      }
+    }
+
+    function toggleGroceryItem(idx) {
+      if (state.groceryItems[idx]) {
+        state.groceryItems[idx].done = !state.groceryItems[idx].done;
+        saveState();
+      }
+    }
+
+    function deleteGroceryItem(idx) {
+      state.groceryItems.splice(idx, 1);
+      saveState();
+    }
+
+    // --- ROUTINES ---
+    function renderRoutines() {
+      const mContainer = document.getElementById('morningRoutineList');
+      const eContainer = document.getElementById('eveningRoutineList');
+      if (!mContainer || !eContainer) return;
+
+      let mHtml = '';
+      state.morningRoutines.forEach(r => {
+        mHtml += `
+          <label class="flex items-center gap-2.5 p-3 rounded-xl bg-[#FDF2F7] dark:bg-[#1E1627] text-xs font-semibold cursor-pointer">
+            <input type="checkbox" onchange="toggleRoutine('m', '${r.id}')" ${r.done ? 'checked' : ''} class="rounded text-[#863864]">
+            <span class="${r.done ? 'line-through text-gray-400' : 'text-[#51364E] dark:text-[#F5EBF2]'}">${r.text}</span>
+          </label>
+        `;
+      });
+      mContainer.innerHTML = mHtml;
+
+      let eHtml = '';
+      state.eveningRoutines.forEach(r => {
+        eHtml += `
+          <label class="flex items-center gap-2.5 p-3 rounded-xl bg-[#FDF2F7] dark:bg-[#1E1627] text-xs font-semibold cursor-pointer">
+            <input type="checkbox" onchange="toggleRoutine('e', '${r.id}')" ${r.done ? 'checked' : ''} class="rounded text-[#863864]">
+            <span class="${r.done ? 'line-through text-gray-400' : 'text-[#51364E] dark:text-[#F5EBF2]'}">${r.text}</span>
+          </label>
+        `;
+      });
+      eContainer.innerHTML = eHtml;
+    }
+
+    function toggleRoutine(type, id) {
+      const list = type === 'm' ? state.morningRoutines : state.eveningRoutines;
+      const r = list.find(x => x.id === id);
+      if (r) {
+        r.done = !r.done;
+        if (r.done) playChime(660);
+        saveState();
+      }
+    }
+
+    function addRoutinePrompt() {
+      const text = prompt('Enter routine habit:');
+      if (text && text.trim()) {
+        state.morningRoutines.push({ id: 'r-' + Date.now(), text: text.trim(), done: false });
+        saveState();
+      }
+    }
+
+    // --- SMART CALENDAR ---
+    let calendarDate = new Date(2026, 10, 2);
+    let selectedDayNum = 2;
+
+    function changeCalendarMonth(offset) {
+      calendarDate.setMonth(calendarDate.getMonth() + offset);
+      renderCalendar();
+    }
+
+    function renderCalendar() {
+      const year = calendarDate.getFullYear();
+      const month = calendarDate.getMonth();
+      const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+      
+      const title = document.getElementById('calendarMonthTitle');
+      if (title) title.innerText = `${monthNames[month]} ${year}`;
+
+      const firstDay = new Date(year, month, 1).getDay();
+      const totalDays = new Date(year, month + 1, 0).getDate();
+      const grid = document.getElementById('calendarDaysGrid');
+      if (!grid) return;
+
+      let html = '';
+      for (let i = 0; i < firstDay; i++) {
+        html += `<div class="h-20 p-1.5 rounded-xl bg-[#FDF2F7]/30 dark:bg-[#1E1627]/30 opacity-20"></div>`;
+      }
+
+      for (let d = 1; d <= totalDays; d++) {
+        const isSelected = (d === selectedDayNum);
+        const dayBills = state.bills.filter(b => b.dueDay === d);
+        const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
+        const dayTxs = state.transactions.filter(t => t.date === dateStr);
+
+        html += `
+          <div onclick="selectCalendarDay(${d})" class="h-20 p-2 rounded-xl border transition cursor-pointer flex flex-col justify-between ${
+            isSelected ? 'border-[#863864] bg-[#FDF2F7] dark:bg-[#281D33]' : 'border-[#F5C7DB]/60 dark:border-[#3E304B] bg-white dark:bg-[#1E1627]'
+          }">
+            <span class="text-xs font-bold text-[#51364E] dark:text-[#F5EBF2]">${d}</span>
+            <div class="space-y-1 overflow-hidden">
+              ${dayBills.map(b => `
+                <div class="truncate text-[9px] font-bold px-1.5 py-0.5 rounded-md ${b.paid ? 'bg-[#F0FDF4] text-[#2E7D32]' : 'bg-[#FAF5FF] text-[#6B21A8]'}">
+                  ${b.name}: $${b.amount}
+                </div>
+              `).join('')}
+              ${dayTxs.length > 0 ? `<div class="text-[9px] font-bold px-1.5 py-0.5 rounded-md bg-[#FFFBEB] text-[#B45309]">${dayTxs.length} spent</div>` : ''}
+            </div>
+          </div>
+        `;
+      }
+      grid.innerHTML = html;
+      renderSelectedCalendarDetails();
+    }
+
+    function selectCalendarDay(d) {
+      selectedDayNum = d;
+      renderCalendar();
+      playChime(523);
+    }
+
+    function renderSelectedCalendarDetails() {
+      const year = calendarDate.getFullYear();
+      const month = calendarDate.getMonth();
+      const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+      
+      const title = document.getElementById('selectedDateTitle');
+      if (title) title.innerText = `${monthNames[month]} ${selectedDayNum}, ${year}`;
+
+      const listContainer = document.getElementById('selectedDateEventsList');
+      if (!listContainer) return;
+
+      const dayBills = state.bills.filter(b => b.dueDay === selectedDayNum);
+      const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(selectedDayNum).padStart(2, '0')}`;
+      const dayTxs = state.transactions.filter(t => t.date === dateStr);
+
+      if (dayBills.length === 0 && dayTxs.length === 0) {
+        listContainer.innerHTML = `
+          <div class="text-center py-8">
+            <span class="text-3xl block mb-2">🍃</span>
+            <p class="text-xs font-medium text-[#754A67] dark:text-[#B9A6B5]">Zero bills or commitments on this day.</p>
+            <p class="text-[11px] text-[#2E7D32] dark:text-[#86EFAC] font-semibold mt-1">Peaceful day for your mind!</p>
+          </div>
+        `;
+        return;
+      }
+
+      let html = '';
+      dayBills.forEach(b => {
+        html += `
+          <div class="p-3 rounded-xl bg-[#FDF2F7] dark:bg-[#1E1627] border border-[#F5C7DB] dark:border-[#3E304B] flex items-center justify-between">
+            <div>
+              <h5 class="font-bold text-xs ${b.paid ? 'line-through text-gray-400' : 'text-[#51364E] dark:text-[#F5EBF2]'}">${b.name}</h5>
+              <span class="text-[10px] text-[#754A67] dark:text-[#B9A6B5]">$${b.amount.toFixed(2)} due</span>
+            </div>
+            <button onclick="toggleBillPaid('${b.id}')" class="text-xs px-2.5 py-1 rounded-lg font-bold ${b.paid ? 'bg-[#F0FDF4] text-[#2E7D32]' : 'bg-[#863864] text-white'}">
+              ${b.paid ? 'Paid ✓' : 'Pay'}
+            </button>
+          </div>
+        `;
+      });
+
+      dayTxs.forEach(t => {
+        html += `
+          <div class="p-3 rounded-xl bg-white dark:bg-[#1E1627] border border-[#F5C7DB]/60 dark:border-[#3E304B] flex items-center justify-between">
+            <div>
+              <h5 class="font-bold text-xs text-[#51364E] dark:text-[#F5EBF2]">${t.title}</h5>
+              <span class="text-[10px] text-[#754A67] dark:text-[#B9A6B5]">${t.category}</span>
+            </div>
+            <span class="font-serif font-bold text-xs text-rose-600">-$${t.amount.toFixed(2)}</span>
+          </div>
+        `;
+      });
+
+      listContainer.innerHTML = html;
+    }
+
+    // --- FORM ACTIONS ---
+    function handleCreateExpense(e) {
+      e.preventDefault();
+      const amount = parseFloat(document.getElementById('expAmount').value);
+      const title = document.getElementById('expTitle').value;
+      const category = document.getElementById('expCategory').value;
+      const tag = document.getElementById('expTag').value;
+
+      state.transactions.unshift({
+        id: 'tx-' + Date.now(),
+        title,
+        amount,
+        category,
+        tag,
+        date: new Date().toISOString().split('T')[0]
+      });
+
+      const env = state.envelopes.find(x => x.name === category);
+      if (env) env.spent += amount;
+
+      closeModal('addExpenseModal');
+      document.getElementById('expenseForm').reset();
+      saveState();
+      playChime(523);
+    }
+
+    function handleCreateBill(e) {
+      e.preventDefault();
+      const name = document.getElementById('billName').value;
+      const amount = parseFloat(document.getElementById('billAmountInput').value);
+      const dueDay = parseInt(document.getElementById('billDueDay').value);
+
+      state.bills.push({
+        id: 'bill-' + Date.now(),
+        name,
+        amount,
+        dueDay,
+        paid: false
+      });
+
+      closeModal('addBillModal');
+      document.getElementById('billForm').reset();
+      saveState();
+      playChime(660);
+      triggerConfetti();
+    }
+
+    function handleCreateImpulse(e) {
+      e.preventDefault();
+      const title = document.getElementById('impTitle').value;
+      const price = parseFloat(document.getElementById('impPrice').value);
+
+      state.impulses.unshift({
+        id: 'imp-' + Date.now(),
+        title,
+        price,
+        addedAt: Date.now(),
+        totalHours: 48,
+        status: 'waiting'
+      });
+
+      closeModal('addImpulseModal');
+      document.getElementById('impulseForm').reset();
+      saveState();
+      switchTab('impulse');
+    }
+
+    function handleCreateJar(e) {
+      e.preventDefault();
+      const name = document.getElementById('jarName').value;
+      const target = parseFloat(document.getElementById('jarTarget').value);
+      const current = parseFloat(document.getElementById('jarCurrent').value) || 0;
+
+      state.savingsJars.push({
+        id: 'jar-' + Date.now(),
+        name,
+        target,
+        current,
+        emoji: '🍯'
+      });
+
+      closeModal('addJarModal');
+      document.getElementById('jarForm').reset();
+      saveState();
+      playChime(784);
+      triggerConfetti();
+    }
+
+    function handleCreateEnvelope(e) {
+      e.preventDefault();
+      const name = document.getElementById('envName').value;
+      const budgeted = parseFloat(document.getElementById('envBudget').value);
+      const icon = document.getElementById('envIcon').value || '🛍️';
+
+      state.envelopes.push({
+        id: 'env-' + Date.now(),
+        name,
+        budgeted,
+        spent: 0,
+        icon,
+        color: 'bg-[#863864]'
+      });
+
+      closeModal('addEnvelopeModal');
+      document.getElementById('envelopeForm').reset();
+      saveState();
+    }
+
+    // --- BRAIN DUMP & TIMER ---
+    function saveBrainDump() {
+      state.brainDump = document.getElementById('brainDumpArea').value;
+      localStorage.setItem('novasanctuary_adhd', JSON.stringify(state));
+    }
+
+    function clearBrainDump() {
+      if (confirm('Clear parked brain dump thoughts?')) {
+        document.getElementById('brainDumpArea').value = '';
+        saveBrainDump();
+      }
+    }
+
+    let timerInterval = null;
+    let timerSeconds = 25 * 60;
+    let isTimerRunning = false;
+
+    function toggleTimer() {
+      const btn = document.getElementById('timerControlBtn');
+      const label = document.getElementById('timerStatusLabel');
+
+      if (isTimerRunning) {
+        clearInterval(timerInterval);
+        isTimerRunning = false;
+        btn.innerText = 'Resume';
+        label.innerText = 'Paused';
+      } else {
+        isTimerRunning = true;
+        btn.innerText = 'Pause';
+        label.innerText = 'Focus Sprint Active 🌸';
+        timerInterval = setInterval(() => {
+          if (timerSeconds <= 0) {
+            clearInterval(timerInterval);
+            isTimerRunning = false;
+            playChime(880);
+            triggerConfetti();
+            alert('🎉 25-minute ADHD Focus Sprint Complete!');
+            resetTimer();
+            return;
+          }
+          timerSeconds--;
+          updateTimerDisplay();
+        }, 1000);
+      }
+    }
+
+    function resetTimer() {
+      clearInterval(timerInterval);
+      isTimerRunning = false;
+      timerSeconds = 25 * 60;
+      updateTimerDisplay();
+      document.getElementById('timerControlBtn').innerText = 'Start Session';
+      document.getElementById('timerStatusLabel').innerText = 'Ready to begin';
+    }
+
+    function updateTimerDisplay() {
+      const m = Math.floor(timerSeconds / 60);
+      const s = timerSeconds % 60;
+      document.getElementById('timerDisplay').innerText = `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+    }
+
+    // --- MODAL HELPERS ---
+    function openModal(id) {
+      document.getElementById(id).classList.remove('hidden');
+    }
+    function closeModal(id) {
+      if (id === 'onboardingModal' && (!state.hasOnboarded || !state.income || state.income <= 0)) {
+        // Locked hard-gate!
+        playChime(300);
+        return;
+      }
+      document.getElementById(id).classList.add('hidden');
+    }
+
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && (!state.hasOnboarded || !state.income || state.income <= 0)) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+    });
+
+    // --- MASTER RENDER ---
+    function renderAll() {
+      renderMetrics();
+      renderEnvelopes();
+      renderBills();
+      renderTransactions();
+      renderImpulses();
+      renderSavingsJars();
+      renderFocusTasks();
+      renderGroceryList();
+      renderRoutines();
+      renderCalendar();
+      updateOverwhelmUI();
+      lucide.createIcons();
+    }
+
+    // --- ONLOAD INITIALIZATION ---
+    window.addEventListener('DOMContentLoaded', () => {
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+        document.getElementById('themeLabel').innerText = 'Pastel Light';
+      }
+
+      if (state.brainDump) {
+        document.getElementById('brainDumpArea').value = state.brainDump;
+      }
+
+      const options = { weekday: 'long', month: 'short', day: 'numeric' };
+      document.getElementById('todayDateStr').innerText = new Date().toLocaleDateString('en-US', options);
+
+      renderAll();
+      checkBudgetGate();
+    });
+  </script>
+</body>
+</html>
