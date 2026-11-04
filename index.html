@@ -768,49 +768,7 @@
             <span class="nav-dot hidden w-2 h-2 rounded-full bg-white"></span>
           </button>
 
-          <!-- 9. Budget & Money -->
-          <button id="nav-budgetmoney" onclick="switchView('budgetmoney')" class="nav-item ios-nav-inactive w-full flex items-center justify-between px-3.5 py-2.5 rounded-2xl text-xs sm:text-sm font-medium transition-all duration-200">
-            <div class="flex items-center space-x-3">
-              <i data-lucide="piggy-bank" class="w-4 h-4 text-[#994B78] dark:text-[#E889B5]"></i>
-              <span>Budget & Money</span>
-            </div>
-            <span class="nav-dot hidden w-2 h-2 rounded-full bg-white"></span>
-          </button>
-
-          <!-- 10. Focus Space -->
-          <button id="nav-focusspace" onclick="switchView('focusspace')" class="nav-item ios-nav-inactive w-full flex items-center justify-between px-3.5 py-2.5 rounded-2xl text-xs sm:text-sm font-medium transition-all duration-200">
-            <div class="flex items-center space-x-3">
-              <i data-lucide="compass" class="w-4 h-4 text-[#994B78] dark:text-[#E889B5]"></i>
-              <span>Focus Space</span>
-            </div>
-            <span class="nav-dot hidden w-2 h-2 rounded-full bg-white"></span>
-          </button>
-
-          <!-- 11. Mood & Energy -->
-          <button id="nav-moodenergy" onclick="switchView('moodenergy')" class="nav-item ios-nav-inactive w-full flex items-center justify-between px-3.5 py-2.5 rounded-2xl text-xs sm:text-sm font-medium transition-all duration-200">
-            <div class="flex items-center space-x-3">
-              <i data-lucide="smile" class="w-4 h-4 text-[#994B78] dark:text-[#E889B5]"></i>
-              <span>Mood & Energy</span>
-            </div>
-            <div class="flex items-center space-x-1.5">
-              <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#E8F5E9] text-[#2E7D32] dark:bg-[#1E3B27] dark:text-[#81C784]">Done</span>
-              <span class="nav-dot hidden w-2 h-2 rounded-full bg-white"></span>
-            </div>
-          </button>
-
-          <!-- 12. Meals & Groceries -->
-          <button id="nav-meals" onclick="switchView('meals')" class="nav-item ios-nav-inactive w-full flex items-center justify-between px-3.5 py-2.5 rounded-2xl text-xs sm:text-sm font-medium transition-all duration-200">
-            <div class="flex items-center space-x-3">
-              <i data-lucide="utensils" class="w-4 h-4 text-[#994B78] dark:text-[#E889B5]"></i>
-              <span>Meals & Groceries</span>
-            </div>
-            <div class="flex items-center space-x-1.5">
-              <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#FCE4EC] text-[#D81B60] dark:bg-[#3D1E2C] dark:text-[#F48FB1]">3</span>
-              <span class="nav-dot hidden w-2 h-2 rounded-full bg-white"></span>
-            </div>
-          </button>
-
-          <!-- 13. Settings -->
+          <!-- 9. Settings -->
           <button id="nav-settings" onclick="switchView('settings')" class="nav-item ios-nav-inactive w-full flex items-center justify-between px-3.5 py-2.5 rounded-2xl text-xs sm:text-sm font-medium transition-all duration-200">
             <div class="flex items-center space-x-3">
               <i data-lucide="settings" class="w-4 h-4 text-[#994B78] dark:text-[#E889B5]"></i>
@@ -922,6 +880,37 @@
       <!-- VIEW 1: OVERVIEW DASHBOARD (PRIMARY HOME PAGE)          -->
       <!-- ======================================================= -->
       <main id="view-overview" class="flex-1 p-4 sm:p-6 lg:p-8 max-w-7xl w-full mx-auto space-y-6">
+
+        <!-- NEW MONTH 1ST OF THE MONTH BUDGET PROMPT BANNER -->
+        <div id="new-month-budget-banner" class="hidden p-5 sm:p-6 rounded-3xl bg-gradient-to-r from-[#FFF5F9] via-[#FCECF3] to-[#F9DFEB] dark:from-[#3E2242] dark:via-[#28182D] dark:to-[#351A38] border-2 border-[#D66A9A] shadow-card space-y-3">
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div class="flex items-start space-x-3.5">
+              <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#D66A9A] to-[#994B78] text-white flex items-center justify-center shrink-0 shadow-md text-2xl">
+                🗓️
+              </div>
+              <div class="space-y-1">
+                <div class="flex items-center space-x-2">
+                  <span class="text-xs font-extrabold uppercase tracking-wider text-[#994B78] dark:text-[#E889B5]">New Month Budget Check-in</span>
+                  <span class="text-[10px] px-2.5 py-0.5 rounded-full bg-white dark:bg-[#201024] text-[#994B78] dark:text-[#E889B5] font-bold border border-[#D66A9A]/30">1st of the Month</span>
+                </div>
+                <h3 class="text-base sm:text-lg font-extrabold text-[#38283A] dark:text-[#FDF7FB]">
+                  Welcome to <span id="new-month-name-label" class="text-[#D66A9A]">This Month</span>!
+                </h3>
+                <p class="text-xs text-[#887487] dark:text-[#D4BFD2]">
+                  Your previous monthly budget was <span id="new-month-prev-budget-label" class="font-bold text-[#38283A] dark:text-[#FDF7FB]">$2,500</span>. Would you like to keep the same budget for this month, or adjust it?
+                </p>
+              </div>
+            </div>
+            <div class="flex items-center space-x-2.5 shrink-0">
+              <button onclick="keepCurrentBudgetForNewMonth()" class="ios-glass-primary px-5 py-2.5 rounded-2xl bg-gradient-to-r from-[#D66A9A] to-[#994B78] text-white font-bold text-xs shadow-md hover:opacity-95 transition-all">
+                Keep Same Budget 🌸
+              </button>
+              <button onclick="adjustBudgetForNewMonth()" class="ios-glass-btn px-4 py-2.5 rounded-2xl bg-white dark:bg-[#201024] border border-[#F4E1EC] dark:border-[#3E2445] text-xs font-semibold text-[#38283A] dark:text-[#FDF7FB] hover:border-[#D66A9A]">
+                Adjust Budget
+              </button>
+            </div>
+          </div>
+        </div>
 
         <!-- A. REMAINING BUDGET – MAIN HIGHLIGHT (IMAGE 2 HERO CARD) -->
         <section class="w-full relative overflow-hidden rounded-3xl p-6 sm:p-8 bg-white dark:bg-[#28182D] border border-[#F4E1EC] dark:border-[#3E2445] shadow-card dark:shadow-card-dark">
@@ -2098,131 +2087,6 @@
         </div>
       </section>
 
-      <!-- VIEW 10: BUDGET & MONEY -->
-      <section id="view-budgetmoney" class="hidden flex-1 p-4 sm:p-6 lg:p-8 max-w-7xl w-full mx-auto space-y-6">
-        <div class="flex items-center justify-between pb-4 border-b border-[#F4E1EC] dark:border-[#3E2445]">
-          <div>
-            <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-[#FCECF3] dark:bg-[#3E2242] text-xs font-semibold text-[#994B78] dark:text-[#E889B5] mb-2">
-              <i data-lucide="piggy-bank" class="w-3.5 h-3.5"></i>
-              <span>Smart Buckets</span>
-            </div>
-            <h2 class="text-2xl font-bold text-[#38283A] dark:text-[#FDF7FB]">Budget & Money</h2>
-            <p class="text-xs text-[#887487] dark:text-[#D4BFD2]">Simple envelopes to organize your money calmly.</p>
-          </div>
-          <button onclick="switchView('overview')" class="px-3.5 py-2 rounded-2xl bg-white dark:bg-[#28182D] border border-[#F4E1EC] dark:border-[#3E2445] text-xs font-semibold text-[#38283A] dark:text-[#FDF7FB] hover:bg-[#FCECF3] dark:hover:bg-[#3E2242] transition-colors">
-            Back to Overview
-          </button>
-        </div>
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div class="p-5 rounded-3xl bg-white dark:bg-[#28182D] border border-[#F4E1EC] dark:border-[#3E2445] shadow-card">
-            <h4 class="font-bold text-sm text-[#38283A] dark:text-[#FDF7FB]">Fixed Needs (50%)</h4>
-            <p class="text-xs text-[#887487] dark:text-[#D4BFD2] mt-1">Rent, electricity, transit and grocery essentials.</p>
-          </div>
-          <div class="p-5 rounded-3xl bg-white dark:bg-[#28182D] border border-[#F4E1EC] dark:border-[#3E2445] shadow-card">
-            <h4 class="font-bold text-sm text-[#38283A] dark:text-[#FDF7FB]">Guilt-Free Joy (30%)</h4>
-            <p class="text-xs text-[#887487] dark:text-[#D4BFD2] mt-1">Coffee, dining out, hobbies, and spontaneous treats.</p>
-          </div>
-        </div>
-      </section>
-
-      <!-- VIEW 11: FOCUS SPACE -->
-      <section id="view-focusspace" class="hidden flex-1 p-4 sm:p-6 lg:p-8 max-w-7xl w-full mx-auto space-y-6">
-        <div class="flex items-center justify-between pb-4 border-b border-[#F4E1EC] dark:border-[#3E2445]">
-          <div>
-            <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-[#FCECF3] dark:bg-[#3E2242] text-xs font-semibold text-[#994B78] dark:text-[#E889B5] mb-2">
-              <i data-lucide="compass" class="w-3.5 h-3.5"></i>
-              <span>ADHD Focus Mode</span>
-            </div>
-            <h2 class="text-2xl font-bold text-[#38283A] dark:text-[#FDF7FB]">Focus Space</h2>
-            <p class="text-xs text-[#887487] dark:text-[#D4BFD2]">Distraction-free sprint timer for your money check-ins.</p>
-          </div>
-          <button onclick="switchView('overview')" class="px-3.5 py-2 rounded-2xl bg-white dark:bg-[#28182D] border border-[#F4E1EC] dark:border-[#3E2445] text-xs font-semibold text-[#38283A] dark:text-[#FDF7FB] hover:bg-[#FCECF3] dark:hover:bg-[#3E2242] transition-colors">
-            Back to Overview
-          </button>
-        </div>
-        <div class="max-w-md mx-auto text-center p-8 rounded-3xl bg-white dark:bg-[#28182D] border border-[#F4E1EC] dark:border-[#3E2445] shadow-card space-y-4">
-          <div class="text-5xl font-extrabold text-[#994B78] dark:text-[#E889B5] font-mono">15:00</div>
-          <p class="text-xs text-[#887487] dark:text-[#D4BFD2]">15-minute gentle focus interval for weekly budgeting.</p>
-          <button onclick="showToast('Timer started! You got this ✨')" class="px-6 py-2.5 rounded-full bg-gradient-to-r from-[#D66A9A] to-[#994B78] text-white text-xs font-bold shadow-sm hover:opacity-95">
-            Start Sprint
-          </button>
-        </div>
-      </section>
-
-      <!-- VIEW 12: MOOD & ENERGY -->
-      <section id="view-moodenergy" class="hidden flex-1 p-4 sm:p-6 lg:p-8 max-w-7xl w-full mx-auto space-y-6">
-        <div class="flex items-center justify-between pb-4 border-b border-[#F4E1EC] dark:border-[#3E2445]">
-          <div>
-            <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-[#E8F5E9] text-xs font-semibold text-[#2E7D32] mb-2">
-              <i data-lucide="smile" class="w-3.5 h-3.5"></i>
-              <span>Checked in for today</span>
-            </div>
-            <h2 class="text-2xl font-bold text-[#38283A] dark:text-[#FDF7FB]">Mood & Energy</h2>
-            <p class="text-xs text-[#887487] dark:text-[#D4BFD2]">Align financial tasks with your natural energy levels.</p>
-          </div>
-          <button onclick="switchView('overview')" class="px-3.5 py-2 rounded-2xl bg-white dark:bg-[#28182D] border border-[#F4E1EC] dark:border-[#3E2445] text-xs font-semibold text-[#38283A] dark:text-[#FDF7FB] hover:bg-[#FCECF3] dark:hover:bg-[#3E2242] transition-colors">
-            Back to Overview
-          </button>
-        </div>
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          <div class="p-5 rounded-3xl bg-white dark:bg-[#28182D] border border-[#F4E1EC] dark:border-[#3E2445] shadow-card text-center space-y-2 cursor-pointer hover:border-[#D66A9A] transition-all">
-            <span class="text-3xl">⚡</span>
-            <h4 class="font-bold text-sm text-[#38283A] dark:text-[#FDF7FB]">High Energy</h4>
-            <p class="text-[11px] text-[#887487] dark:text-[#D4BFD2]">Tackle bills, recalculate monthly budgets.</p>
-          </div>
-          <div class="p-5 rounded-3xl bg-white dark:bg-[#28182D] border border-[#F4E1EC] dark:border-[#3E2445] shadow-card text-center space-y-2 cursor-pointer border-[#994B78]">
-            <span class="text-3xl">☕</span>
-            <h4 class="font-bold text-sm text-[#38283A] dark:text-[#FDF7FB]">Steady & Calm (Current)</h4>
-            <p class="text-[11px] text-[#887487] dark:text-[#D4BFD2]">Log today's groceries and coffee purchases.</p>
-          </div>
-          <div class="p-5 rounded-3xl bg-white dark:bg-[#28182D] border border-[#F4E1EC] dark:border-[#3E2445] shadow-card text-center space-y-2 cursor-pointer hover:border-[#D66A9A] transition-all">
-            <span class="text-3xl">🌙</span>
-            <h4 class="font-bold text-sm text-[#38283A] dark:text-[#FDF7FB]">Low Spoons</h4>
-            <p class="text-[11px] text-[#887487] dark:text-[#D4BFD2]">Rest without guilt. Everything is safe on auto.</p>
-          </div>
-        </div>
-      </section>
-
-      <!-- VIEW 13: MEALS & GROCERIES -->
-      <section id="view-meals" class="hidden flex-1 p-4 sm:p-6 lg:p-8 max-w-7xl w-full mx-auto space-y-6">
-        <div class="flex items-center justify-between pb-4 border-b border-[#F4E1EC] dark:border-[#3E2445]">
-          <div>
-            <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-[#FCE4EC] text-xs font-semibold text-[#D81B60] mb-2">
-              <i data-lucide="utensils" class="w-3.5 h-3.5"></i>
-              <span>3 Items on Grocery List</span>
-            </div>
-            <h2 class="text-2xl font-bold text-[#38283A] dark:text-[#FDF7FB]">Meals & Groceries</h2>
-            <p class="text-xs text-[#887487] dark:text-[#D4BFD2]">Stress-free meal pacing and essential grocery list.</p>
-          </div>
-          <button onclick="switchView('overview')" class="px-3.5 py-2 rounded-2xl bg-white dark:bg-[#28182D] border border-[#F4E1EC] dark:border-[#3E2445] text-xs font-semibold text-[#38283A] dark:text-[#FDF7FB] hover:bg-[#FCECF3] dark:hover:bg-[#3E2242] transition-colors">
-            Back to Overview
-          </button>
-        </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div class="bg-white dark:bg-[#28182D] border border-[#F4E1EC] dark:border-[#3E2445] rounded-3xl p-6 shadow-card space-y-3">
-            <h3 class="font-bold text-sm text-[#38283A] dark:text-[#FDF7FB]">This Week's Grocery List</h3>
-            <div class="space-y-2 text-xs">
-              <div class="flex items-center space-x-2.5 p-2.5 rounded-xl bg-[#FFF9FC] dark:bg-[#34213B]">
-                <input type="checkbox" class="w-4 h-4 rounded-full text-[#994B78] accent-[#994B78]">
-                <span class="text-[#38283A] dark:text-[#FDF7FB]">Oat milk & whole grain bread</span>
-              </div>
-              <div class="flex items-center space-x-2.5 p-2.5 rounded-xl bg-[#FFF9FC] dark:bg-[#34213B]">
-                <input type="checkbox" class="w-4 h-4 rounded-full text-[#994B78] accent-[#994B78]">
-                <span class="text-[#38283A] dark:text-[#FDF7FB]">Honeycrisp apples & bananas</span>
-              </div>
-              <div class="flex items-center space-x-2.5 p-2.5 rounded-xl bg-[#FFF9FC] dark:bg-[#34213B]">
-                <input type="checkbox" class="w-4 h-4 rounded-full text-[#994B78] accent-[#994B78]">
-                <span class="text-[#38283A] dark:text-[#FDF7FB]">Greek yogurt & granola</span>
-              </div>
-            </div>
-          </div>
-          <div class="bg-white dark:bg-[#28182D] border border-[#F4E1EC] dark:border-[#3E2445] rounded-3xl p-6 shadow-card space-y-3">
-            <h3 class="font-bold text-sm text-[#38283A] dark:text-[#FDF7FB]">Calm Grocery Tip</h3>
-            <p class="text-xs text-[#887487] dark:text-[#D4BFD2] leading-relaxed">Having 2 or 3 fallback frozen meals saves up to $150 a month on impulse takeout when you don't have the energy to cook.</p>
-          </div>
-        </div>
-      </section>
-
       <!-- FLOATING / BOTTOM THEME TOGGLE -->
       <div class="py-8 flex justify-center items-center">
         <div class="inline-flex items-center p-1.5 rounded-full bg-white dark:bg-[#28182D] border border-[#F4E1EC] dark:border-[#3E2445] shadow-card dark:shadow-card-dark">
@@ -3318,14 +3182,23 @@
           profile = profData;
         } catch (e) {}
 
+        const isLocallyOnboarded = localStorage.getItem('adhd_onboarded_' + authUser.id) === 'true';
+        const hasLocalData = Boolean(localStorage.getItem(STORAGE_KEY_USER_DATA_PREFIX + authUser.id));
+        const metaOnboarded = Boolean(authUser.user_metadata?.onboarded);
+        const isOnboarded = Boolean(profile?.onboarded) || metaOnboarded || isLocallyOnboarded || hasLocalData;
+
         const userObj = {
           id: authUser.id,
           fullName: profile?.full_name || authUser.user_metadata?.full_name || authUser.email.split('@')[0],
           username: profile?.username || authUser.user_metadata?.username || authUser.email.split('@')[0],
           email: authUser.email,
-          currency: profile?.currency || '$',
-          onboarded: Boolean(profile?.onboarded)
+          currency: profile?.currency || authUser.user_metadata?.currency || '$',
+          onboarded: isOnboarded
         };
+
+        if (isOnboarded) {
+          localStorage.setItem('adhd_onboarded_' + authUser.id, 'true');
+        }
 
         return { user: userObj, session: authData.session };
       },
@@ -6491,6 +6364,8 @@
       try {
         const { user } = await AuthService.login(identifier, password, remember);
         currentUser = user;
+        setActiveSession(user, remember);
+        localStorage.setItem('adhd_active_user', JSON.stringify(user));
 
         if (!user.onboarded) {
           setupOnboardingView(user);
@@ -6499,6 +6374,7 @@
           await loadUserDataAndRender(user.id);
           showAuthPage('app');
           showToast(`Welcome back, ${user.fullName}! 👋`);
+          checkMonthlyBudgetReview();
         }
       } catch (err) {
         showError(errorBox, err.message);
@@ -6545,15 +6421,26 @@
 
       currentUser.onboarded = true;
       currentUser.currency = currency;
+      setActiveSession(currentUser, true);
+      localStorage.setItem('adhd_onboarded_' + currentUser.id, 'true');
+      localStorage.setItem('adhd_active_user', JSON.stringify(currentUser));
 
-      // Update Supabase profile
+      const now = new Date();
+      const monthKey = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
+      localStorage.setItem('adhd_budget_confirmed_month_' + currentUser.id, monthKey);
+
+      // Update Supabase profile and user metadata
       if (supabaseClient) {
         try {
-          await supabaseClient.from('profiles').update({
+          await supabaseClient.auth.updateUser({
+            data: { onboarded: true, currency: currency }
+          });
+          await supabaseClient.from('profiles').upsert({
+            id: currentUser.id,
             onboarded: true,
             currency: currency,
             updated_at: new Date().toISOString()
-          }).eq('id', currentUser.id);
+          });
 
           await supabaseClient.from('monthly_budgets').upsert({
             user_id: currentUser.id,
@@ -6737,7 +6624,7 @@
     function switchView(viewName) {
       const views = [
         'overview', 'budget', 'calendar', 'expenses', 'bills', 'settings',
-        'habits', 'goals', 'selfcare', 'budgetmoney', 'focusspace', 'moodenergy', 'meals'
+        'habits', 'goals', 'selfcare'
       ];
       views.forEach(v => {
         const el = document.getElementById(`view-${v}`);
@@ -6921,6 +6808,61 @@
       }
     }
 
+    // --- 14. 1ST OF THE MONTH BUDGET REVIEW LOGIC ---
+    function checkMonthlyBudgetReview() {
+      if (!currentUser || !currentUserData) return;
+      const now = new Date();
+      const currentMonthKey = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
+      const currentMonthName = now.toLocaleString('en-US', { month: 'long', year: 'numeric' });
+
+      const confirmedMonth = localStorage.getItem('adhd_budget_confirmed_month_' + currentUser.id);
+
+      // If no confirmedMonth is stored yet, record current month so we don't prompt immediately
+      if (!confirmedMonth) {
+        localStorage.setItem('adhd_budget_confirmed_month_' + currentUser.id, currentMonthKey);
+        return;
+      }
+
+      // If the month has changed (it's the 1st of a new month, or a new month has arrived)
+      if (confirmedMonth !== currentMonthKey) {
+        showNewMonthBudgetPrompt(currentMonthName, currentMonthKey);
+      }
+    }
+
+    function showNewMonthBudgetPrompt(monthName, monthKey) {
+      const banner = document.getElementById('new-month-budget-banner');
+      if (!banner) return;
+      const nameLabel = document.getElementById('new-month-name-label');
+      const prevBudgetLabel = document.getElementById('new-month-prev-budget-label');
+      if (nameLabel) nameLabel.textContent = monthName;
+      if (prevBudgetLabel) prevBudgetLabel.textContent = formatMoney(currentUserData?.totalBudget || 2500);
+      banner.classList.remove('hidden');
+    }
+
+    function keepCurrentBudgetForNewMonth() {
+      if (!currentUser || !currentUserData) return;
+      const now = new Date();
+      const currentMonthKey = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
+      const currentMonthName = now.toLocaleString('en-US', { month: 'long', year: 'numeric' });
+
+      localStorage.setItem('adhd_budget_confirmed_month_' + currentUser.id, currentMonthKey);
+      currentUserData.budgetMonth = currentMonthName;
+      saveUserData(currentUser.id, currentUserData);
+
+      const banner = document.getElementById('new-month-budget-banner');
+      if (banner) banner.classList.add('hidden');
+
+      triggerGentleConfetti();
+      showToast(`Budget of ${formatMoney(currentUserData.totalBudget)} rolled over for ${currentMonthName} 🌸`);
+      renderAll();
+    }
+
+    function adjustBudgetForNewMonth() {
+      const banner = document.getElementById('new-month-budget-banner');
+      if (banner) banner.classList.add('hidden');
+      openModal('setBudgetModal');
+    }
+
     // --- 15. RESTORE SESSION & INITIALIZATION ---
     async function restoreUserSession(user) {
       let profile = null;
@@ -6933,21 +6875,32 @@
         }
       }
 
+      const isLocallyOnboarded = localStorage.getItem('adhd_onboarded_' + user.id) === 'true';
+      const hasLocalData = Boolean(localStorage.getItem(STORAGE_KEY_USER_DATA_PREFIX + user.id));
+      const hasSessionOnboarded = getActiveSession()?.onboarded === true;
+      const metaOnboarded = Boolean(user.user_metadata?.onboarded);
+
+      const isOnboarded = Boolean(profile?.onboarded) || metaOnboarded || isLocallyOnboarded || hasLocalData || hasSessionOnboarded;
+
       currentUser = {
         id: user.id,
         fullName: profile?.full_name || user.user_metadata?.full_name || user.email.split('@')[0],
         username: profile?.username || user.user_metadata?.username || user.email.split('@')[0],
         email: user.email,
-        currency: profile?.currency || '$',
-        onboarded: Boolean(profile?.onboarded)
+        currency: profile?.currency || user.user_metadata?.currency || '$',
+        onboarded: isOnboarded
       };
 
       if (!currentUser.onboarded) {
         setupOnboardingView(currentUser);
         showAuthPage('onboarding');
       } else {
+        localStorage.setItem('adhd_onboarded_' + user.id, 'true');
+        localStorage.setItem('adhd_active_user', JSON.stringify(currentUser));
+        setActiveSession(currentUser, true);
         await loadUserDataAndRender(currentUser.id);
         showAuthPage('app');
+        checkMonthlyBudgetReview();
       }
     }
 
@@ -6996,6 +6949,7 @@
           currentUser = JSON.parse(savedUser);
           await loadUserDataAndRender(currentUser.id);
           showAuthPage('app');
+          checkMonthlyBudgetReview();
           return;
         } catch (e) {
           console.warn('Could not restore local user:', e);
