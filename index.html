@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ADHD Budget Planner â€“ Calm & Mindful Money</title>
+  <title>ADHD Budget Planner – Calm & Mindful Money</title>
   
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -130,11 +130,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
   <style>
-    /* Match compact 80% zoom scale at 100% default */
+    /* Smooth transition for theme switches */
     html {
       transition: background-color 0.25s ease, color 0.25s ease;
-      zoom: 0.82;
-      -webkit-text-size-adjust: 100%;
     }
     
     /* Progress bar smooth animations */
@@ -318,6 +316,34 @@
       animation: breathePulse 12s cubic-bezier(0.4, 0, 0.2, 1) infinite;
     }
   </style>
+
+  <!-- Zero-Flash Pre-render Session Check -->
+  <script>
+    (function() {
+      try {
+        var rawUser = localStorage.getItem('adhd_active_user');
+        var expiresAt = parseInt(localStorage.getItem('adhd_session_expires_at') || '0', 10);
+        var now = Date.now();
+        if (rawUser && expiresAt && now < expiresAt) {
+          document.documentElement.classList.add('is-authenticated');
+        } else if (expiresAt && now >= expiresAt) {
+          localStorage.removeItem('adhd_active_user');
+          localStorage.removeItem('adhd_session_expires_at');
+        }
+      } catch (e) {}
+    })();
+  </script>
+  <style>
+    html {
+      zoom: 0.82;
+    }
+    /* Prevent flash of login page on reload for authenticated users */
+    html.is-authenticated #app-shell { display: flex !important; }
+    html.is-authenticated #page-login,
+    html.is-authenticated #page-welcome,
+    html.is-authenticated #page-signup,
+    html.is-authenticated #page-onboarding { display: none !important; }
+  </style>
 </head>
 <body class="bg-warm-bg text-warm-text dark:bg-forest-bg dark:text-forest-text min-h-screen font-sans antialiased selection:bg-sage-200 dark:selection:bg-sage-800">
 
@@ -372,7 +398,7 @@
           <span class="text-sage-600 dark:text-forest-mint">feeling overwhelmed.</span>
         </h1>
         <p class="text-base sm:text-lg text-warm-textMuted dark:text-forest-textMuted max-w-2xl mx-auto leading-relaxed">
-          Designed specifically for neurodivergent minds. Zero financial guilt, custom categories, scheduled tasks, and one honest number so you always know whatâ€™s safe to spend.
+          Designed specifically for neurodivergent minds. Zero financial guilt, custom categories, scheduled tasks, and one honest number so you always know what’s safe to spend.
         </p>
       </div>
 
@@ -421,7 +447,7 @@
 
     <!-- Footer -->
     <footer class="max-w-6xl w-full mx-auto text-center text-xs text-warm-textSubtle dark:text-forest-textSubtle relative z-10 pt-6">
-      ADHD Budget Planner â€¢ Calming money management for peace of mind.
+      ADHD Budget Planner • Calming money management for peace of mind.
     </footer>
   </div>
 
@@ -478,7 +504,7 @@
             Password (min 6 characters) <span class="text-rose-500">*</span>
           </label>
           <div class="relative">
-            <input type="password" id="signup-password" minlength="6" required placeholder="********" class="w-full px-4 py-2.5 pr-10 rounded-2xl bg-warm-surfaceMuted dark:bg-forest-surfaceMuted border border-warm-border dark:border-forest-border text-warm-text dark:text-forest-text text-sm focus:outline-none focus:ring-2 focus:ring-sage-500">
+            <input type="password" id="signup-password" minlength="6" required placeholder="••••••••" class="w-full px-4 py-2.5 pr-10 rounded-2xl bg-warm-surfaceMuted dark:bg-forest-surfaceMuted border border-warm-border dark:border-forest-border text-warm-text dark:text-forest-text text-sm focus:outline-none focus:ring-2 focus:ring-sage-500">
             <button type="button" onclick="togglePasswordVisibility('signup-password')" class="absolute right-3 top-1/2 -translate-y-1/2 text-warm-textSubtle hover:text-warm-text p-1">
               <i data-lucide="eye" class="w-4 h-4"></i>
             </button>
@@ -490,7 +516,7 @@
             Confirm Password <span class="text-rose-500">*</span>
           </label>
           <div class="relative">
-            <input type="password" id="signup-confirm-password" minlength="6" required placeholder="********" class="w-full px-4 py-2.5 pr-10 rounded-2xl bg-warm-surfaceMuted dark:bg-forest-surfaceMuted border border-warm-border dark:border-forest-border text-warm-text dark:text-forest-text text-sm focus:outline-none focus:ring-2 focus:ring-sage-500">
+            <input type="password" id="signup-confirm-password" minlength="6" required placeholder="••••••••" class="w-full px-4 py-2.5 pr-10 rounded-2xl bg-warm-surfaceMuted dark:bg-forest-surfaceMuted border border-warm-border dark:border-forest-border text-warm-text dark:text-forest-text text-sm focus:outline-none focus:ring-2 focus:ring-sage-500">
             <button type="button" onclick="togglePasswordVisibility('signup-confirm-password')" class="absolute right-3 top-1/2 -translate-y-1/2 text-warm-textSubtle hover:text-warm-text p-1">
               <i data-lucide="eye" class="w-4 h-4"></i>
             </button>
@@ -514,7 +540,7 @@
   </div>
 
   <!-- C. LOGIN PAGE VIEW -->
-  <div id="page-login" class="min-h-screen flex items-center justify-center p-4 sm:p-6 relative overflow-hidden">
+  <div id="page-login" class="min-h-screen flex items-center justify-center p-4 sm:p-6 relative overflow-hidden hidden">
     <div class="w-full max-w-md bg-white dark:bg-forest-surface border border-warm-border dark:border-forest-border rounded-3xl p-6 sm:p-8 shadow-card dark:shadow-card-dark relative z-10 space-y-6">
       
       <div class="flex items-center justify-between">
@@ -557,7 +583,7 @@
             </button>
           </div>
           <div class="relative">
-            <input type="password" id="login-password" required placeholder="********" class="w-full px-4 py-2.5 pr-10 rounded-2xl bg-warm-surfaceMuted dark:bg-forest-surfaceMuted border border-warm-border dark:border-forest-border text-warm-text dark:text-forest-text text-sm focus:outline-none focus:ring-2 focus:ring-sage-500">
+            <input type="password" id="login-password" required placeholder="••••••••" class="w-full px-4 py-2.5 pr-10 rounded-2xl bg-warm-surfaceMuted dark:bg-forest-surfaceMuted border border-warm-border dark:border-forest-border text-warm-text dark:text-forest-text text-sm focus:outline-none focus:ring-2 focus:ring-sage-500">
             <button type="button" onclick="togglePasswordVisibility('login-password')" class="absolute right-3 top-1/2 -translate-y-1/2 text-warm-textSubtle hover:text-warm-text p-1">
               <i data-lucide="eye" class="w-4 h-4"></i>
             </button>
@@ -577,17 +603,6 @@
           Log In to Dashboard
         </button>
 
-        <div class="relative flex py-1 items-center">
-          <div class="flex-grow border-t border-warm-border dark:border-forest-border"></div>
-          <span class="flex-shrink mx-3 text-[10px] text-warm-textSubtle uppercase tracking-wider font-semibold">Or</span>
-          <div class="flex-grow border-t border-warm-border dark:border-forest-border"></div>
-        </div>
-
-        <button type="button" onclick="launchDemoPreview()" class="w-full py-2.5 rounded-2xl bg-[#FFF9FC] hover:bg-[#FCECF3] dark:bg-[#28182D] dark:hover:bg-[#34203A] text-[#994B78] dark:text-[#E889B5] font-bold text-xs border border-[#F4E1EC] dark:border-[#3E2445] transition-all flex items-center justify-center space-x-1.5">
-          <i data-lucide="sparkles" class="w-3.5 h-3.5 text-[#994B78] dark:text-[#E889B5]"></i>
-          <span>Explore as Sunny (Demo Preview)</span>
-        </button>
-
         <p class="text-xs text-center text-warm-textMuted dark:text-forest-textMuted pt-2">
           Don't have an account yet? 
           <button type="button" onclick="showAuthPage('signup')" class="text-sage-600 dark:text-forest-mint font-bold hover:underline">
@@ -604,13 +619,13 @@
       
       <div class="space-y-2">
         <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-sage-100 dark:bg-forest-surfaceMuted text-xs font-bold text-sage-700 dark:text-forest-mint">
-          <span>âœ¨ First-Time Setup</span>
+          <span>✨ First-Time Setup</span>
         </div>
         <h2 id="onboarding-welcome-title" class="text-2xl sm:text-3xl font-extrabold text-warm-text dark:text-forest-text tracking-tight">
           Let's set up your monthly budget.
         </h2>
         <p class="text-xs sm:text-sm text-warm-textMuted dark:text-forest-textMuted leading-relaxed">
-          Weâ€™ll keep it simple and beginner-friendly. You can customize, rename, and add categories whenever you like.
+          We’ll keep it simple and beginner-friendly. You can customize, rename, and add categories whenever you like.
         </p>
       </div>
 
@@ -633,8 +648,8 @@
             </label>
             <select id="onboarding-currency" onchange="updateCurrencySymbols(this.value)" class="w-full px-4 py-3 rounded-2xl bg-warm-surfaceMuted dark:bg-forest-surfaceMuted border border-warm-border dark:border-forest-border text-warm-text dark:text-forest-text font-bold text-sm focus:outline-none focus:ring-2 focus:ring-sage-500">
               <option value="$" selected>USD ($)</option>
-              <option value="â‚¬">EUR (â‚¬)</option>
-              <option value="Â£">GBP (Â£)</option>
+              <option value="€">EUR (€)</option>
+              <option value="£">GBP (£)</option>
               <option value="C$">CAD (C$)</option>
               <option value="A$">AUD (A$)</option>
             </select>
@@ -657,23 +672,23 @@
 
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
             <div class="p-3 rounded-2xl bg-warm-surfaceMuted dark:bg-forest-surfaceMuted flex items-center justify-between">
-              <span class="font-semibold text-warm-text dark:text-forest-text">ðŸ  Housing</span>
+              <span class="font-semibold text-warm-text dark:text-forest-text">🏠 Housing</span>
               <input type="number" id="onboarding-cat-housing" value="600" class="w-20 px-2.5 py-1 text-right font-mono font-bold rounded-lg border border-warm-border dark:border-forest-border bg-white dark:bg-forest-surface text-warm-text dark:text-forest-text">
             </div>
             <div class="p-3 rounded-2xl bg-warm-surfaceMuted dark:bg-forest-surfaceMuted flex items-center justify-between">
-              <span class="font-semibold text-warm-text dark:text-forest-text">ðŸ›’ Groceries</span>
+              <span class="font-semibold text-warm-text dark:text-forest-text">🛒 Groceries</span>
               <input type="number" id="onboarding-cat-groceries" value="400" class="w-20 px-2.5 py-1 text-right font-mono font-bold rounded-lg border border-warm-border dark:border-forest-border bg-white dark:bg-forest-surface text-warm-text dark:text-forest-text">
             </div>
             <div class="p-3 rounded-2xl bg-warm-surfaceMuted dark:bg-forest-surfaceMuted flex items-center justify-between">
-              <span class="font-semibold text-warm-text dark:text-forest-text">ðŸš— Transport</span>
+              <span class="font-semibold text-warm-text dark:text-forest-text">🚗 Transport</span>
               <input type="number" id="onboarding-cat-transport" value="200" class="w-20 px-2.5 py-1 text-right font-mono font-bold rounded-lg border border-warm-border dark:border-forest-border bg-white dark:bg-forest-surface text-warm-text dark:text-forest-text">
             </div>
             <div class="p-3 rounded-2xl bg-warm-surfaceMuted dark:bg-forest-surfaceMuted flex items-center justify-between">
-              <span class="font-semibold text-warm-text dark:text-forest-text">âœ¨ Personal</span>
+              <span class="font-semibold text-warm-text dark:text-forest-text">✨ Personal</span>
               <input type="number" id="onboarding-cat-personal" value="300" class="w-20 px-2.5 py-1 text-right font-mono font-bold rounded-lg border border-warm-border dark:border-forest-border bg-white dark:bg-forest-surface text-warm-text dark:text-forest-text">
             </div>
             <div class="sm:col-span-2 p-3 rounded-2xl bg-warm-surfaceMuted dark:bg-forest-surfaceMuted flex items-center justify-between">
-              <span class="font-semibold text-warm-text dark:text-forest-text">ðŸ·ï¸ Other / Buffer</span>
+              <span class="font-semibold text-warm-text dark:text-forest-text">🏷️ Other / Buffer</span>
               <input type="number" id="onboarding-cat-other" value="400" class="w-20 px-2.5 py-1 text-right font-mono font-bold rounded-lg border border-warm-border dark:border-forest-border bg-white dark:bg-forest-surface text-warm-text dark:text-forest-text">
             </div>
           </div>
@@ -691,7 +706,7 @@
   <!-- =================================================================== -->
   <!-- 2. MAIN APPLICATION SHELL (AUTHENTICATED)                          -->
   <!-- =================================================================== -->
-  <div id="app-shell" class="flex min-h-screen w-full relative hidden">
+  <div id="app-shell" class="flex min-h-screen w-full relative">
 
     <div id="sidebar-overlay" onclick="toggleMobileSidebar()" class="fixed inset-0 bg-black/40 backdrop-blur-sm z-40 hidden lg:hidden"></div>
 
@@ -787,7 +802,7 @@
             <span class="nav-dot hidden w-2 h-2 rounded-full bg-white"></span>
           </button>
 
-          <!-- 8. ADHD Tax Check -->
+          <!-- 10. ADHD Tax Check -->
           <button id="nav-adhdtax" onclick="switchView('adhdtax')" class="nav-item ios-nav-inactive w-full flex items-center justify-between px-3.5 py-2.5 rounded-2xl text-xs sm:text-sm font-medium transition-all duration-200">
             <div class="flex items-center space-x-3">
               <i data-lucide="search" class="w-4 h-4 text-[#994B78] dark:text-[#E889B5]"></i>
@@ -796,7 +811,7 @@
             <span class="nav-dot hidden w-2 h-2 rounded-full bg-white"></span>
           </button>
 
-          <!-- 9. Money Back -->
+          <!-- 11. Money Back -->
           <button id="nav-moneyback" onclick="switchView('moneyback')" class="nav-item ios-nav-inactive w-full flex items-center justify-between px-3.5 py-2.5 rounded-2xl text-xs sm:text-sm font-medium transition-all duration-200">
             <div class="flex items-center space-x-3">
               <i data-lucide="banknote" class="w-4 h-4 text-[#994B78] dark:text-[#E889B5]"></i>
@@ -805,7 +820,7 @@
             <span class="nav-dot hidden w-2 h-2 rounded-full bg-white"></span>
           </button>
 
-          <!-- 10. Settings -->
+          <!-- 12. Settings -->
           <button id="nav-settings" onclick="switchView('settings')" class="nav-item ios-nav-inactive w-full flex items-center justify-between px-3.5 py-2.5 rounded-2xl text-xs sm:text-sm font-medium transition-all duration-200">
             <div class="flex items-center space-x-3">
               <i data-lucide="settings" class="w-4 h-4 text-[#994B78] dark:text-[#E889B5]"></i>
@@ -813,8 +828,6 @@
             </div>
             <span class="nav-dot hidden w-2 h-2 rounded-full bg-white"></span>
           </button>
-
-
         </nav>
       </div>
 
@@ -824,14 +837,11 @@
         <div onclick="triggerGentleConfetti()" class="ios-glass-btn p-3.5 rounded-2xl relative flex items-center justify-between cursor-pointer group" title="Gentle mindfulness encouragement">
           <div class="flex items-center space-x-3">
             <div class="w-8 h-8 rounded-full bg-[#FFE7A8] dark:bg-[#3F2B1F] flex items-center justify-center text-amber-800 dark:text-amber-300 shrink-0 text-sm shadow-sm group-hover:scale-110 transition-transform">
-              <i data-lucide="sun" class="w-4 h-4 text-amber-600 dark:text-amber-300"></i>
+              ☀️
             </div>
             <div>
               <p class="text-xs font-bold text-[#38283A] dark:text-[#FDF7FB] leading-tight">Small Steps</p>
-              <p class="text-[11px] text-[#887487] dark:text-[#D4BFD2] flex items-center space-x-1">
-                <span>Big Progress</span>
-                <i data-lucide="heart" class="w-3 h-3 text-pink-500 fill-pink-500 inline ml-0.5"></i>
-              </p>
+              <p class="text-[11px] text-[#887487] dark:text-[#D4BFD2]">Big Progress 💕</p>
             </div>
           </div>
           <i data-lucide="chevron-right" class="w-4 h-4 text-[#887487] dark:text-[#D4BFD2] group-hover:translate-x-0.5 transition-transform"></i>
@@ -866,9 +876,9 @@
             <i data-lucide="menu" class="w-5 h-5"></i>
           </button>
           <div>
-            <h2 id="header-greeting" class="text-xl sm:text-2xl font-extrabold tracking-tight text-[#38283A] dark:text-[#FDF7FB]">Good Morning, Sunny! ðŸ‘‹</h2>
+            <h2 id="header-greeting" class="text-xl sm:text-2xl font-extrabold tracking-tight text-[#38283A] dark:text-[#FDF7FB]">Good Morning, Sunny! 👋</h2>
             <p class="text-xs sm:text-sm text-[#887487] dark:text-[#D4BFD2] mt-0.5">
-              Your money, made easier. <span class="hidden sm:inline text-[#994B78] dark:text-[#E889B5] font-semibold">You're doing great! âœ¨</span>
+              Your money, made easier. <span class="hidden sm:inline text-[#994B78] dark:text-[#E889B5] font-semibold">You're doing great! ✨</span>
             </p>
           </div>
         </div>
@@ -904,7 +914,7 @@
                 <span class="text-[10px] text-[#994B78] dark:text-[#E889B5] font-semibold">Today</span>
               </div>
               <div id="notification-popover-text" class="mt-2.5 text-xs text-[#38283A] dark:text-[#FDF7FB] leading-relaxed">
-                âš¡ Electricity bill ($120.00) is due Jan 24. You have a safe spending pace for this month.
+                ⚡ Electricity bill ($120.00) is due Jan 24. You have a safe spending pace for this month.
               </div>
             </div>
           </div>
@@ -928,7 +938,7 @@
           <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div class="flex items-start space-x-3.5">
               <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#D66A9A] to-[#994B78] text-white flex items-center justify-center shrink-0 shadow-md text-2xl">
-                ðŸ—“ï¸
+                🗓️
               </div>
               <div class="space-y-1">
                 <div class="flex items-center space-x-2">
@@ -945,7 +955,7 @@
             </div>
             <div class="flex items-center space-x-2.5 shrink-0">
               <button onclick="keepCurrentBudgetForNewMonth()" class="ios-glass-primary px-5 py-2.5 rounded-2xl bg-gradient-to-r from-[#D66A9A] to-[#994B78] text-white font-bold text-xs shadow-md hover:opacity-95 transition-all">
-                Keep Same Budget ðŸŒ¸
+                Keep Same Budget 🌸
               </button>
               <button onclick="adjustBudgetForNewMonth()" class="ios-glass-btn px-4 py-2.5 rounded-2xl bg-white dark:bg-[#201024] border border-[#F4E1EC] dark:border-[#3E2445] text-xs font-semibold text-[#38283A] dark:text-[#FDF7FB] hover:border-[#D66A9A]">
                 Adjust Budget
@@ -954,7 +964,7 @@
           </div>
         </div>
 
-        <!-- A. REMAINING BUDGET â€“ MAIN HIGHLIGHT (IMAGE 2 HERO CARD) -->
+        <!-- A. REMAINING BUDGET – MAIN HIGHLIGHT (IMAGE 2 HERO CARD) -->
         <section class="w-full relative overflow-hidden rounded-3xl p-6 sm:p-8 bg-white dark:bg-[#28182D] border border-[#F4E1EC] dark:border-[#3E2445] shadow-card dark:shadow-card-dark">
           <!-- Subtle decorative floral watermark graphic in bottom right -->
           <svg class="absolute -bottom-10 -right-10 w-72 h-72 text-[#F9DFEB]/50 dark:text-[#3E2242]/30 pointer-events-none select-none" viewBox="0 0 200 200" fill="currentColor">
@@ -1062,7 +1072,7 @@
             </div>
             <div class="space-y-0.5">
               <p class="text-xs font-semibold text-[#887487] dark:text-[#D4BFD2]">Monthly Trend</p>
-              <h4 id="card-monthly-trend" class="text-xl sm:text-2xl font-extrabold text-[#6A9B76] dark:text-[#81C784]">On Track â†—</h4>
+              <h4 id="card-monthly-trend" class="text-xl sm:text-2xl font-extrabold text-[#6A9B76] dark:text-[#81C784]">On Track ↗</h4>
               <p class="text-[11px] text-[#887487] dark:text-[#D4BFD2]">Calm pacing</p>
             </div>
           </div>
@@ -1130,7 +1140,7 @@
               <div id="bill-display-card" class="p-4 sm:p-5 rounded-2xl bg-[#FFF9FC] dark:bg-[#34213B] border border-[#F4E1EC] dark:border-[#412B4A] flex items-center justify-between gap-3 shadow-soft">
                 <div class="flex items-center space-x-3.5">
                   <div class="w-11 h-11 rounded-2xl bg-amber-100 dark:bg-amber-900/40 flex items-center justify-center text-amber-700 dark:text-amber-300 shrink-0 font-bold text-base">
-                    âš¡
+                    ⚡
                   </div>
                   <div>
                     <h4 id="bill-name" class="text-base font-bold text-[#38283A] dark:text-[#FDF7FB] leading-tight">Electricity</h4>
@@ -1182,9 +1192,9 @@
               </div>
 
               <div class="flex items-center justify-between text-[11px] text-[#887487] dark:text-[#D4BFD2] pt-2 border-t border-[#F4E1EC] dark:border-[#3E2445]">
-                <span>âœ¨ Small steps count</span>
+                <span>✨ Small steps count</span>
                 <button onclick="switchView('calendar')" class="text-[#994B78] dark:text-[#E889B5] font-semibold hover:underline">
-                  Open Calendar & Tasks â†’
+                  Open Calendar & Tasks →
                 </button>
               </div>
             </section>
@@ -1196,7 +1206,7 @@
           <div class="flex items-center justify-between">
             <div>
               <h3 class="text-base font-bold text-[#38283A] dark:text-[#FDF7FB]">Quick Actions</h3>
-              <p class="text-xs text-[#887487] dark:text-[#D4BFD2]">Ready when you are â€” no complex forms</p>
+              <p class="text-xs text-[#887487] dark:text-[#D4BFD2]">Ready when you are — no complex forms</p>
             </div>
             <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-[#FCECF3] dark:bg-[#3E2242] text-[#994B78] dark:text-[#E889B5]">
               3 Direct Actions
@@ -1241,7 +1251,7 @@
               <span>Interactive Schedule</span>
             </div>
             <h2 class="text-2xl sm:text-3xl font-extrabold text-warm-text dark:text-forest-text">Calendar & Daily Tasks</h2>
-            <p class="text-xs sm:text-sm text-warm-textMuted dark:text-forest-textMuted">Schedule tasks at your own pace without overwhelm. â™¡</p>
+            <p class="text-xs sm:text-sm text-warm-textMuted dark:text-forest-textMuted">Schedule tasks at your own pace without overwhelm. ♡</p>
           </div>
 
           <div class="flex items-center space-x-3">
@@ -1592,7 +1602,7 @@
                   <span class="text-xs font-medium text-warm-textSubtle dark:text-forest-textSubtle">Supabase Cloud Database</span>
                 </div>
                 <button onclick="openModal('supabaseModal')" class="text-xs font-semibold text-sage-600 dark:text-forest-mint hover:underline">
-                  Configure â†’
+                  Configure →
                 </button>
               </div>
             </div>
@@ -1612,7 +1622,7 @@
             </div>
             <h2 class="text-2xl sm:text-3xl font-extrabold text-[#38283A] dark:text-[#FDF7FB]">Habit & Self-Care Tracker</h2>
             <p class="text-xs sm:text-sm text-[#887487] dark:text-[#D4BFD2] mt-0.5">
-              Hydration, breathing, nourishing food, and daily routines without streak guilt ðŸ’•
+              Hydration, breathing, nourishing food, and daily routines without streak guilt 💕
             </p>
           </div>
           <div class="flex items-center space-x-2 sm:space-x-3">
@@ -1643,7 +1653,7 @@
           <!-- Water Stats -->
           <div class="p-5 rounded-3xl bg-white dark:bg-[#28182D] border border-[#F4E1EC] dark:border-[#3E2445] shadow-card space-y-1">
             <span class="text-[11px] font-bold text-[#887487] dark:text-[#D4BFD2] uppercase tracking-wider flex items-center space-x-1">
-              <span>ðŸ’§ Water Intake</span>
+              <span>💧 Water Intake</span>
             </span>
             <h3 id="habits-stat-water" class="text-2xl font-extrabold text-sky-600 dark:text-sky-400">4 / 8 Glasses</h3>
             <p class="text-[11px] text-[#887487] dark:text-[#D4BFD2]">1.0L hydrated today</p>
@@ -1652,7 +1662,7 @@
           <!-- Mindful Breath Stats -->
           <div class="p-5 rounded-3xl bg-white dark:bg-[#28182D] border border-[#F4E1EC] dark:border-[#3E2445] shadow-card space-y-1">
             <span class="text-[11px] font-bold text-[#887487] dark:text-[#D4BFD2] uppercase tracking-wider flex items-center space-x-1">
-              <span>ðŸŒ¬ï¸ Mindful Pauses</span>
+              <span>🌬️ Mindful Pauses</span>
             </span>
             <h3 id="habits-stat-breathing" class="text-2xl font-extrabold text-emerald-600 dark:text-emerald-400">2 Sessions</h3>
             <p class="text-[11px] text-[#887487] dark:text-[#D4BFD2]">Nervous system regulated</p>
@@ -1661,7 +1671,7 @@
           <!-- Meals Logged Stats -->
           <div class="p-5 rounded-3xl bg-white dark:bg-[#28182D] border border-[#F4E1EC] dark:border-[#3E2445] shadow-card space-y-1">
             <span class="text-[11px] font-bold text-[#887487] dark:text-[#D4BFD2] uppercase tracking-wider flex items-center space-x-1">
-              <span>ðŸ¥— Nourishment</span>
+              <span>🥗 Nourishment</span>
             </span>
             <h3 id="habits-stat-meals" class="text-2xl font-extrabold text-amber-600 dark:text-amber-400">2 / 4 Logged</h3>
             <p class="text-[11px] text-[#887487] dark:text-[#D4BFD2]">Breakfast & Lunch done</p>
@@ -1694,7 +1704,7 @@
             </div>
 
             <div class="p-3 rounded-2xl bg-sky-50/70 dark:bg-sky-950/30 border border-sky-100 dark:border-sky-900/40 text-[11px] text-sky-800 dark:text-sky-300">
-              ðŸ’¡ <strong>ADHD Tip:</strong> Hyperfocus makes you forget to drink water. Keep a water bottle right next to your screen!
+              💡 <strong>ADHD Tip:</strong> Hyperfocus makes you forget to drink water. Keep a water bottle right next to your screen!
             </div>
 
             <div class="flex items-center justify-between gap-2 pt-1">
@@ -1739,7 +1749,7 @@
               </div>
 
               <p class="text-[11px] text-center text-[#887487] dark:text-[#D4BFD2]">
-                Inhale (4s) â€¢ Hold (4s) â€¢ Exhale (4s) â€¢ Hold (4s)
+                Inhale (4s) • Hold (4s) • Exhale (4s) • Hold (4s)
               </p>
             </div>
 
@@ -1771,31 +1781,31 @@
               <!-- 1. Breakfast -->
               <div onclick="toggleMealLog('breakfast')" class="ios-glass-btn p-2.5 rounded-2xl flex items-center justify-between cursor-pointer group">
                 <div class="flex items-center space-x-3">
-                  <span class="text-lg">ðŸ¥£</span>
+                  <span class="text-lg">🥣</span>
                   <div>
                     <h4 class="text-xs font-bold text-[#38283A] dark:text-[#FDF7FB]">Morning Fuel (Breakfast)</h4>
                     <p class="text-[10px] text-[#887487] dark:text-[#D4BFD2]">Eggs, oats, or a protein smoothie</p>
                   </div>
                 </div>
-                <span id="badge-meal-breakfast" class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#E8F5E9] text-[#2E7D32]">Fuelled âœ“</span>
+                <span id="badge-meal-breakfast" class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#E8F5E9] text-[#2E7D32]">Fuelled ✓</span>
               </div>
 
               <!-- 2. Lunch -->
               <div onclick="toggleMealLog('lunch')" class="ios-glass-btn p-2.5 rounded-2xl flex items-center justify-between cursor-pointer group">
                 <div class="flex items-center space-x-3">
-                  <span class="text-lg">ðŸ¥—</span>
+                  <span class="text-lg">🥗</span>
                   <div>
                     <h4 class="text-xs font-bold text-[#38283A] dark:text-[#FDF7FB]">Midday Energy (Lunch)</h4>
                     <p class="text-[10px] text-[#887487] dark:text-[#D4BFD2]">Nourishing balance to avoid brain crash</p>
                   </div>
                 </div>
-                <span id="badge-meal-lunch" class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#E8F5E9] text-[#2E7D32]">Fuelled âœ“</span>
+                <span id="badge-meal-lunch" class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#E8F5E9] text-[#2E7D32]">Fuelled ✓</span>
               </div>
 
               <!-- 3. Dinner -->
               <div onclick="toggleMealLog('dinner')" class="ios-glass-btn p-2.5 rounded-2xl flex items-center justify-between cursor-pointer group">
                 <div class="flex items-center space-x-3">
-                  <span class="text-lg">ðŸ²</span>
+                  <span class="text-lg">🍲</span>
                   <div>
                     <h4 class="text-xs font-bold text-[#38283A] dark:text-[#FDF7FB]">Evening Meal (Dinner)</h4>
                     <p class="text-[10px] text-[#887487] dark:text-[#D4BFD2]">Warm, calming meal to prepare for rest</p>
@@ -1807,7 +1817,7 @@
               <!-- 4. Healthy Snack -->
               <div onclick="toggleMealLog('snack')" class="ios-glass-btn p-2.5 rounded-2xl flex items-center justify-between cursor-pointer group">
                 <div class="flex items-center space-x-3">
-                  <span class="text-lg">ðŸŽ</span>
+                  <span class="text-lg">🍎</span>
                   <div>
                     <h4 class="text-xs font-bold text-[#38283A] dark:text-[#FDF7FB]">Dopamine Snack / Water</h4>
                     <p class="text-[10px] text-[#887487] dark:text-[#D4BFD2]">Nuts, fruit, or dark chocolate</p>
@@ -1824,10 +1834,10 @@
           <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-[#F4E1EC] dark:border-[#3E2445]">
             <div>
               <h3 class="text-base font-bold text-[#38283A] dark:text-[#FDF7FB]">Daily Self-Care Routines</h3>
-              <p class="text-xs text-[#887487] dark:text-[#D4BFD2]">Check off your self-care steps as you go â€” every single step counts</p>
+              <p class="text-xs text-[#887487] dark:text-[#D4BFD2]">Check off your self-care steps as you go — every single step counts</p>
             </div>
             <div class="p-2.5 rounded-2xl bg-[#FFF9FC] dark:bg-[#34213B] border border-[#F4E1EC] dark:border-[#412B4A] text-xs text-[#887487] dark:text-[#D4BFD2] flex items-center space-x-2">
-              <span class="text-amber-500">âœ¨</span>
+              <span class="text-amber-500">✨</span>
               <span><strong>Zero Guilt Policy:</strong> Missed yesterday? Just tap today.</span>
             </div>
           </div>
@@ -1839,6 +1849,626 @@
         </div>
 
       </section>
+
+      <!-- VIEW 8: GOALS & PROJECTS -->
+      <section id="view-goals" class="hidden flex-1 p-4 sm:p-6 lg:p-8 max-w-7xl w-full mx-auto space-y-6">
+        <div class="flex items-center justify-between pb-4 border-b border-[#F4E1EC] dark:border-[#3E2445]">
+          <div>
+            <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-[#FCECF3] dark:bg-[#3E2242] text-xs font-semibold text-[#994B78] dark:text-[#E889B5] mb-2">
+              <i data-lucide="target" class="w-3.5 h-3.5"></i>
+              <span>Visual Milestones</span>
+            </div>
+            <h2 class="text-2xl font-bold text-[#38283A] dark:text-[#FDF7FB]">Goals & Projects</h2>
+            <p class="text-xs text-[#887487] dark:text-[#D4BFD2]">Focus on one exciting milestone at a time.</p>
+          </div>
+          <button onclick="switchView('overview')" class="px-3.5 py-2 rounded-2xl bg-white dark:bg-[#28182D] border border-[#F4E1EC] dark:border-[#3E2445] text-xs font-semibold text-[#38283A] dark:text-[#FDF7FB] hover:bg-[#FCECF3] dark:hover:bg-[#3E2242] transition-colors">
+            Back to Overview
+          </button>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="bg-white dark:bg-[#28182D] border border-[#F4E1EC] dark:border-[#3E2445] rounded-3xl p-6 shadow-card space-y-4">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold uppercase tracking-wider text-[#994B78] dark:text-[#E889B5]">Emergency Cushion</span>
+              <span class="text-xs font-bold text-[#38283A] dark:text-[#FDF7FB]">$800 / $1,000</span>
+            </div>
+            <div class="w-full h-3 bg-[#F9DFEB]/50 dark:bg-[#3E2445] rounded-full overflow-hidden">
+              <div class="h-full rounded-full bg-gradient-to-r from-[#D66A9A] to-[#994B78]" style="width: 80%"></div>
+            </div>
+            <p class="text-xs text-[#887487] dark:text-[#D4BFD2]">Almost there! 80% funded without financial stress.</p>
+          </div>
+          <div class="bg-white dark:bg-[#28182D] border border-[#F4E1EC] dark:border-[#3E2445] rounded-3xl p-6 shadow-card space-y-4">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold uppercase tracking-wider text-[#994B78] dark:text-[#E889B5]">Weekend Getaway</span>
+              <span class="text-xs font-bold text-[#38283A] dark:text-[#FDF7FB]">$350 / $600</span>
+            </div>
+            <div class="w-full h-3 bg-[#F9DFEB]/50 dark:bg-[#3E2445] rounded-full overflow-hidden">
+              <div class="h-full rounded-full bg-gradient-to-r from-[#D66A9A] to-[#994B78]" style="width: 58%"></div>
+            </div>
+            <p class="text-xs text-[#887487] dark:text-[#D4BFD2]">On pace for spring break recharge.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- VIEW 9: SELF-CARE (ADHD NERVOUS SYSTEM REGULATION & DOPAMINE SANCTUARY) -->
+      <section id="view-selfcare" class="hidden flex-1 p-4 sm:p-6 lg:p-8 max-w-7xl w-full mx-auto space-y-6">
+        <!-- Header -->
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-[#F4E1EC] dark:border-[#3E2445]">
+          <div>
+            <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-[#FCECF3] dark:bg-[#3E2242] text-xs font-semibold text-[#994B78] dark:text-[#E889B5] mb-2">
+              <i data-lucide="heart" class="w-3.5 h-3.5"></i>
+              <span>ADHD Sensory & Nervous System Sanctuary</span>
+            </div>
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-[#38283A] dark:text-[#FDF7FB]">Self-Care & Brain Reset</h2>
+            <p class="text-xs sm:text-sm text-[#887487] dark:text-[#D4BFD2] mt-0.5">
+              Refuel executive dopamine, dissolve money overwhelm, and celebrate tiny wins 🌸
+            </p>
+          </div>
+          <div class="flex items-center space-x-2 sm:space-x-3">
+            <button onclick="startGroundingResetModal()" class="ios-glass-btn px-4 py-2.5 rounded-2xl bg-white/70 dark:bg-[#28182D]/70 border border-[#F4E1EC] dark:border-[#3E2445] text-xs font-semibold text-[#994B78] dark:text-[#E889B5] hover:shadow-md transition-all flex items-center space-x-2">
+              <i data-lucide="compass" class="w-4 h-4"></i>
+              <span>Grounding Reset</span>
+            </button>
+            <button onclick="switchView('overview')" class="ios-glass-btn px-4 py-2.5 rounded-2xl bg-white/70 dark:bg-[#28182D]/70 border border-[#F4E1EC] dark:border-[#3E2445] text-xs font-semibold text-[#38283A] dark:text-[#FDF7FB] hover:shadow-md transition-all">
+              Overview
+            </button>
+          </div>
+        </div>
+
+        <!-- 1. Top Gentle Compassion & Energy Gauge Card -->
+        <div class="p-6 sm:p-7 rounded-3xl bg-gradient-to-br from-[#FFF5F9] via-white to-[#FCECF3] dark:from-[#2A172F] dark:via-[#28182D] dark:to-[#221226] border border-[#F4E1EC] dark:border-[#3E2445] shadow-card space-y-4">
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div class="space-y-1.5 max-w-2xl">
+              <div class="flex items-center space-x-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-[#D66A9A] animate-pulse"></span>
+                <span class="text-xs font-bold uppercase tracking-wider text-[#994B78] dark:text-[#E889B5]">ADHD Compassion Protocol</span>
+              </div>
+              <h3 class="font-extrabold text-base sm:text-lg text-[#38283A] dark:text-[#FDF7FB]">
+                "Financial overwhelm is not a personal failure—it's just low dopamine."
+              </h3>
+              <p class="text-xs sm:text-sm text-[#887487] dark:text-[#D4BFD2] leading-relaxed">
+                When executive dysfunction strikes, your brain cannot force motivation. Step back, soothe your nervous system first, and numbers will feel manageable again.
+              </p>
+            </div>
+            <!-- Brain Battery Energy Selector -->
+            <div class="p-3.5 rounded-2xl bg-white/80 dark:bg-[#201024]/80 border border-[#F4E1EC] dark:border-[#3E2445] flex flex-col space-y-2 shrink-0">
+              <span class="text-[11px] font-bold text-[#38283A] dark:text-[#FDF7FB]">Current Brain Energy:</span>
+              <div class="flex items-center space-x-1.5">
+                <button onclick="setSelfCareEnergy('low')" id="sc-energy-low" class="px-3 py-1.5 rounded-xl text-xs font-bold transition-all bg-[#FCECF3] text-[#994B78] border border-[#D66A9A]/30">🪫 Low</button>
+                <button onclick="setSelfCareEnergy('medium')" id="sc-energy-medium" class="px-3 py-1.5 rounded-xl text-xs font-semibold transition-all hover:bg-[#FCECF3] text-[#887487] border border-transparent">🔋 Medium</button>
+                <button onclick="setSelfCareEnergy('high')" id="sc-energy-high" class="px-3 py-1.5 rounded-xl text-xs font-semibold transition-all hover:bg-[#FCECF3] text-[#887487] border border-transparent">⚡ Sparked</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. Dual Column: The ADHD Dopamine Menu & Ambient Sound Generator -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <!-- Left 2 Cols: The Dopamine Menu -->
+          <div class="lg:col-span-2 p-5 sm:p-6 rounded-3xl bg-white dark:bg-[#28182D] border border-[#F4E1EC] dark:border-[#3E2445] shadow-card space-y-5">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-[#F4E1EC] dark:border-[#3E2445]">
+              <div>
+                <div class="flex items-center space-x-2">
+                  <div class="w-8 h-8 rounded-xl bg-gradient-to-br from-[#FCECF3] to-[#F9DFEB] dark:from-[#3E2242] dark:to-[#4A264F] flex items-center justify-center text-[#994B78] dark:text-[#E889B5]">
+                    <i data-lucide="coffee" class="w-4 h-4"></i>
+                  </div>
+                  <div>
+                    <h3 class="font-bold text-base text-[#38283A] dark:text-[#FDF7FB]">The ADHD Dopamine Menu</h3>
+                    <p class="text-[11px] text-[#887487] dark:text-[#D4BFD2]">Healthy brain stimulation instead of guilt or doomscrolling</p>
+                  </div>
+                </div>
+              </div>
+              <span class="text-xs font-bold text-[#994B78] dark:text-[#E889B5] px-3 py-1 rounded-full bg-[#FCECF3] dark:bg-[#3E2242]">
+                Pick 1 bite whenever stuck ✨
+              </span>
+            </div>
+
+            <!-- Categories Tabs -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+              <button onclick="switchDopamineTab('appetizers')" id="dopa-tab-appetizers" class="py-2 px-3 rounded-2xl text-xs font-bold text-center transition-all bg-gradient-to-r from-[#994B78] to-[#BA5382] text-white shadow-sm">
+                ☕ Appetizers (5m)
+              </button>
+              <button onclick="switchDopamineTab('mains')" id="dopa-tab-mains" class="py-2 px-3 rounded-2xl text-xs font-semibold text-center transition-all bg-[#FFF9FC] dark:bg-[#201024] text-[#887487] dark:text-[#D4BFD2] border border-[#F4E1EC] dark:border-[#3E2445]">
+                🍲 Mains (20m+)
+              </button>
+              <button onclick="switchDopamineTab('desserts')" id="dopa-tab-desserts" class="py-2 px-3 rounded-2xl text-xs font-semibold text-center transition-all bg-[#FFF9FC] dark:bg-[#201024] text-[#887487] dark:text-[#D4BFD2] border border-[#F4E1EC] dark:border-[#3E2445]">
+                🍰 Desserts (Fun)
+              </button>
+              <button onclick="switchDopamineTab('snacks')" id="dopa-tab-snacks" class="py-2 px-3 rounded-2xl text-xs font-semibold text-center transition-all bg-[#FFF9FC] dark:bg-[#201024] text-[#887487] dark:text-[#D4BFD2] border border-[#F4E1EC] dark:border-[#3E2445]">
+                🥨 Snacks (Quick)
+              </button>
+            </div>
+
+            <!-- Dopamine Items Grid Container -->
+            <div id="dopamine-items-container" class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+              <!-- Rendered via JS -->
+            </div>
+          </div>
+
+          <!-- Right Col: Ambient Pink Noise Generator & Sensory Calmer -->
+          <div class="p-5 sm:p-6 rounded-3xl bg-white dark:bg-[#28182D] border border-[#F4E1EC] dark:border-[#3E2445] shadow-card flex flex-col justify-between space-y-5">
+            <div>
+              <div class="flex items-center space-x-3 pb-3 border-b border-[#F4E1EC] dark:border-[#3E2445]">
+                <div class="w-8 h-8 rounded-xl bg-gradient-to-br from-[#FCECF3] to-[#F9DFEB] dark:from-[#3E2242] dark:to-[#4A264F] flex items-center justify-center text-[#994B78] dark:text-[#E889B5]">
+                  <i data-lucide="headphones" class="w-4 h-4"></i>
+                </div>
+                <div>
+                  <h3 class="font-bold text-sm text-[#38283A] dark:text-[#FDF7FB]">Ambient Soundscape</h3>
+                  <p class="text-[11px] text-[#887487] dark:text-[#D4BFD2]">Masks intrusive ADHD racing thoughts</p>
+                </div>
+              </div>
+
+              <!-- Sound Player Box -->
+              <div class="mt-4 p-4 rounded-2xl bg-[#FFF9FC] dark:bg-[#201024] border border-[#F4E1EC] dark:border-[#3E2445] text-center space-y-4">
+                <div id="sound-indicator" class="w-16 h-16 mx-auto rounded-full bg-gradient-to-br from-[#FCECF3] to-[#F9DFEB] dark:from-[#3E2242] dark:to-[#4A264F] flex items-center justify-center border-2 border-dashed border-[#D66A9A]/40 transition-all">
+                  <i id="sound-icon" data-lucide="volume-x" class="w-7 h-7 text-[#994B78] dark:text-[#E889B5]"></i>
+                </div>
+                <div>
+                  <div id="sound-status-text" class="text-xs font-bold text-[#38283A] dark:text-[#FDF7FB]">Soundscape: Paused</div>
+                  <div class="text-[10px] text-[#887487] dark:text-[#D4BFD2]">100% native audio, zero download needed</div>
+                </div>
+
+                <!-- Sound Modes -->
+                <div class="flex items-center justify-center space-x-2">
+                  <button onclick="setSoundMode('pink')" id="mode-pink-btn" class="px-2.5 py-1 rounded-xl text-[11px] font-bold bg-[#FCECF3] dark:bg-[#3E2242] text-[#994B78] dark:text-[#E889B5] border border-[#D66A9A]/30">🌸 Pink Noise</button>
+                  <button onclick="setSoundMode('brown')" id="mode-brown-btn" class="px-2.5 py-1 rounded-xl text-[11px] font-semibold text-[#887487] dark:text-[#D4BFD2] hover:bg-[#FCECF3] dark:hover:bg-[#3E2242]">🌧️ Soft Rain</button>
+                </div>
+
+                <!-- Volume Slider -->
+                <div class="space-y-1">
+                  <div class="flex justify-between text-[10px] text-[#887487] dark:text-[#D4BFD2] px-1 font-medium">
+                    <span>Softer</span>
+                    <span>Volume</span>
+                    <span>Louder</span>
+                  </div>
+                  <input type="range" id="ambient-volume" min="0.05" max="0.8" step="0.05" value="0.25" oninput="changeAmbientVolume(this.value)" class="w-full accent-[#D66A9A] cursor-pointer">
+                </div>
+
+                <!-- Big Toggle Button -->
+                <button onclick="toggleAmbientNoise()" id="ambient-play-btn" class="ios-glass-primary w-full py-2.5 rounded-2xl bg-gradient-to-r from-[#D66A9A] to-[#994B78] text-white font-bold text-xs shadow-md hover:opacity-95 transition-all flex items-center justify-center space-x-2">
+                  <i data-lucide="play" class="w-4 h-4"></i>
+                  <span id="ambient-btn-label">Start Calming Sound</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- ADHD Note -->
+            <div class="p-3 rounded-2xl bg-[#FCECF3]/60 dark:bg-[#3E2242]/40 border border-[#F4E1EC] dark:border-[#3E2445] flex items-start space-x-2.5">
+              <i data-lucide="sparkles" class="w-4 h-4 text-[#994B78] dark:text-[#E889B5] shrink-0 mt-0.5"></i>
+              <p class="text-[11px] text-[#887487] dark:text-[#D4BFD2] leading-relaxed">
+                Pink noise has equal energy per octave, calming sensory overload so your brain feels steady while organizing finances.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. Dual Column: 5-4-3-2-1 Sensory Grounding & ADHD Tiny Wins Jar -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <!-- Left: 5-4-3-2-1 Grounding Lifeline -->
+          <div class="p-5 sm:p-6 rounded-3xl bg-white dark:bg-[#28182D] border border-[#F4E1EC] dark:border-[#3E2445] shadow-card space-y-4">
+            <div class="flex items-center justify-between pb-3 border-b border-[#F4E1EC] dark:border-[#3E2445]">
+              <div class="flex items-center space-x-2.5">
+                <div class="w-8 h-8 rounded-xl bg-gradient-to-br from-[#FCECF3] to-[#F9DFEB] dark:from-[#3E2242] dark:to-[#4A264F] flex items-center justify-center text-[#994B78] dark:text-[#E889B5]">
+                  <i data-lucide="anchor" class="w-4 h-4"></i>
+                </div>
+                <div>
+                  <h3 class="font-bold text-sm text-[#38283A] dark:text-[#FDF7FB]">5-4-3-2-1 Grounding Lifeline</h3>
+                  <p class="text-[11px] text-[#887487] dark:text-[#D4BFD2]">For anxiety spikes or executive paralysis</p>
+                </div>
+              </div>
+              <span id="grounding-step-badge" class="text-xs font-bold px-2.5 py-1 rounded-full bg-[#FCECF3] dark:bg-[#3E2242] text-[#994B78] dark:text-[#E889B5]">
+                Step 1 of 5
+              </span>
+            </div>
+
+            <!-- Grounding Interactive Step Card -->
+            <div id="grounding-card" class="p-5 rounded-2xl bg-gradient-to-br from-[#FFF9FC] to-[#FCECF3] dark:from-[#201024] dark:to-[#2A142E] border border-[#F4E1EC] dark:border-[#3E2445] space-y-3">
+              <div class="flex items-center space-x-3">
+                <div id="grounding-icon-box" class="w-10 h-10 rounded-2xl bg-white dark:bg-[#28182D] shadow-sm flex items-center justify-center text-xl">
+                  👁️
+                </div>
+                <div>
+                  <div id="grounding-title" class="text-sm font-extrabold text-[#38283A] dark:text-[#FDF7FB]">
+                    5 Things You See
+                  </div>
+                  <div id="grounding-prompt" class="text-xs text-[#887487] dark:text-[#D4BFD2]">
+                    Look around the room right now. Notice 5 objects (a pen, your window, light reflection).
+                  </div>
+                </div>
+              </div>
+
+              <!-- Step Progress Indicators -->
+              <div class="grid grid-cols-5 gap-1.5 pt-2">
+                <div id="g-bar-1" class="h-1.5 rounded-full bg-[#D66A9A] transition-all"></div>
+                <div id="g-bar-2" class="h-1.5 rounded-full bg-[#F4E1EC] dark:bg-[#3E2445] transition-all"></div>
+                <div id="g-bar-3" class="h-1.5 rounded-full bg-[#F4E1EC] dark:bg-[#3E2445] transition-all"></div>
+                <div id="g-bar-4" class="h-1.5 rounded-full bg-[#F4E1EC] dark:bg-[#3E2445] transition-all"></div>
+                <div id="g-bar-5" class="h-1.5 rounded-full bg-[#F4E1EC] dark:bg-[#3E2445] transition-all"></div>
+              </div>
+            </div>
+
+            <!-- Controls -->
+            <div class="flex items-center justify-between pt-1">
+              <button onclick="resetGrounding()" class="px-3.5 py-2 rounded-xl text-xs font-semibold text-[#887487] hover:bg-[#FCECF3] dark:hover:bg-[#3E2242] transition-colors">
+                Reset
+              </button>
+              <button onclick="nextGroundingStep()" id="grounding-next-btn" class="ios-glass-primary px-5 py-2 rounded-2xl bg-gradient-to-r from-[#D66A9A] to-[#994B78] text-white font-bold text-xs shadow-sm hover:opacity-95 transition-all flex items-center space-x-2">
+                <span>Next Sense</span>
+                <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Right: ADHD Tiny Wins Jar -->
+          <div class="p-5 sm:p-6 rounded-3xl bg-white dark:bg-[#28182D] border border-[#F4E1EC] dark:border-[#3E2445] shadow-card space-y-4">
+            <div class="flex items-center justify-between pb-3 border-b border-[#F4E1EC] dark:border-[#3E2445]">
+              <div class="flex items-center space-x-2.5">
+                <div class="w-8 h-8 rounded-xl bg-gradient-to-br from-[#FCECF3] to-[#F9DFEB] dark:from-[#3E2242] dark:to-[#4A264F] flex items-center justify-center text-[#994B78] dark:text-[#E889B5]">
+                  <i data-lucide="sparkle" class="w-4 h-4"></i>
+                </div>
+                <div>
+                  <h3 class="font-bold text-sm text-[#38283A] dark:text-[#FDF7FB]">Today's Tiny Wins Jar</h3>
+                  <p class="text-[11px] text-[#887487] dark:text-[#D4BFD2]">ADHD brains forget wins easily. Record even tiny steps!</p>
+                </div>
+              </div>
+              <span id="wins-count-badge" class="text-xs font-bold text-[#994B78] dark:text-[#E889B5] px-2.5 py-1 rounded-full bg-[#FCECF3] dark:bg-[#3E2242]">
+                2 Wins Today 🎉
+              </span>
+            </div>
+
+            <!-- Quick Add Input -->
+            <div class="flex items-center space-x-2">
+              <input type="text" id="custom-win-input" placeholder="What went right today? (e.g. drank water, opened budget)" class="flex-1 px-3.5 py-2 rounded-2xl text-xs bg-[#FFF9FC] dark:bg-[#201024] border border-[#F4E1EC] dark:border-[#3E2445] text-[#38283A] dark:text-[#FDF7FB] focus:outline-none focus:ring-2 focus:ring-[#D66A9A]/40" onkeydown="if(event.key==='Enter') addCustomTinyWin()">
+              <button onclick="addCustomTinyWin()" class="ios-glass-primary px-4 py-2 rounded-2xl bg-gradient-to-r from-[#D66A9A] to-[#994B78] text-white text-xs font-bold shrink-0 hover:opacity-95 shadow-sm">
+                + Add Win
+              </button>
+            </div>
+
+            <!-- One-tap Preset Win Buttons -->
+            <div class="flex flex-wrap gap-1.5">
+              <button onclick="addPresetWin('Opened budget calmly 🌸')" class="px-2.5 py-1 rounded-xl text-[10px] font-semibold bg-[#FCECF3] dark:bg-[#3E2242] text-[#994B78] dark:text-[#E889B5] hover:opacity-85 transition-opacity">+ Opened budget 🌸</button>
+              <button onclick="addPresetWin('Drank fresh water 💧')" class="px-2.5 py-1 rounded-xl text-[10px] font-semibold bg-[#FCECF3] dark:bg-[#3E2242] text-[#994B78] dark:text-[#E889B5] hover:opacity-85 transition-opacity">+ Drank water 💧</button>
+              <button onclick="addPresetWin('Didn\'t impulse spend 🛡️')" class="px-2.5 py-1 rounded-xl text-[10px] font-semibold bg-[#FCECF3] dark:bg-[#3E2242] text-[#994B78] dark:text-[#E889B5] hover:opacity-85 transition-opacity">+ Resisted impulse 🛡️</button>
+              <button onclick="addPresetWin('Rested without feeling guilty 🛋️')" class="px-2.5 py-1 rounded-xl text-[10px] font-semibold bg-[#FCECF3] dark:bg-[#3E2242] text-[#994B78] dark:text-[#E889B5] hover:opacity-85 transition-opacity">+ Guilt-free rest 🛋️</button>
+            </div>
+
+            <!-- Saved Wins List Container -->
+            <div id="tiny-wins-list" class="space-y-2 max-h-56 overflow-y-auto pr-1">
+              <!-- Rendered via JS -->
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- VIEW: FOCUS SPACE (ADHD SENSORY & TASK ISOLATION) -->
+      <section id="view-focus" class="hidden flex-1 p-4 sm:p-6 lg:p-8 max-w-7xl w-full mx-auto space-y-6">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-[#F4E1EC] dark:border-[#3E2445]">
+          <div>
+            <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-[#FCECF3] dark:bg-[#3E2242] text-xs font-semibold text-[#994B78] dark:text-[#E889B5] mb-2">
+              <i data-lucide="compass" class="w-3.5 h-3.5"></i>
+              <span>One Thing at a Time • Zero Overwhelm</span>
+            </div>
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-[#38283A] dark:text-[#FDF7FB]">Focus Space</h2>
+            <p class="text-xs sm:text-sm text-[#887487] dark:text-[#D4BFD2] mt-0.5">Isolate a single target, tame distraction urges, and lock into calm momentum.</p>
+          </div>
+          <div class="flex items-center space-x-2">
+            <span class="px-3.5 py-1.5 rounded-2xl bg-white dark:bg-[#28182D] border border-[#F4E1EC] dark:border-[#3E2445] text-xs font-bold text-[#994B78] dark:text-[#E889B5] shadow-sm flex items-center space-x-1.5">
+              <span>🔥</span>
+              <span id="focus-completed-sessions">2 Focus Sprints Done</span>
+            </span>
+          </div>
+        </div>
+
+        <!-- FOCUS TIMER & ACTIVE TARGET GRID -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+          <!-- LEFT: THE VISUAL TIMER CARD (7 COLS) -->
+          <div class="lg:col-span-7 bg-white dark:bg-[#28182D] rounded-3xl p-6 sm:p-8 border border-[#F4E1EC] dark:border-[#3E2445] shadow-card dark:shadow-card-dark flex flex-col items-center justify-center text-center relative overflow-hidden">
+            <div class="absolute -top-20 -right-20 w-56 h-56 rounded-full bg-[#FCECF3] dark:bg-[#3E2242]/40 blur-3xl pointer-events-none"></div>
+            
+            <!-- Interval Mode Pills -->
+            <div class="inline-flex items-center p-1 rounded-2xl bg-[#FFF9FC] dark:bg-[#201024] border border-[#F4E1EC] dark:border-[#3E2445] mb-6">
+              <button onclick="setFocusTimerMode(25, 'Focus')" id="btn-timer-25" class="px-3.5 py-1.5 rounded-xl text-xs font-bold bg-[#994B78] text-white shadow-sm transition-all">25m Focus</button>
+              <button onclick="setFocusTimerMode(15, 'Sprint')" id="btn-timer-15" class="px-3.5 py-1.5 rounded-xl text-xs font-semibold text-[#887487] dark:text-[#D4BFD2] hover:bg-[#FCECF3] dark:hover:bg-[#3E2242] transition-all">15m Sprint</button>
+              <button onclick="setFocusTimerMode(5, 'Quick Break')" id="btn-timer-5" class="px-3.5 py-1.5 rounded-xl text-xs font-semibold text-[#887487] dark:text-[#D4BFD2] hover:bg-[#FCECF3] dark:hover:bg-[#3E2242] transition-all">5m Break</button>
+              <button onclick="setFocusTimerMode(15, 'Deep Rest')" id="btn-timer-deep" class="px-3.5 py-1.5 rounded-xl text-xs font-semibold text-[#887487] dark:text-[#D4BFD2] hover:bg-[#FCECF3] dark:hover:bg-[#3E2242] transition-all">15m Rest</button>
+            </div>
+
+            <!-- Big Clock Display -->
+            <div id="focus-clock-display" class="text-6xl sm:text-7xl md:text-8xl font-black font-mono tracking-tight text-[#994B78] dark:text-[#E889B5] my-2 select-none">
+              25:00
+            </div>
+            
+            <p id="focus-timer-label" class="text-xs font-semibold text-[#887487] dark:text-[#D4BFD2] mb-6 uppercase tracking-wider">
+              Focus Interval
+            </p>
+
+            <!-- Timer Controls -->
+            <div class="flex items-center space-x-3 mb-6">
+              <button onclick="toggleFocusTimer()" id="focus-play-btn" class="px-7 py-3 rounded-2xl bg-gradient-to-r from-[#D66A9A] to-[#994B78] text-white font-bold text-sm shadow-md hover:opacity-95 transition-all flex items-center space-x-2">
+                <i data-lucide="play" class="w-4 h-4 fill-white"></i>
+                <span id="focus-play-btn-text">Start Focus</span>
+              </button>
+              <button onclick="resetFocusTimer()" class="p-3 rounded-2xl bg-[#FFF9FC] dark:bg-[#201024] border border-[#F4E1EC] dark:border-[#3E2445] text-[#887487] hover:text-[#994B78] dark:hover:text-[#E889B5] transition-all" title="Reset Timer">
+                <i data-lucide="rotate-ccw" class="w-4 h-4"></i>
+              </button>
+            </div>
+
+            <!-- Sensory Calm Sound Player -->
+            <div class="w-full pt-4 border-t border-[#F4E1EC] dark:border-[#3E2445] flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
+              <div class="flex items-center space-x-2">
+                <i data-lucide="headphones" class="w-4 h-4 text-[#994B78] dark:text-[#E889B5]"></i>
+                <span class="font-bold text-[#38283A] dark:text-[#FDF7FB]">Sensory Sound:</span>
+                <span id="ambient-sound-status" class="text-[#887487] dark:text-[#D4BFD2]">Muted</span>
+              </div>
+              <div class="flex items-center space-x-2">
+                <button onclick="toggleAmbientSound('rain')" id="sound-btn-rain" class="px-2.5 py-1 rounded-xl bg-[#FCECF3] dark:bg-[#3E2242] text-[#994B78] dark:text-[#E889B5] text-[11px] font-bold hover:opacity-90">🌧️ Rain</button>
+                <button onclick="toggleAmbientSound('pink')" id="sound-btn-pink" class="px-2.5 py-1 rounded-xl bg-[#FCECF3] dark:bg-[#3E2242] text-[#994B78] dark:text-[#E889B5] text-[11px] font-bold hover:opacity-90">🌸 Pink Noise</button>
+                <button onclick="toggleAmbientSound('stop')" id="sound-btn-stop" class="px-2.5 py-1 rounded-xl bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-300 text-[11px] font-bold hover:opacity-90">⏹️ Stop</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- RIGHT: THE ONE TARGET & BRAIN DUMP (5 COLS) -->
+          <div class="lg:col-span-5 space-y-6">
+            <!-- 1. The ONE Thing -->
+            <div class="bg-gradient-to-br from-[#FFF5F8] to-white dark:from-[#2E1A33] dark:to-[#241328] rounded-3xl p-6 border border-[#F4E1EC] dark:border-[#3E2445] shadow-card dark:shadow-card-dark space-y-3">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-2">
+                  <div class="w-7 h-7 rounded-xl bg-[#FCECF3] dark:bg-[#3E2242] text-[#994B78] dark:text-[#E889B5] flex items-center justify-center">
+                    <i data-lucide="target" class="w-4 h-4"></i>
+                  </div>
+                  <h3 class="text-sm font-bold text-[#38283A] dark:text-[#FDF7FB]">The ONE Target Right Now</h3>
+                </div>
+                <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#FCECF3] text-[#994B78]">Isolated</span>
+              </div>
+              
+              <div id="focus-active-target-box" class="p-3.5 rounded-2xl bg-white dark:bg-[#201024] border border-[#F4E1EC] dark:border-[#3E2445] flex items-center justify-between">
+                <div>
+                  <p class="text-[10px] text-[#887487] dark:text-[#D4BFD2] uppercase font-semibold">Active Objective</p>
+                  <p id="focus-active-target-text" class="text-xs sm:text-sm font-bold text-[#38283A] dark:text-[#FDF7FB]">Finish Q3 budget reconciliation & invoices</p>
+                </div>
+                <button onclick="completeActiveTarget()" class="p-2 rounded-xl bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300 hover:scale-105 transition-all" title="Mark Target Finished!">
+                  <i data-lucide="check" class="w-4 h-4"></i>
+                </button>
+              </div>
+
+              <div class="flex items-center space-x-2">
+                <input type="text" id="focus-new-target-input" placeholder="Change or set next target..." class="flex-1 px-3.5 py-2 rounded-xl bg-white dark:bg-[#201024] border border-[#F4E1EC] dark:border-[#3E2445] text-xs text-[#38283A] dark:text-[#FDF7FB]">
+                <button onclick="saveNewActiveTarget()" class="px-3.5 py-2 rounded-xl bg-[#994B78] text-white text-xs font-bold shadow-sm hover:opacity-90">Lock In 🎯</button>
+              </div>
+            </div>
+
+            <!-- 2. Distraction Pad -->
+            <div class="bg-white dark:bg-[#28182D] rounded-3xl p-6 border border-[#F4E1EC] dark:border-[#3E2445] shadow-card dark:shadow-card-dark space-y-3">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-2">
+                  <div class="w-7 h-7 rounded-xl bg-[#FCECF3] dark:bg-[#3E2242] text-[#994B78] dark:text-[#E889B5] flex items-center justify-center">
+                    <i data-lucide="sparkles" class="w-4 h-4"></i>
+                  </div>
+                  <div>
+                    <h3 class="text-sm font-bold text-[#38283A] dark:text-[#FDF7FB]">Distraction Pad</h3>
+                    <p class="text-[10px] text-[#887487] dark:text-[#D4BFD2]">Park random thoughts so you don't break focus</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="flex items-center space-x-2">
+                <input type="text" id="brain-dump-input" onkeydown="if(event.key==='Enter')addBrainDumpItem()" placeholder="Random urge or thought? Type here..." class="flex-1 px-3.5 py-2 rounded-xl bg-[#FFF9FC] dark:bg-[#201024] border border-[#F4E1EC] dark:border-[#3E2445] text-xs text-[#38283A] dark:text-[#FDF7FB]">
+                <button onclick="addBrainDumpItem()" class="px-3 py-2 rounded-xl bg-[#FCECF3] dark:bg-[#3E2242] text-[#994B78] dark:text-[#E889B5] text-xs font-bold hover:opacity-90">Park 📝</button>
+              </div>
+
+              <div id="brain-dump-list" class="space-y-2 max-h-48 overflow-y-auto pr-1">
+                <!-- Rendered via JS -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- VIEW: MOOD & ENERGY (SPOONS & EXECUTIVE FUNCTION) -->
+      <section id="view-mood" class="hidden flex-1 p-4 sm:p-6 lg:p-8 max-w-7xl w-full mx-auto space-y-6">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-[#F4E1EC] dark:border-[#3E2445]">
+          <div>
+            <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-[#FCECF3] dark:bg-[#3E2242] text-xs font-semibold text-[#994B78] dark:text-[#E889B5] mb-2">
+              <i data-lucide="smile" class="w-3.5 h-3.5"></i>
+              <span>Spoon Theory & Dopamine Awareness</span>
+            </div>
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-[#38283A] dark:text-[#FDF7FB]">Mood & Energy Tracker</h2>
+            <p class="text-xs sm:text-sm text-[#887487] dark:text-[#D4BFD2] mt-0.5">Understand your capacity, forgive low-spoon days, and prevent burnout spending.</p>
+          </div>
+          <div class="flex items-center space-x-2">
+            <span id="mood-today-badge-top" class="px-3.5 py-1.5 rounded-2xl bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800 text-xs font-bold shadow-sm flex items-center space-x-1.5">
+              <span>✓</span>
+              <span>Today's Check-in Done</span>
+            </span>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+          <!-- TODAY'S CHECK-IN FORM (7 COLS) -->
+          <div class="lg:col-span-7 bg-white dark:bg-[#28182D] rounded-3xl p-6 sm:p-7 border border-[#F4E1EC] dark:border-[#3E2445] shadow-card dark:shadow-card-dark space-y-5">
+            <div class="flex items-center space-x-2.5 pb-3 border-b border-[#F4E1EC] dark:border-[#3E2445]">
+              <div class="w-8 h-8 rounded-xl bg-[#FCECF3] dark:bg-[#3E2242] text-[#994B78] dark:text-[#E889B5] flex items-center justify-center">
+                <i data-lucide="sparkles" class="w-4 h-4"></i>
+              </div>
+              <div>
+                <h3 class="text-base font-bold text-[#38283A] dark:text-[#FDF7FB]">Today's Capacity Check-In</h3>
+                <p class="text-[11px] text-[#887487] dark:text-[#D4BFD2]">Check in honestly without judgment.</p>
+              </div>
+            </div>
+
+            <!-- 1. SPOONS SELECTION (1 to 5) -->
+            <div>
+              <label class="block text-xs font-semibold text-[#887487] dark:text-[#D4BFD2] uppercase tracking-wider mb-2">
+                How many spoons do you have today? 🥄 <span id="spoon-count-label" class="font-bold text-[#994B78] dark:text-[#E889B5]">(4 Spoons - Good Capacity)</span>
+              </label>
+              <div class="flex items-center space-x-2" id="spoons-selector-container">
+                <button type="button" onclick="selectSpoons(1)" class="spoon-btn flex-1 py-2.5 rounded-2xl bg-[#FFF9FC] dark:bg-[#201024] border border-[#F4E1EC] dark:border-[#3E2445] text-xs font-bold text-[#38283A] dark:text-[#FDF7FB] hover:border-[#994B78] transition-all">🥄 1</button>
+                <button type="button" onclick="selectSpoons(2)" class="spoon-btn flex-1 py-2.5 rounded-2xl bg-[#FFF9FC] dark:bg-[#201024] border border-[#F4E1EC] dark:border-[#3E2445] text-xs font-bold text-[#38283A] dark:text-[#FDF7FB] hover:border-[#994B78] transition-all">🥄 2</button>
+                <button type="button" onclick="selectSpoons(3)" class="spoon-btn flex-1 py-2.5 rounded-2xl bg-[#FFF9FC] dark:bg-[#201024] border border-[#F4E1EC] dark:border-[#3E2445] text-xs font-bold text-[#38283A] dark:text-[#FDF7FB] hover:border-[#994B78] transition-all">🥄 3</button>
+                <button type="button" onclick="selectSpoons(4)" class="spoon-btn spoon-active flex-1 py-2.5 rounded-2xl bg-[#994B78] text-white border border-[#994B78] text-xs font-bold transition-all">🥄 4</button>
+                <button type="button" onclick="selectSpoons(5)" class="spoon-btn flex-1 py-2.5 rounded-2xl bg-[#FFF9FC] dark:bg-[#201024] border border-[#F4E1EC] dark:border-[#3E2445] text-xs font-bold text-[#38283A] dark:text-[#FDF7FB] hover:border-[#994B78] transition-all">🥄 5</button>
+              </div>
+            </div>
+
+            <!-- 2. ENERGY LEVEL SELECTION -->
+            <div>
+              <label class="block text-xs font-semibold text-[#887487] dark:text-[#D4BFD2] uppercase tracking-wider mb-2">
+                Executive Function / Energy
+              </label>
+              <div class="grid grid-cols-3 gap-2" id="energy-selector-container">
+                <button type="button" onclick="selectEnergy('Low')" id="energy-btn-low" class="py-2.5 rounded-2xl bg-[#FFF9FC] dark:bg-[#201024] border border-[#F4E1EC] dark:border-[#3E2445] text-xs font-semibold text-[#38283A] dark:text-[#FDF7FB] transition-all">🪫 Low / Burnout</button>
+                <button type="button" onclick="selectEnergy('Medium')" id="energy-btn-medium" class="py-2.5 rounded-2xl bg-[#994B78] text-white border border-[#994B78] text-xs font-bold transition-all">⚡ Medium / Steady</button>
+                <button type="button" onclick="selectEnergy('High')" id="energy-btn-high" class="py-2.5 rounded-2xl bg-[#FFF9FC] dark:bg-[#201024] border border-[#F4E1EC] dark:border-[#3E2445] text-xs font-semibold text-[#38283A] dark:text-[#FDF7FB] transition-all">🚀 High / Focus</button>
+              </div>
+            </div>
+
+            <!-- 3. DOMINANT MOOD / VIBE -->
+            <div>
+              <label class="block text-xs font-semibold text-[#887487] dark:text-[#D4BFD2] uppercase tracking-wider mb-2">
+                Dominant Feeling
+              </label>
+              <div class="grid grid-cols-3 sm:grid-cols-6 gap-2" id="mood-selector-container">
+                <button type="button" onclick="selectMood('Calm')" class="mood-pill py-2 rounded-xl text-xs font-bold bg-[#FCECF3] dark:bg-[#3E2242] text-[#994B78] dark:text-[#E889B5] border border-[#994B78]">😌 Calm</button>
+                <button type="button" onclick="selectMood('Happy')" class="mood-pill py-2 rounded-xl text-xs font-semibold text-[#887487] dark:text-[#D4BFD2] bg-[#FFF9FC] dark:bg-[#201024] border border-[#F4E1EC]">💖 Happy</button>
+                <button type="button" onclick="selectMood('Overwhelmed')" class="mood-pill py-2 rounded-xl text-xs font-semibold text-[#887487] dark:text-[#D4BFD2] bg-[#FFF9FC] dark:bg-[#201024] border border-[#F4E1EC]">🤯 Overwhelmed</button>
+                <button type="button" onclick="selectMood('Brain Fog')" class="mood-pill py-2 rounded-xl text-xs font-semibold text-[#887487] dark:text-[#D4BFD2] bg-[#FFF9FC] dark:bg-[#201024] border border-[#F4E1EC]">🌫️ Brain Fog</button>
+                <button type="button" onclick="selectMood('Anxious')" class="mood-pill py-2 rounded-xl text-xs font-semibold text-[#887487] dark:text-[#D4BFD2] bg-[#FFF9FC] dark:bg-[#201024] border border-[#F4E1EC]">😰 Anxious</button>
+                <button type="button" onclick="selectMood('Focused')" class="mood-pill py-2 rounded-xl text-xs font-semibold text-[#887487] dark:text-[#D4BFD2] bg-[#FFF9FC] dark:bg-[#201024] border border-[#F4E1EC]">🎯 Focused</button>
+              </div>
+            </div>
+
+            <!-- 4. NOTE -->
+            <div>
+              <label class="block text-xs font-semibold text-[#887487] dark:text-[#D4BFD2] uppercase tracking-wider mb-1">
+                Reflections or Triggers (Optional)
+              </label>
+              <input type="text" id="mood-note-input" placeholder="e.g. Took morning meds, had great walk, felt good about progress..." class="w-full px-4 py-2.5 rounded-2xl bg-[#FFF9FC] dark:bg-[#201024] border border-[#F4E1EC] dark:border-[#3E2445] text-xs text-[#38283A] dark:text-[#FDF7FB]">
+            </div>
+
+            <div class="flex justify-end pt-2">
+              <button onclick="saveMoodCheckIn()" class="ios-glass-primary px-6 py-2.5 rounded-2xl bg-gradient-to-r from-[#D66A9A] to-[#994B78] text-white font-bold text-xs shadow-md hover:opacity-95 transition-all flex items-center space-x-2">
+                <i data-lucide="heart" class="w-4 h-4"></i>
+                <span>Save Today's Check-In ✨</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- INSIGHTS & 7-DAY HISTORY (5 COLS) -->
+          <div class="lg:col-span-5 space-y-6">
+            <!-- Dopamine Spending Guard Banner -->
+            <div id="mood-insight-card" class="bg-gradient-to-br from-[#FFF5F8] to-[#FCECF3] dark:from-[#2E1A33] dark:to-[#381F3D] rounded-3xl p-6 border border-[#F4E1EC] dark:border-[#3E2445] shadow-card space-y-2.5">
+              <div class="flex items-center space-x-2 text-[#994B78] dark:text-[#E889B5]">
+                <i data-lucide="shield-alert" class="w-4 h-4"></i>
+                <h4 class="text-xs font-bold uppercase tracking-wider">ADHD Spending Shield</h4>
+              </div>
+              <p id="mood-insight-text" class="text-xs text-[#38283A] dark:text-[#FDF7FB] leading-relaxed">
+                You have good spoon capacity today! Remember: don't start 5 projects simultaneously. Pick one main priority and rest when done.
+              </p>
+            </div>
+
+            <!-- Recent Mood History -->
+            <div class="bg-white dark:bg-[#28182D] rounded-3xl p-6 border border-[#F4E1EC] dark:border-[#3E2445] shadow-card dark:shadow-card-dark space-y-3">
+              <div class="flex items-center justify-between pb-2 border-b border-[#F4E1EC] dark:border-[#3E2445]">
+                <h4 class="text-xs font-bold text-[#38283A] dark:text-[#FDF7FB] uppercase tracking-wider">Past Check-Ins</h4>
+                <span class="text-[10px] text-[#887487] dark:text-[#D4BFD2]">Last 7 entries</span>
+              </div>
+              <div id="mood-history-list" class="space-y-2 max-h-64 overflow-y-auto pr-1">
+                <!-- Rendered via JS -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- VIEW: MEALS & GROCERIES (LOW-SPOONS MEAL PLANNING & SMART GROCERY) -->
+      <section id="view-meals" class="hidden flex-1 p-4 sm:p-6 lg:p-8 max-w-7xl w-full mx-auto space-y-6">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-[#F4E1EC] dark:border-[#3E2445]">
+          <div>
+            <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-[#FCECF3] dark:bg-[#3E2242] text-xs font-semibold text-[#994B78] dark:text-[#E889B5] mb-2">
+              <i data-lucide="utensils" class="w-3.5 h-3.5"></i>
+              <span>Low Executive Function Nutrition</span>
+            </div>
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-[#38283A] dark:text-[#FDF7FB]">Meals & Groceries</h2>
+            <p class="text-xs sm:text-sm text-[#887487] dark:text-[#D4BFD2] mt-0.5">Low-spoons meal plan, expiring food radar, and smart grocery checklist.</p>
+          </div>
+          <div class="flex items-center space-x-2">
+            <button onclick="openModal('addGroceryModal')" class="ios-glass-primary px-4 py-2.5 rounded-2xl bg-gradient-to-r from-[#D66A9A] to-[#994B78] text-white text-xs font-bold shadow-md hover:opacity-95 transition-all flex items-center space-x-2">
+              <i data-lucide="plus" class="w-4 h-4"></i>
+              <span>Add Grocery Item</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- 3-COL / TOP SUMMARY CARDS -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <!-- Card 1: Eat First (Expiring Soon) -->
+          <div class="bg-amber-50/70 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-900/40 rounded-3xl p-5 space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold text-amber-800 dark:text-amber-300 flex items-center space-x-1.5">
+                <span>⚠️</span>
+                <span>Eat First! Spoiling Soon</span>
+              </span>
+              <button onclick="openModal('addSpoilingModal')" class="text-[10px] font-bold text-amber-800 dark:text-amber-300 hover:underline">+ Add</button>
+            </div>
+            <div id="spoiling-items-list" class="space-y-1.5 pt-1">
+              <!-- Rendered via JS -->
+            </div>
+          </div>
+
+          <!-- Card 2: Today's Meal Plan -->
+          <div class="bg-white dark:bg-[#28182D] border border-[#F4E1EC] dark:border-[#3E2445] rounded-3xl p-5 space-y-2 shadow-card">
+            <span class="text-xs font-bold text-[#994B78] dark:text-[#E889B5] flex items-center space-x-1.5">
+              <span>🍲</span>
+              <span>Today's Meal Plan</span>
+            </span>
+            <div class="text-[11px] space-y-1 text-[#38283A] dark:text-[#FDF7FB]">
+              <p><strong class="text-[#887487]">Breakfast:</strong> <span id="meal-breakfast-display">Oatmeal & Berries</span></p>
+              <p><strong class="text-[#887487]">Lunch:</strong> <span id="meal-lunch-display">Chicken wrap leftovers</span></p>
+              <p><strong class="text-[#887487]">Dinner:</strong> <span id="meal-dinner-display">Sheet pan roasted veggies</span></p>
+            </div>
+          </div>
+
+          <!-- Card 3: Low-Spoons Emergency Meals -->
+          <div class="bg-[#FFF9FC] dark:bg-[#241328] border border-[#F4E1EC] dark:border-[#3E2445] rounded-3xl p-5 space-y-2 shadow-card">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold text-[#994B78] dark:text-[#E889B5] flex items-center space-x-1.5">
+                <span>⚡</span>
+                <span>Zero-Cook Emergency Meals</span>
+              </span>
+            </div>
+            <div id="emergency-meals-list" class="flex flex-wrap gap-1.5 pt-1">
+              <!-- Rendered via JS -->
+            </div>
+          </div>
+        </div>
+
+        <!-- GROCERY CHECKLIST SECTION -->
+        <div class="bg-white dark:bg-[#28182D] rounded-3xl p-6 sm:p-7 border border-[#F4E1EC] dark:border-[#3E2445] shadow-card dark:shadow-card-dark space-y-4">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-[#F4E1EC] dark:border-[#3E2445]">
+            <div class="flex items-center space-x-3">
+              <div class="w-8 h-8 rounded-xl bg-[#FCECF3] dark:bg-[#3E2242] text-[#994B78] dark:text-[#E889B5] flex items-center justify-center">
+                <i data-lucide="shopping-cart" class="w-4 h-4"></i>
+              </div>
+              <div>
+                <h3 class="text-base font-bold text-[#38283A] dark:text-[#FDF7FB]">Smart ADHD Grocery List</h3>
+                <p class="text-[11px] text-[#887487] dark:text-[#D4BFD2]">Check off items as you buy. Unbought items badge appears in sidebar.</p>
+              </div>
+            </div>
+
+            <div class="flex items-center space-x-2">
+              <button onclick="logGroceriesToExpenses()" class="px-3.5 py-1.5 rounded-xl bg-[#FCECF3] dark:bg-[#3E2242] text-[#994B78] dark:text-[#E889B5] text-xs font-bold hover:opacity-90 flex items-center space-x-1.5">
+                <i data-lucide="receipt" class="w-3.5 h-3.5"></i>
+                <span>Log to Expenses 💳</span>
+              </button>
+            </div>
+          </div>
+
+          <div id="grocery-items-container" class="space-y-2">
+            <!-- Rendered via JS -->
+          </div>
+        </div>
+      </section>
+
       <!-- VIEW 10: DEBT (LOW-SHAME ADHD PAYOFF PLANNER) -->
       <section id="view-debt" class="hidden flex-1 p-4 sm:p-6 lg:p-8 max-w-7xl w-full mx-auto space-y-6">
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-[#F4E1EC] dark:border-[#3E2445]">
@@ -1849,7 +2479,7 @@
             </div>
             <h2 class="text-2xl sm:text-3xl font-extrabold text-[#38283A] dark:text-[#FDF7FB]">Debt Snowball & Tracker</h2>
             <p class="text-xs sm:text-sm text-[#887487] dark:text-[#D4BFD2] mt-0.5">
-              Debt is just numbers, not a measure of your worth. Celebrate every payment ðŸŒ¸
+              Debt is just numbers, not a measure of your worth. Celebrate every payment 🌸
             </p>
           </div>
           <div class="flex items-center space-x-2 sm:space-x-3">
@@ -1873,7 +2503,7 @@
           <div class="p-5 rounded-3xl bg-white dark:bg-[#28182D] border border-[#F4E1EC] dark:border-[#3E2445] shadow-card space-y-1">
             <span class="text-xs font-semibold text-[#887487] dark:text-[#D4BFD2]">Total Paid Off So Far</span>
             <div id="debt-total-paid" class="text-2xl font-extrabold text-[#6A9B76]">$1,620</div>
-            <div id="debt-paid-pct" class="text-[11px] font-bold text-[#6A9B76]">31.8% crushed! ðŸŽ‰</div>
+            <div id="debt-paid-pct" class="text-[11px] font-bold text-[#6A9B76]">31.8% crushed! 🎉</div>
           </div>
           <div class="p-5 rounded-3xl bg-white dark:bg-[#28182D] border border-[#F4E1EC] dark:border-[#3E2445] shadow-card space-y-1">
             <span class="text-xs font-semibold text-[#887487] dark:text-[#D4BFD2]">Total Min. Monthly</span>
@@ -1893,8 +2523,8 @@
             <h3 class="font-bold text-base text-[#38283A] dark:text-[#FDF7FB]">Active Debt Accounts</h3>
             <div class="flex items-center space-x-2">
               <span class="text-xs text-[#887487] dark:text-[#D4BFD2] font-semibold">Strategy:</span>
-              <button onclick="setDebtStrategy('snowball')" id="strat-snowball-btn" class="px-3 py-1 rounded-xl text-xs font-bold bg-[#FCECF3] dark:bg-[#3E2242] text-[#994B78] dark:text-[#E889B5] border border-[#D66A9A]/30">â˜ƒï¸ Snowball (ADHD Fav)</button>
-              <button onclick="setDebtStrategy('avalanche')" id="strat-avalanche-btn" class="px-3 py-1 rounded-xl text-xs font-semibold text-[#887487] dark:text-[#D4BFD2] hover:bg-[#FCECF3]">ðŸ”ï¸ Avalanche</button>
+              <button onclick="setDebtStrategy('snowball')" id="strat-snowball-btn" class="px-3 py-1 rounded-xl text-xs font-bold bg-[#FCECF3] dark:bg-[#3E2242] text-[#994B78] dark:text-[#E889B5] border border-[#D66A9A]/30">☃️ Snowball (ADHD Fav)</button>
+              <button onclick="setDebtStrategy('avalanche')" id="strat-avalanche-btn" class="px-3 py-1 rounded-xl text-xs font-semibold text-[#887487] dark:text-[#D4BFD2] hover:bg-[#FCECF3]">🏔️ Avalanche</button>
             </div>
           </div>
 
@@ -1914,7 +2544,7 @@
             </div>
             <h2 class="text-2xl sm:text-3xl font-extrabold text-[#38283A] dark:text-[#FDF7FB]">ADHD Tax Check</h2>
             <p class="text-xs sm:text-sm text-[#887487] dark:text-[#D4BFD2] mt-0.5">
-              Lost keys, late fees, forgotten subscriptionsâ€”track with zero shame and plug the leaks ðŸŒ¸
+              Lost keys, late fees, forgotten subscriptions—track with zero shame and plug the leaks 🌸
             </p>
           </div>
           <div class="flex items-center space-x-2 sm:space-x-3">
@@ -1952,7 +2582,7 @@
           <div class="lg:col-span-2 p-5 sm:p-6 rounded-3xl bg-white dark:bg-[#28182D] border border-[#F4E1EC] dark:border-[#3E2445] shadow-card space-y-4">
             <div class="flex items-center justify-between pb-3 border-b border-[#F4E1EC] dark:border-[#3E2445]">
               <h3 class="font-bold text-base text-[#38283A] dark:text-[#FDF7FB]">Recent ADHD Tax Incidents</h3>
-              <span class="text-xs text-[#887487] dark:text-[#D4BFD2]">Forgive, learn, automate ðŸ’¡</span>
+              <span class="text-xs text-[#887487] dark:text-[#D4BFD2]">Forgive, learn, automate 💡</span>
             </div>
             <div id="adhdtax-list-container" class="space-y-3">
               <!-- Rendered via JS -->
@@ -1985,7 +2615,7 @@
             </div>
             <h2 class="text-2xl sm:text-3xl font-extrabold text-[#38283A] dark:text-[#FDF7FB]">Money Back to You</h2>
             <p class="text-xs sm:text-sm text-[#887487] dark:text-[#D4BFD2] mt-0.5">
-              Never lose track of store returns, friend split bills, or work reimbursements ðŸŒ¸
+              Never lose track of store returns, friend split bills, or work reimbursements 🌸
             </p>
           </div>
           <div class="flex items-center space-x-2 sm:space-x-3">
@@ -2040,11 +2670,11 @@
       <div class="py-8 flex justify-center items-center">
         <div class="inline-flex items-center p-1.5 rounded-full bg-white dark:bg-[#28182D] border border-[#F4E1EC] dark:border-[#3E2445] shadow-card dark:shadow-card-dark">
           <button onclick="setTheme('light')" id="bottom-btn-light" class="flex items-center space-x-2 px-4 py-2 rounded-full text-xs font-bold transition-all duration-200">
-            <span>â˜€ï¸</span>
+            <span>☀️</span>
             <span>Light</span>
           </button>
           <button onclick="setTheme('dark')" id="bottom-btn-dark" class="flex items-center space-x-2 px-4 py-2 rounded-full text-xs font-bold transition-all duration-200">
-            <span>ðŸŒ™</span>
+            <span>🌙</span>
             <span>Dark</span>
           </button>
         </div>
@@ -2467,29 +3097,29 @@
           <div>
             <label class="block font-semibold text-[#887487] dark:text-[#D4BFD2] uppercase tracking-wider mb-1">Category</label>
             <select id="habit-category-select" class="w-full px-3 py-2.5 rounded-2xl bg-[#FFF9FC] dark:bg-[#34213B] border border-[#F4E1EC] dark:border-[#412B4A] text-[#38283A] dark:text-[#FDF7FB] font-semibold text-xs focus:outline-none">
-              <option value="Health">Health ðŸ’§</option>
-              <option value="Nutrition">Nutrition ðŸ¥—</option>
-              <option value="Mindfulness">Mindfulness ðŸŒ¸</option>
-              <option value="Routine">Routine â°</option>
-              <option value="Body">Body & Movement ðŸ§˜â€â™€ï¸</option>
-              <option value="Environment">Environment ðŸ§¹</option>
-              <option value="Money">Mindful Money ðŸ’¸</option>
+              <option value="Health">Health 💧</option>
+              <option value="Nutrition">Nutrition 🥗</option>
+              <option value="Mindfulness">Mindfulness 🌸</option>
+              <option value="Routine">Routine ⏰</option>
+              <option value="Body">Body & Movement 🧘‍♀️</option>
+              <option value="Environment">Environment 🧹</option>
+              <option value="Money">Mindful Money 💸</option>
             </select>
           </div>
 
           <div>
             <label class="block font-semibold text-[#887487] dark:text-[#D4BFD2] uppercase tracking-wider mb-1">Icon</label>
             <select id="habit-icon-select" class="w-full px-3 py-2.5 rounded-2xl bg-[#FFF9FC] dark:bg-[#34213B] border border-[#F4E1EC] dark:border-[#412B4A] text-[#38283A] dark:text-[#FDF7FB] font-semibold text-xs focus:outline-none">
-              <option value="heart">Heart â¤ï¸</option>
-              <option value="droplet">Droplet ðŸ’§</option>
-              <option value="utensils">Meals ðŸ½ï¸</option>
-              <option value="wind">Breathing ðŸŒ¬ï¸</option>
-              <option value="activity">Stretch ðŸƒ</option>
-              <option value="smile">Smile ðŸ˜Š</option>
-              <option value="sparkles">Sparkles âœ¨</option>
-              <option value="pill">Meds ðŸ’Š</option>
-              <option value="book-open">Read ðŸ“–</option>
-              <option value="coffee">Tea / Coffee â˜•</option>
+              <option value="heart">Heart ❤️</option>
+              <option value="droplet">Droplet 💧</option>
+              <option value="utensils">Meals 🍽️</option>
+              <option value="wind">Breathing 🌬️</option>
+              <option value="activity">Stretch 🏃</option>
+              <option value="smile">Smile 😊</option>
+              <option value="sparkles">Sparkles ✨</option>
+              <option value="pill">Meds 💊</option>
+              <option value="book-open">Read 📖</option>
+              <option value="coffee">Tea / Coffee ☕</option>
             </select>
           </div>
         </div>
@@ -2538,7 +3168,7 @@
       <div class="flex items-center justify-between pb-3 border-b border-warm-borderMuted dark:border-forest-border">
         <div class="flex items-center space-x-2.5">
           <div class="w-8 h-8 rounded-xl bg-amber-100 dark:bg-amber-950/40 flex items-center justify-center text-amber-600 dark:text-amber-400 font-bold">
-            âš¡
+            ⚡
           </div>
           <div>
             <h3 id="bill-modal-title" class="text-base font-bold text-warm-text dark:text-forest-text">Add Upcoming Bill</h3>
@@ -2719,7 +3349,7 @@
         </div>
         <div class="pt-2 flex justify-end space-x-3">
           <button type="button" onclick="closeModal('addAdhdTaxModal')" class="ios-glass-btn px-4 py-2 text-xs font-semibold text-[#887487]">Cancel</button>
-          <button type="submit" class="ios-glass-primary px-5 py-2.5 rounded-2xl bg-gradient-to-r from-[#D66A9A] to-[#994B78] text-white font-bold text-xs shadow-md">Log Incident ðŸ’¡</button>
+          <button type="submit" class="ios-glass-primary px-5 py-2.5 rounded-2xl bg-gradient-to-r from-[#D66A9A] to-[#994B78] text-white font-bold text-xs shadow-md">Log Incident 💡</button>
         </div>
       </form>
     </div>
@@ -2776,7 +3406,7 @@
         </div>
         <div class="pt-2 flex justify-end space-x-3">
           <button type="button" onclick="closeModal('addMoneyBackModal')" class="ios-glass-btn px-4 py-2 text-xs font-semibold text-[#887487]">Cancel</button>
-          <button type="submit" class="ios-glass-primary px-5 py-2.5 rounded-2xl bg-gradient-to-r from-[#D66A9A] to-[#994B78] text-white font-bold text-xs shadow-md">Add Claim ðŸ’¸</button>
+          <button type="submit" class="ios-glass-primary px-5 py-2.5 rounded-2xl bg-gradient-to-r from-[#D66A9A] to-[#994B78] text-white font-bold text-xs shadow-md">Add Claim 💸</button>
         </div>
       </form>
     </div>
@@ -2806,11 +3436,11 @@
           <div>
             <label class="block text-xs font-semibold text-[#887487] dark:text-[#D4BFD2] uppercase mb-1">Category</label>
             <select id="grocery-cat-input" class="w-full px-3 py-2.5 rounded-2xl bg-[#FFF9FC] dark:bg-[#201024] border border-[#F4E1EC] dark:border-[#3E2445] text-xs text-[#38283A] dark:text-[#FDF7FB]">
-              <option value="Produce & Fresh">Produce & Fresh ðŸ¥¦</option>
-              <option value="Fridge & Dairy">Fridge & Dairy ðŸ¥›</option>
-              <option value="Pantry & Carbs">Pantry & Carbs ðŸž</option>
-              <option value="Dopamine Snacks">Dopamine Snacks ðŸ«</option>
-              <option value="Household">Household ðŸ§¼</option>
+              <option value="Produce & Fresh">Produce & Fresh 🥦</option>
+              <option value="Fridge & Dairy">Fridge & Dairy 🥛</option>
+              <option value="Pantry & Carbs">Pantry & Carbs 🍞</option>
+              <option value="Dopamine Snacks">Dopamine Snacks 🍫</option>
+              <option value="Household">Household 🧼</option>
             </select>
           </div>
           <div>
@@ -2820,7 +3450,7 @@
         </div>
         <div class="pt-2 flex justify-end space-x-3">
           <button type="button" onclick="closeModal('addGroceryModal')" class="ios-glass-btn px-4 py-2 text-xs font-semibold text-[#887487]">Cancel</button>
-          <button type="submit" class="ios-glass-primary px-5 py-2.5 rounded-2xl bg-gradient-to-r from-[#D66A9A] to-[#994B78] text-white font-bold text-xs shadow-md">Add to List ðŸ›’</button>
+          <button type="submit" class="ios-glass-primary px-5 py-2.5 rounded-2xl bg-gradient-to-r from-[#D66A9A] to-[#994B78] text-white font-bold text-xs shadow-md">Add to List 🛒</button>
         </div>
       </form>
     </div>
@@ -2833,7 +3463,7 @@
       <div class="flex items-center justify-between pb-3 border-b border-[#F4E1EC] dark:border-[#3E2445]">
         <div class="flex items-center space-x-2.5">
           <div class="w-8 h-8 rounded-xl bg-amber-100 dark:bg-amber-900/40 text-amber-800 dark:text-amber-300 flex items-center justify-center font-bold">
-            âš ï¸
+            ⚠️
           </div>
           <h3 class="text-base font-bold text-[#38283A] dark:text-[#FDF7FB]">Eat First Radar</h3>
         </div>
@@ -2935,7 +3565,7 @@
         <div>
           <label class="block font-semibold text-warm-textMuted dark:text-forest-textMuted uppercase mb-1">New Password (min 6 chars)</label>
           <div class="relative">
-            <input type="password" id="recovery-pw-new" minlength="6" required placeholder="********" class="w-full px-4 py-2.5 pr-10 rounded-2xl bg-warm-surfaceMuted dark:bg-forest-surfaceMuted border border-warm-border dark:border-forest-border text-warm-text dark:text-forest-text text-sm focus:outline-none focus:ring-2 focus:ring-sage-500">
+            <input type="password" id="recovery-pw-new" minlength="6" required placeholder="••••••••" class="w-full px-4 py-2.5 pr-10 rounded-2xl bg-warm-surfaceMuted dark:bg-forest-surfaceMuted border border-warm-border dark:border-forest-border text-warm-text dark:text-forest-text text-sm focus:outline-none focus:ring-2 focus:ring-sage-500">
             <button type="button" onclick="togglePasswordVisibility('recovery-pw-new')" class="absolute right-3 top-1/2 -translate-y-1/2 text-warm-textSubtle hover:text-warm-text p-1">
               <i data-lucide="eye" class="w-4 h-4"></i>
             </button>
@@ -2944,7 +3574,7 @@
         <div>
           <label class="block font-semibold text-warm-textMuted dark:text-forest-textMuted uppercase mb-1">Confirm New Password</label>
           <div class="relative">
-            <input type="password" id="recovery-pw-confirm" minlength="6" required placeholder="********" class="w-full px-4 py-2.5 pr-10 rounded-2xl bg-warm-surfaceMuted dark:bg-forest-surfaceMuted border border-warm-border dark:border-forest-border text-warm-text dark:text-forest-text text-sm focus:outline-none focus:ring-2 focus:ring-sage-500">
+            <input type="password" id="recovery-pw-confirm" minlength="6" required placeholder="••••••••" class="w-full px-4 py-2.5 pr-10 rounded-2xl bg-warm-surfaceMuted dark:bg-forest-surfaceMuted border border-warm-border dark:border-forest-border text-warm-text dark:text-forest-text text-sm focus:outline-none focus:ring-2 focus:ring-sage-500">
             <button type="button" onclick="togglePasswordVisibility('recovery-pw-confirm')" class="absolute right-3 top-1/2 -translate-y-1/2 text-warm-textSubtle hover:text-warm-text p-1">
               <i data-lucide="eye" class="w-4 h-4"></i>
             </button>
@@ -2982,7 +3612,7 @@
         <p class="font-semibold text-warm-text dark:text-forest-text">How to connect your Supabase project:</p>
         <ol class="list-decimal list-inside space-y-1 text-[11px]">
           <li>Create a free project at <span class="font-mono text-sage-600 dark:text-forest-mint">supabase.com</span>.</li>
-          <li>In your Supabase Dashboard, open <strong class="text-warm-text dark:text-forest-text">Project Settings â†’ API</strong>.</li>
+          <li>In your Supabase Dashboard, open <strong class="text-warm-text dark:text-forest-text">Project Settings → API</strong>.</li>
           <li>Paste the <strong class="text-warm-text dark:text-forest-text">Project URL</strong> and <strong class="text-warm-text dark:text-forest-text">Anon Public API Key</strong> below.</li>
           <li>Execute the schema in <span class="font-mono text-sage-600 dark:text-forest-mint">supabase_schema.sql</span> via SQL Editor.</li>
         </ol>
@@ -3192,7 +3822,7 @@
           modalStatus.textContent = `Error: ${errorMsg}`;
           modalStatus.className = 'text-[11px] text-rose-500 font-semibold truncate max-w-xs';
         } else {
-          modalStatus.textContent = 'Not Connected â€¢ Add Project URL & Key';
+          modalStatus.textContent = 'Not Connected • Add Project URL & Key';
           modalStatus.className = 'text-[11px] text-amber-600 dark:text-amber-400 font-semibold';
         }
       }
@@ -3234,7 +3864,7 @@
 
       setTimeout(() => {
         closeModal('supabaseModal');
-        showToast('Supabase connected! You can now register or sign in. ðŸŒ±');
+        showToast('Supabase connected! You can now register or sign in. 🌱');
         initApplication();
       }, 700);
     }
@@ -3260,6 +3890,38 @@
     }
 
     // --- 2. AUTH SERVICE (HYBRID: OFFLINE-FIRST + SUPABASE SYNC) ---
+    // --- 5-DAY BROWSER SESSION PERSISTENCE ---
+    const SESSION_DURATION_MS = 5 * 24 * 60 * 60 * 1000; // 5 days in milliseconds
+
+    function persistUserSession(user) {
+      const expiresAt = Date.now() + SESSION_DURATION_MS;
+      localStorage.setItem('adhd_active_user', JSON.stringify(user));
+      localStorage.setItem('adhd_session_expires_at', expiresAt.toString());
+      document.documentElement.classList.add('is-authenticated');
+    }
+
+    function clearUserSession() {
+      localStorage.removeItem('adhd_active_user');
+      localStorage.removeItem('adhd_session_expires_at');
+      sessionStorage.clear();
+      document.documentElement.classList.remove('is-authenticated');
+    }
+
+    function getValidStoredUser() {
+      try {
+        const rawUser = localStorage.getItem('adhd_active_user');
+        const expiresAt = parseInt(localStorage.getItem('adhd_session_expires_at') || '0', 10);
+        const now = Date.now();
+        if (rawUser && expiresAt && now < expiresAt) {
+          return JSON.parse(rawUser);
+        }
+        if (expiresAt && now >= expiresAt) {
+          clearUserSession();
+        }
+      } catch (e) {}
+      return null;
+    }
+
     const AuthService = {
       async register(fullName, username, email, password) {
         username = username.toLowerCase().trim();
@@ -3472,15 +4134,10 @@
           }
         }
         localStorage.removeItem('adhd_active_user');
-        localStorage.removeItem('adhd_remember_me');
-        sessionStorage.removeItem('adhd_session_active');
-        sessionStorage.removeItem('adhd_active_user');
-        sessionStorage.removeItem(STORAGE_KEY_SESSION);
-        localStorage.removeItem(STORAGE_KEY_SESSION);
         currentUser = null;
         currentUserData = null;
-        showAuthPage('login');
-        showToast('Logged out safely. See you soon! ðŸŒ±');
+        showAuthPage('welcome');
+        showToast('Logged out safely. See you soon! 🌱');
       },
 
       async forgotPassword(email) {
@@ -3921,8 +4578,8 @@
           completedDopamine: [],
           groundingStep: 0,
           wins: [
-            { id: 'w_1', text: 'Checked budget peacefully without anxiety ðŸŒ¸', time: '10:00 AM' },
-            { id: 'w_2', text: 'Drank a tall glass of water ðŸ’§', time: '11:15 AM' }
+            { id: 'w_1', text: 'Checked budget peacefully without anxiety 🌸', time: '10:00 AM' },
+            { id: 'w_2', text: 'Drank a tall glass of water 💧', time: '11:15 AM' }
           ]
         };
       }
@@ -4110,7 +4767,7 @@
             <div>
               <p class="text-sm font-bold text-warm-text dark:text-forest-text">${escapeHtml(cat.name)}</p>
               <p class="text-xs text-warm-textMuted dark:text-forest-textMuted">
-                Planned: ${formatMoney(cat.planned)} â€¢ Spent: ${formatMoney(cat.spent)}
+                Planned: ${formatMoney(cat.planned)} • Spent: ${formatMoney(cat.spent)}
               </p>
             </div>
           </div>
@@ -4214,7 +4871,7 @@
       saveAndRefreshAll();
       closeModal('categoryEditModal');
       renderManageCategoriesList();
-      showToast(`Category "${name}" saved! ðŸŒ±`);
+      showToast(`Category "${name}" saved! 🌱`);
     }
 
     // Safe Category Deletion with Reassign / Archive
@@ -4595,7 +5252,7 @@
                 ` : ''}
                 ${task.repeat_type && task.repeat_type !== 'none' ? `
                   <span class="text-[10px] text-warm-textSubtle dark:text-forest-textSubtle uppercase font-semibold">
-                    ðŸ”„ ${task.repeat_type}
+                    🔄 ${task.repeat_type}
                   </span>
                 ` : ''}
               </div>
@@ -4745,7 +5402,7 @@
 
       if (task.completed) {
         triggerGentleConfetti();
-        showToast("Nice work! One small step completed. ðŸŒ±");
+        showToast("Nice work! One small step completed. 🌱");
       }
     }
 
@@ -4889,7 +5546,7 @@
           glass.title = `Glass ${i}: Click to set`;
           glass.onclick = () => toggleWaterGlass(i);
           glass.innerHTML = `
-            <div class="text-xl mb-1">${filled ? 'ðŸ¥›' : 'ðŸ«™'}</div>
+            <div class="text-xl mb-1">${filled ? '🥛' : '🫙'}</div>
             <span class="text-[10px] font-bold block">${i * 250}ml</span>
           `;
           glassesContainer.appendChild(glass);
@@ -4905,7 +5562,7 @@
         const badge = document.getElementById(`badge-meal-${m}`);
         if (badge) {
           const isDone = !!mealsLogged[m];
-          badge.textContent = isDone ? 'Fuelled âœ“' : 'Tap to Log';
+          badge.textContent = isDone ? 'Fuelled ✓' : 'Tap to Log';
           badge.className = isDone
             ? 'text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#E8F5E9] text-[#2E7D32]'
             : 'text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#FFF9FC] dark:bg-[#34213B] text-[#887487] dark:text-[#D4BFD2] border border-[#F4E1EC] dark:border-[#412B4A]';
@@ -4954,7 +5611,7 @@
                   ? 'bg-amber-100 dark:bg-amber-950/60 text-amber-800 dark:text-amber-300' 
                   : 'bg-[#FCECF3] dark:bg-[#3E2242] text-[#887487] dark:text-[#D4BFD2]'
               }">
-                ðŸ”¥ ${h.streak || 0}d
+                🔥 ${h.streak || 0}d
               </span>
               ${h.custom ? `
                 <button onclick="deleteHabit('${h.id}')" title="Delete habit" class="p-1.5 rounded-xl text-[#887487] hover:text-rose-500 hover:bg-rose-50/50 dark:hover:bg-rose-950/30 transition-colors">
@@ -4980,7 +5637,7 @@
           const waterHabit = (currentUserData.habitState.habits || []).find(h => h.id === 'h_water');
           if (waterHabit) waterHabit.completed = true;
           triggerGentleConfetti();
-          showToast("Hydration goal reached! 8 glasses done ðŸ’§");
+          showToast("Hydration goal reached! 8 glasses done 💧");
         }
         saveUserData(currentUser.id, currentUserData);
         renderHabitsView();
@@ -5005,7 +5662,7 @@
         const waterHabit = (currentUserData.habitState.habits || []).find(h => h.id === 'h_water');
         if (waterHabit) waterHabit.completed = true;
         triggerGentleConfetti();
-        showToast("Hydration goal reached! ðŸ’§");
+        showToast("Hydration goal reached! 💧");
       }
       saveUserData(currentUser.id, currentUserData);
       renderHabitsView();
@@ -5059,7 +5716,7 @@
           clearInterval(breathingInterval);
           breathingInterval = null;
           if (circle) circle.classList.remove('breathing-pulse-active');
-          if (stageText) stageText.textContent = 'Completed âœ¨';
+          if (stageText) stageText.textContent = 'Completed ✨';
           if (timerText) timerText.textContent = 'Nervous system relaxed';
           if (btnLabel) btnLabel.textContent = 'Start Again';
 
@@ -5068,7 +5725,7 @@
           if (breathHabit) breathHabit.completed = true;
 
           triggerGentleConfetti();
-          showToast("Box breathing complete! Great job giving your mind a pause ðŸŒ¸");
+          showToast("Box breathing complete! Great job giving your mind a pause 🌸");
           saveUserData(currentUser.id, currentUserData);
           renderHabitsView();
         }
@@ -5090,7 +5747,7 @@
 
       saveUserData(currentUser.id, currentUserData);
       renderHabitsView();
-      if (!cur) showToast(`Logged ${mealKey}! Keeping your brain energized ðŸ¥—`);
+      if (!cur) showToast(`Logged ${mealKey}! Keeping your brain energized 🥗`);
     }
 
     function toggleHabitCompletion(habitId) {
@@ -5102,7 +5759,7 @@
       if (h.completed) {
         h.streak = (h.streak || 0) + 1;
         triggerGentleConfetti();
-        showToast(`Nice! "${h.title}" completed today ðŸ’•`);
+        showToast(`Nice! "${h.title}" completed today 💕`);
       }
 
       saveUserData(currentUser.id, currentUserData);
@@ -5144,7 +5801,7 @@
       closeModal('addHabitModal');
       renderHabitsView();
       triggerGentleConfetti();
-      showToast(`Added habit: "${title}" âœ¨`);
+      showToast(`Added habit: "${title}" ✨`);
     }
 
     function deleteHabit(habitId) {
@@ -5169,7 +5826,7 @@
         { id: 'd_shower', title: 'Warm Soothing Shower', desc: 'Sensory reset to wash away sticky executive guilt', icon: 'sparkles' },
         { id: 'd_floor', title: '10-Min Floor Time (Constructive Rest)', desc: 'Lie on floor/rug with legs up to decompress nervous system', icon: 'heart' },
         { id: 'd_tea', title: 'Mindful Warm Tea Ritual', desc: 'Hold warm mug with both hands, feel the heat and aroma', icon: 'coffee' },
-        { id: 'd_nap', title: '15-Min Power Snooze', desc: 'Eye rest sprintâ€”even closing eyes restores prefrontal cortex', icon: 'moon' }
+        { id: 'd_nap', title: '15-Min Power Snooze', desc: 'Eye rest sprint—even closing eyes restores prefrontal cortex', icon: 'moon' }
       ],
       desserts: [
         { id: 'd_game', title: 'Guilt-Free 20-Min Gaming', desc: 'Set a friendly timer and play without an ounce of shame', icon: 'gamepad-2' },
@@ -5184,11 +5841,11 @@
     };
 
     const GROUNDING_STEPS = [
-      { step: 1, count: 5, icon: 'ðŸ‘ï¸', title: '5 Things You Can See', prompt: 'Look around your room right now. Notice 5 objects (a pen, your window, light reflection, keyboard, door).' },
-      { step: 2, count: 4, icon: 'âœ‹', title: '4 Things You Can Touch', prompt: 'Feel the texture of your clothes, the smooth desk, your chair cushion, or your phone case.' },
-      { step: 3, count: 3, icon: 'ðŸ‘‚', title: '3 Things You Can Hear', prompt: 'Listen closely. Notice the hum of the fan, distant traffic, your own steady breathing.' },
-      { step: 4, count: 2, icon: 'ðŸ‘ƒ', title: '2 Things You Can Smell', prompt: 'Notice any scent in the air, your coffee, fresh air from the window, or your clean sleeve.' },
-      { step: 5, count: 1, icon: 'ðŸ‘…', title: '1 Thing You Can Taste', prompt: 'Notice the lingering taste of mint, tea, or take a fresh mindful sip of water right now.' }
+      { step: 1, count: 5, icon: '👁️', title: '5 Things You Can See', prompt: 'Look around your room right now. Notice 5 objects (a pen, your window, light reflection, keyboard, door).' },
+      { step: 2, count: 4, icon: '✋', title: '4 Things You Can Touch', prompt: 'Feel the texture of your clothes, the smooth desk, your chair cushion, or your phone case.' },
+      { step: 3, count: 3, icon: '👂', title: '3 Things You Can Hear', prompt: 'Listen closely. Notice the hum of the fan, distant traffic, your own steady breathing.' },
+      { step: 4, count: 2, icon: '👃', title: '2 Things You Can Smell', prompt: 'Notice any scent in the air, your coffee, fresh air from the window, or your clean sleeve.' },
+      { step: 5, count: 1, icon: '👅', title: '1 Thing You Can Taste', prompt: 'Notice the lingering taste of mint, tea, or take a fresh mindful sip of water right now.' }
     ];
 
     let audioCtx = null;
@@ -5303,7 +5960,7 @@
       } else {
         state.completedDopamine.push(id);
         triggerGentleConfetti();
-        showToast(`Nice! "${title}" enjoyed âœ¨`);
+        showToast(`Nice! "${title}" enjoyed ✨`);
         addPresetWin(`Dopamine Boost: ${title}`);
       }
       saveUserData(currentUser.id, currentUserData);
@@ -5317,9 +5974,9 @@
       saveUserData(currentUser.id, currentUserData);
       renderSelfCareView();
       if (level === 'low') {
-        showToast('Low battery mode: Pick one gentle Appetizer or lie on the floor ðŸŒ¸');
+        showToast('Low battery mode: Pick one gentle Appetizer or lie on the floor 🌸');
       } else if (level === 'high') {
-        showToast('Energy is sparked! Great time for a quick 10-min budget sprint âš¡');
+        showToast('Energy is sparked! Great time for a quick 10-min budget sprint ⚡');
       }
     }
 
@@ -5372,8 +6029,8 @@
         saveUserData(currentUser.id, currentUserData);
         renderGroundingStep();
         triggerGentleConfetti();
-        showToast('Grounding complete! You are centered, safe, and doing great ðŸŒ¸');
-        addPresetWin('Completed 5-4-3-2-1 Sensory Grounding Reset ðŸ§˜â€â™€ï¸');
+        showToast('Grounding complete! You are centered, safe, and doing great 🌸');
+        addPresetWin('Completed 5-4-3-2-1 Sensory Grounding Reset 🧘‍♀️');
       }
     }
 
@@ -5446,7 +6103,7 @@
         noiseNode.start();
         isAudioPlaying = true;
         updateAmbientAudioUI();
-        showToast('Calm soundscape playing ðŸŒ¸');
+        showToast('Calm soundscape playing 🌸');
       } catch (err) {
         console.warn('Web Audio error:', err);
         showToast('Sound error. Please tap once to allow audio.');
@@ -5528,12 +6185,12 @@
       if (!container || !currentUserData || !currentUserData.selfCareState) return;
       const wins = currentUserData.selfCareState.wins || [];
 
-      if (badge) badge.textContent = `${wins.length} Win${wins.length === 1 ? '' : 's'} Today ðŸŽ‰`;
+      if (badge) badge.textContent = `${wins.length} Win${wins.length === 1 ? '' : 's'} Today 🎉`;
 
       if (wins.length === 0) {
         container.innerHTML = `
           <div class="text-center py-6 text-xs text-[#887487] dark:text-[#D4BFD2]">
-            No wins logged yet today. Even drinking water or getting out of bed counts! â˜€ï¸
+            No wins logged yet today. Even drinking water or getting out of bed counts! ☀️
           </div>
         `;
         return;
@@ -5575,7 +6232,7 @@
       saveUserData(currentUser.id, currentUserData);
       renderTinyWins();
       triggerGentleConfetti();
-      showToast(`Logged win: "${text}" âœ¨`);
+      showToast(`Logged win: "${text}" ✨`);
     }
 
     function deleteTinyWin(winId) {
@@ -5631,15 +6288,15 @@
 
       if (remEl) remEl.textContent = formatMoney(totalRemaining);
       if (paidEl) paidEl.textContent = formatMoney(totalPaid);
-      if (pctEl) pctEl.textContent = `${paidPct}% crushed! ðŸŽ‰`;
+      if (pctEl) pctEl.textContent = `${paidPct}% crushed! 🎉`;
       if (minsEl) minsEl.textContent = `${formatMoney(totalMin)}/mo`;
 
       const activeDebts = debts.filter(d => (parseFloat(d.balance) || 0) > 0);
       if (activeDebts.length > 0) {
         if (focusTargetEl) focusTargetEl.textContent = activeDebts[0].name;
-        if (focusDescEl) focusDescEl.textContent = `Only ${formatMoney(activeDebts[0].balance)} left to pay off completely! ðŸŽ¯`;
+        if (focusDescEl) focusDescEl.textContent = `Only ${formatMoney(activeDebts[0].balance)} left to pay off completely! 🎯`;
       } else {
-        if (focusTargetEl) focusTargetEl.textContent = 'Debt-Free! ðŸŒŸ';
+        if (focusTargetEl) focusTargetEl.textContent = 'Debt-Free! 🌟';
         if (focusDescEl) focusDescEl.textContent = 'All debts crushed completely!';
       }
 
@@ -5649,7 +6306,7 @@
       if (debts.length === 0) {
         container.innerHTML = `
           <div class="col-span-full text-center py-8 text-xs text-[#887487] dark:text-[#D4BFD2]">
-            No debt accounts tracked. You are either debt-free or click "+ Add Debt" to organize your balances calmly! ðŸŒ¸
+            No debt accounts tracked. You are either debt-free or click "+ Add Debt" to organize your balances calmly! 🌸
           </div>
         `;
         return;
@@ -5674,7 +6331,7 @@
                     <h4 class="font-bold text-sm text-[#38283A] dark:text-[#FDF7FB]">${escapeHtml(d.name)}</h4>
                     ${isFocus ? '<span class="text-[9px] font-extrabold px-2 py-0.5 rounded-full bg-[#D66A9A] text-white">Focus Target</span>' : ''}
                   </div>
-                  <span class="text-[10px] text-[#887487] dark:text-[#D4BFD2] font-semibold">${escapeHtml(d.type || 'Debt')} â€¢ ${d.interestRate || 0}% APR</span>
+                  <span class="text-[10px] text-[#887487] dark:text-[#D4BFD2] font-semibold">${escapeHtml(d.type || 'Debt')} • ${d.interestRate || 0}% APR</span>
                 </div>
                 <div class="text-right">
                   <div class="text-base font-extrabold text-[#994B78] dark:text-[#E889B5]">${formatMoney(bal)}</div>
@@ -5741,7 +6398,7 @@
       document.getElementById('form-add-debt').reset();
       renderDebtView();
       triggerGentleConfetti();
-      showToast(`Added debt tracker: "${name}" ðŸŒ¸`);
+      showToast(`Added debt tracker: "${name}" 🌸`);
     }
 
     function logDebtPayment(debtId) {
@@ -5756,7 +6413,7 @@
       saveUserData(currentUser.id, currentUserData);
       renderDebtView();
       triggerGentleConfetti();
-      showToast(`Awesome! ${formatMoney(amt)} payment logged towards "${d.name}" ðŸŽ‰`);
+      showToast(`Awesome! ${formatMoney(amt)} payment logged towards "${d.name}" 🎉`);
     }
 
     function deleteDebt(debtId) {
@@ -5784,7 +6441,7 @@
         if (incidents.length === 0) {
           listContainer.innerHTML = `
             <div class="text-center py-6 text-xs text-[#887487] dark:text-[#D4BFD2]">
-              Zero ADHD tax incidents recorded! Your executive safeguards are doing wonders âœ¨
+              Zero ADHD tax incidents recorded! Your executive safeguards are doing wonders ✨
             </div>
           `;
         } else {
@@ -5851,7 +6508,7 @@
       saveUserData(currentUser.id, currentUserData);
       if (checked) {
         triggerGentleConfetti();
-        showToast('Safeguard activated! Protecting your hard-earned money ðŸ›¡ï¸');
+        showToast('Safeguard activated! Protecting your hard-earned money 🛡️');
       }
     }
 
@@ -5881,7 +6538,7 @@
       closeModal('addAdhdTaxModal');
       document.getElementById('form-add-adhdtax').reset();
       renderAdhdTaxView();
-      showToast(`Logged incident. No shame, only learning! ðŸŒ¸`);
+      showToast(`Logged incident. No shame, only learning! 🌸`);
     }
 
     function deleteAdhdTax(id) {
@@ -5938,7 +6595,7 @@
       if (filtered.length === 0) {
         container.innerHTML = `
           <div class="text-center py-6 text-xs text-[#887487] dark:text-[#D4BFD2]">
-            No claims found in this filter. Tap "+ Add Claim" to track refunds or money friends owe you! ðŸŒ¸
+            No claims found in this filter. Tap "+ Add Claim" to track refunds or money friends owe you! 🌸
           </div>
         `;
         return;
@@ -5971,7 +6628,7 @@
                 </div>
                 <p class="text-[11px] text-[#887487] dark:text-[#D4BFD2] mt-0.5">
                   Owed by <span class="font-semibold text-[#38283A] dark:text-[#FDF7FB]">${escapeHtml(c.debtor || 'Party')}</span>
-                  ${c.expectedDate ? `â€¢ Expected by ${escapeHtml(c.expectedDate)}` : ''}
+                  ${c.expectedDate ? `• Expected by ${escapeHtml(c.expectedDate)}` : ''}
                 </p>
               </div>
             </div>
@@ -5984,7 +6641,7 @@
                 ${
                   !isReceived
                     ? `<button onclick="markMoneyBackReceived('${c.id}')" class="px-3 py-1 rounded-xl text-[10px] font-bold bg-[#6A9B76] text-white hover:opacity-90 shadow-sm">
-                        Mark Received ðŸ’µ
+                        Mark Received 💵
                       </button>`
                     : `<span class="text-[10px] font-bold text-[#6A9B76] px-2 py-0.5 rounded-full bg-[#E8F5E9] dark:bg-[#1E3B27]">Collected</span>`
                 }
@@ -6026,7 +6683,7 @@
       document.getElementById('form-add-moneyback').reset();
       renderMoneyBackView();
       triggerGentleConfetti();
-      showToast(`Added claim: "${title}" for ${formatMoney(amount)} ðŸŒ¸`);
+      showToast(`Added claim: "${title}" for ${formatMoney(amount)} 🌸`);
     }
 
     function markMoneyBackReceived(id) {
@@ -6037,7 +6694,7 @@
       saveUserData(currentUser.id, currentUserData);
       renderMoneyBackView();
       triggerGentleConfetti();
-      showToast(`Money back received! ${formatMoney(c.amount)} back in your hands ðŸŽ‰`);
+      showToast(`Money back received! ${formatMoney(c.amount)} back in your hands 🎉`);
     }
 
     function deleteMoneyBack(id) {
@@ -6095,7 +6752,7 @@
       }
 
       currentAmbientType = type;
-      if (statusEl) statusEl.textContent = type === 'rain' ? 'ðŸŒ§ï¸ Rain' : 'ðŸŒ¸ Pink Noise';
+      if (statusEl) statusEl.textContent = type === 'rain' ? '🌧️ Rain' : '🌸 Pink Noise';
 
       const bufferSize = audioCtx.sampleRate * 4;
       const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
@@ -6211,7 +6868,7 @@
       currentUserData.focusSpace.completedSessions = (currentUserData.focusSpace.completedSessions || 0) + 1;
       saveUserData(currentUser.id, currentUserData);
       renderFocusView();
-      showToast(`ðŸŽ‰ Focus session completed! You gave your brain pure momentum.`);
+      showToast(`🎉 Focus session completed! You gave your brain pure momentum.`);
     }
 
     function playChime() {
@@ -6240,7 +6897,7 @@
       saveUserData(currentUser.id, currentUserData);
       renderFocusView();
       triggerGentleConfetti();
-      showToast(`ðŸŽ¯ Finished: "${completedTarget}"! Great job!`);
+      showToast(`🎯 Finished: "${completedTarget}"! Great job!`);
     }
 
     function saveNewActiveTarget() {
@@ -6252,7 +6909,7 @@
       saveUserData(currentUser.id, currentUserData);
       input.value = '';
       renderFocusView();
-      showToast(`ðŸŽ¯ Target locked in: "${val}"`);
+      showToast(`🎯 Target locked in: "${val}"`);
     }
 
     function addBrainDumpItem() {
@@ -6269,7 +6926,7 @@
       saveUserData(currentUser.id, currentUserData);
       input.value = '';
       renderFocusView();
-      showToast(`Parked thought ðŸ’¡ Focus preserved!`);
+      showToast(`Parked thought 💡 Focus preserved!`);
     }
 
     function deleteBrainDumpItem(id) {
@@ -6296,7 +6953,7 @@
       renderFocusView();
       renderTodayTasks();
       renderCalendarAndTasks();
-      showToast(`Moved "${item.text}" to Calendar Tasks! ðŸ“…`);
+      showToast(`Moved "${item.text}" to Calendar Tasks! 📅`);
     }
 
     function renderFocusView() {
@@ -6425,7 +7082,7 @@
       saveUserData(currentUser.id, currentUserData);
       renderMoodView();
       triggerGentleConfetti();
-      showToast(`Saved today's capacity check-in! Thank you for honoring your energy ðŸ’–`);
+      showToast(`Saved today's capacity check-in! Thank you for honoring your energy 💖`);
     }
 
     function renderMoodView() {
@@ -6449,10 +7106,10 @@
       const topBadge = document.getElementById('mood-today-badge-top');
       if (topBadge) {
         if (isLoggedToday) {
-          topBadge.innerHTML = '<span>âœ“</span><span>Today\'s Check-in Done</span>';
+          topBadge.innerHTML = '<span>✓</span><span>Today\'s Check-in Done</span>';
           topBadge.className = 'px-3.5 py-1.5 rounded-2xl bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800 text-xs font-bold shadow-sm flex items-center space-x-1.5';
         } else {
-          topBadge.innerHTML = '<span>âš¡</span><span>Check-in Pending</span>';
+          topBadge.innerHTML = '<span>⚡</span><span>Check-in Pending</span>';
           topBadge.className = 'px-3.5 py-1.5 rounded-2xl bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-amber-800 text-xs font-bold shadow-sm flex items-center space-x-1.5';
         }
       }
@@ -6461,11 +7118,11 @@
       if (insightText) {
         const spoons = me.today ? me.today.spoons : currentSelectedSpoons;
         if (spoons <= 2) {
-          insightText.textContent = `ðŸš¨ Low spoon alert (${spoons}/5)! Executive function is in conservation mode. Hide takeaway delivery apps and use your Low-Spoon emergency meals tonight!`;
+          insightText.textContent = `🚨 Low spoon alert (${spoons}/5)! Executive function is in conservation mode. Hide takeaway delivery apps and use your Low-Spoon emergency meals tonight!`;
         } else if (spoons === 3) {
-          insightText.textContent = `âš–ï¸ Steady balanced energy (${spoons}/5). Prioritize your top 1 financial goal and do not overwhelm yourself with big projects.`;
+          insightText.textContent = `⚖️ Steady balanced energy (${spoons}/5). Prioritize your top 1 financial goal and do not overwhelm yourself with big projects.`;
         } else {
-          insightText.textContent = `ðŸš€ High capacity day (${spoons}/5)! Perfect time to tackle bills, budget reconciliation, or debt payments. Remember to rest before feeling exhausted!`;
+          insightText.textContent = `🚀 High capacity day (${spoons}/5)! Perfect time to tackle bills, budget reconciliation, or debt payments. Remember to rest before feeling exhausted!`;
         }
       }
 
@@ -6485,7 +7142,7 @@
                 </div>
                 ${item.note ? `<p class="text-[11px] text-[#887487] dark:text-[#D4BFD2]">${escapeHtml(item.note)}</p>` : ''}
               </div>
-              <span class="text-sm font-bold text-[#994B78] dark:text-[#E889B5]">ðŸ¥„ ${item.spoons || 3}</span>
+              <span class="text-sm font-bold text-[#994B78] dark:text-[#E889B5]">🥄 ${item.spoons || 3}</span>
             </div>
           `).join('');
         }
@@ -6544,7 +7201,7 @@
         const ems = mg.emergencyMeals || [];
         emList.innerHTML = ems.map(em => `
           <button onclick="pickEmergencyMealForDinner('${escapeHtml(em.name)}')" class="px-2.5 py-1 rounded-xl bg-white dark:bg-[#201024] border border-[#F4E1EC] dark:border-[#3E2445] text-[10px] font-medium text-[#38283A] dark:text-[#FDF7FB] hover:border-[#994B78] flex items-center space-x-1 shadow-xs transition-all">
-            <span>âœ¨</span>
+            <span>✨</span>
             <span>${escapeHtml(em.name)} (${escapeHtml(em.time)})</span>
           </button>
         `).join('');
@@ -6572,7 +7229,7 @@
                     ${escapeHtml(item.name)}
                   </p>
                   <p class="text-[10px] text-[#887487] dark:text-[#D4BFD2]">
-                    ${escapeHtml(item.category || 'General')} ${item.cost ? `â€¢ ${formatMoney(item.cost)}` : ''}
+                    ${escapeHtml(item.category || 'General')} ${item.cost ? `• ${formatMoney(item.cost)}` : ''}
                   </p>
                 </div>
               </div>
@@ -6623,7 +7280,7 @@
       closeModal('addGroceryModal');
       document.getElementById('form-add-grocery').reset();
       renderMealsView();
-      showToast(`Added "${name}" to grocery list ðŸ›’`);
+      showToast(`Added "${name}" to grocery list 🛒`);
     }
 
     function deleteGrocery(id) {
@@ -6652,7 +7309,7 @@
       closeModal('addSpoilingModal');
       document.getElementById('form-add-spoiling').reset();
       renderMealsView();
-      showToast(`Added "${name}" to Spoiling Radar âš ï¸ Eat soon!`);
+      showToast(`Added "${name}" to Spoiling Radar ⚠️ Eat soon!`);
     }
 
     function markSpoilingEaten(id) {
@@ -6661,7 +7318,7 @@
       saveUserData(currentUser.id, currentUserData);
       renderMealsView();
       triggerGentleConfetti();
-      showToast(`Eaten in time! Saved food & stopped the ADHD tax ðŸ¥—`);
+      showToast(`Eaten in time! Saved food & stopped the ADHD tax 🥗`);
     }
 
     function deleteSpoiling(id) {
@@ -6677,7 +7334,7 @@
       currentUserData.mealsGroceries.todayMeals.dinner = name;
       saveUserData(currentUser.id, currentUserData);
       renderMealsView();
-      showToast(`Set "${name}" as tonight's dinner ðŸ² Low-stress meal chosen!`);
+      showToast(`Set "${name}" as tonight's dinner 🍲 Low-stress meal chosen!`);
     }
 
     function logGroceriesToExpenses() {
@@ -6703,7 +7360,7 @@
       saveUserData(currentUser.id, currentUserData);
       renderAll();
       triggerGentleConfetti();
-      showToast(`Logged ${formatMoney(totalCost)} to Food & Dining expense! ðŸ›’`);
+      showToast(`Logged ${formatMoney(totalCost)} to Food & Dining expense! 🛒`);
     }
 
     function renderAll() {
@@ -6721,9 +7378,13 @@
       renderBillsListFull();
       renderBudgetViewCategories();
       renderHabitsView();
+      renderSelfCareView();
       renderDebtView();
       renderAdhdTaxView();
       renderMoneyBackView();
+      renderFocusView();
+      renderMoodView();
+      renderMealsView();
       populateExpenseCategorySelect();
       populateBillCategorySelect();
       populateTaskCategoryDropdowns();
@@ -6832,7 +7493,7 @@
       if (!nextBill) {
         container.innerHTML = `
           <div class="w-full text-center py-2 space-y-2">
-            <p class="text-xs text-[#887487] dark:text-[#D4BFD2]">No upcoming bills right now! Enjoy the peace of mind ðŸ’•</p>
+            <p class="text-xs text-[#887487] dark:text-[#D4BFD2]">No upcoming bills right now! Enjoy the peace of mind 💕</p>
             <button onclick="openAddBillModal()" class="px-3.5 py-1.5 rounded-full bg-[#994B78] hover:bg-[#863C65] text-white text-xs font-bold inline-flex items-center space-x-1 shadow-sm transition-all">
               <i data-lucide="plus" class="w-3.5 h-3.5"></i>
               <span>Add a Bill</span>
@@ -6870,7 +7531,7 @@
                 ? 'bg-[#E8F5E9] text-[#2E7D32] dark:bg-[#1E3B27] dark:text-[#81C784]' 
                 : 'bg-[#FCECF3] dark:bg-[#3E2242] text-[#994B78] dark:text-[#E889B5] hover:opacity-85'
             }">
-              ${isPaid ? 'Paid âœ“' : 'Unpaid'}
+              ${isPaid ? 'Paid ✓' : 'Unpaid'}
             </button>
           </div>
           <button onclick="openEditBillModal('${nextBill.id}')" class="p-2 rounded-xl text-[#887487] hover:text-[#38283A] dark:hover:text-[#FDF7FB] hover:bg-white dark:hover:bg-[#28182D] border border-transparent hover:border-[#F4E1EC] dark:hover:border-[#3E2445] transition-colors" title="Edit Bill">
@@ -6943,7 +7604,7 @@
                   <h4 class="text-base font-bold text-warm-text dark:text-forest-text group-hover:text-sage-600 dark:group-hover:text-forest-mint transition-colors">${escapeHtml(cat.name)}</h4>
                   <span class="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-sage-100 text-sage-700 dark:bg-forest-surface dark:text-forest-mint border border-sage-200/50 dark:border-forest-border">Active</span>
                 </div>
-                <p class="text-xs text-warm-textMuted dark:text-forest-textMuted">${catExpCount} logged expense${catExpCount === 1 ? '' : 's'} â€¢ <span class="text-sage-600 dark:text-forest-mint font-medium group-hover:underline">View details</span></p>
+                <p class="text-xs text-warm-textMuted dark:text-forest-textMuted">${catExpCount} logged expense${catExpCount === 1 ? '' : 's'} • <span class="text-sage-600 dark:text-forest-mint font-medium group-hover:underline">View details</span></p>
               </div>
             </div>
             
@@ -7092,7 +7753,7 @@
             <p class="text-sm font-bold text-warm-text dark:text-forest-text">${escapeHtml(exp.expense_name || exp.note || exp.category)}</p>
             <p class="text-xs text-warm-textMuted dark:text-forest-textMuted flex items-center space-x-2">
               <span>${formatDisplayDate(exp.expense_date)}</span>
-              ${exp.note ? `<span class="text-warm-textSubtle">â€¢ ${escapeHtml(exp.note)}</span>` : ''}
+              ${exp.note ? `<span class="text-warm-textSubtle">• ${escapeHtml(exp.note)}</span>` : ''}
             </p>
           </div>
           <div class="flex items-center space-x-3">
@@ -7230,7 +7891,7 @@
               </div>
               <p class="text-xs text-warm-textMuted dark:text-forest-textMuted flex items-center space-x-2">
                 <span>${formatDisplayDate(exp.expense_date)}</span>
-                ${exp.note ? `<span class="text-warm-textSubtle">â€¢ ${escapeHtml(exp.note)}</span>` : ''}
+                ${exp.note ? `<span class="text-warm-textSubtle">• ${escapeHtml(exp.note)}</span>` : ''}
               </p>
             </div>
           </div>
@@ -7319,7 +7980,7 @@
 
       if (list.length === 0) {
         let msg = 'No bills tracked yet.';
-        if (currentBillTab === 'pending') msg = 'No upcoming pending bills! All clear for now ðŸŒ±';
+        if (currentBillTab === 'pending') msg = 'No upcoming pending bills! All clear for now 🌱';
         else if (currentBillTab === 'paid') msg = 'No bills marked as paid yet.';
 
         container.innerHTML = `
@@ -7355,12 +8016,12 @@
                   ${escapeHtml(bill.category || 'Housing')}
                 </span>
                 ${bill.recurring_frequency && bill.recurring_frequency !== 'none' ? `<span class="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-sage-50 text-sage-700 dark:bg-forest-surface dark:text-forest-mint border border-sage-200/50 dark:border-forest-border capitalize">${escapeHtml(bill.recurring_frequency)}</span>` : ''}
-                ${isPaid ? `<span class="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 dark:bg-emerald-950/60 dark:text-emerald-300">Paid âœ“</span>` : `<span class="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 dark:bg-amber-950/60 dark:text-amber-300">Pending</span>`}
+                ${isPaid ? `<span class="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 dark:bg-emerald-950/60 dark:text-emerald-300">Paid ✓</span>` : `<span class="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 dark:bg-amber-950/60 dark:text-amber-300">Pending</span>`}
               </div>
               <p class="text-xs text-warm-textMuted dark:text-forest-textMuted flex items-center space-x-2 flex-wrap">
                 <span>Due ${escapeHtml(bill.dueDate)}</span>
-                ${isPaid ? `<span class="text-emerald-700 dark:text-emerald-300 font-medium">â€¢ Settled on ${formatDisplayDate(bill.paid_at || 'Today')}</span>` : ''}
-                ${bill.notes ? `<span class="text-warm-textSubtle dark:text-forest-textSubtle">â€¢ ${escapeHtml(bill.notes)}</span>` : ''}
+                ${isPaid ? `<span class="text-emerald-700 dark:text-emerald-300 font-medium">• Settled on ${formatDisplayDate(bill.paid_at || 'Today')}</span>` : ''}
+                ${bill.notes ? `<span class="text-warm-textSubtle dark:text-forest-textSubtle">• ${escapeHtml(bill.notes)}</span>` : ''}
               </p>
             </div>
           </div>
@@ -7372,7 +8033,7 @@
               <!-- Mark Paid / Unpaid Button -->
               <button onclick="toggleBillStatusById('${bill.id}')" class="px-3.5 py-1.5 rounded-xl text-xs font-semibold flex items-center space-x-1.5 shadow-sm transition-all ${isPaid ? 'bg-emerald-100 hover:bg-emerald-200 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300 dark:hover:bg-emerald-900 border border-emerald-300/40' : 'bg-sage-500 hover:bg-sage-600 text-white hover:scale-[1.02]'}">
                 <i data-lucide="${isPaid ? 'check' : 'check-circle-2'}" class="w-3.5 h-3.5"></i>
-                <span>${isPaid ? 'Paid âœ“' : 'Mark as Paid'}</span>
+                <span>${isPaid ? 'Paid ✓' : 'Mark as Paid'}</span>
               </button>
 
               <!-- Edit Button -->
@@ -7464,7 +8125,7 @@
 
       currentUserData.bills = currentUserData.bills.filter(b => b.id !== billId);
       saveAndRefreshAll();
-      showToast(`Bill "${bill.name}" removed. Records updated ðŸŒ±`);
+      showToast(`Bill "${bill.name}" removed. Records updated 🌱`);
     }
 
     function handleSaveBill(e) {
@@ -7519,7 +8180,7 @@
               linkedExp.updated_at = new Date().toISOString();
             }
           }
-          showToast(`Updated "${bill.name}"! âœ¨`);
+          showToast(`Updated "${bill.name}"! ✨`);
         }
       } else {
         // Add new bill
@@ -7544,7 +8205,7 @@
         };
         if (!currentUserData.bills) currentUserData.bills = [];
         currentUserData.bills.push(newBill);
-        showToast(`Bill "${name}" added! ðŸŒ±`);
+        showToast(`Bill "${name}" added! 🌱`);
       }
 
       closeModal('addBillModal');
@@ -7591,7 +8252,7 @@
         }
 
         triggerGentleConfetti();
-        showToast(`Marked ${bill.name} (${formatMoney(bill.amount)}) as paid! Expense added ðŸŒ±`);
+        showToast(`Marked ${bill.name} (${formatMoney(bill.amount)}) as paid! Expense added 🌱`);
       } else {
         // MARK AS UNPAID
         if (!confirm(`Mark "${bill.name}" as unpaid?\n\nThis will remove its payment from your recorded monthly expenses and adjust your budget.`)) {
@@ -7671,7 +8332,7 @@
 
       currentUserData.expensesHistory = currentUserData.expensesHistory.filter(e => e.id !== expenseId);
       saveAndRefreshAll();
-      showToast(`Removed "${expName}". Figures updated ðŸŒ±`);
+      showToast(`Removed "${expName}". Figures updated 🌱`);
 
       // If category modal is open, re-render it
       if (activeCategoryModalName) {
@@ -7722,7 +8383,7 @@
             note: note,
             updated_at: new Date().toISOString()
           };
-          showToast(`Updated "${name}" (${formatMoney(amount)})! âœ¨`);
+          showToast(`Updated "${name}" (${formatMoney(amount)})! ✨`);
         }
       } else {
         // Add new
@@ -7740,7 +8401,7 @@
         if (!currentUserData.expensesHistory) currentUserData.expensesHistory = [];
         currentUserData.expensesHistory.unshift(newExp);
         triggerGentleConfetti();
-        showToast(`Logged ${formatMoney(amount)} in ${categoryName}. You're doing great ðŸŒ±`);
+        showToast(`Logged ${formatMoney(amount)} in ${categoryName}. You're doing great 🌱`);
       }
 
       closeModal('addExpenseModal');
@@ -7813,7 +8474,7 @@
         const { user, requiresEmailConfirmation } = await AuthService.register(fullName, username, email, password);
         
         if (requiresEmailConfirmation) {
-          showToast('Account created! Please check your email to verify your account, then log in. âœ‰ï¸');
+          showToast('Account created! Please check your email to verify your account, then log in. ✉️');
           showAuthPage('login');
           return;
         }
@@ -7822,7 +8483,7 @@
         setupOnboardingView(user);
         showAuthPage('onboarding');
         triggerGentleConfetti();
-        showToast(`Welcome, ${user.fullName}! Let's set up your budget ðŸŒ±`);
+        showToast(`Welcome, ${user.fullName}! Let's set up your budget 🌱`);
       } catch (err) {
         showError(errorBox, err.message);
       }
@@ -7845,15 +8506,8 @@
       try {
         const { user } = await AuthService.login(identifier, password, remember);
         currentUser = user;
-        sessionStorage.setItem('adhd_session_active', 'true');
-        if (remember) {
-          localStorage.setItem('adhd_remember_me', 'true');
-          localStorage.setItem('adhd_active_user', JSON.stringify(user));
-        } else {
-          localStorage.removeItem('adhd_remember_me');
-          sessionStorage.setItem('adhd_active_user', JSON.stringify(user));
-        }
-        setActiveSession(user, remember);
+        persistUserSession(user);
+        setActiveSession(user, true);
 
         if (!user.onboarded) {
           setupOnboardingView(user);
@@ -7861,7 +8515,7 @@
         } else {
           await loadUserDataAndRender(user.id);
           showAuthPage('app');
-          showToast(`Welcome back, ${user.fullName}! ðŸ‘‹`);
+          showToast(`Welcome back, ${user.fullName}! 👋`);
           checkMonthlyBudgetReview();
         }
       } catch (err) {
@@ -7948,7 +8602,7 @@
       await loadUserDataAndRender(currentUser.id);
       showAuthPage('app');
       triggerGentleConfetti();
-      showToast(`Your budget is ready, ${currentUser.fullName}! You're in control ðŸŒ±`);
+      showToast(`Your budget is ready, ${currentUser.fullName}! You're in control 🌱`);
     }
 
     async function loadUserDataAndRender(userId) {
@@ -7968,7 +8622,7 @@
       if (hour >= 12 && hour < 17) timeGreeting = "Good Afternoon";
       else if (hour >= 17) timeGreeting = "Good Evening";
 
-      document.getElementById('header-greeting').textContent = `${timeGreeting}, ${firstName}! ðŸ‘‹`;
+      document.getElementById('header-greeting').textContent = `${timeGreeting}, ${firstName}! 👋`;
 
       const parts = currentUser.fullName.trim().split(' ');
       const initials = (parts[0][0] + (parts[1] ? parts[1][0] : '')).toUpperCase();
@@ -8003,7 +8657,7 @@
         currentUser = updated;
         updatePersonalizedHeader();
         updateSettingsForm();
-        showToast('Profile updated successfully! âœ¨');
+        showToast('Profile updated successfully! ✨');
       } catch (err) {
         showToast('Error: ' + err.message);
       }
@@ -8018,7 +8672,7 @@
       try {
         await AuthService.forgotPassword(email);
         closeModal('forgotPasswordModal');
-        showToast(`Password reset link sent to ${email}! Please check your email inbox. âœ‰ï¸`);
+        showToast(`Password reset link sent to ${email}! Please check your email inbox. ✉️`);
       } catch (err) {
         showToast('Error: ' + err.message);
       }
@@ -8050,7 +8704,7 @@
       try {
         await AuthService.updatePassword(p1);
         closeModal('setNewPasswordModal');
-        showToast('Password updated securely! ðŸ”');
+        showToast('Password updated securely! 🔐');
 
         if (supabaseClient) {
           const { data: { session } } = await supabaseClient.auth.getSession();
@@ -8082,7 +8736,7 @@
       try {
         await AuthService.changePassword(currentUser.id, p1);
         closeModal('changePasswordModal');
-        showToast('Password updated securely! ðŸ”');
+        showToast('Password updated securely! 🔐');
       } catch (err) {
         showToast('Error: ' + err.message);
       }
@@ -8111,8 +8765,8 @@
 
     function switchView(viewName) {
       const views = [
-        'overview', 'budget', 'calendar', 'expenses', 'bills', 'settings',
-        'habits', 'debt', 'adhdtax', 'moneyback'
+        'overview', 'focus', 'mood', 'meals', 'budget', 'calendar', 'expenses', 'bills', 'settings',
+        'habits', 'goals', 'selfcare', 'debt', 'adhdtax', 'moneyback'
       ];
       views.forEach(v => {
         const el = document.getElementById(`view-${v}`);
@@ -8149,10 +8803,14 @@
         sidebar.classList.add('-translate-x-full');
       }
 
+      if (viewName === 'focus') renderFocusView();
+      if (viewName === 'mood') renderMoodView();
+      if (viewName === 'meals') renderMealsView();
       if (viewName === 'expenses') renderExpensesTable();
       if (viewName === 'budget') renderBudgetViewCategories();
       if (viewName === 'bills') renderBillsListFull();
       if (viewName === 'habits') renderHabitsView();
+      if (viewName === 'selfcare') renderSelfCareView();
       if (viewName === 'debt') renderDebtView();
       if (viewName === 'adhdtax') renderAdhdTaxView();
       if (viewName === 'moneyback') renderMoneyBackView();
@@ -8343,7 +9001,7 @@
       if (banner) banner.classList.add('hidden');
 
       triggerGentleConfetti();
-      showToast(`Budget of ${formatMoney(currentUserData.totalBudget)} rolled over for ${currentMonthName} ðŸŒ¸`);
+      showToast(`Budget of ${formatMoney(currentUserData.totalBudget)} rolled over for ${currentMonthName} 🌸`);
       renderAll();
     }
 
@@ -8386,7 +9044,7 @@
         showAuthPage('onboarding');
       } else {
         localStorage.setItem('adhd_onboarded_' + user.id, 'true');
-        localStorage.setItem('adhd_active_user', JSON.stringify(currentUser));
+        persistUserSession(currentUser);
         setActiveSession(currentUser, true);
         await loadUserDataAndRender(currentUser.id);
         showAuthPage('app');
@@ -8432,32 +9090,29 @@
         }
       }
 
-      // Session check: Show login screen first unless actively logged in or explicitly remembered
-      const isSessionActive = sessionStorage.getItem('adhd_session_active') === 'true';
-      const isRemembered = localStorage.getItem('adhd_remember_me') === 'true';
-      const savedUser = isRemembered
-        ? localStorage.getItem('adhd_active_user')
-        : sessionStorage.getItem('adhd_active_user');
-
-      if ((isSessionActive || isRemembered) && savedUser) {
+      // 5-Day Browser Session Check:
+      // If user logged in within the last 5 days in this browser, restore session instantly without flash
+      const validUser = getValidStoredUser();
+      if (validUser) {
         try {
-          currentUser = JSON.parse(savedUser);
+          currentUser = validUser;
           await loadUserDataAndRender(currentUser.id);
           showAuthPage('app');
           checkMonthlyBudgetReview();
           return;
         } catch (e) {
-          console.warn('Could not restore local user:', e);
+          console.warn('Could not restore user data:', e);
         }
       }
 
-      // Default: always prompt to log in first!
+      // No active session or 5 days expired or new browser: Show login screen
+      clearUserSession();
+      currentUser = null;
+      currentUserData = null;
       showAuthPage('login');
     }
 
     function launchDemoPreview() {
-      sessionStorage.setItem('adhd_session_active', 'true');
-      localStorage.setItem('adhd_remember_me', 'true');
       currentUser = {
         id: 'demo_user_sunny',
         fullName: 'Sunny',
@@ -8466,7 +9121,7 @@
         currency: '$',
         onboarded: true
       };
-      localStorage.setItem('adhd_active_user', JSON.stringify(currentUser));
+      persistUserSession(currentUser);
 
       const cached = localStorage.getItem(STORAGE_KEY_USER_DATA_PREFIX + 'demo_user_sunny');
       if (cached) {
