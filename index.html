@@ -7,12 +7,14 @@
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
   <title>AvyoraCo – ADHD Budget Planner</title>
+  <link rel="icon" type="image/jpeg" href="logo.jpg">
+  <link rel="apple-touch-icon" href="logo.jpg">
 
   <!-- Immediate Production Cache Bust & Stale Session Purge -->
   <script>
     (function() {
       try {
-        var APP_CACHE_VERSION = 'v3.9_avyoraco_brand_update';
+        var APP_CACHE_VERSION = 'v4.0_avyoraco_logo_and_url_routing';
         if (localStorage.getItem('adhd_app_version') !== APP_CACHE_VERSION) {
           localStorage.removeItem('adhd_db_data_demo_user_sunny');
           localStorage.removeItem('adhd_user_sunny');
@@ -416,9 +418,7 @@
     <!-- Header bar -->
     <div class="max-w-4xl w-full mx-auto flex items-center justify-between relative z-10">
       <div class="flex items-center space-x-3">
-        <div class="w-10 h-10 rounded-2xl bg-[#FCECF3] dark:bg-[#3E2242] flex items-center justify-center text-[#994B78] dark:text-[#E889B5] shadow-sm">
-          <i data-lucide="lock" class="w-5 h-5"></i>
-        </div>
+        <img src="logo.jpg" alt="AvyoraCo Logo" class="w-10 h-10 rounded-2xl object-cover shadow-sm border border-[#F4E1EC] dark:border-[#3E2445]">
         <div>
           <span class="text-[11px] font-bold uppercase tracking-wider text-[#994B78] dark:text-[#E889B5] block">Private Customer Portal</span>
           <span class="text-base font-bold tracking-tight text-[#38283A] dark:text-[#FDF7FB] leading-tight">AvyoraCo</span>
@@ -518,9 +518,7 @@
     <!-- Header bar -->
     <div class="max-w-6xl w-full mx-auto flex items-center justify-between relative z-10">
       <div class="flex items-center space-x-3">
-        <div class="w-10 h-10 rounded-2xl bg-sage-100 dark:bg-forest-surfaceMuted flex items-center justify-center text-sage-600 dark:text-forest-mint shadow-sm">
-          <i data-lucide="sprout" class="w-5 h-5"></i>
-        </div>
+        <img src="logo.jpg" alt="AvyoraCo Logo" class="w-10 h-10 rounded-2xl object-cover shadow-sm border border-warm-border dark:border-forest-border">
         <div>
           <span class="text-[11px] font-bold uppercase tracking-wider text-sage-600 dark:text-forest-mint block">AvyoraCo</span>
           <span class="text-base font-bold tracking-tight text-warm-text dark:text-forest-text leading-tight">ADHD Budget Planner</span>
@@ -611,9 +609,7 @@
           <span>Welcome</span>
         </button>
         <div class="flex items-center space-x-2">
-          <div class="w-7 h-7 rounded-xl bg-sage-100 dark:bg-forest-surfaceMuted flex items-center justify-center text-sage-600 dark:text-forest-mint">
-            <i data-lucide="sprout" class="w-4 h-4"></i>
-          </div>
+          <img src="logo.jpg" alt="AvyoraCo Logo" class="w-7 h-7 rounded-xl object-cover shadow-xs border border-warm-border dark:border-forest-border">
           <span class="text-xs font-bold text-warm-text dark:text-forest-text">AvyoraCo</span>
         </div>
       </div>
@@ -695,9 +691,7 @@
           <span>Welcome</span>
         </button>
         <div class="flex items-center space-x-2">
-          <div class="w-7 h-7 rounded-xl bg-sage-100 dark:bg-forest-surfaceMuted flex items-center justify-center text-sage-600 dark:text-forest-mint">
-            <i data-lucide="sprout" class="w-4 h-4"></i>
-          </div>
+          <img src="logo.jpg" alt="AvyoraCo Logo" class="w-7 h-7 rounded-xl object-cover shadow-xs border border-warm-border dark:border-forest-border">
           <span class="text-xs font-bold text-warm-text dark:text-forest-text">AvyoraCo</span>
         </div>
       </div>
@@ -859,16 +853,7 @@
         <!-- Logo Branding Header -->
         <div class="flex items-center justify-between pb-5 border-b border-[#F4E1EC]/80 dark:border-[#3E2445] shrink-0">
           <div class="flex items-center space-x-3 cursor-pointer select-none" onclick="switchView('overview')">
-            <div class="w-10 h-10 rounded-2xl bg-white dark:bg-[#34203A] flex items-center justify-center text-[#994B78] dark:text-[#E889B5] shadow-sm border border-[#F4E1EC] dark:border-[#4A2D53]">
-              <!-- Minimalist Flower Logo Icon matching Image 1 & 2 -->
-              <svg class="w-5 h-5 text-[#994B78] dark:text-[#E889B5]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="12" cy="12" r="3"/>
-                <path d="M12 2a4 4 0 0 0-4 4c0 3 4 6 4 6s4-3 4-6a4 4 0 0 0-4-4z"/>
-                <path d="M12 22a4 4 0 0 1-4-4c0-3 4-6 4-6s4 3 4 6a4 4 0 0 1-4 4z"/>
-                <path d="M2 12a4 4 0 0 0 4 4c3 0 6-4 6-4s-3-4-6-4a4 4 0 0 0-4 4z"/>
-                <path d="M22 12a4 4 0 0 1-4 4c-3 0-6-4-6-4s3-4 6-4a4 4 0 0 1 4 4z"/>
-              </svg>
-            </div>
+            <img src="logo.jpg" alt="AvyoraCo Logo" class="w-10 h-10 rounded-2xl object-cover shadow-sm border border-[#F4E1EC] dark:border-[#4A2D53]">
             <div>
               <h1 class="text-sm font-extrabold tracking-tight text-[#38283A] dark:text-[#FDF7FB] leading-tight">AvyoraCo</h1>
               <span class="text-[10px] font-medium text-[#887487] dark:text-[#D4BFD2] block">ADHD Budget Planner</span>
@@ -9401,11 +9386,33 @@
       if (window.lucide) lucide.createIcons();
     }
 
-    function switchView(viewName) {
+    function cleanAccessParamFromUrl() {
+      try {
+        const url = new URL(window.location.href);
+        if (url.searchParams.has('access')) {
+          url.searchParams.delete('access');
+          const cleanUrl = url.pathname + (url.search ? url.search : '') + (url.hash ? url.hash : '');
+          window.history.replaceState({}, document.title, cleanUrl);
+        }
+      } catch (e) {}
+    }
+
+    function getActiveViewFromUrl() {
+      const hash = (window.location.hash || '').replace('#', '').trim().toLowerCase();
       const views = [
         'overview', 'focus', 'mood', 'meals', 'budget', 'calendar', 'expenses', 'bills', 'settings',
         'habits', 'goals', 'selfcare', 'debt', 'adhdtax', 'moneyback'
       ];
+      return views.includes(hash) ? hash : 'overview';
+    }
+
+    function switchView(viewName, updateUrl = true) {
+      const views = [
+        'overview', 'focus', 'mood', 'meals', 'budget', 'calendar', 'expenses', 'bills', 'settings',
+        'habits', 'goals', 'selfcare', 'debt', 'adhdtax', 'moneyback'
+      ];
+      if (!views.includes(viewName)) viewName = 'overview';
+
       views.forEach(v => {
         const el = document.getElementById(`view-${v}`);
         if (el) el.classList.add('hidden');
@@ -9441,6 +9448,12 @@
         sidebar.classList.add('-translate-x-full');
       }
 
+      // Update URL hash without reload so each tab has its own dedicated URL
+      if (updateUrl && window.history && window.history.replaceState) {
+        const cleanPath = window.location.pathname + (window.location.search || '');
+        window.history.replaceState(null, '', cleanPath + '#' + viewName);
+      }
+
       if (viewName === 'overview') renderAll();
       if (viewName === 'focus') renderFocusView();
       if (viewName === 'mood') renderMoodView();
@@ -9458,6 +9471,15 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
       if (window.lucide) lucide.createIcons();
     }
+
+    // Support browser Back/Forward navigation & direct deep linking
+    window.addEventListener('hashchange', () => {
+      const appShell = document.getElementById('app-shell');
+      if (currentUser && appShell && !appShell.classList.contains('hidden')) {
+        const target = getActiveViewFromUrl();
+        switchView(target, false);
+      }
+    });
 
     function toggleMobileSidebar() {
       const overlay = document.getElementById('sidebar-overlay');
