@@ -9824,6 +9824,8 @@
 
     document.addEventListener('DOMContentLoaded', () => {
       initApplication();
+      // Keep greeting and device time in real-time sync every 30 seconds
+      setInterval(updatePersonalizedHeader, 30000);
     });
   </script>
 </body>
