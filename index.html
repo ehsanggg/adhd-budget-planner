@@ -839,11 +839,11 @@
         <div class="ios-glass-btn p-2.5 rounded-2xl flex items-center justify-between">
           <div class="flex items-center space-x-2.5 min-w-0 cursor-pointer" onclick="openProfileModal()">
             <div id="sidebar-user-avatar" class="w-8 h-8 rounded-full bg-[#FCECF3] dark:bg-[#3E2242] border border-[#F9DFEB] dark:border-[#E889B5]/40 flex items-center justify-center font-bold text-xs text-[#994B78] dark:text-[#E889B5] shrink-0 shadow-inner">
-              S
+              M
             </div>
             <div class="min-w-0">
-              <p id="sidebar-user-name" class="text-xs font-bold text-[#38283A] dark:text-[#FDF7FB] truncate">Sunny</p>
-              <p id="sidebar-user-username" class="text-[10px] text-[#887487] dark:text-[#D4BFD2] truncate">@sunny</p>
+              <p id="sidebar-user-name" class="text-xs font-bold text-[#38283A] dark:text-[#FDF7FB] truncate">My Account</p>
+              <p id="sidebar-user-username" class="text-[10px] text-[#887487] dark:text-[#D4BFD2] truncate">@profile</p>
             </div>
           </div>
           <button onclick="handleLogout()" title="Log Out" class="p-1.5 rounded-xl text-[#887487] hover:text-rose-500 hover:bg-rose-50/50 dark:hover:bg-rose-950/30 transition-colors">
@@ -3901,10 +3901,26 @@
                 onboarded: false
               };
 
+              // Also persist locally so the user can immediately log in with their real username without confirmation blocking
+              const localUsers = JSON.parse(localStorage.getItem('adhd_registered_users') || '[]');
+              if (!localUsers.some(u => u.username.toLowerCase() === username)) {
+                localUsers.push({
+                  id: user.id,
+                  fullName: fullName.trim(),
+                  username: username,
+                  email: email,
+                  password: password,
+                  currency: '$',
+                  onboarded: false,
+                  createdAt: new Date().toISOString()
+                });
+                localStorage.setItem('adhd_registered_users', JSON.stringify(localUsers));
+              }
+
               return {
                 user: userObj,
                 session: authData.session,
-                requiresEmailConfirmation: !authData.session
+                requiresEmailConfirmation: false
               };
             }
           } catch (cloudErr) {
