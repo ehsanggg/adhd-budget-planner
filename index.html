@@ -14,7 +14,7 @@
   <script>
     (function() {
       try {
-        var APP_CACHE_VERSION = 'v4.1_cleaned_settings_and_ui';
+        var APP_CACHE_VERSION = 'v4.2_debt_payment_budget_sync';
         if (localStorage.getItem('adhd_app_version') !== APP_CACHE_VERSION) {
           localStorage.removeItem('adhd_db_data_demo_user_sunny');
           localStorage.removeItem('adhd_user_sunny');
@@ -6832,11 +6832,37 @@
       const amt = parseFloat(amtStr);
       if (isNaN(amt) || amt <= 0) return;
 
+      if (d.startingBalance === undefined || d.startingBalance === null) {
+        d.startingBalance = parseFloat(d.balance) || amt;
+      }
+
       d.balance = Math.max(0, (parseFloat(d.balance) || 0) - amt);
-      saveUserData(currentUser.id, currentUserData);
+
+      // Record as monthly expense so budget & remaining safe-to-spend balance update accurately!
+      if (!currentUserData.expensesHistory) currentUserData.expensesHistory = [];
+      const debtCat = (currentUserData.categories || []).find(c => c.name.toLowerCase() === 'debt')
+        || (currentUserData.categories || []).find(c => c.name.toLowerCase() === 'other')
+        || (currentUserData.categories && currentUserData.categories[0])
+        || { name: 'Debt' };
+
+      const paymentExp = {
+        id: 'exp_debt_' + d.id + '_' + Date.now(),
+        debt_id: d.id,
+        expense_name: `${d.name} Payment`,
+        amount: amt,
+        category: debtCat.name,
+        expense_date: getTodayIso(),
+        note: `Debt payoff payment towards ${d.name}`,
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString()
+      };
+      currentUserData.expensesHistory.unshift(paymentExp);
+
+      // Save & recalculate budget, remaining balance, and total spent across all views
+      saveAndRefreshAll();
       renderDebtView();
       triggerGentleConfetti();
-      showToast(`Awesome! ${formatMoney(amt)} payment logged towards "${d.name}" 🎉`);
+      showToast(`Awesome! ${formatMoney(amt)} payment logged towards "${d.name}" 🎉 Budget updated!`);
     }
 
     function deleteDebt(debtId) {
@@ -8756,12 +8782,21 @@
         return;
       }
 
+      // If this expense was linked to a debt payment, restore the debt balance
+      if (exp.debt_id && currentUserData.debts) {
+        const linkedDebt = currentUserData.debts.find(d => d.id === exp.debt_id);
+        if (linkedDebt) {
+          linkedDebt.balance = (parseFloat(linkedDebt.balance) || 0) + (parseFloat(exp.amount) || 0);
+        }
+      }
+
       currentUserData.expensesHistory = currentUserData.expensesHistory.filter(e => e.id !== expenseId);
       if (currentUserData.expensesHistory.length === 0) {
         currentUserData._userClearedExpenses = true;
       }
       saveAndRefreshAll();
-      showToast(`Removed "${expName}". Figures updated 🌱`);
+      renderDebtView();
+      showToast(`Removed "${expName}". Figures updated 🌸`);
 
       // If category modal is open, re-render it
       if (activeCategoryModalName) {
