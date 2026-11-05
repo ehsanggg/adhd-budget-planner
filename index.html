@@ -12,7 +12,7 @@
   <script>
     (function() {
       try {
-        var APP_CACHE_VERSION = 'v3.6_welcome_landing_zero_flash';
+        var APP_CACHE_VERSION = 'v3.7_instant_budget_render';
         if (localStorage.getItem('adhd_app_version') !== APP_CACHE_VERSION) {
           localStorage.removeItem('adhd_db_data_demo_user_sunny');
           localStorage.removeItem('adhd_user_sunny');
@@ -1082,7 +1082,7 @@
                   Welcome to <span id="new-month-name-label" class="text-[#D66A9A]">This Month</span>!
                 </h3>
                 <p class="text-xs text-[#887487] dark:text-[#D4BFD2]">
-                  Your previous monthly budget was <span id="new-month-prev-budget-label" class="font-bold text-[#38283A] dark:text-[#FDF7FB]">$2,500</span>. Would you like to keep the same budget for this month, or adjust it?
+                  Your previous monthly budget was <span id="new-month-prev-budget-label" class="font-bold text-[#38283A] dark:text-[#FDF7FB]">$0.00</span>. Would you like to keep the same budget for this month, or adjust it?
                 </p>
               </div>
             </div>
@@ -1115,7 +1115,7 @@
 
               <div class="flex items-baseline space-x-3 pt-1">
                 <h3 id="hero-remaining-budget" class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-[#994B78] dark:text-[#E889B5]">
-                  $2,267
+                  $0.00
                 </h3>
                 <span class="text-sm sm:text-base font-semibold text-[#887487] dark:text-[#D4BFD2]">safe to spend this month</span>
               </div>
@@ -1128,11 +1128,11 @@
             <div class="flex items-center gap-3 sm:gap-4 flex-wrap">
               <div class="px-5 py-3.5 rounded-2xl bg-[#FFF9FC] dark:bg-[#34213B] border border-[#F4E1EC] dark:border-[#412B4A] shadow-soft">
                 <span class="text-[11px] font-semibold text-[#887487] dark:text-[#D4BFD2] uppercase tracking-wider block">Total Budget</span>
-                <span id="hero-total-budget" class="text-xl sm:text-2xl font-bold text-[#38283A] dark:text-[#FDF7FB]">$2,500</span>
+                <span id="hero-total-budget" class="text-xl sm:text-2xl font-bold text-[#38283A] dark:text-[#FDF7FB]">$0.00</span>
               </div>
               <div class="px-5 py-3.5 rounded-2xl bg-[#FFF9FC] dark:bg-[#34213B] border border-[#F4E1EC] dark:border-[#412B4A] shadow-soft">
                 <span class="text-[11px] font-semibold text-[#887487] dark:text-[#D4BFD2] uppercase tracking-wider block">Spent</span>
-                <span id="hero-spent-amount" class="text-xl sm:text-2xl font-bold text-[#994B78] dark:text-[#E889B5]">$233</span>
+                <span id="hero-spent-amount" class="text-xl sm:text-2xl font-bold text-[#994B78] dark:text-[#E889B5]">$0.00</span>
               </div>
             </div>
           </div>
@@ -1141,21 +1141,21 @@
           <div class="mt-8 space-y-2 relative z-10">
             <div class="flex items-center justify-between text-xs sm:text-sm font-semibold">
               <span id="hero-percentage-text" class="text-[#887487] dark:text-[#D4BFD2]">
-                <span class="text-[#994B78] dark:text-[#E889B5] font-extrabold">9.3%</span> of the budget has been spent
+                <span class="text-[#994B78] dark:text-[#E889B5] font-extrabold">0%</span> of the budget has been spent
               </span>
               <span id="hero-bar-fraction" class="text-[#A796A6] dark:text-[#A692A4] font-mono text-xs hidden">
-                $233 / $2,500
+                $0.00 / $0.00
               </span>
             </div>
 
             <div class="w-full h-3 bg-[#F9DFEB]/50 dark:bg-[#3E2445] rounded-full overflow-hidden p-0.5">
-              <div id="hero-progress-bar" class="progress-fill h-full rounded-full bg-gradient-to-r from-[#D66A9A] via-[#B84E7E] to-[#994B78] shadow-sm" style="width: 9.3%;"></div>
+              <div id="hero-progress-bar" class="progress-fill h-full rounded-full bg-gradient-to-r from-[#D66A9A] via-[#B84E7E] to-[#994B78] shadow-sm" style="width: 0%;"></div>
             </div>
 
             <div class="flex items-center justify-between text-[11px] text-[#887487] dark:text-[#D4BFD2] font-medium pt-0.5">
               <span>$0 (Start of Month)</span>
-              <span>Halfway: $1,250 (50%)</span>
-              <span id="hero-bar-limit-label">$2,500 (Budget Limit)</span>
+              <span>Halfway (50%)</span>
+              <span id="hero-bar-limit-label">Budget Limit</span>
             </div>
           </div>
         </section>
@@ -1169,7 +1169,7 @@
             </div>
             <div class="space-y-0.5">
               <p class="text-xs font-semibold text-[#887487] dark:text-[#D4BFD2]">Total Budget</p>
-              <h4 id="card-total-budget" class="text-2xl font-extrabold text-[#38283A] dark:text-[#FDF7FB]">$2,500</h4>
+              <h4 id="card-total-budget" class="text-2xl font-extrabold text-[#38283A] dark:text-[#FDF7FB]">$0.00</h4>
               <p id="card-budget-month-label" class="text-[10px] text-[#A796A6] dark:text-[#A692A4]">Planned cap</p>
             </div>
           </div>
@@ -1181,8 +1181,8 @@
             </div>
             <div class="space-y-0.5">
               <p class="text-xs font-semibold text-[#887487] dark:text-[#D4BFD2]">Total Spent</p>
-              <h4 id="card-total-spent" class="text-2xl font-extrabold text-[#38283A] dark:text-[#FDF7FB]">$233</h4>
-              <p id="card-spent-percentage-label" class="text-[11px] text-[#887487] dark:text-[#D4BFD2]">9.3% of total cap</p>
+              <h4 id="card-total-spent" class="text-2xl font-extrabold text-[#38283A] dark:text-[#FDF7FB]">$0.00</h4>
+              <p id="card-spent-percentage-label" class="text-[11px] text-[#887487] dark:text-[#D4BFD2]">0% of total cap</p>
             </div>
           </div>
 
@@ -1193,8 +1193,8 @@
             </div>
             <div class="space-y-0.5">
               <p class="text-xs font-semibold text-[#887487] dark:text-[#D4BFD2]">Remaining</p>
-              <h4 id="card-remaining" class="text-2xl font-extrabold text-[#38283A] dark:text-[#FDF7FB]">$2,267</h4>
-              <p id="card-remaining-subtext" class="text-[11px] text-[#887487] dark:text-[#D4BFD2]">90.7% left</p>
+              <h4 id="card-remaining" class="text-2xl font-extrabold text-[#38283A] dark:text-[#FDF7FB]">$0.00</h4>
+              <p id="card-remaining-subtext" class="text-[11px] text-[#887487] dark:text-[#D4BFD2]">100% left</p>
             </div>
           </div>
 
@@ -1210,6 +1210,61 @@
             </div>
           </div>
         </section>
+
+        <!-- SYNCHRONOUS IMMEDIATE PRE-RENDER SCRIPT (ZERO JUMP / ZERO FLASH) -->
+        <script>
+          (function() {
+            try {
+              var rawU = localStorage.getItem('adhd_active_user');
+              if (rawU) {
+                var u = JSON.parse(rawU);
+                if (u && u.id) {
+                  var rawD = localStorage.getItem('adhd_db_data_' + u.id);
+                  if (rawD) {
+                    var d = JSON.parse(rawD);
+                    if (d) {
+                      var cur = d.currency || '$';
+                      var fmt = function(val) {
+                        var n = Number(val) || 0;
+                        return cur + n.toLocaleString('en-US', {
+                          minimumFractionDigits: Number.isInteger(n) ? 0 : 2,
+                          maximumFractionDigits: 2
+                        });
+                      };
+                      var rem = typeof d.remainingBudget !== 'undefined' ? d.remainingBudget : (d.totalBudget - (d.spentTotal || 0));
+                      var tot = d.totalBudget || 0;
+                      var sp = d.spentTotal || 0;
+                      var elRem = document.getElementById('hero-remaining-budget');
+                      if (elRem) elRem.textContent = fmt(rem);
+                      var elTot = document.getElementById('hero-total-budget');
+                      if (elTot) elTot.textContent = fmt(tot);
+                      var elSp = document.getElementById('hero-spent-amount');
+                      if (elSp) elSp.textContent = fmt(sp);
+                      var cTot = document.getElementById('card-total-budget');
+                      if (cTot) cTot.textContent = fmt(tot);
+                      var cSp = document.getElementById('card-total-spent');
+                      if (cSp) cSp.textContent = fmt(sp);
+                      var cRem = document.getElementById('card-remaining');
+                      if (cRem) cRem.textContent = fmt(rem);
+
+                      var pct = tot > 0 ? ((sp / tot) * 100).toFixed(1) : 0;
+                      var pText = document.getElementById('hero-percentage-text');
+                      if (pText) pText.innerHTML = '<span class="text-[#994B78] dark:text-[#E889B5] font-extrabold">' + pct + '%</span> of the budget has been spent';
+                      var pBar = document.getElementById('hero-progress-bar');
+                      if (pBar) pBar.style.width = Math.min(100, Math.max(0, pct)) + '%';
+                      var spPct = document.getElementById('card-spent-percentage-label');
+                      if (spPct) spPct.textContent = pct + '% of total cap';
+                      var remSub = document.getElementById('card-remaining-subtext');
+                      if (remSub) remSub.textContent = (100 - pct).toFixed(1) + '% left';
+                      var monthLbl = document.getElementById('card-budget-month-label');
+                      if (monthLbl && d.budgetMonth) monthLbl.textContent = 'Planned for ' + d.budgetMonth;
+                    }
+                  }
+                }
+              }
+            } catch(e) {}
+          })();
+        </script>
 
         <!-- MIDDLE TWO-COLUMN GRID -->
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
@@ -1276,13 +1331,13 @@
                     ✓
                   </div>
                   <div>
-                    <h4 id="bill-name" class="text-base font-bold text-[#38283A] dark:text-[#FDF7FB] leading-tight">Electricity</h4>
-                    <p id="bill-due-date" class="text-xs text-[#887487] dark:text-[#D4BFD2] mt-0.5">Settled for January</p>
+                    <h4 id="bill-name" class="text-base font-bold text-[#38283A] dark:text-[#FDF7FB] leading-tight">--</h4>
+                    <p id="bill-due-date" class="text-xs text-[#887487] dark:text-[#D4BFD2] mt-0.5">All bills checked</p>
                   </div>
                 </div>
                 
                 <div class="text-right">
-                  <span id="bill-amount" class="text-lg sm:text-xl font-extrabold text-[#38283A] dark:text-[#FDF7FB] block">$120</span>
+                  <span id="bill-amount" class="text-lg sm:text-xl font-extrabold text-[#38283A] dark:text-[#FDF7FB] block">--</span>
                   <button id="bill-mark-paid-btn" onclick="toggleBillPaid()" class="mt-1 text-xs font-bold px-2.5 py-0.5 rounded-full transition-colors bg-[#E8F5E9] text-[#2E7D32] dark:bg-[#1E3B27] dark:text-[#81C784]">
                     Paid ✓
                   </button>
@@ -1498,15 +1553,15 @@
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <div class="p-5 rounded-2xl bg-white dark:bg-forest-surface border border-warm-border dark:border-forest-border shadow-soft">
             <span class="text-[11px] font-semibold text-warm-textSubtle dark:text-forest-textSubtle uppercase">Total Monthly Cap</span>
-            <p id="budget-summary-total" class="text-2xl font-extrabold text-warm-text dark:text-forest-text mt-1">$2,500</p>
+            <p id="budget-summary-total" class="text-2xl font-extrabold text-warm-text dark:text-forest-text mt-1">$0.00</p>
           </div>
           <div class="p-5 rounded-2xl bg-white dark:bg-forest-surface border border-warm-border dark:border-forest-border shadow-soft">
             <span class="text-[11px] font-semibold text-warm-textSubtle dark:text-forest-textSubtle uppercase">Total Category Allocation</span>
-            <p id="budget-summary-allocated" class="text-2xl font-extrabold text-sage-600 dark:text-forest-mint mt-1">$1,900</p>
+            <p id="budget-summary-allocated" class="text-2xl font-extrabold text-sage-600 dark:text-forest-mint mt-1">$0.00</p>
           </div>
           <div class="p-5 rounded-2xl bg-white dark:bg-forest-surface border border-warm-border dark:border-forest-border shadow-soft">
             <span class="text-[11px] font-semibold text-warm-textSubtle dark:text-forest-textSubtle uppercase">Unallocated Buffer</span>
-            <p id="budget-summary-buffer" class="text-2xl font-extrabold text-amber-600 dark:text-amber-400 mt-1">$600</p>
+            <p id="budget-summary-buffer" class="text-2xl font-extrabold text-amber-600 dark:text-amber-400 mt-1">$0.00</p>
           </div>
         </div>
 
@@ -4307,13 +4362,17 @@
 
     // --- 2.1 DATA PERSISTENCE & SUPABASE CLOUD SYNC ENGINE ---
     const DataService = {
-      async loadUserData(userId) {
-        let cached = null;
+      getCachedUserData(userId) {
+        if (!userId) return null;
         try {
           const raw = localStorage.getItem(STORAGE_KEY_USER_DATA_PREFIX + userId);
-          if (raw) cached = JSON.parse(raw);
+          if (raw) return JSON.parse(raw);
         } catch (e) {}
+        return null;
+      },
 
+      async loadUserData(userId) {
+        let cached = this.getCachedUserData(userId);
         let dataset = cached;
 
         // 1. Check Supabase Auth user_metadata cloud state (Sync across Mobile & Laptop)
@@ -8752,6 +8811,14 @@
           setupOnboardingView(user);
           showAuthPage('onboarding');
         } else {
+          const cached = DataService.getCachedUserData(user.id);
+          if (cached) {
+            currentUserData = cached;
+            ensureDataIntegrity(currentUserData);
+            calculateFinancials(currentUserData);
+            updatePersonalizedHeader();
+            renderAll();
+          }
           await loadUserDataAndRender(user.id);
           showAuthPage('app');
           showToast(`Welcome back, ${user.fullName}! 👋`);
@@ -9442,6 +9509,14 @@
         localStorage.setItem('adhd_onboarded_' + user.id, 'true');
         persistUserSession(currentUser);
         setActiveSession(currentUser, true);
+        const cached = DataService.getCachedUserData(user.id);
+        if (cached) {
+          currentUserData = cached;
+          ensureDataIntegrity(currentUserData);
+          calculateFinancials(currentUserData);
+          updatePersonalizedHeader();
+          renderAll();
+        }
         await loadUserDataAndRender(currentUser.id);
         showAuthPage('app');
         checkMonthlyBudgetReview();
@@ -9501,6 +9576,22 @@
         console.warn('Sync link parse error:', e);
       }
 
+      // FAST PATH: Instant Local Session & 0ms UI Render (Zero lag, zero flash, exact up-to-date numbers!)
+      const validUser = getValidStoredUser();
+      if (validUser) {
+        currentUser = validUser;
+        const cached = DataService.getCachedUserData(validUser.id);
+        if (cached) {
+          currentUserData = cached;
+          ensureDataIntegrity(currentUserData);
+          calculateFinancials(currentUserData);
+          updatePersonalizedHeader();
+          renderAll();
+        }
+        showAuthPage('app');
+        checkMonthlyBudgetReview();
+      }
+
       initSupabaseClient();
 
       if (supabaseClient) {
@@ -9518,16 +9609,20 @@
             return;
           }
 
-          if (event === 'SIGNED_IN' && session?.user && !currentUser) {
+          if (event === 'SIGNED_IN' && session?.user && (!currentUser || currentUser.id !== session.user.id)) {
             await restoreUserSession(session.user);
           }
         });
 
-        // Restore authenticated session after page reload or return visit
+        // Background session verification and cloud sync
         try {
           const { data: { session }, error } = await supabaseClient.auth.getSession();
           if (session && session.user) {
             await restoreUserSession(session.user);
+            return;
+          } else if (!validUser) {
+            clearUserSession();
+            showAuthPage('welcome');
             return;
           }
         } catch (sessionErr) {
@@ -9535,15 +9630,9 @@
         }
       }
 
-      // 5-Day Browser Session Check:
-      // If user logged in within the last 5 days in this browser, restore session instantly without flash
-      const validUser = getValidStoredUser();
       if (validUser) {
         try {
-          currentUser = validUser;
-          await loadUserDataAndRender(currentUser.id);
-          showAuthPage('app');
-          checkMonthlyBudgetReview();
+          await loadUserDataAndRender(validUser.id);
           return;
         } catch (e) {
           console.warn('Could not restore user data:', e);
