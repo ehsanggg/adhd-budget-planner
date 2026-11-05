@@ -6,13 +6,13 @@
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
-  <title>ADHD Budget Planner – Calm & Mindful Money</title>
+  <title>AvyoraCo – ADHD Budget Planner</title>
 
   <!-- Immediate Production Cache Bust & Stale Session Purge -->
   <script>
     (function() {
       try {
-        var APP_CACHE_VERSION = 'v3.8_greeting_and_task_cards';
+        var APP_CACHE_VERSION = 'v3.9_avyoraco_brand_update';
         if (localStorage.getItem('adhd_app_version') !== APP_CACHE_VERSION) {
           localStorage.removeItem('adhd_db_data_demo_user_sunny');
           localStorage.removeItem('adhd_user_sunny');
@@ -421,7 +421,7 @@
         </div>
         <div>
           <span class="text-[11px] font-bold uppercase tracking-wider text-[#994B78] dark:text-[#E889B5] block">Private Customer Portal</span>
-          <span class="text-base font-bold tracking-tight text-[#38283A] dark:text-[#FDF7FB] leading-tight">Mindful Money</span>
+          <span class="text-base font-bold tracking-tight text-[#38283A] dark:text-[#FDF7FB] leading-tight">AvyoraCo</span>
         </div>
       </div>
 
@@ -501,7 +501,7 @@
 
     <!-- Footer -->
     <footer class="max-w-md w-full mx-auto text-center text-[11px] text-[#A796A6] dark:text-[#887487] relative z-10">
-      Mindful Money ADHD Planner • Protected Digital Edition
+      AvyoraCo ADHD Planner • Protected Digital Edition
     </footer>
   </div>
 
@@ -522,7 +522,7 @@
           <i data-lucide="sprout" class="w-5 h-5"></i>
         </div>
         <div>
-          <span class="text-[11px] font-bold uppercase tracking-wider text-sage-600 dark:text-forest-mint block">Mindful Money</span>
+          <span class="text-[11px] font-bold uppercase tracking-wider text-sage-600 dark:text-forest-mint block">AvyoraCo</span>
           <span class="text-base font-bold tracking-tight text-warm-text dark:text-forest-text leading-tight">ADHD Budget Planner</span>
         </div>
       </div>
@@ -614,7 +614,7 @@
           <div class="w-7 h-7 rounded-xl bg-sage-100 dark:bg-forest-surfaceMuted flex items-center justify-center text-sage-600 dark:text-forest-mint">
             <i data-lucide="sprout" class="w-4 h-4"></i>
           </div>
-          <span class="text-xs font-bold text-warm-text dark:text-forest-text">Mindful Money</span>
+          <span class="text-xs font-bold text-warm-text dark:text-forest-text">AvyoraCo</span>
         </div>
       </div>
 
@@ -635,7 +635,7 @@
           <label class="block text-xs font-semibold text-warm-textMuted dark:text-forest-textMuted uppercase tracking-wider mb-1">
             Unique Username <span class="text-rose-500">*</span>
           </label>
-          <input type="text" id="signup-username" required placeholder="e.g. alex_mindful" class="w-full px-4 py-2.5 rounded-2xl bg-warm-surfaceMuted dark:bg-forest-surfaceMuted border border-warm-border dark:border-forest-border text-warm-text dark:text-forest-text text-sm focus:outline-none focus:ring-2 focus:ring-sage-500">
+          <input type="text" id="signup-username" required placeholder="e.g. alex_avyora" class="w-full px-4 py-2.5 rounded-2xl bg-warm-surfaceMuted dark:bg-forest-surfaceMuted border border-warm-border dark:border-forest-border text-warm-text dark:text-forest-text text-sm focus:outline-none focus:ring-2 focus:ring-sage-500">
         </div>
 
         <div>
@@ -698,7 +698,7 @@
           <div class="w-7 h-7 rounded-xl bg-sage-100 dark:bg-forest-surfaceMuted flex items-center justify-center text-sage-600 dark:text-forest-mint">
             <i data-lucide="sprout" class="w-4 h-4"></i>
           </div>
-          <span class="text-xs font-bold text-warm-text dark:text-forest-text">Mindful Money</span>
+          <span class="text-xs font-bold text-warm-text dark:text-forest-text">AvyoraCo</span>
         </div>
       </div>
 
@@ -870,7 +870,7 @@
               </svg>
             </div>
             <div>
-              <h1 class="text-sm font-extrabold tracking-tight text-[#38283A] dark:text-[#FDF7FB] leading-tight">Mindful Money</h1>
+              <h1 class="text-sm font-extrabold tracking-tight text-[#38283A] dark:text-[#FDF7FB] leading-tight">AvyoraCo</h1>
               <span class="text-[10px] font-medium text-[#887487] dark:text-[#D4BFD2] block">ADHD Budget Planner</span>
             </div>
           </div>
@@ -9119,8 +9119,8 @@
 
     function updatePersonalizedHeader() {
       if (!currentUser) return;
-      const fullName = (currentUser.fullName || currentUser.username || 'Sunny').trim();
-      const firstName = fullName.split(' ')[0] || 'Sunny';
+      const fullName = (currentUser.fullName || currentUser.username || 'Friend').trim();
+      const firstName = fullName.split(' ')[0] || 'Friend';
       const hour = new Date().getHours();
       
       // Dynamic time greeting: Good Morning (5am-12pm), Good Afternoon (12pm-5pm), Good Evening (5pm-9pm), Good Night (9pm-5am)
@@ -9359,7 +9359,7 @@
         localStorage.setItem('adhd_etsy_token_used', token);
         document.documentElement.classList.remove('is-restricted');
         triggerGentleConfetti();
-        showToast('Access Unlocked! Welcome to your Mindful Money Planner 🌸✨');
+        showToast('Access Unlocked! Welcome to your AvyoraCo Planner 🌸✨');
         initApplication();
       } else {
         if (errorBox) {
