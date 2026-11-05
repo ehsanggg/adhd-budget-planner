@@ -12,7 +12,7 @@
   <script>
     (function() {
       try {
-        var APP_CACHE_VERSION = 'v3.2_production_strict_gate';
+        var APP_CACHE_VERSION = 'v3.3_samples_and_calendar';
         if (localStorage.getItem('adhd_app_version') !== APP_CACHE_VERSION) {
           localStorage.removeItem('adhd_active_user');
           localStorage.removeItem('adhd_session_expires_at');
@@ -4461,9 +4461,18 @@
         if (c.spent === undefined) c.spent = 0;
       });
 
-      // Guarantee expensesHistory exists & normalize fields
-      if (!data.expensesHistory) {
-        data.expensesHistory = [];
+      // Guarantee expensesHistory exists & seed sample expenses if empty
+      if (!data.expensesHistory || data.expensesHistory.length === 0) {
+        if (!data._userClearedExpenses) {
+          const today = getTodayIso();
+          data.expensesHistory = [
+            { id: 'exp_init_1', expense_name: 'Weekly groceries & fruit haul', amount: 45.00, category: 'Groceries', expense_date: today, note: 'Pantry staples & fresh fruits' },
+            { id: 'exp_init_2', expense_name: 'Transit pass reload', amount: 25.00, category: 'Transport', expense_date: today, note: 'Metro card top-up' },
+            { id: 'exp_init_3', expense_name: 'Mindful coffee & journal', amount: 15.00, category: 'Personal', expense_date: today, note: 'Calm morning focus reset' }
+          ];
+        } else {
+          data.expensesHistory = [];
+        }
       }
       data.expensesHistory.forEach(exp => {
         exp.id = exp.id || ('exp_' + Math.random().toString(36).substr(2, 9));
@@ -4473,9 +4482,46 @@
         exp.category = exp.category || 'Other';
       });
 
-      // Guarantee bills structure & normalize
-      if (!data.bills) {
-        data.bills = [];
+      // Guarantee bills structure & seed sample bills if empty
+      if (!data.bills || data.bills.length === 0) {
+        if (!data._userClearedBills) {
+          data.bills = [
+            {
+              id: 'bill_init_1',
+              name: 'Electricity Utility',
+              bill_name: 'Electricity Utility',
+              amount: 120,
+              dueDate: 'January 24',
+              due_date: 'January 24',
+              category: 'Housing',
+              category_name: 'Housing',
+              paid: false,
+              status: 'pending',
+              is_paid: false,
+              paid_at: null,
+              recurring_frequency: 'monthly',
+              notes: 'City power utility account'
+            },
+            {
+              id: 'bill_init_2',
+              name: 'High-speed Internet',
+              bill_name: 'High-speed Internet',
+              amount: 60,
+              dueDate: 'January 28',
+              due_date: 'January 28',
+              category: 'Other',
+              category_name: 'Other',
+              paid: false,
+              status: 'pending',
+              is_paid: false,
+              paid_at: null,
+              recurring_frequency: 'monthly',
+              notes: 'Fiber home connection'
+            }
+          ];
+        } else {
+          data.bills = [];
+        }
       }
       data.bills.forEach(b => {
         b.id = b.id || ('b_' + Math.random().toString(36).substr(2, 9));
@@ -5076,7 +5122,7 @@
     function renderCalendarGrid() {
       const grid = document.getElementById('calendar-days-grid');
       const label = document.getElementById('calendar-month-year-label');
-      if (!grid || !label) return;
+      if (!grid || !label || !currentUserData) return;
 
       const year = calendarState.currentYear;
       const month = calendarState.currentMonth;
@@ -5100,7 +5146,7 @@
       for (let i = firstDayIndex - 1; i >= 0; i--) {
         const dayNum = prevMonthTotalDays - i;
         const span = document.createElement('div');
-        span.className = 'p-3 text-warm-textSubtle/30 text-xs select-none';
+        span.className = 'h-11 sm:h-12 flex items-center justify-center text-[#887487]/30 dark:text-[#D4BFD2]/20 text-xs select-none';
         span.textContent = dayNum;
         grid.appendChild(span);
       }
@@ -5112,7 +5158,7 @@
         const iso = `${year}-${monthStr}-${dayStr}`;
 
         // Find scheduled tasks for this date
-        const dayTasks = (currentUserData.calendarTasks || []).filter(t => doesTaskApplyToDate(t, iso));
+        const dayTasks = ((currentUserData && currentUserData.calendarTasks) || []).filter(t => doesTaskApplyToDate(t, iso));
 
         const isToday = iso === todayIso;
         const isSelected = iso === calendarState.selectedDate;
@@ -5121,13 +5167,13 @@
         btn.type = 'button';
         btn.onclick = () => selectCalendarDate(iso);
 
-        let baseClasses = 'relative p-2.5 rounded-2xl flex flex-col items-center justify-center transition-all cursor-pointer select-none text-xs ';
+        let baseClasses = 'relative h-11 sm:h-12 rounded-2xl flex flex-col items-center justify-center transition-all cursor-pointer select-none text-xs ';
         if (isSelected) {
-          baseClasses += 'bg-sage-500 text-white font-bold shadow-sm';
+          baseClasses += 'bg-gradient-to-r from-[#D66A9A] to-[#BA5382] text-white font-extrabold shadow-md scale-105';
         } else if (isToday) {
-          baseClasses += 'bg-sage-100 text-sage-800 dark:bg-forest-surfaceMuted dark:text-forest-mint font-bold border border-sage-300 dark:border-forest-mint/50';
+          baseClasses += 'bg-[#FCECF3] dark:bg-[#3E2242] text-[#994B78] dark:text-[#E889B5] font-extrabold border-2 border-[#D66A9A] dark:border-[#E889B5]';
         } else {
-          baseClasses += 'text-warm-text dark:text-forest-text hover:bg-warm-surfaceMuted dark:hover:bg-forest-surfaceMuted';
+          baseClasses += 'text-[#38283A] dark:text-[#FDF7FB] hover:bg-[#FCECF3]/60 dark:hover:bg-[#34203A] font-medium';
         }
         btn.className = baseClasses;
 
@@ -5137,14 +5183,14 @@
         // Colored Indicator Dots for Scheduled Tasks
         if (dayTasks.length > 0) {
           const dotsContainer = document.createElement('div');
-          dotsContainer.className = 'flex items-center space-x-1 mt-1';
+          dotsContainer.className = 'flex items-center space-x-1 mt-0.5';
           
           // Display up to 3 indicator dots
           dayTasks.slice(0, 3).forEach(task => {
-            const tcat = currentUserData.taskCategories.find(c => c.name === task.category_name);
+            const tcat = (currentUserData.taskCategories || []).find(c => c.name === task.category_name);
             const colorMeta = tcat ? (TASK_COLORS[tcat.color] || TASK_COLORS.purple) : TASK_COLORS.purple;
             const dot = document.createElement('span');
-            dot.className = `w-1.5 h-1.5 rounded-full ${isSelected ? 'bg-white' : colorMeta.dot}`;
+            dot.className = `w-1.5 h-1.5 rounded-full ${isSelected ? 'bg-white' : (colorMeta.dot || 'bg-[#D66A9A]')}`;
             dotsContainer.appendChild(dot);
           });
           btn.appendChild(dotsContainer);
@@ -5152,6 +5198,17 @@
 
         grid.appendChild(btn);
       }
+
+      // Next month trailing days to complete 7-day rows
+      const totalCells = firstDayIndex + totalDays;
+      const remainingCells = (7 - (totalCells % 7)) % 7;
+      for (let j = 1; j <= remainingCells; j++) {
+        const span = document.createElement('div');
+        span.className = 'h-11 sm:h-12 flex items-center justify-center text-[#887487]/30 dark:text-[#D4BFD2]/20 text-xs select-none';
+        span.textContent = j;
+        grid.appendChild(span);
+      }
+
       if (window.lucide) lucide.createIcons();
     }
 
@@ -5161,7 +5218,7 @@
       const subtitleEl = document.getElementById('selected-date-tasks-subtitle');
       if (!container || !currentUserData) return;
 
-      const iso = calendarState.selectedDate;
+      const iso = calendarState.selectedDate || getTodayIso();
       const dateParts = iso.split('-');
       const dateObj = new Date(parseInt(dateParts[0]), parseInt(dateParts[1]) - 1, parseInt(dateParts[2]));
       const options = { weekday: 'short', month: 'short', day: 'numeric' };
@@ -8099,6 +8156,9 @@
       }
 
       currentUserData.bills = currentUserData.bills.filter(b => b.id !== billId);
+      if (currentUserData.bills.length === 0) {
+        currentUserData._userClearedBills = true;
+      }
       saveAndRefreshAll();
       showToast(`Bill "${bill.name}" removed. Records updated 🌱`);
     }
@@ -8306,6 +8366,9 @@
       }
 
       currentUserData.expensesHistory = currentUserData.expensesHistory.filter(e => e.id !== expenseId);
+      if (currentUserData.expensesHistory.length === 0) {
+        currentUserData._userClearedExpenses = true;
+      }
       saveAndRefreshAll();
       showToast(`Removed "${expName}". Figures updated 🌱`);
 
@@ -8522,17 +8585,59 @@
       const personalAlloc = parseFloat(document.getElementById('onboarding-cat-personal').value) || 300;
       const otherAlloc = parseFloat(document.getElementById('onboarding-cat-other').value) || 400;
 
+      const today = getTodayIso();
+      const sampleExpenses = [
+        { id: 'exp_s1', expense_name: 'Weekly groceries & fruit haul', amount: 45.00, category: 'Groceries', expense_date: today, note: 'Pantry staples & fresh fruits' },
+        { id: 'exp_s2', expense_name: 'Transit pass reload', amount: 25.00, category: 'Transport', expense_date: today, note: 'Metro card top-up' },
+        { id: 'exp_s3', expense_name: 'Mindful coffee & journal', amount: 15.00, category: 'Personal', expense_date: today, note: 'Calm morning focus reset' }
+      ];
+
+      const sampleBills = [
+        {
+          id: 'bill_s1',
+          name: 'Electricity Utility',
+          bill_name: 'Electricity Utility',
+          amount: 120,
+          dueDate: 'January 24',
+          due_date: 'January 24',
+          category: 'Housing',
+          category_name: 'Housing',
+          paid: false,
+          status: 'pending',
+          is_paid: false,
+          paid_at: null,
+          recurring_frequency: 'monthly',
+          notes: 'City power utility account'
+        },
+        {
+          id: 'bill_s2',
+          name: 'High-speed Internet',
+          bill_name: 'High-speed Internet',
+          amount: 60,
+          dueDate: 'January 28',
+          due_date: 'January 28',
+          category: 'Other',
+          category_name: 'Other',
+          paid: false,
+          status: 'pending',
+          is_paid: false,
+          paid_at: null,
+          recurring_frequency: 'monthly',
+          notes: 'Fiber home connection'
+        }
+      ];
+
       const userDataset = getDefaultInitialData(currentUser.id, currency, totalBudget);
       userDataset.budgetMonth = budgetMonth;
-      userDataset.expensesHistory = []; // Fresh start with 0 expenses for registered user
-      userDataset.bills = []; // Fresh start with 0 bills for registered user
-      userDataset.spentTotal = 0;
-      userDataset.remainingBudget = totalBudget;
+      userDataset.expensesHistory = sampleExpenses;
+      userDataset.bills = sampleBills;
+      userDataset.spentTotal = 85.00;
+      userDataset.remainingBudget = Math.max(0, totalBudget - 85.00);
       userDataset.categories = [
         { id: 'cat_housing', name: 'Housing', icon: 'home', planned: housingAlloc, spent: 0, archived: false },
-        { id: 'cat_groceries', name: 'Groceries', icon: 'shopping-bag', planned: groceriesAlloc, spent: 0, archived: false },
-        { id: 'cat_transport', name: 'Transport', icon: 'car', planned: transportAlloc, spent: 0, archived: false },
-        { id: 'cat_personal', name: 'Personal', icon: 'sparkles', planned: personalAlloc, spent: 0, archived: false },
+        { id: 'cat_groceries', name: 'Groceries', icon: 'shopping-bag', planned: groceriesAlloc, spent: 45.00, archived: false },
+        { id: 'cat_transport', name: 'Transport', icon: 'car', planned: transportAlloc, spent: 25.00, archived: false },
+        { id: 'cat_personal', name: 'Personal', icon: 'sparkles', planned: personalAlloc, spent: 15.00, archived: false },
         { id: 'cat_other', name: 'Other', icon: 'tag', planned: otherAlloc, spent: 0, archived: false }
       ];
 
@@ -8778,12 +8883,14 @@
         sidebar.classList.add('-translate-x-full');
       }
 
+      if (viewName === 'overview') renderAll();
       if (viewName === 'focus') renderFocusView();
       if (viewName === 'mood') renderMoodView();
       if (viewName === 'meals') renderMealsView();
       if (viewName === 'expenses') renderExpensesTable();
       if (viewName === 'budget') renderBudgetViewCategories();
       if (viewName === 'bills') renderBillsListFull();
+      if (viewName === 'calendar') renderCalendarAndTasks();
       if (viewName === 'habits') renderHabitsView();
       if (viewName === 'selfcare') renderSelfCareView();
       if (viewName === 'debt') renderDebtView();
