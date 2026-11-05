@@ -98,14 +98,29 @@
     };
   </script>
 
-  <!-- Lucide Icons -->
-  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Lucide Icons (Bundled locally + CDN fallback) -->
+  <script src="lucide.min.js"></script>
+  <script>
+    if (typeof lucide === 'undefined') {
+      document.write('<script src="https://unpkg.com/lucide@latest"><\/script>');
+    }
+  </script>
   
-  <!-- Canvas Confetti for gentle positive reinforcement -->
-  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <!-- Canvas Confetti (Bundled locally + CDN fallback) -->
+  <script src="confetti.browser.min.js"></script>
+  <script>
+    if (typeof confetti === 'undefined') {
+      document.write('<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"><\/script>');
+    }
+  </script>
 
-  <!-- Supabase JS Client library via CDN -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <!-- Supabase JS Client (Bundled locally + CDN fallback) -->
+  <script src="supabase.js"></script>
+  <script>
+    if (typeof supabase === 'undefined') {
+      document.write('<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"><\/script>');
+    }
+  </script>
   <!-- Supabase Configuration (Loads window.__ENV__) -->
   <script src="config.js"></script>
 
@@ -6689,7 +6704,6 @@
     let focusTimerTotal = 25 * 60;
     let focusTimerRunning = false;
     let focusTimerModeName = 'Focus';
-    let audioCtx = null;
     let ambientNoiseNode = null;
     let ambientGainNode = null;
     let currentAmbientType = 'stop';
