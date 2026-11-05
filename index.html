@@ -12,16 +12,10 @@
   <script>
     (function() {
       try {
-        var APP_CACHE_VERSION = 'v3.3_samples_and_calendar';
+        var APP_CACHE_VERSION = 'v3.4_cross_device_sync';
         if (localStorage.getItem('adhd_app_version') !== APP_CACHE_VERSION) {
-          localStorage.removeItem('adhd_active_user');
-          localStorage.removeItem('adhd_session_expires_at');
-          localStorage.removeItem('adhd_remember_me');
-          localStorage.removeItem('adhd_db_session');
           localStorage.removeItem('adhd_db_data_demo_user_sunny');
           localStorage.removeItem('adhd_user_sunny');
-          sessionStorage.clear();
-          document.documentElement.classList.remove('is-authenticated');
           localStorage.setItem('adhd_app_version', APP_CACHE_VERSION);
         }
       } catch (e) {}
@@ -992,7 +986,7 @@
 
               <div class="flex items-baseline space-x-3 pt-1">
                 <h3 id="hero-remaining-budget" class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-[#994B78] dark:text-[#E889B5]">
-                  $1,165
+                  --
                 </h3>
                 <span class="text-sm sm:text-base font-semibold text-[#887487] dark:text-[#D4BFD2]">safe to spend this month</span>
               </div>
@@ -1005,11 +999,11 @@
             <div class="flex items-center gap-3 sm:gap-4 flex-wrap">
               <div class="px-5 py-3.5 rounded-2xl bg-[#FFF9FC] dark:bg-[#34213B] border border-[#F4E1EC] dark:border-[#412B4A] shadow-soft">
                 <span class="text-[11px] font-semibold text-[#887487] dark:text-[#D4BFD2] uppercase tracking-wider block">Total Budget</span>
-                <span id="hero-total-budget" class="text-xl sm:text-2xl font-bold text-[#38283A] dark:text-[#FDF7FB]">$2,500</span>
+                <span id="hero-total-budget" class="text-xl sm:text-2xl font-bold text-[#38283A] dark:text-[#FDF7FB]">--</span>
               </div>
               <div class="px-5 py-3.5 rounded-2xl bg-[#FFF9FC] dark:bg-[#34213B] border border-[#F4E1EC] dark:border-[#412B4A] shadow-soft">
                 <span class="text-[11px] font-semibold text-[#887487] dark:text-[#D4BFD2] uppercase tracking-wider block">Spent</span>
-                <span id="hero-spent-amount" class="text-xl sm:text-2xl font-bold text-[#994B78] dark:text-[#E889B5]">$1,335</span>
+                <span id="hero-spent-amount" class="text-xl sm:text-2xl font-bold text-[#994B78] dark:text-[#E889B5]">--</span>
               </div>
             </div>
           </div>
@@ -1018,21 +1012,21 @@
           <div class="mt-8 space-y-2 relative z-10">
             <div class="flex items-center justify-between text-xs sm:text-sm font-semibold">
               <span id="hero-percentage-text" class="text-[#887487] dark:text-[#D4BFD2]">
-                <span class="text-[#994B78] dark:text-[#E889B5] font-extrabold">53.4%</span> of the budget has been spent
+                <span class="text-[#994B78] dark:text-[#E889B5] font-extrabold">0%</span> of the budget spent
               </span>
               <span id="hero-bar-fraction" class="text-[#A796A6] dark:text-[#A692A4] font-mono text-xs hidden">
-                $1,335 / $2,500
+                --
               </span>
             </div>
 
             <div class="w-full h-3 bg-[#F9DFEB]/50 dark:bg-[#3E2445] rounded-full overflow-hidden p-0.5">
-              <div id="hero-progress-bar" class="progress-fill h-full rounded-full bg-gradient-to-r from-[#D66A9A] via-[#B84E7E] to-[#994B78] shadow-sm" style="width: 53.4%;"></div>
+              <div id="hero-progress-bar" class="progress-fill h-full rounded-full bg-gradient-to-r from-[#D66A9A] via-[#B84E7E] to-[#994B78] shadow-sm" style="width: 0%;"></div>
             </div>
 
             <div class="flex items-center justify-between text-[11px] text-[#887487] dark:text-[#D4BFD2] font-medium pt-0.5">
               <span>$0 (Start of Month)</span>
-              <span>Halfway: $1,250 (50%)</span>
-              <span id="hero-bar-limit-label">$2,500 (Budget Limit)</span>
+              <span>Halfway</span>
+              <span id="hero-bar-limit-label">Budget Limit</span>
             </div>
           </div>
         </section>
@@ -1046,7 +1040,7 @@
             </div>
             <div class="space-y-0.5">
               <p class="text-xs font-semibold text-[#887487] dark:text-[#D4BFD2]">Total Budget</p>
-              <h4 id="card-total-budget" class="text-2xl font-extrabold text-[#38283A] dark:text-[#FDF7FB]">$2,500</h4>
+              <h4 id="card-total-budget" class="text-2xl font-extrabold text-[#38283A] dark:text-[#FDF7FB]">--</h4>
               <p id="card-budget-month-label" class="text-[10px] text-[#A796A6] dark:text-[#A692A4]">Planned cap</p>
             </div>
           </div>
@@ -1058,8 +1052,8 @@
             </div>
             <div class="space-y-0.5">
               <p class="text-xs font-semibold text-[#887487] dark:text-[#D4BFD2]">Total Spent</p>
-              <h4 id="card-total-spent" class="text-2xl font-extrabold text-[#38283A] dark:text-[#FDF7FB]">$1,335</h4>
-              <p id="card-spent-percentage-label" class="text-[11px] text-[#887487] dark:text-[#D4BFD2]">53.4% of total cap</p>
+              <h4 id="card-total-spent" class="text-2xl font-extrabold text-[#38283A] dark:text-[#FDF7FB]">--</h4>
+              <p id="card-spent-percentage-label" class="text-[11px] text-[#887487] dark:text-[#D4BFD2]">0% of cap</p>
             </div>
           </div>
 
@@ -1070,8 +1064,8 @@
             </div>
             <div class="space-y-0.5">
               <p class="text-xs font-semibold text-[#887487] dark:text-[#D4BFD2]">Remaining</p>
-              <h4 id="card-remaining" class="text-2xl font-extrabold text-[#38283A] dark:text-[#FDF7FB]">$1,165</h4>
-              <p id="card-remaining-subtext" class="text-[11px] text-[#887487] dark:text-[#D4BFD2]">46.6% left</p>
+              <h4 id="card-remaining" class="text-2xl font-extrabold text-[#38283A] dark:text-[#FDF7FB]">--</h4>
+              <p id="card-remaining-subtext" class="text-[11px] text-[#887487] dark:text-[#D4BFD2]">Safe to spend</p>
             </div>
           </div>
 
@@ -4167,7 +4161,35 @@
           if (raw) cached = JSON.parse(raw);
         } catch (e) {}
 
-        let dataset = cached || getDefaultInitialData(userId);
+        let dataset = cached;
+
+        // 1. Check Supabase Auth user_metadata cloud state (Sync across Mobile & Laptop)
+        if (supabaseClient) {
+          try {
+            const { data: { user }, error: userErr } = await supabaseClient.auth.getUser();
+            if (user && user.user_metadata && user.user_metadata.app_data) {
+              const cloudData = user.user_metadata.app_data;
+              const cloudTimestamp = user.user_metadata.app_updated_at || 0;
+              const localTimestamp = parseInt(localStorage.getItem('adhd_last_saved_' + userId) || '0', 10);
+              
+              if (!cached || cloudTimestamp >= localTimestamp) {
+                dataset = cloudData;
+              } else if (cached && localTimestamp > cloudTimestamp) {
+                // Local is newer! Push to cloud so other devices get latest immediately
+                DataService.saveUserData(userId, cached);
+              }
+            } else if (cached && user) {
+              // Laptop has existing local data ($2,267 and paid bills): Push to cloud immediately!
+              DataService.saveUserData(userId, cached);
+            }
+          } catch (cloudErr) {
+            console.warn('Supabase cloud metadata load notice:', cloudErr);
+          }
+        }
+
+        if (!dataset) {
+          dataset = getDefaultInitialData(userId);
+        }
 
         if (supabaseClient) {
           try {
@@ -4256,6 +4278,8 @@
           }
         }
 
+        ensureDataIntegrity(dataset);
+        calculateFinancials(dataset);
         localStorage.setItem(STORAGE_KEY_USER_DATA_PREFIX + userId, JSON.stringify(dataset));
         return dataset;
       },
@@ -4263,9 +4287,20 @@
       async saveUserData(userId, data) {
         if (!userId || !data) return;
         localStorage.setItem(STORAGE_KEY_USER_DATA_PREFIX + userId, JSON.stringify(data));
+        localStorage.setItem('adhd_last_saved_' + userId, Date.now().toString());
 
         if (supabaseClient) {
           try {
+            // Push full user state to Supabase Auth metadata for seamless real-time mobile/laptop sync!
+            await supabaseClient.auth.updateUser({
+              data: {
+                app_data: data,
+                app_updated_at: Date.now(),
+                onboarded: true,
+                currency: data.currency || '$'
+              }
+            });
+
             await supabaseClient.from('monthly_budgets').upsert({
               user_id: userId,
               month_year: data.budgetMonth || 'January 2025',
@@ -4316,16 +4351,17 @@
       return {
         userId: userId,
         totalBudget: totalBudget,
-        spentTotal: 1335,
+        spentTotal: 85,
+        remainingBudget: Math.max(0, totalBudget - 85),
         currency: currency,
         budgetMonth: 'January 2025',
         // 1. Fully Customizable Budget Categories
         categories: [
-          { id: 'cat_housing', name: 'Housing', icon: 'home', planned: 600, spent: 600, archived: false },
+          { id: 'cat_housing', name: 'Housing', icon: 'home', planned: 600, spent: 0, archived: false },
           { id: 'cat_groceries', name: 'Groceries', icon: 'shopping-bag', planned: 400, spent: 45, archived: false },
-          { id: 'cat_transport', name: 'Transport', icon: 'car', planned: 200, spent: 120, archived: false },
-          { id: 'cat_personal', name: 'Personal', icon: 'sparkles', planned: 300, spent: 180, archived: false },
-          { id: 'cat_other', name: 'Other', icon: 'tag', planned: 400, spent: 225, archived: false }
+          { id: 'cat_transport', name: 'Transport', icon: 'car', planned: 200, spent: 25, archived: false },
+          { id: 'cat_personal', name: 'Personal', icon: 'sparkles', planned: 300, spent: 15, archived: false },
+          { id: 'cat_other', name: 'Other', icon: 'tag', planned: 400, spent: 0, archived: false }
         ],
         // 2. Separate Custom Task Categories
         taskCategories: [
@@ -4418,15 +4454,11 @@
             notes: 'Fiber home connection'
           }
         ],
-        // Realistic initial expenses matching the $1,335 total spent
+        // 3 Sample starter expenses totaling $85 so user can edit or delete them
         expensesHistory: [
-          { id: 'exp_demo_1', expense_name: 'Rent Payment', amount: 600.00, category: 'Housing', expense_date: '2025-01-05', note: 'Monthly studio apartment rent' },
-          { id: 'exp_demo_2', expense_name: 'Supermarket weekly haul', amount: 120.00, category: 'Groceries', expense_date: '2025-01-18', note: 'Pantry staples and fresh greens' },
-          { id: 'exp_demo_3', expense_name: 'Organic fruits & veggies', amount: 90.00, category: 'Groceries', expense_date: '2025-01-21', note: 'Farmer market apples & avocados' },
-          { id: 'exp_demo_4', expense_name: 'Monthly transit pass', amount: 120.00, category: 'Transport', expense_date: '2025-01-08', note: 'Subway & bus card recharge' },
-          { id: 'exp_demo_5', expense_name: 'Calm bookstore & journaling', amount: 100.00, category: 'Personal', expense_date: '2025-01-12', note: 'Guided planner & soothing pens' },
-          { id: 'exp_demo_6', expense_name: 'Cozy tea spot', amount: 80.00, category: 'Personal', expense_date: '2025-01-19', note: 'Weekend reset herbal tea' },
-          { id: 'exp_demo_7', expense_name: 'Home desk organizers', amount: 225.00, category: 'Other', expense_date: '2025-01-15', note: 'ADHD clutter-free desk storage bins' }
+          { id: 'exp_init_1', expense_name: 'Weekly groceries & fruit haul', amount: 45.00, category: 'Groceries', expense_date: '2025-01-18', note: 'Pantry staples & fresh fruits' },
+          { id: 'exp_init_2', expense_name: 'Transit pass reload', amount: 25.00, category: 'Transport', expense_date: '2025-01-08', note: 'Metro card top-up' },
+          { id: 'exp_init_3', expense_name: 'Mindful coffee & journal', amount: 15.00, category: 'Personal', expense_date: '2025-01-12', note: 'Calm morning focus reset' }
         ]
       };
     }
@@ -5569,13 +5601,14 @@
         const current = state.waterGlasses || 0;
         for (let i = 1; i <= goal; i++) {
           const filled = i <= current;
-          const glass = document.createElement('div');
-          glass.className = `p-2.5 rounded-2xl border text-center cursor-pointer transition-all ${
+          const glass = document.createElement('button');
+          glass.type = 'button';
+          glass.className = `p-2.5 rounded-2xl border text-center cursor-pointer transition-all active:scale-95 ${
             filled 
               ? 'bg-sky-100 dark:bg-sky-900/50 border-sky-300 dark:border-sky-700 text-sky-600 dark:text-sky-300 shadow-sm scale-[1.02]' 
               : 'bg-[#FFF9FC] dark:bg-[#34213B] border-[#F4E1EC] dark:border-[#412B4A] text-[#887487] dark:text-[#D4BFD2] opacity-70 hover:opacity-100'
           }`;
-          glass.title = `Glass ${i}: Click to set`;
+          glass.title = `Glass ${i}: Click to toggle`;
           glass.onclick = () => toggleWaterGlass(i);
           glass.innerHTML = `
             <div class="text-xl mb-1">${filled ? '🥛' : '🫙'}</div>
@@ -5660,43 +5693,57 @@
     }
 
     function incrementWaterGlass() {
-      if (!currentUserData || !currentUserData.habitState) return;
-      let curr = currentUserData.habitState.waterGlasses || 0;
+      if (!currentUserData) return;
+      if (!currentUserData.habitState) {
+        currentUserData.habitState = { waterGlasses: 0, waterGoal: 8, habits: [] };
+      }
+      let curr = parseInt(currentUserData.habitState.waterGlasses || 0, 10);
       if (curr < 12) {
         curr++;
         currentUserData.habitState.waterGlasses = curr;
-        if (curr === (currentUserData.habitState.waterGoal || 8)) {
+        if (curr >= (currentUserData.habitState.waterGoal || 8)) {
           const waterHabit = (currentUserData.habitState.habits || []).find(h => h.id === 'h_water');
           if (waterHabit) waterHabit.completed = true;
           triggerGentleConfetti();
-          showToast("Hydration goal reached! 8 glasses done 💧");
+          showToast("Hydration goal reached! 💧");
         }
-        saveUserData(currentUser.id, currentUserData);
+        if (currentUser && currentUser.id) saveUserData(currentUser.id, currentUserData);
         renderHabitsView();
       }
     }
 
     function decrementWaterGlass() {
-      if (!currentUserData || !currentUserData.habitState) return;
-      let curr = currentUserData.habitState.waterGlasses || 0;
+      if (!currentUserData) return;
+      if (!currentUserData.habitState) {
+        currentUserData.habitState = { waterGlasses: 0, waterGoal: 8, habits: [] };
+      }
+      let curr = parseInt(currentUserData.habitState.waterGlasses || 0, 10);
       if (curr > 0) {
         curr--;
         currentUserData.habitState.waterGlasses = curr;
-        saveUserData(currentUser.id, currentUserData);
+        if (currentUser && currentUser.id) saveUserData(currentUser.id, currentUserData);
         renderHabitsView();
       }
     }
 
     function toggleWaterGlass(index) {
-      if (!currentUserData || !currentUserData.habitState) return;
-      currentUserData.habitState.waterGlasses = index;
-      if (index >= (currentUserData.habitState.waterGoal || 8)) {
+      if (!currentUserData) return;
+      if (!currentUserData.habitState) {
+        currentUserData.habitState = { waterGlasses: 0, waterGoal: 8, habits: [] };
+      }
+      let curr = parseInt(currentUserData.habitState.waterGlasses || 0, 10);
+      if (curr === index) {
+        currentUserData.habitState.waterGlasses = index - 1;
+      } else {
+        currentUserData.habitState.waterGlasses = index;
+      }
+      if (currentUserData.habitState.waterGlasses >= (currentUserData.habitState.waterGoal || 8)) {
         const waterHabit = (currentUserData.habitState.habits || []).find(h => h.id === 'h_water');
         if (waterHabit) waterHabit.completed = true;
         triggerGentleConfetti();
         showToast("Hydration goal reached! 💧");
       }
-      saveUserData(currentUser.id, currentUserData);
+      if (currentUser && currentUser.id) saveUserData(currentUser.id, currentUserData);
       renderHabitsView();
     }
 
