@@ -12,7 +12,7 @@
   <script>
     (function() {
       try {
-        var APP_CACHE_VERSION = 'v3.7_instant_budget_render';
+        var APP_CACHE_VERSION = 'v3.8_greeting_and_task_cards';
         if (localStorage.getItem('adhd_app_version') !== APP_CACHE_VERSION) {
           localStorage.removeItem('adhd_db_data_demo_user_sunny');
           localStorage.removeItem('adhd_user_sunny');
@@ -22,6 +22,11 @@
     })();
   </script>
   
+  <!-- Google Fonts: Plus Jakarta Sans & Elegant Script (Alex Brush) for Image 1 Greeting -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Playfair+Display:ital,wght@1,500;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
@@ -31,6 +36,7 @@
         extend: {
           fontFamily: {
             sans: ['"Plus Jakarta Sans"', 'Inter', 'system-ui', '-apple-system', 'sans-serif'],
+            cursive: ['"Alex Brush"', 'cursive', 'sans-serif'],
           },
           colors: {
             primary: {
@@ -376,6 +382,9 @@
   <style>
     html {
       zoom: 0.82;
+    }
+    .font-cursive {
+      font-family: 'Alex Brush', 'Playfair Display', cursive, sans-serif !important;
     }
     /* Gatekeeper styling: When restricted, hide all planner sections and show restricted page */
     html.is-restricted #page-restricted { display: flex !important; }
@@ -1066,6 +1075,35 @@
       <!-- ======================================================= -->
       <main id="view-overview" class="flex-1 p-4 sm:p-6 lg:p-8 max-w-7xl w-full mx-auto space-y-6">
 
+        <!-- 0. AESTHETIC GREETING BANNER CARD (EXACT MATCH TO IMAGE 1) -->
+        <section class="w-full relative overflow-hidden rounded-3xl p-6 sm:p-8 bg-gradient-to-r from-[#FFF5FA] via-[#FCECF5] to-[#F9E2EF] dark:from-[#341F39] dark:via-[#2A182E] dark:to-[#3E2242] border border-[#F4E1EC] dark:border-[#4A2D53] shadow-card">
+          <!-- Subtle decorative floral watermark graphic in bottom right -->
+          <svg class="absolute -bottom-8 -right-8 w-60 h-60 text-[#F9DFEB]/40 dark:text-[#4A2D53]/25 pointer-events-none select-none" viewBox="0 0 200 200" fill="currentColor">
+            <path d="M100 10 C125 45 165 75 195 100 C165 125 125 155 100 190 C75 155 35 125 5 100 C35 75 75 45 100 10 Z" opacity="0.3"/>
+            <circle cx="155" cy="145" r="32" opacity="0.2"/>
+            <path d="M140 180 C155 145 185 135 195 105 C185 135 155 165 140 180 Z" opacity="0.3"/>
+          </svg>
+
+          <div class="relative z-10 space-y-3">
+            <!-- Today Pill Badge & Date (Exact Image 1 Match) -->
+            <div class="inline-flex items-center space-x-2 px-3 py-1.5 rounded-full bg-white/90 dark:bg-black/35 border border-[#F4E1EC]/80 dark:border-[#4A2D53] shadow-xs text-xs">
+              <span class="text-[#994B78] dark:text-[#E889B5] font-bold flex items-center gap-1.5">
+                <i data-lucide="sparkles" class="w-3.5 h-3.5 text-[#D66A9A]"></i> Today
+              </span>
+              <span id="greeting-banner-date" class="text-[#887487] dark:text-[#D4BFD2] font-semibold pl-1.5 border-l border-[#F4E1EC] dark:border-[#4A2D53]">
+                Tuesday, October 27, 2026
+              </span>
+            </div>
+
+            <!-- Cursive Greeting Headline (Exact Image 1 Calligraphy Style) -->
+            <div>
+              <h1 id="hero-greeting-title" class="font-cursive text-4xl sm:text-5xl lg:text-6xl text-[#4A2D4B] dark:text-[#F8E7F4] leading-tight tracking-normal">
+                Good Afternoon, Alex
+              </h1>
+            </div>
+          </div>
+        </section>
+
         <!-- NEW MONTH 1ST OF THE MONTH BUDGET PROMPT BANNER -->
         <div id="new-month-budget-banner" class="hidden p-5 sm:p-6 rounded-3xl bg-gradient-to-r from-[#FFF5F9] via-[#FCECF3] to-[#F9DFEB] dark:from-[#3E2242] dark:via-[#28182D] dark:to-[#351A38] border-2 border-[#D66A9A] shadow-card space-y-3">
           <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
@@ -1258,6 +1296,51 @@
                       if (remSub) remSub.textContent = (100 - pct).toFixed(1) + '% left';
                       var monthLbl = document.getElementById('card-budget-month-label');
                       if (monthLbl && d.budgetMonth) monthLbl.textContent = 'Planned for ' + d.budgetMonth;
+
+                      // Synchronous Pre-render Greeting Banner (Image 1)
+                      var now = new Date();
+                      var hr = now.getHours();
+                      var tg = "Good Morning";
+                      if (hr >= 12 && hr < 17) tg = "Good Afternoon";
+                      else if (hr >= 17 && hr < 21) tg = "Good Evening";
+                      else if (hr >= 21 || hr < 5) tg = "Good Night";
+                      var fn = (u.fullName || u.username || 'Alex').trim().split(' ')[0];
+                      var hg = document.getElementById('hero-greeting-title');
+                      if (hg) hg.textContent = tg + ', ' + fn;
+                      var bd = document.getElementById('greeting-banner-date');
+                      if (bd) bd.textContent = now.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
+
+                      // Synchronous Pre-render Tasks 3 Stat Cards (Image 2)
+                      if (d.calendarTasks) {
+                        var m = String(now.getMonth() + 1).padStart(2, '0');
+                        var day = String(now.getDate()).padStart(2, '0');
+                        var tIso = now.getFullYear() + '-' + m + '-' + day;
+                        var tTasks = d.calendarTasks.filter(function(t) {
+                          if (t.task_date === tIso) return true;
+                          if (t.is_recurring && t.recurring_days && Array.isArray(t.recurring_days)) {
+                            return t.recurring_days.indexOf(now.getDay()) !== -1;
+                          }
+                          return false;
+                        });
+                        var tTot = tTasks.length;
+                        var tDone = tTasks.filter(function(t) { return t.completed; }).length;
+                        var tRem = Math.max(0, tTot - tDone);
+                        var tPct = tTot > 0 ? Math.round((tDone / tTot) * 100) : 0;
+                        var sTot = document.getElementById('tasks-stat-total');
+                        if (sTot) sTot.textContent = tTot;
+                        var sComp = document.getElementById('tasks-stat-completed');
+                        if (sComp) sComp.textContent = tDone;
+                        var sPct = document.getElementById('tasks-stat-completed-pct');
+                        if (sPct) sPct.textContent = tPct + '% done';
+                        var sSub = document.getElementById('tasks-stat-completed-sub');
+                        if (sSub) sSub.textContent = tDone + ' of ' + tTot + ' accomplished';
+                        var sRem = document.getElementById('tasks-stat-remaining');
+                        if (sRem) sRem.textContent = tRem;
+                        var sBar = document.getElementById('tasks-stat-progress-bar');
+                        if (sBar) sBar.style.width = tPct + '%';
+                        var tBdg = document.getElementById('today-tasks-progress-badge');
+                        if (tBdg) tBdg.textContent = tDone + ' / ' + tTot + ' done';
+                      }
                     }
                   }
                 }
@@ -1266,7 +1349,103 @@
           })();
         </script>
 
-        <!-- MIDDLE TWO-COLUMN GRID -->
+        <!-- =================================================================== -->
+        <!-- 1. TODAY'S TASKS SECTION (PLACED DIRECTLY UNDER BUDGET STATS)          -->
+        <!-- =================================================================== -->
+        <section class="bg-white dark:bg-[#28182D] border border-[#F4E1EC] dark:border-[#3E2445] rounded-3xl p-6 sm:p-8 shadow-card dark:shadow-card-dark space-y-6">
+          <!-- Top Header: Title, Small Steps, Add Task Button, Open Calendar Link -->
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-[#F4E1EC] dark:border-[#3E2445]">
+            <div class="flex items-center space-x-3">
+              <div class="w-10 h-10 rounded-2xl bg-[#FCECF3] dark:bg-[#3E2242] flex items-center justify-center text-[#994B78] dark:text-[#E889B5] shrink-0 shadow-sm">
+                <i data-lucide="check-circle-2" class="w-5 h-5"></i>
+              </div>
+              <div>
+                <div class="flex items-center space-x-2.5">
+                  <h3 class="text-lg font-bold text-[#38283A] dark:text-[#FDF7FB]">Today's Tasks</h3>
+                  <span id="today-tasks-progress-badge" class="text-xs text-[#994B78] dark:text-[#E889B5] font-extrabold px-2.5 py-0.5 rounded-full bg-[#FCECF3] dark:bg-[#3E2242]">0 / 0 done</span>
+                </div>
+                <p class="text-xs text-[#887487] dark:text-[#D4BFD2] mt-0.5">✨ Small gentle steps count. Keep your momentum calm.</p>
+              </div>
+            </div>
+
+            <div class="flex items-center space-x-3">
+              <button onclick="openAddTaskModal(getTodayIso())" class="ios-glass-primary px-4 py-2 rounded-2xl text-xs font-bold flex items-center space-x-1.5 shadow-sm">
+                <i data-lucide="plus" class="w-4 h-4"></i>
+                <span>Add Task</span>
+              </button>
+              <button onclick="switchView('calendar')" class="ios-glass-btn px-4 py-2 rounded-2xl text-xs font-semibold text-[#994B78] dark:text-[#E889B5] flex items-center space-x-1 hover:underline">
+                <span>Full Calendar</span>
+                <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- 3 STAT CARDS (EXACT MATCH TO USER ATTACHED IMAGE 2) -->
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <!-- Card 1: Today's Tasks Scheduled (Mauve/Purple Theme) -->
+            <div class="rounded-3xl p-5 bg-gradient-to-br from-[#FFF9FC] to-[#FCECF5] dark:from-[#2E1B32] dark:to-[#26152B] border border-[#F4E1EC] dark:border-[#3E2445] shadow-soft flex flex-col justify-between">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-bold text-[#5C3B61] dark:text-[#E2C7E6]">Today's Tasks</span>
+                <div class="w-8 h-8 rounded-xl bg-white/90 dark:bg-[#3E2445] border border-[#F4E1EC]/80 dark:border-[#4A2D53] flex items-center justify-center text-[#994B78] dark:text-[#E889B5] shadow-xs">
+                  <i data-lucide="list-todo" class="w-4 h-4"></i>
+                </div>
+              </div>
+              <div class="mt-3">
+                <div class="flex items-baseline space-x-2">
+                  <span id="tasks-stat-total" class="text-3xl sm:text-4xl font-extrabold text-[#38283A] dark:text-[#FDF7FB]">0</span>
+                  <span class="text-xs font-semibold text-[#887487] dark:text-[#D4BFD2]">tasks scheduled</span>
+                </div>
+                <p class="text-[11px] text-[#A796A6] dark:text-[#A692A4] mt-2">Scheduled for today</p>
+              </div>
+            </div>
+
+            <!-- Card 2: Completed Today (Emerald/Green Theme with Progress Bar) -->
+            <div class="rounded-3xl p-5 bg-gradient-to-br from-[#F5FBF6] to-[#EBF7EE] dark:from-[#182C1E] dark:to-[#122417] border border-emerald-100 dark:border-emerald-900/40 shadow-soft flex flex-col justify-between">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-bold text-emerald-800 dark:text-emerald-300">Completed Today</span>
+                <div class="w-8 h-8 rounded-xl bg-white/90 dark:bg-[#1E3B27] border border-emerald-200/60 dark:border-emerald-800/60 flex items-center justify-center text-emerald-600 dark:text-emerald-400 shadow-xs">
+                  <i data-lucide="check-circle-2" class="w-4 h-4"></i>
+                </div>
+              </div>
+              <div class="mt-3">
+                <div class="flex items-baseline space-x-2.5">
+                  <span id="tasks-stat-completed" class="text-3xl sm:text-4xl font-extrabold text-emerald-900 dark:text-emerald-100">0</span>
+                  <span id="tasks-stat-completed-pct" class="text-xs font-extrabold px-2 py-0.5 rounded-full bg-emerald-200/60 dark:bg-emerald-900/60 text-emerald-800 dark:text-emerald-200">0% done</span>
+                </div>
+                <p id="tasks-stat-completed-sub" class="text-[11px] text-emerald-700/80 dark:text-emerald-400/80 mt-2">0 of 0 accomplished</p>
+                <div class="w-full h-1.5 bg-emerald-100 dark:bg-emerald-950/60 rounded-full overflow-hidden mt-2.5">
+                  <div id="tasks-stat-progress-bar" class="h-full bg-emerald-600 dark:bg-emerald-400 rounded-full transition-all duration-300" style="width: 0%"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 3: Remaining Tasks (Warm Peach/Rose Theme) -->
+            <div class="rounded-3xl p-5 bg-gradient-to-br from-[#FFF9F9] to-[#FDF0EE] dark:from-[#301A20] dark:to-[#271318] border border-[#FBE0DC] dark:border-[#46242B] shadow-soft flex flex-col justify-between">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-bold text-[#8C3A4C] dark:text-[#F3A5B5]">Remaining Tasks</span>
+                <div class="w-8 h-8 rounded-xl bg-white/90 dark:bg-[#3D1E25] border border-[#FBE0DC]/80 dark:border-[#46242B] flex items-center justify-center text-[#B84E62] dark:text-[#F3A5B5] shadow-xs">
+                  <i data-lucide="clock" class="w-4 h-4"></i>
+                </div>
+              </div>
+              <div class="mt-3">
+                <div class="flex items-baseline space-x-2">
+                  <span id="tasks-stat-remaining" class="text-3xl sm:text-4xl font-extrabold text-[#38283A] dark:text-[#FDF7FB]">0</span>
+                  <span class="text-xs font-semibold text-[#887487] dark:text-[#D4BFD2]">tasks left</span>
+                </div>
+                <p class="text-[11px] text-[#A796A6] dark:text-[#A692A4] mt-2">Gentle focus items left</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tasks Checklist Item List Container -->
+          <div id="home-today-tasks-list" class="space-y-2.5 pt-2">
+            <!-- Dynamically rendered tasks for today -->
+          </div>
+        </section>
+
+        <!-- =================================================================== -->
+        <!-- 2. BUDGET BY CATEGORY & UPCOMING BILLS (PLACED AFTER TODAY'S TASKS) -->
+        <!-- =================================================================== -->
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
 
           <!-- C. BUDGET BY CATEGORY (CUSTOMIZABLE LIST) -->
@@ -1307,10 +1486,8 @@
             </div>
           </section>
 
-          <!-- RIGHT COLUMN: D. UPCOMING BILL & 4. TODAY'S TASKS -->
+          <!-- D. UPCOMING BILLS -->
           <div class="lg:col-span-5 space-y-6">
-
-            <!-- D. UPCOMING BILLS -->
             <section class="bg-white dark:bg-[#28182D] border border-[#F4E1EC] dark:border-[#3E2445] rounded-3xl p-6 sm:p-7 shadow-card dark:shadow-card-dark space-y-4">
               <div class="flex items-center justify-between">
                 <div class="flex items-center space-x-2">
@@ -1347,44 +1524,6 @@
               <p class="text-[11px] text-[#887487] dark:text-[#D4BFD2] text-center">
                 All high priority bills settled on track.
               </p>
-            </section>
-
-            <!-- 4. TODAY'S TASKS (DEDICATED SECTION ON HOME DASHBOARD) -->
-            <section class="bg-white dark:bg-[#28182D] border border-[#F4E1EC] dark:border-[#3E2445] rounded-3xl p-6 sm:p-7 shadow-card dark:shadow-card-dark space-y-4">
-              <div class="flex items-center justify-between">
-                <div class="flex items-center space-x-2.5">
-                  <div class="w-8 h-8 rounded-xl bg-[#FCECF3] dark:bg-[#3E2242] flex items-center justify-center text-[#994B78] dark:text-[#E889B5] shrink-0">
-                    <i data-lucide="check-circle-2" class="w-4 h-4"></i>
-                  </div>
-                  <div>
-                    <div class="flex items-center space-x-2">
-                      <h3 class="text-base font-bold text-[#38283A] dark:text-[#FDF7FB] leading-tight">Today's Tasks</h3>
-                      <span id="today-tasks-progress-badge" class="text-[11px] text-[#994B78] dark:text-[#E889B5] font-bold">2 / 4 done</span>
-                    </div>
-                    <div class="w-28 sm:w-36 h-1.5 bg-[#F9DFEB]/60 dark:bg-[#3E2445] rounded-full overflow-hidden mt-1.5">
-                      <div id="today-tasks-progress-bar" class="h-full bg-gradient-to-r from-[#D66A9A] to-[#994B78] rounded-full transition-all duration-300" style="width: 50%"></div>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Add Task from Home Dashboard Button with iOS Frosted Glass Primary Style -->
-                <button onclick="openAddTaskModal(getTodayIso())" class="ios-glass-primary px-3.5 py-1.5 rounded-full text-xs font-bold flex items-center space-x-1">
-                  <span>Add Task</span>
-                  <i data-lucide="plus" class="w-3.5 h-3.5"></i>
-                </button>
-              </div>
-
-              <!-- Today's Tasks List Container -->
-              <div id="home-today-tasks-list" class="space-y-2.5 pt-1">
-                <!-- Dynamically rendered tasks for today -->
-              </div>
-
-              <div class="flex items-center justify-between text-[11px] text-[#887487] dark:text-[#D4BFD2] pt-2 border-t border-[#F4E1EC] dark:border-[#3E2445]">
-                <span>✨ Small steps count</span>
-                <button onclick="switchView('calendar')" class="text-[#994B78] dark:text-[#E889B5] font-semibold hover:underline">
-                  Open Calendar & Tasks →
-                </button>
-              </div>
             </section>
           </div>
         </div>
@@ -5701,14 +5840,30 @@
 
       const completedCount = todayTasks.filter(t => t.completed).length;
       const totalCount = todayTasks.length;
+      const remainingCount = Math.max(0, totalCount - completedCount);
+      const pct = totalCount > 0 ? Math.round((completedCount / totalCount) * 100) : 0;
 
       if (badge) {
         badge.textContent = `${completedCount} / ${totalCount} done`;
       }
       if (progressBar) {
-        const pct = totalCount > 0 ? Math.round((completedCount / totalCount) * 100) : 0;
         progressBar.style.width = `${pct}%`;
       }
+
+      // Update 3 Stat Cards matching Image 2
+      const statTotal = document.getElementById('tasks-stat-total');
+      const statCompleted = document.getElementById('tasks-stat-completed');
+      const statCompletedPct = document.getElementById('tasks-stat-completed-pct');
+      const statCompletedSub = document.getElementById('tasks-stat-completed-sub');
+      const statRemaining = document.getElementById('tasks-stat-remaining');
+      const statProgressBar = document.getElementById('tasks-stat-progress-bar');
+
+      if (statTotal) statTotal.textContent = totalCount;
+      if (statCompleted) statCompleted.textContent = completedCount;
+      if (statCompletedPct) statCompletedPct.textContent = `${pct}% done`;
+      if (statCompletedSub) statCompletedSub.textContent = `${completedCount} of ${totalCount} accomplished`;
+      if (statRemaining) statRemaining.textContent = remainingCount;
+      if (statProgressBar) statProgressBar.style.width = `${pct}%`;
 
       container.innerHTML = '';
 
@@ -8967,12 +9122,29 @@
       const fullName = (currentUser.fullName || currentUser.username || 'Sunny').trim();
       const firstName = fullName.split(' ')[0] || 'Sunny';
       const hour = new Date().getHours();
+      
+      // Dynamic time greeting: Good Morning (5am-12pm), Good Afternoon (12pm-5pm), Good Evening (5pm-9pm), Good Night (9pm-5am)
       let timeGreeting = "Good Morning";
-      if (hour >= 12 && hour < 17) timeGreeting = "Good Afternoon";
-      else if (hour >= 17) timeGreeting = "Good Evening";
+      if (hour >= 12 && hour < 17) {
+        timeGreeting = "Good Afternoon";
+      } else if (hour >= 17 && hour < 21) {
+        timeGreeting = "Good Evening";
+      } else if (hour >= 21 || hour < 5) {
+        timeGreeting = "Good Night";
+      }
 
       const greetEl = document.getElementById('header-greeting');
       if (greetEl) greetEl.textContent = `${timeGreeting}, ${firstName}! 👋`;
+
+      const heroGreetEl = document.getElementById('hero-greeting-title');
+      if (heroGreetEl) heroGreetEl.textContent = `${timeGreeting}, ${firstName}`;
+
+      const dateBannerEl = document.getElementById('greeting-banner-date');
+      if (dateBannerEl) {
+        const now = new Date();
+        const options = { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' };
+        dateBannerEl.textContent = now.toLocaleDateString('en-US', options);
+      }
 
       const parts = fullName.split(' ');
       const initials = ((parts[0] ? parts[0][0] : 'S') + (parts[1] ? parts[1][0] : '')).toUpperCase();
