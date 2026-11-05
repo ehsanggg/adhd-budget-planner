@@ -12,7 +12,7 @@
   <script>
     (function() {
       try {
-        var APP_CACHE_VERSION = 'v3.4_cross_device_sync';
+        var APP_CACHE_VERSION = 'v3.5_etsy_vip_access';
         if (localStorage.getItem('adhd_app_version') !== APP_CACHE_VERSION) {
           localStorage.removeItem('adhd_db_data_demo_user_sunny');
           localStorage.removeItem('adhd_user_sunny');
@@ -334,10 +334,30 @@
     }
   </style>
 
-  <!-- Zero-Flash Pre-render Session Check -->
+  <!-- Zero-Flash Pre-render Access & Session Check -->
   <script>
     (function() {
       try {
+        var VALID_ACCESS_KEYS = ['VIP_BUYER_TOKEN', 'ETSY-VIP-2025', 'ETSY-ADHD-BUDGET', 'ADHD-BUDGET-VIP', 'MINDFUL-VIP-2025'];
+        var search = window.location.search;
+        if (search && search.includes('access=')) {
+          var params = new URLSearchParams(search);
+          var token = (params.get('access') || '').trim();
+          var clean = token.toUpperCase();
+          var isValid = VALID_ACCESS_KEYS.indexOf(clean) !== -1 || clean.startsWith('ETSY-') || clean.startsWith('VIP-') || clean.startsWith('ORDER-');
+          if (isValid) {
+            localStorage.setItem('adhd_etsy_access_granted', 'true');
+            localStorage.setItem('adhd_etsy_token_used', token);
+          }
+        }
+
+        var isAccessGranted = localStorage.getItem('adhd_etsy_access_granted') === 'true';
+        if (!isAccessGranted) {
+          document.documentElement.classList.add('is-restricted');
+          document.documentElement.classList.remove('is-authenticated');
+          return;
+        }
+
         var rawUser = localStorage.getItem('adhd_active_user');
         var expiresAt = parseInt(localStorage.getItem('adhd_session_expires_at') || '0', 10);
         var now = Date.now();
@@ -357,8 +377,16 @@
     html {
       zoom: 0.82;
     }
-    /* Prevent flash of login page on reload for authenticated users */
-    html.is-authenticated #app-shell { display: flex !important; }
+    /* Gatekeeper styling: When restricted, hide all planner sections and show restricted page */
+    html.is-restricted #page-restricted { display: flex !important; }
+    html.is-restricted #app-shell,
+    html.is-restricted #page-login,
+    html.is-restricted #page-welcome,
+    html.is-restricted #page-signup,
+    html.is-restricted #page-onboarding { display: none !important; }
+
+    /* Prevent flash of login page on reload for authenticated users with valid access */
+    html:not(.is-restricted).is-authenticated #app-shell { display: flex !important; }
     html.is-authenticated #page-login,
     html.is-authenticated #page-welcome,
     html.is-authenticated #page-signup,
@@ -366,6 +394,106 @@
   </style>
 </head>
 <body class="bg-warm-bg text-warm-text dark:bg-forest-bg dark:text-forest-text min-h-screen font-sans antialiased selection:bg-sage-200 dark:selection:bg-sage-800">
+
+  <!-- =================================================================== -->
+  <!-- 0. ETSY PRIVATE ACCESS GATEKEEPER VIEW                              -->
+  <!-- =================================================================== -->
+  <div id="page-restricted" class="min-h-screen flex flex-col justify-between p-6 sm:p-12 relative overflow-hidden hidden">
+    <!-- Subtle calming background glow -->
+    <div class="absolute -top-24 -left-24 w-96 h-96 rounded-full bg-[#FCECF3]/60 dark:bg-[#3E2242]/30 blur-3xl pointer-events-none"></div>
+    <div class="absolute -bottom-24 -right-24 w-96 h-96 rounded-full bg-amber-100/40 dark:bg-amber-900/10 blur-3xl pointer-events-none"></div>
+
+    <!-- Header bar -->
+    <div class="max-w-4xl w-full mx-auto flex items-center justify-between relative z-10">
+      <div class="flex items-center space-x-3">
+        <div class="w-10 h-10 rounded-2xl bg-[#FCECF3] dark:bg-[#3E2242] flex items-center justify-center text-[#994B78] dark:text-[#E889B5] shadow-sm">
+          <i data-lucide="lock" class="w-5 h-5"></i>
+        </div>
+        <div>
+          <span class="text-[11px] font-bold uppercase tracking-wider text-[#994B78] dark:text-[#E889B5] block">Private Customer Portal</span>
+          <span class="text-base font-bold tracking-tight text-[#38283A] dark:text-[#FDF7FB] leading-tight">Mindful Money</span>
+        </div>
+      </div>
+
+      <div class="flex items-center space-x-2.5">
+        <button onclick="toggleTheme()" class="p-2 rounded-xl bg-white dark:bg-[#28182D] border border-[#F4E1EC] dark:border-[#3E2445] text-[#887487] dark:text-[#D4BFD2] shadow-sm" title="Toggle theme">
+          <i data-lucide="sun" class="w-4 h-4 dark:hidden"></i>
+          <i data-lucide="moon" class="w-4 h-4 hidden dark:inline"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Restricted Card -->
+    <main class="max-w-md w-full mx-auto my-auto py-8 relative z-10">
+      <div class="bg-white dark:bg-[#28182D] border border-[#F4E1EC] dark:border-[#3E2445] rounded-3xl p-7 sm:p-9 shadow-card dark:shadow-card-dark text-center space-y-6">
+        <div class="w-16 h-16 rounded-3xl bg-[#FCECF3] dark:bg-[#3E2242] flex items-center justify-center text-[#994B78] dark:text-[#E889B5] mx-auto shadow-sm">
+          <i data-lucide="shield-check" class="w-8 h-8"></i>
+        </div>
+
+        <div class="space-y-2">
+          <div class="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-[#FCECF3] dark:bg-[#3E2242] text-[#994B78] dark:text-[#E889B5] text-[11px] font-bold uppercase tracking-wider">
+            <span>🔒 Exclusive Etsy Edition</span>
+          </div>
+          <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-[#38283A] dark:text-[#FDF7FB]">
+            Private VIP Access
+          </h1>
+          <p class="text-xs sm:text-sm text-[#887487] dark:text-[#D4BFD2] leading-relaxed">
+            This digital ADHD budget web app is exclusively available for our Etsy buyers.
+          </p>
+        </div>
+
+        <!-- Unlock Code Form -->
+        <form id="form-unlock-access" onsubmit="handleUnlockSubmit(event)" class="space-y-3.5 text-left pt-2">
+          <div>
+            <label class="block text-xs font-semibold text-[#887487] dark:text-[#D4BFD2] mb-1.5">
+              Enter VIP Access Token / Code
+            </label>
+            <input 
+              type="text" 
+              id="input-access-token" 
+              required 
+              placeholder="e.g. VIP_BUYER_TOKEN or Etsy Order #" 
+              class="w-full px-4 py-3 rounded-2xl bg-[#FFF9FC] dark:bg-[#34213B] border border-[#F4E1EC] dark:border-[#412B4A] text-[#38283A] dark:text-[#FDF7FB] text-sm focus:outline-none focus:ring-2 focus:ring-[#BA5382]"
+            >
+          </div>
+
+          <div id="unlock-error-box" class="hidden p-3 rounded-2xl bg-rose-50 text-rose-600 text-xs text-center font-medium"></div>
+
+          <button 
+            type="submit" 
+            class="w-full py-3.5 rounded-2xl bg-gradient-to-r from-[#D66A9A] to-[#994B78] hover:from-[#c55d8d] hover:to-[#883f6a] text-white font-bold text-sm shadow-card transition-all active:scale-95 flex items-center justify-center space-x-2"
+          >
+            <span>Unlock My Planner</span>
+            <i data-lucide="sparkles" class="w-4 h-4"></i>
+          </button>
+        </form>
+
+        <div class="relative flex items-center justify-center pt-2">
+          <div class="border-t border-[#F4E1EC] dark:border-[#3E2445] w-full"></div>
+          <span class="bg-white dark:bg-[#28182D] px-3 text-[11px] font-semibold text-[#887487] dark:text-[#D4BFD2] uppercase tracking-wider absolute">
+            Don't have access?
+          </span>
+        </div>
+
+        <div class="pt-2">
+          <a 
+            id="etsy-store-link"
+            href="https://www.etsy.com" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            class="w-full py-3 rounded-2xl bg-[#FFF9FC] dark:bg-[#34213B] hover:bg-[#FCECF3] dark:hover:bg-[#3E2242] border border-[#F4E1EC] dark:border-[#412B4A] text-[#994B78] dark:text-[#E889B5] font-bold text-xs flex items-center justify-center space-x-2 transition-all block"
+          >
+            <span>Purchase on Etsy for Instant Lifetime Access 🛍️</span>
+          </a>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="max-w-md w-full mx-auto text-center text-[11px] text-[#A796A6] dark:text-[#887487] relative z-10">
+      Mindful Money ADHD Planner • Protected Digital Edition
+    </footer>
+  </div>
 
   <!-- =================================================================== -->
   <!-- 1. AUTHENTICATION & ONBOARDING VIEWS (DISPLAYED WHEN LOGGED OUT)   -->
@@ -1633,6 +1761,10 @@
                 <button type="button" onclick="promptPasteSyncCode()" class="px-4 py-2.5 rounded-2xl bg-white dark:bg-[#34213B] border border-[#F4E1EC] dark:border-[#412B4A] text-[#994B78] dark:text-[#E889B5] font-bold text-xs flex items-center space-x-1.5 active:scale-95 transition-all">
                   <i data-lucide="download" class="w-4 h-4"></i>
                   <span>Import Sync Link / Code 📥</span>
+                </button>
+                <button type="button" onclick="copyEtsyMagicLink()" class="px-4 py-2.5 rounded-2xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-bold text-xs flex items-center space-x-1.5 shadow-sm active:scale-95 transition-all" title="Copy the link to put inside your Etsy downloadable PDF">
+                  <i data-lucide="tag" class="w-4 h-4"></i>
+                  <span>Copy Etsy PDF Deliverable Link 🏷️</span>
                 </button>
               </div>
             </div>
@@ -8954,15 +9086,72 @@
     function handleLogout() { AuthService.logout(); }
     function openProfileModal() { switchView('settings'); }
 
-    // --- 13. UI ROUTING & NAVIGATION ---
+    // --- 13. UI ROUTING & NAVIGATION & VIP ACCESS ---
+    const VALID_ACCESS_TOKENS = [
+      'VIP_BUYER_TOKEN',
+      'ETSY-VIP-2025',
+      'ETSY-ADHD-BUDGET',
+      'ADHD-BUDGET-VIP',
+      'MINDFUL-VIP-2025'
+    ];
+
+    function isAccessAuthorized() {
+      return localStorage.getItem('adhd_etsy_access_granted') === 'true';
+    }
+
+    function checkAndVerifyAccessToken(token) {
+      if (!token) return false;
+      const clean = token.trim().toUpperCase();
+      if (VALID_ACCESS_TOKENS.map(t => t.toUpperCase()).includes(clean)) return true;
+      if (clean.startsWith('ETSY-') || clean.startsWith('VIP-') || clean.startsWith('ORDER-')) return true;
+      return false;
+    }
+
+    function handleUnlockSubmit(e) {
+      e.preventDefault();
+      const input = document.getElementById('input-access-token');
+      const errorBox = document.getElementById('unlock-error-box');
+      if (errorBox) errorBox.classList.add('hidden');
+      const token = (input?.value || '').trim();
+
+      if (checkAndVerifyAccessToken(token)) {
+        localStorage.setItem('adhd_etsy_access_granted', 'true');
+        localStorage.setItem('adhd_etsy_token_used', token);
+        document.documentElement.classList.remove('is-restricted');
+        triggerGentleConfetti();
+        showToast('Access Unlocked! Welcome to your Mindful Money Planner 🌸✨');
+        initApplication();
+      } else {
+        if (errorBox) {
+          errorBox.textContent = 'Invalid access code. Please check your Etsy purchase PDF or use your direct magic link.';
+          errorBox.classList.remove('hidden');
+        }
+      }
+    }
+
+    function copyEtsyMagicLink() {
+      const token = localStorage.getItem('adhd_etsy_token_used') || 'VIP_BUYER_TOKEN';
+      const url = window.location.origin + window.location.pathname + '?access=' + encodeURIComponent(token);
+      navigator.clipboard.writeText(url).then(() => {
+        showToast('Etsy deliverable link copied! Paste this into your Etsy buyer PDF 📋🛍️');
+      }).catch(() => {
+        prompt('Copy your Etsy customer deliverable link:', url);
+      });
+    }
+
     function showAuthPage(pageName) {
+      const restPage = document.getElementById('page-restricted');
+      if (restPage) restPage.classList.add('hidden');
       document.getElementById('page-welcome').classList.add('hidden');
       document.getElementById('page-signup').classList.add('hidden');
       document.getElementById('page-login').classList.add('hidden');
       document.getElementById('page-onboarding').classList.add('hidden');
       document.getElementById('app-shell').classList.add('hidden');
 
-      if (pageName === 'welcome') document.getElementById('page-welcome').classList.remove('hidden');
+      if (pageName === 'restricted') {
+        if (restPage) restPage.classList.remove('hidden');
+      }
+      else if (pageName === 'welcome') document.getElementById('page-welcome').classList.remove('hidden');
       else if (pageName === 'signup') { document.getElementById('page-signup').classList.remove('hidden'); clearErrorBoxes(); }
       else if (pageName === 'login') { document.getElementById('page-login').classList.remove('hidden'); clearErrorBoxes(); }
       else if (pageName === 'onboarding') document.getElementById('page-onboarding').classList.remove('hidden');
@@ -9261,6 +9450,26 @@
     async function initApplication() {
       initTheme();
       initDate();
+
+      // 1. Etsy Magic Access Link Check (?access=...)
+      try {
+        const urlParams = new URLSearchParams(window.location.search);
+        const accessToken = urlParams.get('access');
+        if (accessToken && checkAndVerifyAccessToken(accessToken)) {
+          localStorage.setItem('adhd_etsy_access_granted', 'true');
+          localStorage.setItem('adhd_etsy_token_used', accessToken);
+          document.documentElement.classList.remove('is-restricted');
+          showToast('Etsy VIP Access Verified! Welcome 🌸');
+        }
+      } catch (e) {}
+
+      // 2. Gatekeeper: Require authorized Etsy access
+      if (!isAccessAuthorized()) {
+        document.documentElement.classList.add('is-restricted');
+        showAuthPage('restricted');
+        return;
+      }
+      document.documentElement.classList.remove('is-restricted');
 
       // Cross-Device Instant Sync from Link (?sync=...)
       try {
