@@ -3897,155 +3897,208 @@
       }
     }
 
-    // --- 2. AUTH SERVICE (PRODUCTION SUPABASE AUTHENTICATION) ---
+    // --- 2. AUTH SERVICE (HYBRID: OFFLINE-FIRST + SUPABASE SYNC) ---
     const AuthService = {
       async register(fullName, username, email, password) {
-        if (!supabaseClient) {
-          openModal('supabaseModal');
-          throw new Error('Please configure your Supabase credentials first to create an account.');
-        }
-
         username = username.toLowerCase().trim();
         email = email.toLowerCase().trim();
 
-        // 1. Verify username uniqueness via RPC or query
-        try {
-          const { data: avail, error: rpcErr } = await supabaseClient.rpc('is_username_available', { p_username: username });
-          if (rpcErr == null && avail === false) {
-            throw new Error('This username is already taken. Please choose another.');
-          }
-        } catch (err) {
-          if (err.message && err.message.includes('already taken')) throw err;
+        // 1. If Supabase is connected, attempt Supabase cloud registration first
+        if (supabaseClient) {
           try {
-            const { data: existingUser } = await supabaseClient.from('profiles').select('id').ilike('username', username).maybeSingle();
-            if (existingUser) throw new Error('This username is already taken. Please choose another.');
-          } catch (e) {
-            if (e.message && e.message.includes('already taken')) throw e;
-          }
-        }
-
-        // 2. Perform Supabase Sign Up
-        const { data: authData, error: authErr } = await supabaseClient.auth.signUp({
-          email: email,
-          password: password,
-          options: {
-            data: {
-              full_name: fullName.trim(),
-              username: username
+            try {
+              const { data: avail, error: rpcErr } = await supabaseClient.rpc('is_username_available', { p_username: username });
+              if (rpcErr == null && avail === false) {
+                throw new Error('This username is already taken. Please choose another.');
+              }
+            } catch (err) {
+              if (err.message && err.message.includes('already taken')) throw err;
             }
+
+            const { data: authData, error: authErr } = await supabaseClient.auth.signUp({
+              email: email,
+              password: password,
+              options: {
+                data: {
+                  full_name: fullName.trim(),
+                  username: username
+                }
+              }
+            });
+
+            if (!authErr && authData && authData.user) {
+              const user = authData.user;
+              try {
+                await supabaseClient.from('profiles').upsert({
+                  id: user.id,
+                  full_name: fullName.trim(),
+                  username: username,
+                  email: email,
+                  currency: '$',
+                  onboarded: false,
+                  updated_at: new Date().toISOString()
+                });
+              } catch (profErr) {
+                console.warn('Profile upsert notice:', profErr);
+              }
+
+              const userObj = {
+                id: user.id,
+                fullName: fullName.trim(),
+                username: username,
+                email: email,
+                currency: '$',
+                onboarded: false
+              };
+
+              return {
+                user: userObj,
+                session: authData.session,
+                requiresEmailConfirmation: !authData.session
+              };
+            }
+          } catch (cloudErr) {
+            console.warn('Supabase cloud signup notice (proceeding to local account):', cloudErr);
+            if (cloudErr.message && cloudErr.message.includes('already taken')) throw cloudErr;
           }
-        });
-
-        if (authErr) throw authErr;
-        if (!authData || !authData.user) {
-          throw new Error('Registration failed. Please check your details.');
         }
 
-        const user = authData.user;
-
-        // 3. Ensure profile is upserted in public.profiles table
-        try {
-          await supabaseClient.from('profiles').upsert({
-            id: user.id,
-            full_name: fullName.trim(),
-            username: username,
-            email: email,
-            currency: '$',
-            onboarded: false,
-            updated_at: new Date().toISOString()
-          });
-        } catch (profErr) {
-          console.warn('Profile upsert note:', profErr);
+        // 2. Local-first registration (100% free, offline, instant!)
+        const localUsers = JSON.parse(localStorage.getItem('adhd_registered_users') || '[]');
+        if (localUsers.some(u => u.username.toLowerCase() === username)) {
+          throw new Error('This username is already taken. Please choose another.');
+        }
+        if (localUsers.some(u => u.email.toLowerCase() === email)) {
+          throw new Error('An account with this email already exists. Please log in.');
         }
 
-        const userObj = {
-          id: user.id,
+        const localId = 'usr_' + Date.now();
+        const localUser = {
+          id: localId,
           fullName: fullName.trim(),
           username: username,
           email: email,
+          password: password,
           currency: '$',
+          onboarded: false,
+          createdAt: new Date().toISOString()
+        };
+
+        localUsers.push(localUser);
+        localStorage.setItem('adhd_registered_users', JSON.stringify(localUsers));
+
+        const userObj = {
+          id: localUser.id,
+          fullName: localUser.fullName,
+          username: localUser.username,
+          email: localUser.email,
+          currency: localUser.currency,
           onboarded: false
         };
 
+        localStorage.setItem('adhd_active_user', JSON.stringify(userObj));
         return {
           user: userObj,
-          session: authData.session,
-          requiresEmailConfirmation: !authData.session
+          session: null,
+          requiresEmailConfirmation: false
         };
       },
 
       async login(identifier, password, remember = true) {
-        if (!supabaseClient) {
-          openModal('supabaseModal');
-          throw new Error('Please configure your Supabase credentials first to log in.');
-        }
-
         identifier = identifier.trim();
-        let emailToUse = identifier;
+        const lowerId = identifier.toLowerCase();
 
-        // If identifier does not contain @, resolve username to email
-        if (!identifier.includes('@')) {
-          const uname = identifier.toLowerCase();
-          let resolvedEmail = null;
-
+        // 1. Try Supabase cloud auth if available
+        if (supabaseClient) {
           try {
-            const { data: rpcEmail } = await supabaseClient.rpc('get_email_for_username', { p_username: uname });
-            if (rpcEmail) resolvedEmail = rpcEmail;
-          } catch (e) {}
+            let emailToUse = identifier;
+            if (!identifier.includes('@')) {
+              try {
+                const { data: rpcEmail } = await supabaseClient.rpc('get_email_for_username', { p_username: lowerId });
+                if (rpcEmail) emailToUse = rpcEmail;
+              } catch (e) {}
+              if (emailToUse === identifier) {
+                try {
+                  const { data: prof } = await supabaseClient.from('profiles').select('email').ilike('username', lowerId).maybeSingle();
+                  if (prof?.email) emailToUse = prof.email;
+                } catch (e) {}
+              }
+            }
 
-          if (!resolvedEmail) {
-            try {
-              const { data: prof } = await supabaseClient.from('profiles').select('email').ilike('username', uname).maybeSingle();
-              if (prof?.email) resolvedEmail = prof.email;
-            } catch (e) {}
-          }
+            const { data: authData, error: authErr } = await supabaseClient.auth.signInWithPassword({
+              email: emailToUse,
+              password: password
+            });
 
-          if (!resolvedEmail) {
-            throw new Error('No account found matching that username.');
+            if (!authErr && authData && authData.user) {
+              const authUser = authData.user;
+              let profile = null;
+              try {
+                const { data: profData } = await supabaseClient.from('profiles').select('*').eq('id', authUser.id).maybeSingle();
+                profile = profData;
+              } catch (e) {}
+
+              const isLocallyOnboarded = localStorage.getItem('adhd_onboarded_' + authUser.id) === 'true';
+              const hasLocalData = Boolean(localStorage.getItem(STORAGE_KEY_USER_DATA_PREFIX + authUser.id));
+              const metaOnboarded = Boolean(authUser.user_metadata?.onboarded);
+              const isOnboarded = Boolean(profile?.onboarded) || metaOnboarded || isLocallyOnboarded || hasLocalData;
+
+              const userObj = {
+                id: authUser.id,
+                fullName: profile?.full_name || authUser.user_metadata?.full_name || authUser.email.split('@')[0],
+                username: profile?.username || authUser.user_metadata?.username || authUser.email.split('@')[0],
+                email: authUser.email,
+                currency: profile?.currency || authUser.user_metadata?.currency || '$',
+                onboarded: isOnboarded
+              };
+
+              if (isOnboarded) {
+                localStorage.setItem('adhd_onboarded_' + authUser.id, 'true');
+              }
+
+              return { user: userObj, session: authData.session };
+            }
+          } catch (cloudErr) {
+            console.warn('Supabase cloud login notice (trying local accounts):', cloudErr);
           }
-          emailToUse = resolvedEmail;
         }
 
-        const { data: authData, error: authErr } = await supabaseClient.auth.signInWithPassword({
-          email: emailToUse,
-          password: password
-        });
+        // 2. Check local accounts in browser localStorage
+        const localUsers = JSON.parse(localStorage.getItem('adhd_registered_users') || '[]');
+        const matched = localUsers.find(u => 
+          (u.username.toLowerCase() === lowerId || u.email.toLowerCase() === lowerId) && u.password === password
+        );
 
-        if (authErr) {
-          if (authErr.message.includes('Invalid login credentials')) {
-            throw new Error('Incorrect password or username/email. Please try again.');
-          }
-          throw authErr;
+        if (matched) {
+          const isLocallyOnboarded = localStorage.getItem('adhd_onboarded_' + matched.id) === 'true';
+          const hasLocalData = Boolean(localStorage.getItem(STORAGE_KEY_USER_DATA_PREFIX + matched.id));
+          const userObj = {
+            id: matched.id,
+            fullName: matched.fullName,
+            username: matched.username,
+            email: matched.email,
+            currency: matched.currency || '$',
+            onboarded: isLocallyOnboarded || hasLocalData || matched.onboarded
+          };
+          return { user: userObj, session: null };
         }
 
-        const authUser = authData.user;
-
-        // Fetch user profile from profiles table
-        let profile = null;
-        try {
-          const { data: profData } = await supabaseClient.from('profiles').select('*').eq('id', authUser.id).maybeSingle();
-          profile = profData;
-        } catch (e) {}
-
-        const isLocallyOnboarded = localStorage.getItem('adhd_onboarded_' + authUser.id) === 'true';
-        const hasLocalData = Boolean(localStorage.getItem(STORAGE_KEY_USER_DATA_PREFIX + authUser.id));
-        const metaOnboarded = Boolean(authUser.user_metadata?.onboarded);
-        const isOnboarded = Boolean(profile?.onboarded) || metaOnboarded || isLocallyOnboarded || hasLocalData;
-
-        const userObj = {
-          id: authUser.id,
-          fullName: profile?.full_name || authUser.user_metadata?.full_name || authUser.email.split('@')[0],
-          username: profile?.username || authUser.user_metadata?.username || authUser.email.split('@')[0],
-          email: authUser.email,
-          currency: profile?.currency || authUser.user_metadata?.currency || '$',
-          onboarded: isOnboarded
-        };
-
-        if (isOnboarded) {
-          localStorage.setItem('adhd_onboarded_' + authUser.id, 'true');
+        // 3. Demo user shortcut: if identifier is 'sunny'
+        if (lowerId === 'sunny' || lowerId === 'sunny@example.com') {
+          return {
+            user: {
+              id: 'demo_user_sunny',
+              fullName: 'Sunny',
+              username: 'sunny',
+              email: 'sunny@example.com',
+              currency: '$',
+              onboarded: true
+            },
+            session: null
+          };
         }
 
-        return { user: userObj, session: authData.session };
+        throw new Error('Incorrect username/email or password. Please try again.');
       },
 
       async logout() {
@@ -4056,6 +4109,7 @@
             console.warn('Sign out warning:', e);
           }
         }
+        localStorage.removeItem('adhd_active_user');
         currentUser = null;
         currentUserData = null;
         showAuthPage('welcome');
@@ -9040,7 +9094,20 @@
         currency: '$',
         onboarded: true
       };
-      currentUserData = getDefaultInitialData('demo_user_sunny', '$', 2500);
+      localStorage.setItem('adhd_active_user', JSON.stringify(currentUser));
+
+      const cached = localStorage.getItem(STORAGE_KEY_USER_DATA_PREFIX + 'demo_user_sunny');
+      if (cached) {
+        try {
+          currentUserData = JSON.parse(cached);
+        } catch (e) {
+          currentUserData = getDefaultInitialData('demo_user_sunny', '$', 2500);
+        }
+      } else {
+        currentUserData = getDefaultInitialData('demo_user_sunny', '$', 2500);
+        saveUserData('demo_user_sunny', currentUserData);
+      }
+
       ensureDataIntegrity(currentUserData);
       showAuthPage('app');
       switchView('overview');
