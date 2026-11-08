@@ -14,7 +14,7 @@
   <script>
     (function() {
       try {
-        var APP_CACHE_VERSION = 'v4.3_instant_signup_no_email_blocking';
+        var APP_CACHE_VERSION = 'v4.4_auto_signin_redirect';
         if (localStorage.getItem('adhd_app_version') !== APP_CACHE_VERSION) {
           localStorage.removeItem('adhd_db_data_demo_user_sunny');
           localStorage.removeItem('adhd_user_sunny');
@@ -741,7 +741,7 @@
 
         <p class="text-xs text-center text-warm-textMuted dark:text-forest-textMuted pt-2">
           Don't have an account yet? 
-          <button type="button" onclick="showAuthPage('signup')" class="text-sage-600 dark:text-forest-mint font-bold hover:underline">
+          <button type="button" onclick="showAuthPage('signup', true)" class="text-sage-600 dark:text-forest-mint font-bold hover:underline">
             Create an Account
           </button>
         </p>
@@ -4168,6 +4168,10 @@
       const expiresAt = Date.now() + SESSION_DURATION_MS;
       localStorage.setItem('adhd_active_user', JSON.stringify(user));
       localStorage.setItem('adhd_session_expires_at', expiresAt.toString());
+      localStorage.setItem('avyora_has_account', 'true');
+      if (user && (user.email || user.username)) {
+        localStorage.setItem('adhd_last_login_user', user.email || user.username);
+      }
       document.documentElement.classList.add('is-authenticated');
     }
 
@@ -9387,7 +9391,7 @@
       });
     }
 
-    function showAuthPage(pageName) {
+    function showAuthPage(pageName, forceSignup = false) {
       const restPage = document.getElementById('page-restricted');
       if (restPage) restPage.classList.add('hidden');
       document.getElementById('page-welcome').classList.add('hidden');
@@ -9399,9 +9403,47 @@
       if (pageName === 'restricted') {
         if (restPage) restPage.classList.remove('hidden');
       }
-      else if (pageName === 'welcome') document.getElementById('page-welcome').classList.remove('hidden');
-      else if (pageName === 'signup') { document.getElementById('page-signup').classList.remove('hidden'); clearErrorBoxes(); }
-      else if (pageName === 'login') { document.getElementById('page-login').classList.remove('hidden'); clearErrorBoxes(); }
+      else if (pageName === 'welcome') {
+        document.getElementById('page-welcome').classList.remove('hidden');
+      }
+      else if (pageName === 'signup') {
+        // 1. If user is currently signed in, immediately navigate into dashboard
+        const validUser = getValidStoredUser();
+        if (validUser) {
+          showAuthPage('app');
+          return;
+        }
+
+        // 2. If user already registered or signed in before on this browser, redirect straight to Sign In (login)
+        if (!forceSignup) {
+          const hasExistingAccount = localStorage.getItem('avyora_has_account') === 'true' 
+            || (JSON.parse(localStorage.getItem('adhd_registered_users') || '[]').length > 0)
+            || Boolean(localStorage.getItem('adhd_last_login_user'));
+
+          if (hasExistingAccount) {
+            showAuthPage('login');
+            showToast('You already have an AvyoraCo account! Please sign in 🌸');
+            const lastUser = localStorage.getItem('adhd_last_login_user');
+            const loginInput = document.getElementById('login-identifier');
+            if (loginInput && lastUser && !loginInput.value) {
+              loginInput.value = lastUser;
+            }
+            return;
+          }
+        }
+
+        document.getElementById('page-signup').classList.remove('hidden');
+        clearErrorBoxes();
+      }
+      else if (pageName === 'login') {
+        document.getElementById('page-login').classList.remove('hidden');
+        clearErrorBoxes();
+        const lastUser = localStorage.getItem('adhd_last_login_user');
+        const loginInput = document.getElementById('login-identifier');
+        if (loginInput && lastUser && !loginInput.value) {
+          loginInput.value = lastUser;
+        }
+      }
       else if (pageName === 'onboarding') document.getElementById('page-onboarding').classList.remove('hidden');
       else if (pageName === 'app') document.getElementById('app-shell').classList.remove('hidden');
 
