@@ -14,7 +14,7 @@
   <script>
     (function() {
       try {
-        var APP_CACHE_VERSION = 'v4.2_debt_payment_budget_sync';
+        var APP_CACHE_VERSION = 'v4.3_instant_signup_no_email_blocking';
         if (localStorage.getItem('adhd_app_version') !== APP_CACHE_VERSION) {
           localStorage.removeItem('adhd_db_data_demo_user_sunny');
           localStorage.removeItem('adhd_user_sunny');
@@ -4265,6 +4265,9 @@
                 });
                 localStorage.setItem('adhd_registered_users', JSON.stringify(localUsers));
               }
+
+              // Instantly authenticate user without waiting for any confirmation email
+              persistUserSession(userObj);
 
               return {
                 user: userObj,
@@ -8935,15 +8938,9 @@
       }
 
       try {
-        const { user, requiresEmailConfirmation } = await AuthService.register(fullName, username, email, password);
-        
-        if (requiresEmailConfirmation) {
-          showToast('Account created! Please check your email to verify your account, then log in. ✉️');
-          showAuthPage('login');
-          return;
-        }
-
+        const { user } = await AuthService.register(fullName, username, email, password);
         currentUser = user;
+        persistUserSession(user);
         setupOnboardingView(user);
         showAuthPage('onboarding');
         triggerGentleConfetti();
