@@ -14,7 +14,7 @@
   <script>
     (function() {
       try {
-        var APP_CACHE_VERSION = 'v5.0_alex_10k_showcase';
+        var APP_CACHE_VERSION = 'v5.1_multilingual_de_fr_es';
         if (localStorage.getItem('adhd_app_version') !== APP_CACHE_VERSION) {
           localStorage.removeItem('adhd_db_data_demo_user_sunny');
           localStorage.removeItem('adhd_user_sunny');
@@ -540,12 +540,47 @@
 
       <!-- Header actions on welcome page -->
       <div class="flex items-center space-x-2.5">
+        <!-- Language Selector for Welcome Page -->
+        <div class="relative inline-block text-left" id="welcome-lang-dropdown-wrapper">
+          <button 
+            onclick="toggleWelcomeLanguageDropdown(event)" 
+            type="button" 
+            class="flex items-center space-x-1.5 px-3 py-1.5 rounded-2xl bg-white dark:bg-forest-surface border border-warm-border dark:border-forest-border text-xs font-bold text-warm-text dark:text-forest-text shadow-sm hover:bg-warm-surfaceMuted"
+            title="Language / Sprache / Langue / Idioma"
+          >
+            <span class="welcome-lang-flag text-sm">🇺🇸</span>
+            <span class="welcome-lang-code uppercase text-[11px] text-sage-600 dark:text-forest-mint font-extrabold">EN</span>
+            <i data-lucide="chevron-down" class="w-3 h-3 text-warm-textMuted"></i>
+          </button>
+          <div 
+            id="welcome-lang-dropdown-menu" 
+            class="hidden absolute right-0 mt-2 w-44 rounded-2xl bg-white dark:bg-[#28182D] border border-warm-border dark:border-forest-border shadow-card py-1.5 z-50 text-xs"
+          >
+            <button onclick="changeAppLanguage('en')" class="w-full flex items-center justify-between px-3.5 py-2 hover:bg-sage-50 dark:hover:bg-[#34203A] text-left font-medium">
+              <span class="flex items-center space-x-2"><span>🇺🇸</span><span>English</span></span>
+              <span class="welcome-check-en font-bold text-sage-600 dark:text-forest-mint">✓</span>
+            </button>
+            <button onclick="changeAppLanguage('de')" class="w-full flex items-center justify-between px-3.5 py-2 hover:bg-sage-50 dark:hover:bg-[#34203A] text-left font-medium">
+              <span class="flex items-center space-x-2"><span>🇩🇪</span><span>Deutsch</span></span>
+              <span class="welcome-check-de hidden font-bold text-sage-600 dark:text-forest-mint">✓</span>
+            </button>
+            <button onclick="changeAppLanguage('fr')" class="w-full flex items-center justify-between px-3.5 py-2 hover:bg-sage-50 dark:hover:bg-[#34203A] text-left font-medium">
+              <span class="flex items-center space-x-2"><span>🇫🇷</span><span>Français</span></span>
+              <span class="welcome-check-fr hidden font-bold text-sage-600 dark:text-forest-mint">✓</span>
+            </button>
+            <button onclick="changeAppLanguage('es')" class="w-full flex items-center justify-between px-3.5 py-2 hover:bg-sage-50 dark:hover:bg-[#34203A] text-left font-medium">
+              <span class="flex items-center space-x-2"><span>🇪🇸</span><span>Español</span></span>
+              <span class="welcome-check-es hidden font-bold text-sage-600 dark:text-forest-mint">✓</span>
+            </button>
+          </div>
+        </div>
+
         <button onclick="toggleTheme()" class="p-2 rounded-xl bg-white dark:bg-forest-surface border border-warm-border dark:border-forest-border text-warm-textMuted dark:text-forest-textMuted hover:text-warm-text shadow-sm" title="Toggle theme">
           <i data-lucide="sun" class="w-4 h-4 dark:hidden"></i>
           <i data-lucide="moon" class="w-4 h-4 hidden dark:inline"></i>
         </button>
         <button onclick="showAuthPage('login')" class="px-4 py-2 rounded-2xl text-xs font-semibold text-warm-textMuted dark:text-forest-textMuted hover:text-warm-text">
-          Log In
+          <span data-i18n="welcome_login_btn">Log In</span>
         </button>
       </div>
     </div>
@@ -554,15 +589,14 @@
     <main class="max-w-4xl w-full mx-auto my-auto py-12 relative z-10 text-center space-y-8">
       <div class="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-sage-100 dark:bg-forest-surfaceMuted border border-sage-200 dark:border-forest-border shadow-soft">
         <span class="w-2 h-2 rounded-full bg-sage-500 dark:bg-forest-mint animate-pulse"></span>
-        <span class="text-xs font-bold uppercase tracking-wider text-sage-700 dark:text-forest-mint">Calm Personal Finance</span>
+        <span data-i18n="welcome_tagline" class="text-xs font-bold uppercase tracking-wider text-sage-700 dark:text-forest-mint">Calm Personal Finance</span>
       </div>
 
       <div class="space-y-4">
-        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-warm-text dark:text-forest-text leading-tight">
-          Manage your money without <br class="hidden sm:inline">
-          <span class="text-sage-600 dark:text-forest-mint">feeling overwhelmed.</span>
+        <h1 data-i18n="welcome_title" class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-warm-text dark:text-forest-text leading-tight">
+          Manage your money without feeling overwhelmed.
         </h1>
-        <p class="text-base sm:text-lg text-warm-textMuted dark:text-forest-textMuted max-w-2xl mx-auto leading-relaxed">
+        <p data-i18n="welcome_sub" class="text-base sm:text-lg text-warm-textMuted dark:text-forest-textMuted max-w-2xl mx-auto leading-relaxed">
           Designed specifically for neurodivergent minds. Zero financial guilt, custom categories, scheduled tasks, and one honest number so you always know what’s safe to spend.
         </p>
       </div>
@@ -570,15 +604,15 @@
       <!-- Action Buttons -->
       <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2">
         <button onclick="showAuthPage('signup')" class="w-full sm:w-auto px-8 py-4 rounded-2xl bg-gradient-to-r from-[#D66A9A] to-[#994B78] hover:from-[#c55d8d] hover:to-[#883f6a] text-white font-bold text-sm shadow-card transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center space-x-2">
-          <span>Create Free Account</span>
+          <span data-i18n="welcome_create">Create Free Account</span>
           <i data-lucide="arrow-right" class="w-4 h-4"></i>
         </button>
         <button onclick="showAuthPage('login')" class="w-full sm:w-auto px-7 py-4 rounded-2xl bg-white dark:bg-[#28182D] hover:bg-[#FCECF3] dark:hover:bg-[#34203A] text-[#38283A] dark:text-[#FDF7FB] font-bold text-sm border border-[#F4E1EC] dark:border-[#3E2445] shadow-soft transition-all duration-200 hover:scale-[1.02]">
-          I Already Have an Account
+          <span data-i18n="welcome_login">I Already Have an Account</span>
         </button>
         <button onclick="launchAlexShowcase()" class="w-full sm:w-auto px-7 py-4 rounded-2xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-bold text-sm shadow-soft transition-all duration-200 hover:scale-[1.02] flex items-center justify-center space-x-2">
           <i data-lucide="play-circle" class="w-4 h-4"></i>
-          <span>🎬 Open Alex ($10K Showcase) Demo</span>
+          <span data-i18n="welcome_demo">🎬 Open Alex ($10K Showcase) Demo</span>
         </button>
       </div>
 
@@ -588,22 +622,25 @@
           <div class="w-8 h-8 rounded-xl bg-sage-100 dark:bg-forest-surfaceMuted flex items-center justify-center text-sage-600 dark:text-forest-mint mb-3">
             <i data-lucide="sparkles" class="w-4 h-4"></i>
           </div>
-          <h3 class="text-sm font-bold text-warm-text dark:text-forest-text">Low Visual Noise</h3>
-          <p class="text-xs text-warm-textMuted dark:text-forest-textMuted mt-1">No complicated charts or endless rows. Only what matters right now.</p>
+          <h3 data-i18n="welcome_benefit1_title" class="text-sm font-bold text-warm-text dark:text-forest-text">Low Visual Noise</h3>
+          <p data-i18n="welcome_benefit1_desc" class="text-xs text-warm-textMuted dark:text-forest-textMuted mt-1">No complicated charts or endless rows. Only what matters right now.</p>
         </div>
 
         <div class="p-5 rounded-2xl bg-white/70 dark:bg-forest-surface/70 border border-warm-border dark:border-forest-border shadow-soft">
           <div class="w-8 h-8 rounded-xl bg-amber-100 dark:bg-amber-950/40 flex items-center justify-center text-amber-600 dark:text-amber-400 mb-3">
             <i data-lucide="shield-check" class="w-4 h-4"></i>
           </div>
-          <h3 class="text-sm font-bold text-warm-text dark:text-forest-text">One Safe Pace</h3>
-          <p class="text-xs text-warm-textMuted dark:text-forest-textMuted mt-1">Your remaining monthly budget is always front and center, calculated for you.</p>
+          <h3 data-i18n="welcome_benefit2_title" class="text-sm font-bold text-warm-text dark:text-forest-text">One Safe Pace</h3>
+          <p data-i18n="welcome_benefit2_desc" class="text-xs text-warm-textMuted dark:text-forest-textMuted mt-1">Your remaining monthly budget is always front and center, calculated for you.</p>
         </div>
 
         <div class="p-5 rounded-2xl bg-white/70 dark:bg-forest-surface/70 border border-warm-border dark:border-forest-border shadow-soft">
           <div class="w-8 h-8 rounded-xl bg-purple-100 dark:bg-purple-950/40 flex items-center justify-center text-purple-600 dark:text-purple-400 mb-3">
             <i data-lucide="heart" class="w-4 h-4"></i>
           </div>
+          <h3 data-i18n="welcome_benefit3_title" class="text-sm font-bold text-warm-text dark:text-forest-text">Daily Scheduled Steps</h3>
+          <p data-i18n="welcome_benefit3_desc" class="text-xs text-warm-textMuted dark:text-forest-textMuted mt-1">Light daily tasks linked to your calendar to keep you calmly moving forward.</p>
+        </div>
           <h3 class="text-sm font-bold text-warm-text dark:text-forest-text">Daily Scheduled Steps</h3>
           <p class="text-xs text-warm-textMuted dark:text-forest-textMuted mt-1">Light daily tasks linked to your calendar to keep you calmly moving forward.</p>
         </div>
@@ -887,7 +924,7 @@
           <button id="nav-overview" onclick="switchView('overview')" class="nav-item ios-nav-active w-full flex items-center justify-between px-3.5 py-2.5 rounded-2xl text-xs sm:text-sm font-semibold transition-all duration-200">
             <div class="flex items-center space-x-3">
               <i data-lucide="home" class="w-4 h-4"></i>
-              <span>Overview</span>
+              <span data-i18n="nav_overview">Overview</span>
             </div>
             <span class="nav-dot w-2 h-2 rounded-full bg-white"></span>
           </button>
@@ -896,7 +933,7 @@
           <button id="nav-budget" onclick="switchView('budget')" class="nav-item ios-nav-inactive w-full flex items-center justify-between px-3.5 py-2.5 rounded-2xl text-xs sm:text-sm font-medium transition-all duration-200">
             <div class="flex items-center space-x-3">
               <i data-lucide="calculator" class="w-4 h-4 text-[#994B78] dark:text-[#E889B5]"></i>
-              <span>Monthly Budget</span>
+              <span data-i18n="nav_budget">Monthly Budget</span>
             </div>
             <span class="nav-dot hidden w-2 h-2 rounded-full bg-white"></span>
           </button>
@@ -905,7 +942,7 @@
           <button id="nav-expenses" onclick="switchView('expenses')" class="nav-item ios-nav-inactive w-full flex items-center justify-between px-3.5 py-2.5 rounded-2xl text-xs sm:text-sm font-medium transition-all duration-200">
             <div class="flex items-center space-x-3">
               <i data-lucide="receipt" class="w-4 h-4 text-[#994B78] dark:text-[#E889B5]"></i>
-              <span>Expenses</span>
+              <span data-i18n="nav_expenses">Expenses</span>
             </div>
             <span class="nav-dot hidden w-2 h-2 rounded-full bg-white"></span>
           </button>
@@ -914,7 +951,7 @@
           <button id="nav-bills" onclick="switchView('bills')" class="nav-item ios-nav-inactive w-full flex items-center justify-between px-3.5 py-2.5 rounded-2xl text-xs sm:text-sm font-medium transition-all duration-200">
             <div class="flex items-center space-x-3">
               <i data-lucide="calendar-check" class="w-4 h-4 text-[#994B78] dark:text-[#E889B5]"></i>
-              <span>Bills</span>
+              <span data-i18n="nav_bills">Bills</span>
             </div>
             <span class="nav-dot hidden w-2 h-2 rounded-full bg-white"></span>
           </button>
@@ -923,7 +960,7 @@
           <button id="nav-calendar" onclick="switchView('calendar')" class="nav-item ios-nav-inactive w-full flex items-center justify-between px-3.5 py-2.5 rounded-2xl text-xs sm:text-sm font-medium transition-all duration-200">
             <div class="flex items-center space-x-3">
               <i data-lucide="calendar" class="w-4 h-4 text-[#994B78] dark:text-[#E889B5]"></i>
-              <span>Calendar & Tasks</span>
+              <span data-i18n="nav_calendar">Calendar & Tasks</span>
             </div>
             <span class="nav-dot hidden w-2 h-2 rounded-full bg-white"></span>
           </button>
@@ -932,7 +969,7 @@
           <button id="nav-habits" onclick="switchView('habits')" class="nav-item ios-nav-inactive w-full flex items-center justify-between px-3.5 py-2.5 rounded-2xl text-xs sm:text-sm font-medium transition-all duration-200">
             <div class="flex items-center space-x-3">
               <i data-lucide="sparkles" class="w-4 h-4 text-[#994B78] dark:text-[#E889B5]"></i>
-              <span>Habit Tracker</span>
+              <span data-i18n="nav_habits">Habit Tracker</span>
             </div>
             <span class="nav-dot hidden w-2 h-2 rounded-full bg-white"></span>
           </button>
@@ -941,7 +978,7 @@
           <button id="nav-debt" onclick="switchView('debt')" class="nav-item ios-nav-inactive w-full flex items-center justify-between px-3.5 py-2.5 rounded-2xl text-xs sm:text-sm font-medium transition-all duration-200">
             <div class="flex items-center space-x-3">
               <i data-lucide="credit-card" class="w-4 h-4 text-[#994B78] dark:text-[#E889B5]"></i>
-              <span>Debt</span>
+              <span data-i18n="nav_debt">Debt Payoff</span>
             </div>
             <span class="nav-dot hidden w-2 h-2 rounded-full bg-white"></span>
           </button>
@@ -950,7 +987,7 @@
           <button id="nav-adhdtax" onclick="switchView('adhdtax')" class="nav-item ios-nav-inactive w-full flex items-center justify-between px-3.5 py-2.5 rounded-2xl text-xs sm:text-sm font-medium transition-all duration-200">
             <div class="flex items-center space-x-3">
               <i data-lucide="search" class="w-4 h-4 text-[#994B78] dark:text-[#E889B5]"></i>
-              <span>ADHD tax check</span>
+              <span data-i18n="nav_adhdtax">ADHD Tax Check</span>
             </div>
             <span class="nav-dot hidden w-2 h-2 rounded-full bg-white"></span>
           </button>
@@ -959,7 +996,7 @@
           <button id="nav-moneyback" onclick="switchView('moneyback')" class="nav-item ios-nav-inactive w-full flex items-center justify-between px-3.5 py-2.5 rounded-2xl text-xs sm:text-sm font-medium transition-all duration-200">
             <div class="flex items-center space-x-3">
               <i data-lucide="banknote" class="w-4 h-4 text-[#994B78] dark:text-[#E889B5]"></i>
-              <span>Money back</span>
+              <span data-i18n="nav_moneyback">Money Back</span>
             </div>
             <span class="nav-dot hidden w-2 h-2 rounded-full bg-white"></span>
           </button>
@@ -968,7 +1005,7 @@
           <button id="nav-settings" onclick="switchView('settings')" class="nav-item ios-nav-inactive w-full flex items-center justify-between px-3.5 py-2.5 rounded-2xl text-xs sm:text-sm font-medium transition-all duration-200">
             <div class="flex items-center space-x-3">
               <i data-lucide="settings" class="w-4 h-4 text-[#994B78] dark:text-[#E889B5]"></i>
-              <span>Settings</span>
+              <span data-i18n="nav_settings">Settings</span>
             </div>
             <span class="nav-dot hidden w-2 h-2 rounded-full bg-white"></span>
           </button>
@@ -1032,6 +1069,54 @@
           <div class="ios-glass-btn hidden md:flex items-center space-x-2 px-3.5 py-1.5 rounded-full text-xs font-semibold text-[#887487] dark:text-[#D4BFD2]">
             <i data-lucide="calendar" class="w-3.5 h-3.5 text-[#994B78] dark:text-[#E889B5]"></i>
             <span id="header-date">Tue, Nov 3</span>
+          </div>
+
+          <!-- Language Selector Dropdown (EN / DE / FR / ES) -->
+          <div class="relative inline-block text-left" id="lang-dropdown-wrapper">
+            <button 
+              id="lang-select-btn" 
+              onclick="toggleLanguageDropdown(event)" 
+              type="button" 
+              class="ios-glass-btn flex items-center space-x-1.5 px-3 py-1.5 rounded-full text-xs font-bold text-[#38283A] dark:text-[#FDF7FB] hover:bg-white/80 dark:hover:bg-[#3E2242] transition-all shadow-xs"
+              title="Change Language / Sprache / Langue / Idioma"
+            >
+              <span id="current-lang-flag" class="text-sm leading-none">🇺🇸</span>
+              <span id="current-lang-code" class="uppercase tracking-wider font-extrabold text-[11px] text-[#994B78] dark:text-[#E889B5]">EN</span>
+              <i data-lucide="chevron-down" class="w-3 h-3 text-[#887487] dark:text-[#D4BFD2]"></i>
+            </button>
+            <div 
+              id="lang-dropdown-menu" 
+              class="hidden absolute right-0 mt-2 w-44 rounded-2xl bg-white dark:bg-[#28182D] border border-[#F4E1EC] dark:border-[#3E2445] shadow-card dark:shadow-card-dark py-1.5 z-50 transition-all text-xs"
+            >
+              <button onclick="changeAppLanguage('en')" class="w-full flex items-center justify-between px-3.5 py-2 hover:bg-[#FCECF3] dark:hover:bg-[#34203A] text-left transition-colors font-medium">
+                <span class="flex items-center space-x-2">
+                  <span class="text-sm">🇺🇸</span>
+                  <span>English</span>
+                </span>
+                <span class="lang-check lang-check-en font-bold text-[#994B78] dark:text-[#E889B5]">✓</span>
+              </button>
+              <button onclick="changeAppLanguage('de')" class="w-full flex items-center justify-between px-3.5 py-2 hover:bg-[#FCECF3] dark:hover:bg-[#34203A] text-left transition-colors font-medium">
+                <span class="flex items-center space-x-2">
+                  <span class="text-sm">🇩🇪</span>
+                  <span>Deutsch</span>
+                </span>
+                <span class="lang-check lang-check-de hidden font-bold text-[#994B78] dark:text-[#E889B5]">✓</span>
+              </button>
+              <button onclick="changeAppLanguage('fr')" class="w-full flex items-center justify-between px-3.5 py-2 hover:bg-[#FCECF3] dark:hover:bg-[#34203A] text-left transition-colors font-medium">
+                <span class="flex items-center space-x-2">
+                  <span class="text-sm">🇫🇷</span>
+                  <span>Français</span>
+                </span>
+                <span class="lang-check lang-check-fr hidden font-bold text-[#994B78] dark:text-[#E889B5]">✓</span>
+              </button>
+              <button onclick="changeAppLanguage('es')" class="w-full flex items-center justify-between px-3.5 py-2 hover:bg-[#FCECF3] dark:hover:bg-[#34203A] text-left transition-colors font-medium">
+                <span class="flex items-center space-x-2">
+                  <span class="text-sm">🇪🇸</span>
+                  <span>Español</span>
+                </span>
+                <span class="lang-check lang-check-es hidden font-bold text-[#994B78] dark:text-[#E889B5]">✓</span>
+              </button>
+            </div>
           </div>
 
           <!-- Light / Dark Theme Segmented Control (Frosted Glass) -->
@@ -1150,28 +1235,28 @@
             <div class="space-y-2">
               <div class="inline-flex items-center space-x-2 px-3 py-1.5 rounded-full bg-[#FCECF3] dark:bg-[#3E2242] border border-[#F9DFEB] dark:border-[#4A2D53]">
                 <i data-lucide="wallet" class="w-4 h-4 text-[#994B78] dark:text-[#E889B5]"></i>
-                <span class="text-xs font-extrabold uppercase tracking-wider text-[#994B78] dark:text-[#E889B5]">Remaining Budget</span>
+                <span data-i18n="card_remaining_label" class="text-xs font-extrabold uppercase tracking-wider text-[#994B78] dark:text-[#E889B5]">Remaining Budget</span>
               </div>
 
               <div class="flex items-baseline space-x-3 pt-1">
                 <h3 id="hero-remaining-budget" class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-[#994B78] dark:text-[#E889B5]">
                   $0.00
                 </h3>
-                <span class="text-sm sm:text-base font-semibold text-[#887487] dark:text-[#D4BFD2]">safe to spend this month</span>
+                <span data-i18n="card_safe_to_spend" class="text-sm sm:text-base font-semibold text-[#887487] dark:text-[#D4BFD2]">safe to spend this month</span>
               </div>
 
-              <p class="text-xs sm:text-sm text-[#A796A6] dark:text-[#A692A4]">
+              <p data-i18n="card_no_clutter" class="text-xs sm:text-sm text-[#A796A6] dark:text-[#A692A4]">
                 No complicated banking clutter.
               </p>
             </div>
 
             <div class="flex items-center gap-3 sm:gap-4 flex-wrap">
               <div class="px-5 py-3.5 rounded-2xl bg-[#FFF9FC] dark:bg-[#34213B] border border-[#F4E1EC] dark:border-[#412B4A] shadow-soft">
-                <span class="text-[11px] font-semibold text-[#887487] dark:text-[#D4BFD2] uppercase tracking-wider block">Total Budget</span>
+                <span data-i18n="card_total_budget" class="text-[11px] font-semibold text-[#887487] dark:text-[#D4BFD2] uppercase tracking-wider block">Total Budget</span>
                 <span id="hero-total-budget" class="text-xl sm:text-2xl font-bold text-[#38283A] dark:text-[#FDF7FB]">$0.00</span>
               </div>
               <div class="px-5 py-3.5 rounded-2xl bg-[#FFF9FC] dark:bg-[#34213B] border border-[#F4E1EC] dark:border-[#412B4A] shadow-soft">
-                <span class="text-[11px] font-semibold text-[#887487] dark:text-[#D4BFD2] uppercase tracking-wider block">Spent</span>
+                <span data-i18n="card_spent" class="text-[11px] font-semibold text-[#887487] dark:text-[#D4BFD2] uppercase tracking-wider block">Spent</span>
                 <span id="hero-spent-amount" class="text-xl sm:text-2xl font-bold text-[#994B78] dark:text-[#E889B5]">$0.00</span>
               </div>
             </div>
@@ -1363,20 +1448,20 @@
               </div>
               <div>
                 <div class="flex items-center space-x-2.5">
-                  <h3 class="text-lg font-bold text-[#38283A] dark:text-[#FDF7FB]">Today's Tasks</h3>
+                  <h3 data-i18n="section_todays_tasks" class="text-lg font-bold text-[#38283A] dark:text-[#FDF7FB]">Today's Tasks</h3>
                   <span id="today-tasks-progress-badge" class="text-xs text-[#994B78] dark:text-[#E889B5] font-extrabold px-2.5 py-0.5 rounded-full bg-[#FCECF3] dark:bg-[#3E2242]">0 / 0 done</span>
                 </div>
-                <p class="text-xs text-[#887487] dark:text-[#D4BFD2] mt-0.5">✨ Small gentle steps count. Keep your momentum calm.</p>
+                <p data-i18n="todays_tasks_subtitle" class="text-xs text-[#887487] dark:text-[#D4BFD2] mt-0.5">✨ Small gentle steps count. Keep your momentum calm.</p>
               </div>
             </div>
 
             <div class="flex items-center space-x-3">
               <button onclick="openAddTaskModal(getTodayIso())" class="ios-glass-primary px-4 py-2 rounded-2xl text-xs font-bold flex items-center space-x-1.5 shadow-sm">
                 <i data-lucide="plus" class="w-4 h-4"></i>
-                <span>Add Task</span>
+                <span data-i18n="btn_add_task">Add Task</span>
               </button>
               <button onclick="switchView('calendar')" class="ios-glass-btn px-4 py-2 rounded-2xl text-xs font-semibold text-[#994B78] dark:text-[#E889B5] flex items-center space-x-1 hover:underline">
-                <span>Full Calendar</span>
+                <span data-i18n="btn_full_calendar">Full Calendar</span>
                 <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
               </button>
             </div>
@@ -1387,7 +1472,7 @@
             <!-- Card 1: Today's Tasks Scheduled (Mauve/Purple Theme) -->
             <div class="rounded-3xl p-5 bg-gradient-to-br from-[#FFF9FC] to-[#FCECF5] dark:from-[#2E1B32] dark:to-[#26152B] border border-[#F4E1EC] dark:border-[#3E2445] shadow-soft flex flex-col justify-between">
               <div class="flex items-center justify-between">
-                <span class="text-xs font-bold text-[#5C3B61] dark:text-[#E2C7E6]">Today's Tasks</span>
+                <span data-i18n="tasks_scheduled_label" class="text-xs font-bold text-[#5C3B61] dark:text-[#E2C7E6]">Today's Tasks</span>
                 <div class="w-8 h-8 rounded-xl bg-white/90 dark:bg-[#3E2445] border border-[#F4E1EC]/80 dark:border-[#4A2D53] flex items-center justify-center text-[#994B78] dark:text-[#E889B5] shadow-xs">
                   <i data-lucide="list-todo" class="w-4 h-4"></i>
                 </div>
@@ -1395,7 +1480,7 @@
               <div class="mt-3">
                 <div class="flex items-baseline space-x-2">
                   <span id="tasks-stat-total" class="text-3xl sm:text-4xl font-extrabold text-[#38283A] dark:text-[#FDF7FB]">0</span>
-                  <span class="text-xs font-semibold text-[#887487] dark:text-[#D4BFD2]">tasks scheduled</span>
+                  <span data-i18n="tasks_scheduled_sub" class="text-xs font-semibold text-[#887487] dark:text-[#D4BFD2]">tasks scheduled</span>
                 </div>
                 <p class="text-[11px] text-[#A796A6] dark:text-[#A692A4] mt-2">Scheduled for today</p>
               </div>
@@ -1912,6 +1997,37 @@
                   <span class="text-warm-text dark:text-forest-text font-medium">Auto-Focus on Inputs</span>
                   <input type="checkbox" id="autofocus-toggle" checked onchange="handleSettingChange('autofocus_inputs', this.checked)" class="w-4 h-4 rounded text-sage-600 accent-sage-600">
                 </label>
+              </div>
+            </div>
+
+            <!-- Language Preferences Card -->
+            <div class="bg-white dark:bg-forest-surface border border-warm-border dark:border-forest-border rounded-3xl p-6 shadow-card dark:shadow-card-dark space-y-4">
+              <div class="flex items-center space-x-3 pb-2 border-b border-warm-borderMuted dark:border-forest-border">
+                <div class="w-9 h-9 rounded-2xl bg-[#FCECF3] dark:bg-[#3E2242] flex items-center justify-center text-[#994B78] dark:text-[#E889B5]">
+                  <i data-lucide="globe" class="w-5 h-5"></i>
+                </div>
+                <div>
+                  <h3 class="text-base font-bold text-warm-text dark:text-forest-text">Language / Sprache / Langue / Idioma</h3>
+                  <p class="text-xs text-warm-textMuted dark:text-forest-textMuted">Select your preferred app language</p>
+                </div>
+              </div>
+              <div class="grid grid-cols-2 gap-2 text-xs">
+                <button type="button" onclick="changeAppLanguage('en')" class="p-3 rounded-2xl border text-left font-semibold transition-all flex items-center justify-between border-warm-border dark:border-forest-border hover:border-[#994B78]">
+                  <span class="flex items-center space-x-2"><span>🇺🇸</span><span>English</span></span>
+                  <span class="settings-lang-check settings-lang-check-en font-bold text-[#994B78] dark:text-[#E889B5]">✓</span>
+                </button>
+                <button type="button" onclick="changeAppLanguage('de')" class="p-3 rounded-2xl border text-left font-semibold transition-all flex items-center justify-between border-warm-border dark:border-forest-border hover:border-[#994B78]">
+                  <span class="flex items-center space-x-2"><span>🇩🇪</span><span>Deutsch</span></span>
+                  <span class="settings-lang-check settings-lang-check-de hidden font-bold text-[#994B78] dark:text-[#E889B5]">✓</span>
+                </button>
+                <button type="button" onclick="changeAppLanguage('fr')" class="p-3 rounded-2xl border text-left font-semibold transition-all flex items-center justify-between border-warm-border dark:border-forest-border hover:border-[#994B78]">
+                  <span class="flex items-center space-x-2"><span>🇫🇷</span><span>Français</span></span>
+                  <span class="settings-lang-check settings-lang-check-fr hidden font-bold text-[#994B78] dark:text-[#E889B5]">✓</span>
+                </button>
+                <button type="button" onclick="changeAppLanguage('es')" class="p-3 rounded-2xl border text-left font-semibold transition-all flex items-center justify-between border-warm-border dark:border-forest-border hover:border-[#994B78]">
+                  <span class="flex items-center space-x-2"><span>🇪🇸</span><span>Español</span></span>
+                  <span class="settings-lang-check settings-lang-check-es hidden font-bold text-[#994B78] dark:text-[#E889B5]">✓</span>
+                </button>
               </div>
             </div>
 
@@ -9371,20 +9487,265 @@
       renderAll();
     }
 
+    // --- 16. MULTI-LANGUAGE I18N SYSTEM (EN, DE, FR, ES) ---
+    const I18N = {
+      translations: {
+        en: {
+          nav_overview: "Overview",
+          nav_budget: "Monthly Budget",
+          nav_expenses: "Expenses",
+          nav_bills: "Bills",
+          nav_calendar: "Calendar & Tasks",
+          nav_habits: "Habit Tracker",
+          nav_debt: "Debt Payoff",
+          nav_adhdtax: "ADHD Tax Check",
+          nav_moneyback: "Money Back",
+          nav_settings: "Settings",
+          header_subtitle: "Your money, made easier. You're doing great! ✨",
+          pill_today: "Today",
+          card_remaining_label: "Remaining Budget",
+          card_safe_to_spend: "safe to spend this month",
+          card_no_clutter: "No complicated banking clutter.",
+          card_total_budget: "Total Budget",
+          card_spent: "Spent",
+          btn_add_task: "Add Task",
+          btn_full_calendar: "Full Calendar",
+          section_todays_tasks: "Today's Tasks",
+          todays_tasks_subtitle: "✨ Small gentle steps count. Keep your momentum calm.",
+          tasks_scheduled_label: "Today's Tasks",
+          tasks_scheduled_sub: "tasks scheduled",
+          welcome_tagline: "Calm Personal Finance",
+          welcome_title: "Manage your money without feeling overwhelmed.",
+          welcome_sub: "Designed specifically for neurodivergent minds. Zero financial guilt, custom categories, scheduled tasks, and one honest number so you always know what’s safe to spend.",
+          welcome_create: "Create Free Account",
+          welcome_login: "I Already Have an Account",
+          welcome_login_btn: "Log In",
+          welcome_demo: "🎬 Open Alex ($10K Showcase) Demo",
+          welcome_benefit1_title: "Low Visual Noise",
+          welcome_benefit1_desc: "No complicated charts or endless rows. Only what matters right now.",
+          welcome_benefit2_title: "One Safe Pace",
+          welcome_benefit2_desc: "Your remaining monthly budget is always front and center, calculated for you.",
+          welcome_benefit3_title: "Daily Scheduled Steps",
+          welcome_benefit3_desc: "Light daily tasks linked to your calendar to keep you calmly moving forward."
+        },
+        de: {
+          nav_overview: "Übersicht",
+          nav_budget: "Monatsbudget",
+          nav_expenses: "Ausgaben",
+          nav_bills: "Rechnungen",
+          nav_calendar: "Kalender & Aufgaben",
+          nav_habits: "Gewohnheiten",
+          nav_debt: "Schuldenabbau",
+          nav_adhdtax: "ADHD-Steuer Check",
+          nav_moneyback: "Rückzahlungen",
+          nav_settings: "Einstellungen",
+          header_subtitle: "Deine Finanzen, ganz einfach. Du machst das super! ✨",
+          pill_today: "Heute",
+          card_remaining_label: "Sicheres Restbudget",
+          card_safe_to_spend: "diesen Monat sicher zum Ausgeben",
+          card_no_clutter: "Kein kompliziertes Banking-Chaos.",
+          card_total_budget: "Gesamtbudget",
+          card_spent: "Ausgegeben",
+          btn_add_task: "Aufgabe hinzufügen",
+          btn_full_calendar: "Kalender öffnen",
+          section_todays_tasks: "Heutige Aufgaben",
+          todays_tasks_subtitle: "✨ Jeder kleine Schritt zählt. Bleib entspannt im Fluss.",
+          tasks_scheduled_label: "Heutige Aufgaben",
+          tasks_scheduled_sub: "Aufgaben geplant",
+          welcome_tagline: "Ruhige Finanzen",
+          welcome_title: "Verwalte dein Geld ohne Überforderung.",
+          welcome_sub: "Speziell für neurodivergente Köpfe entwickelt. Ohne Schuldgefühle, mit anpassbaren Kategorien, Aufgaben und einer ehrlichen Zahl für stressfreie Finanzen.",
+          welcome_create: "Kostenloses Konto erstellen",
+          welcome_login: "Ich habe bereits ein Konto",
+          welcome_login_btn: "Anmelden",
+          welcome_demo: "🎬 Alex ($10K Demo) öffnen",
+          welcome_benefit1_title: "Geringe Reizüberflutung",
+          welcome_benefit1_desc: "Keine überladenen Tabellen. Nur das, was jetzt gerade zählt.",
+          welcome_benefit2_title: "Ein sicheres Tempo",
+          welcome_benefit2_desc: "Dein verbleibendes Monatsbudget immer klar im Blick.",
+          welcome_benefit3_title: "Kleine tägliche Schritte",
+          welcome_benefit3_desc: "Leichte Tagesaufgaben, die dich ruhig voranbringen."
+        },
+        fr: {
+          nav_overview: "Vue d'ensemble",
+          nav_budget: "Budget Mensuel",
+          nav_expenses: "Dépenses",
+          nav_bills: "Factures",
+          nav_calendar: "Calendrier & Tâches",
+          nav_habits: "Suivi Habitudes",
+          nav_debt: "Remboursement",
+          nav_adhdtax: "Taxe TDAH",
+          nav_moneyback: "Remboursements",
+          nav_settings: "Paramètres",
+          header_subtitle: "Vos finances, sans stress. Vous vous en sortez très bien ! ✨",
+          pill_today: "Aujourd'hui",
+          card_remaining_label: "Budget Restant",
+          card_safe_to_spend: "disponible en toute sérénité",
+          card_no_clutter: "Zéro complexité bancaire.",
+          card_total_budget: "Budget Total",
+          card_spent: "Dépensé",
+          btn_add_task: "Ajouter Tâche",
+          btn_full_calendar: "Voir Calendrier",
+          section_todays_tasks: "Tâches du Jour",
+          todays_tasks_subtitle: "✨ Chaque petit pas compte. Gardez un rythme serein.",
+          tasks_scheduled_label: "Tâches du Jour",
+          tasks_scheduled_sub: "tâches prévues",
+          welcome_tagline: "Finances Sereines",
+          welcome_title: "Gérez votre argent sans vous sentir dépassé.",
+          welcome_sub: "Conçu spécialement pour les esprits neurodivergents. Zéro culpabilité, catégories sur mesure, tâches légères et un montant clair et rassurant.",
+          welcome_create: "Créer un Compte Gratuit",
+          welcome_login: "J'ai déjà un Compte",
+          welcome_login_btn: "Se Connecter",
+          welcome_demo: "🎬 Ouvrir Démo Alex ($10K)",
+          welcome_benefit1_title: "Faible Charge Mentale",
+          welcome_benefit1_desc: "Pas de graphiques étourdissants. Uniquement l'essentiel.",
+          welcome_benefit2_title: "Un Rythme Serein",
+          welcome_benefit2_desc: "Votre montant disponible reste toujours clair et visible.",
+          welcome_benefit3_title: "Petits Pas Quotidiens",
+          welcome_benefit3_desc: "Des étapes simples reliées à votre calendrier pour avancer calmement."
+        },
+        es: {
+          nav_overview: "Resumen",
+          nav_budget: "Presupuesto Mensual",
+          nav_expenses: "Gastos",
+          nav_bills: "Facturas",
+          nav_calendar: "Calendario y Tareas",
+          nav_habits: "Hábitos",
+          nav_debt: "Pago de Deudas",
+          nav_adhdtax: "Impuesto TDAH",
+          nav_moneyback: "Devoluciones",
+          nav_settings: "Ajustes",
+          header_subtitle: "Tu dinero, más fácil. ¡Lo estás haciendo genial! ✨",
+          pill_today: "Hoy",
+          card_remaining_label: "Presupuesto Restante",
+          card_safe_to_spend: "seguro para gastar este mes",
+          card_no_clutter: "Sin complicaciones bancarias.",
+          card_total_budget: "Presupuesto Total",
+          card_spent: "Gastado",
+          btn_add_task: "Añadir Tarea",
+          btn_full_calendar: "Ver Calendario",
+          section_todays_tasks: "Tareas de Hoy",
+          todays_tasks_subtitle: "✨ Cada pequeño paso cuenta. Mantén la calma.",
+          tasks_scheduled_label: "Tareas de Hoy",
+          tasks_scheduled_sub: "tareas programadas",
+          welcome_tagline: "Finanzas Tranquilas",
+          welcome_title: "Gestiona tu dinero sin sentirte abrumado.",
+          welcome_sub: "Diseñado para mentes neurodivergentes. Sin culpa financiera, con categorías a tu medida, tareas diarias y un número honesto para gastar con paz mental.",
+          welcome_create: "Crear Cuenta Gratis",
+          welcome_login: "Ya tengo una Cuenta",
+          welcome_login_btn: "Iniciar Sesión",
+          welcome_demo: "🎬 Abrir Demo de Alex ($10K)",
+          welcome_benefit1_title: "Bajo Ruido Visual",
+          welcome_benefit1_desc: "Sin tablas complejas ni gráficos confusos. Solo lo que importa hoy.",
+          welcome_benefit2_title: "Un Ritmo Seguro",
+          welcome_benefit2_desc: "Tu dinero disponible siempre visible y calculado para ti.",
+          welcome_benefit3_title: "Pasos Diarios Ligeros",
+          welcome_benefit3_desc: "Pequeñas tareas en tu calendario para avanzar sin ansiedad."
+        }
+      }
+    };
+
+    function getCurrentLanguage() {
+      return localStorage.getItem('adhd_selected_lang') || 'en';
+    }
+
+    function changeAppLanguage(lang) {
+      if (!['en', 'de', 'fr', 'es'].includes(lang)) lang = 'en';
+      localStorage.setItem('adhd_selected_lang', lang);
+      applyLanguage(lang);
+      
+      const langNames = { en: 'English 🇺🇸', de: 'Deutsch 🇩🇪', fr: 'Français 🇫🇷', es: 'Español 🇪🇸' };
+      showToast(`Language switched to ${langNames[lang] || lang}`);
+    }
+
+    function applyLanguage(lang) {
+      const dict = I18N.translations[lang] || I18N.translations.en;
+      
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (dict[key]) {
+          el.textContent = dict[key];
+        }
+      });
+
+      const flags = { en: '🇺🇸', de: '🇩🇪', fr: '🇫🇷', es: '🇪🇸' };
+      const codes = { en: 'EN', de: 'DE', fr: 'FR', es: 'ES' };
+
+      const flagEl = document.getElementById('current-lang-flag');
+      const codeEl = document.getElementById('current-lang-code');
+      if (flagEl) flagEl.textContent = flags[lang] || '🇺🇸';
+      if (codeEl) codeEl.textContent = codes[lang] || 'EN';
+
+      document.querySelectorAll('.welcome-lang-flag').forEach(el => el.textContent = flags[lang] || '🇺🇸');
+      document.querySelectorAll('.welcome-lang-code').forEach(el => el.textContent = codes[lang] || 'EN');
+
+      ['en', 'de', 'fr', 'es'].forEach(l => {
+        document.querySelectorAll(`.lang-check-${l}, .welcome-check-${l}, .settings-lang-check-${l}`).forEach(chk => {
+          if (l === lang) chk.classList.remove('hidden');
+          else chk.classList.add('hidden');
+        });
+      });
+
+      const appDropdown = document.getElementById('lang-dropdown-menu');
+      if (appDropdown) appDropdown.classList.add('hidden');
+      const welcomeDropdown = document.getElementById('welcome-lang-dropdown-menu');
+      if (welcomeDropdown) welcomeDropdown.classList.add('hidden');
+
+      updatePersonalizedHeader();
+    }
+
+    function toggleLanguageDropdown(e) {
+      if (e) e.stopPropagation();
+      const menu = document.getElementById('lang-dropdown-menu');
+      if (menu) menu.classList.toggle('hidden');
+    }
+
+    function toggleWelcomeLanguageDropdown(e) {
+      if (e) e.stopPropagation();
+      const menu = document.getElementById('welcome-lang-dropdown-menu');
+      if (menu) menu.classList.toggle('hidden');
+    }
+
+    document.addEventListener('click', (e) => {
+      const appWrapper = document.getElementById('lang-dropdown-wrapper');
+      const appMenu = document.getElementById('lang-dropdown-menu');
+      if (appMenu && appWrapper && !appWrapper.contains(e.target)) {
+        appMenu.classList.add('hidden');
+      }
+      const welcomeWrapper = document.getElementById('welcome-lang-dropdown-wrapper');
+      const welcomeMenu = document.getElementById('welcome-lang-dropdown-menu');
+      if (welcomeMenu && welcomeWrapper && !welcomeWrapper.contains(e.target)) {
+        welcomeMenu.classList.add('hidden');
+      }
+    });
+
+    function initLanguage() {
+      const saved = getCurrentLanguage();
+      applyLanguage(saved);
+    }
+
     function updatePersonalizedHeader() {
       if (!currentUser) return;
       const fullName = (currentUser.fullName || currentUser.username || 'Friend').trim();
       const firstName = fullName.split(' ')[0] || 'Friend';
       const hour = new Date().getHours();
       
-      // Dynamic time greeting: Good Morning (5am-12pm), Good Afternoon (12pm-5pm), Good Evening (5pm-9pm), Good Night (9pm-5am)
-      let timeGreeting = "Good Morning";
+      const lang = getCurrentLanguage();
+      const greetings = {
+        en: { morning: "Good Morning", afternoon: "Good Afternoon", evening: "Good Evening", night: "Good Night", locale: 'en-US' },
+        de: { morning: "Guten Morgen", afternoon: "Guten Tag", evening: "Guten Abend", night: "Gute Nacht", locale: 'de-DE' },
+        fr: { morning: "Bonjour", afternoon: "Bon Après-midi", evening: "Bonsoir", night: "Bonne Nuit", locale: 'fr-FR' },
+        es: { morning: "Buenos Días", afternoon: "Buenas Tardes", evening: "Buenas Noches", night: "Buenas Noches", locale: 'es-ES' }
+      };
+      const activeDict = greetings[lang] || greetings.en;
+
+      let timeGreeting = activeDict.morning;
       if (hour >= 12 && hour < 17) {
-        timeGreeting = "Good Afternoon";
+        timeGreeting = activeDict.afternoon;
       } else if (hour >= 17 && hour < 21) {
-        timeGreeting = "Good Evening";
+        timeGreeting = activeDict.evening;
       } else if (hour >= 21 || hour < 5) {
-        timeGreeting = "Good Night";
+        timeGreeting = activeDict.night;
       }
 
       const greetEl = document.getElementById('header-greeting');
@@ -9397,7 +9758,13 @@
       if (dateBannerEl) {
         const now = new Date();
         const options = { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' };
-        dateBannerEl.textContent = now.toLocaleDateString('en-US', options);
+        dateBannerEl.textContent = now.toLocaleDateString(activeDict.locale, options);
+      }
+
+      const headerDateEl = document.getElementById('header-date');
+      if (headerDateEl) {
+        const now = new Date();
+        headerDateEl.textContent = now.toLocaleDateString(activeDict.locale, { weekday: 'short', month: 'short', day: 'numeric' });
       }
 
       const parts = fullName.split(' ');
@@ -10031,6 +10398,7 @@
     async function initApplication() {
       initTheme();
       initDate();
+      initLanguage();
 
       // Direct 1-Click Launch for Alex ($10K Showcase Demo for Etsy Video)
       try {
