@@ -14,10 +14,12 @@
   <script>
     (function() {
       try {
-        var APP_CACHE_VERSION = 'v4.4_auto_signin_redirect';
+        var APP_CACHE_VERSION = 'v5.0_alex_10k_showcase';
         if (localStorage.getItem('adhd_app_version') !== APP_CACHE_VERSION) {
           localStorage.removeItem('adhd_db_data_demo_user_sunny');
           localStorage.removeItem('adhd_user_sunny');
+          localStorage.removeItem('adhd_db_data_user_alex_morgan_10k');
+          localStorage.removeItem('adhd_db_data_alex');
           localStorage.setItem('adhd_app_version', APP_CACHE_VERSION);
         }
       } catch (e) {}
@@ -496,6 +498,17 @@
             <span>Purchase on Etsy for Instant Lifetime Access 🛍️</span>
           </a>
         </div>
+
+        <div class="pt-3 text-center">
+          <button 
+            type="button" 
+            onclick="launchAlexShowcase()" 
+            class="w-full py-2.5 rounded-2xl bg-gradient-to-r from-emerald-500/10 to-teal-500/10 hover:from-emerald-500/20 hover:to-teal-500/20 border border-emerald-500/30 text-emerald-700 dark:text-emerald-300 font-bold text-xs flex items-center justify-center space-x-1.5 transition-all"
+          >
+            <i data-lucide="play-circle" class="w-3.5 h-3.5"></i>
+            <span>🎬 Open Alex ($10K Showcase Demo)</span>
+          </button>
+        </div>
       </div>
     </main>
 
@@ -562,6 +575,10 @@
         </button>
         <button onclick="showAuthPage('login')" class="w-full sm:w-auto px-7 py-4 rounded-2xl bg-white dark:bg-[#28182D] hover:bg-[#FCECF3] dark:hover:bg-[#34203A] text-[#38283A] dark:text-[#FDF7FB] font-bold text-sm border border-[#F4E1EC] dark:border-[#3E2445] shadow-soft transition-all duration-200 hover:scale-[1.02]">
           I Already Have an Account
+        </button>
+        <button onclick="launchAlexShowcase()" class="w-full sm:w-auto px-7 py-4 rounded-2xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-bold text-sm shadow-soft transition-all duration-200 hover:scale-[1.02] flex items-center justify-center space-x-2">
+          <i data-lucide="play-circle" class="w-4 h-4"></i>
+          <span>🎬 Open Alex ($10K Showcase) Demo</span>
         </button>
       </div>
 
@@ -4330,6 +4347,24 @@
         identifier = identifier.trim();
         const lowerId = identifier.toLowerCase();
 
+        // 0. Dedicated Alex Morgan $10,000 USA Showcase Login (Etsy Listing Showcase)
+        if (lowerId === 'alex' || lowerId === 'alex@example.com' || lowerId === 'alex_avyora' || lowerId.includes('alex')) {
+          const userObj = {
+            id: 'user_alex_morgan_10k',
+            fullName: 'Alex Morgan',
+            username: 'alex',
+            email: 'alex@example.com',
+            currency: '$',
+            onboarded: true
+          };
+          localStorage.setItem('adhd_etsy_access_granted', 'true');
+          localStorage.setItem('adhd_onboarded_' + userObj.id, 'true');
+          const alexData = getAlex10kShowcaseData(userObj.id, '$');
+          localStorage.setItem(STORAGE_KEY_USER_DATA_PREFIX + userObj.id, JSON.stringify(alexData));
+          localStorage.setItem('adhd_last_saved_' + userObj.id, Date.now().toString());
+          return { user: userObj, session: null };
+        }
+
         // 1. Try Supabase cloud auth if available
         if (supabaseClient) {
           try {
@@ -4521,8 +4556,8 @@
           }
         }
 
-        if (!dataset) {
-          dataset = getDefaultInitialData(userId);
+        if (!dataset || (userId && userId.includes('alex') && (!dataset.totalBudget || dataset.totalBudget < 10000))) {
+          dataset = getAlex10kShowcaseData(userId);
         }
 
         if (supabaseClient) {
@@ -4679,123 +4714,330 @@
       return `${d.getFullYear()}-${month}-${day}`;
     }
 
-    // Default Seed Data (Matches exact desktop financial baseline: $2,500 total, $233 spent, $2,267 remaining, Electricity paid)
-    function getDefaultInitialData(userId, currency = '$', totalBudget = 2500) {
+    // --- 3. ALEX MORGAN $10,000 USA SHOWCASE DATA ENGINE ---
+    function getAlex10kShowcaseData(userId = 'user_alex_morgan_10k', currency = '$') {
       const today = getTodayIso();
+      const now = new Date();
+      const currentMonthName = now.toLocaleString('en-US', { month: 'long', year: 'numeric' });
+
       return {
         userId: userId,
-        totalBudget: totalBudget,
-        spentTotal: 233,
-        remainingBudget: 2267,
+        totalBudget: 10000,
+        spentTotal: 6890.98,
+        remainingBudget: 3109.02,
         currency: currency,
-        budgetMonth: 'January 2025',
-        // 1. Fully Customizable Budget Categories
+        budgetMonth: currentMonthName,
         categories: [
-          { id: 'cat_housing', name: 'Housing', icon: 'home', planned: 600, spent: 120, archived: false },
-          { id: 'cat_groceries', name: 'Groceries', icon: 'shopping-bag', planned: 400, spent: 45, archived: false },
-          { id: 'cat_transport', name: 'Transport', icon: 'car', planned: 200, spent: 25, archived: false },
-          { id: 'cat_personal', name: 'Personal', icon: 'sparkles', planned: 300, spent: 43, archived: false },
-          { id: 'cat_other', name: 'Other', icon: 'tag', planned: 400, spent: 0, archived: false }
+          { id: 'cat_housing', name: 'Housing', icon: 'home', planned: 3430, spent: 3430.00, archived: false },
+          { id: 'cat_transport', name: 'Transport & Travel', icon: 'car', planned: 1400, spent: 945.40, archived: false },
+          { id: 'cat_groceries', name: 'Groceries & Food', icon: 'shopping-bag', planned: 1000, spent: 685.20, archived: false },
+          { id: 'cat_personal', name: 'Personal & Wellness', icon: 'sparkles', planned: 1250, spent: 780.38, archived: false },
+          { id: 'cat_savings', name: 'Savings & HYSA Buffer', icon: 'tag', planned: 2920, spent: 1050.00, archived: false }
         ],
-        // 2. Separate Custom Task Categories
         taskCategories: [
           { id: 'tcat_personal', name: 'Personal', color: 'purple', icon: 'heart' },
-          { id: 'tcat_shopping', name: 'Shopping', color: 'amber', icon: 'shopping-cart' },
+          { id: 'tcat_travel', name: 'Travel', color: 'blue', icon: 'car' },
           { id: 'tcat_coffee', name: 'Coffee', color: 'orange', icon: 'coffee' },
+          { id: 'tcat_shopping', name: 'Shopping', color: 'amber', icon: 'shopping-cart' },
           { id: 'tcat_bills', name: 'Bills', color: 'rose', icon: 'receipt' },
-          { id: 'tcat_work', name: 'Work', color: 'blue', icon: 'briefcase' },
-          { id: 'tcat_health', name: 'Health', color: 'teal', icon: 'activity' }
+          { id: 'tcat_health', name: 'Health', color: 'teal', icon: 'activity' },
+          { id: 'tcat_money', name: 'Mindful Money', color: 'emerald', icon: 'check-circle' }
         ],
-        // 3. Scheduled Calendar & Daily Tasks (Matching Mindful Money reference)
         calendarTasks: [
           {
-            id: 'task_1',
-            title: "Log today's spending",
-            description: "Takes 30 seconds to record anything spent today.",
-            category_name: 'Personal',
+            id: 'task_alex_1',
+            title: 'Blue Bottle Pour-Over & Focus Journal',
+            description: 'Mindful morning ritual & hydration reset',
+            category_name: 'Coffee',
             task_date: today,
-            start_time: '9:00 AM',
-            end_time: '',
+            start_time: '8:30 AM',
+            end_time: '9:00 AM',
             repeat_type: 'daily',
             completed: true
           },
           {
-            id: 'task_2',
-            title: "Buy groceries",
-            description: "Fresh produce and weekly staples",
-            category_name: 'Shopping',
+            id: 'task_alex_2',
+            title: 'Delta Flight JFK ✈ SFO Check-in & Uber',
+            description: 'Terminal 4, boarding group 2, bag tags confirmed',
+            category_name: 'Travel',
             task_date: today,
-            start_time: '1:00 PM',
-            end_time: '',
+            start_time: '11:00 AM',
+            end_time: '12:30 PM',
             repeat_type: 'none',
             completed: true
           },
           {
-            id: 'task_3',
-            title: "Coffee with a friend",
-            description: "Meet at corner cafe to catch up",
-            category_name: 'Coffee',
+            id: 'task_alex_3',
+            title: "Trader Joe's Fresh Groceries Restock",
+            description: 'Organic berries, oat milk, sourdough loaf, sparking water',
+            category_name: 'Shopping',
             task_date: today,
-            start_time: '4:00 PM',
-            end_time: '',
+            start_time: '2:30 PM',
+            end_time: '3:15 PM',
+            repeat_type: 'weekly',
+            completed: true
+          },
+          {
+            id: 'task_alex_4',
+            title: 'Equinox Reformer Pilates Session',
+            description: 'Studio 2 with instructor Maya — bring grip socks',
+            category_name: 'Health',
+            task_date: today,
+            start_time: '5:30 PM',
+            end_time: '6:20 PM',
             repeat_type: 'none',
             completed: false
           },
           {
-            id: 'task_4',
-            title: "Pay electricity bill",
-            description: "Due Jan 24 ($120.00)",
-            category_name: 'Bills',
+            id: 'task_alex_5',
+            title: 'SoHo Dinner with Sarah',
+            description: 'Catch up at Balthazar — table reserved',
+            category_name: 'Personal',
             task_date: today,
-            start_time: '7:00 PM',
-            end_time: '',
+            start_time: '7:45 PM',
+            end_time: '9:30 PM',
             repeat_type: 'none',
+            completed: false
+          },
+          {
+            id: 'task_alex_6',
+            title: 'Mindful Money Check & Evening Wind-Down',
+            description: "Glance at today's safe remaining buffer ($3,109.02) with zero guilt",
+            category_name: 'Mindful Money',
+            task_date: today,
+            start_time: '9:30 PM',
+            end_time: '9:45 PM',
+            repeat_type: 'daily',
             completed: true
           }
         ],
-        // Bills
         bills: [
           {
-            id: 'b1',
-            name: 'Electricity',
-            bill_name: 'Electricity',
-            amount: 120,
-            dueDate: 'January 24',
-            due_date: 'January 24',
+            id: 'bill_alex_1',
+            name: 'SoHo Loft Apartment Rent',
+            bill_name: 'SoHo Loft Apartment Rent',
+            amount: 3200,
+            dueDate: '1st of month',
+            due_date: '1st of month',
             category: 'Housing',
             category_name: 'Housing',
             paid: true,
             status: 'paid',
             is_paid: true,
-            paid_at: '2025-01-24',
+            paid_at: today,
             recurring_frequency: 'monthly',
-            notes: 'City power utility account #8472'
+            notes: 'Primary residence lease autopay'
           },
           {
-            id: 'b2',
-            name: 'High-speed Internet',
-            bill_name: 'High-speed Internet',
-            amount: 60,
-            dueDate: 'January 28',
-            due_date: 'January 28',
-            category: 'Other',
-            category_name: 'Other',
+            id: 'bill_alex_2',
+            name: 'ConEd Clean Electric Utility',
+            bill_name: 'ConEd Clean Electric Utility',
+            amount: 145,
+            dueDate: '12th of month',
+            due_date: '12th of month',
+            category: 'Housing',
+            category_name: 'Housing',
+            paid: true,
+            status: 'paid',
+            is_paid: true,
+            paid_at: today,
+            recurring_frequency: 'monthly',
+            notes: 'Apartment electric & green renewable plan'
+          },
+          {
+            id: 'bill_alex_3',
+            name: 'Verizon Fios Gigabit Fiber Internet',
+            bill_name: 'Verizon Fios Gigabit Fiber Internet',
+            amount: 85,
+            dueDate: '18th of month',
+            due_date: '18th of month',
+            category: 'Housing',
+            category_name: 'Housing',
+            paid: true,
+            status: 'paid',
+            is_paid: true,
+            paid_at: today,
+            recurring_frequency: 'monthly',
+            notes: '1000 Mbps symmetrical home studio fiber'
+          },
+          {
+            id: 'bill_alex_4',
+            name: 'Equinox All-Access Fitness Club',
+            bill_name: 'Equinox All-Access Fitness Club',
+            amount: 280,
+            dueDate: '20th of month',
+            due_date: '20th of month',
+            category: 'Personal & Wellness',
+            category_name: 'Personal & Wellness',
+            paid: true,
+            status: 'paid',
+            is_paid: true,
+            paid_at: today,
+            recurring_frequency: 'monthly',
+            notes: 'Gym, steam room & wellness classes'
+          },
+          {
+            id: 'bill_alex_5',
+            name: 'Delta SkyMiles Amex Card',
+            bill_name: 'Delta SkyMiles Amex Card',
+            amount: 450,
+            dueDate: '24th of month',
+            due_date: '24th of month',
+            category: 'Transport & Travel',
+            category_name: 'Transport & Travel',
             paid: false,
             status: 'pending',
             is_paid: false,
             paid_at: null,
             recurring_frequency: 'monthly',
-            notes: 'Fiber home connection'
+            notes: 'Statement balance autopay active'
+          },
+          {
+            id: 'bill_alex_6',
+            name: 'Geico Auto & Travel Insurance',
+            bill_name: 'Geico Auto & Travel Insurance',
+            amount: 180,
+            dueDate: '28th of month',
+            due_date: '28th of month',
+            category: 'Transport & Travel',
+            category_name: 'Transport & Travel',
+            paid: false,
+            status: 'pending',
+            is_paid: false,
+            paid_at: null,
+            recurring_frequency: 'monthly',
+            notes: 'Vehicle & comprehensive travel policy'
           }
         ],
-        // Realistic initial expenses matching the $233 total spent ($2,267 remaining)
         expensesHistory: [
-          { id: 'exp_bill_b1', bill_id: 'b1', expense_name: 'Electricity Payment', amount: 120.00, category: 'Housing', expense_date: '2025-01-24', note: 'Bill payment: City power utility account #8472' },
-          { id: 'exp_init_1', expense_name: 'Weekly groceries & fruit haul', amount: 45.00, category: 'Groceries', expense_date: '2025-01-18', note: 'Pantry staples & fresh fruits' },
-          { id: 'exp_init_2', expense_name: 'Transit pass reload', amount: 25.00, category: 'Transport', expense_date: '2025-01-08', note: 'Metro card top-up' },
-          { id: 'exp_init_3', expense_name: 'Mindful coffee & lunch', amount: 43.00, category: 'Personal', expense_date: '2025-01-12', note: 'Calm morning focus reset & lunch' }
-        ]
+          { id: 'exp_alex_1', bill_id: 'bill_alex_1', expense_name: 'SoHo Loft Apartment Rent', amount: 3200.00, category: 'Housing', expense_date: today, note: 'Primary residence lease autopay' },
+          { id: 'exp_alex_2', bill_id: 'bill_alex_2', expense_name: 'ConEd Clean Electric Utility', amount: 145.00, category: 'Housing', expense_date: today, note: 'Apartment electric & green renewable plan' },
+          { id: 'exp_alex_3', bill_id: 'bill_alex_3', expense_name: 'Verizon Fios Gigabit Fiber Internet', amount: 85.00, category: 'Housing', expense_date: today, note: '1000 Mbps symmetrical home studio fiber' },
+          { id: 'exp_alex_4', expense_name: 'High-Yield Savings (Marcus HYSA) Auto-Deposit', amount: 1050.00, category: 'Savings & HYSA Buffer', expense_date: today, note: 'Monthly 5.0% APY wealth building transfer' },
+          { id: 'exp_alex_5', expense_name: 'Delta Airlines JFK ✈ SFO Roundtrip Flight', amount: 560.00, category: 'Transport & Travel', expense_date: today, note: 'Comfort+ direct flight for West Coast conference' },
+          { id: 'exp_alex_6', expense_name: "Trader Joe's Fresh Haul & Pantry Restock", amount: 285.50, category: 'Groceries & Food', expense_date: today, note: 'Produce, organic snacks, salmon, sourdough' },
+          { id: 'exp_alex_7', expense_name: 'Whole Foods Market Organic Staples', amount: 245.20, category: 'Groceries & Food', expense_date: today, note: 'Cold-pressed juices, probiotic yogurt, pasture eggs' },
+          { id: 'exp_alex_8', bill_id: 'bill_alex_4', expense_name: 'Equinox All-Access Fitness Club', amount: 280.00, category: 'Personal & Wellness', expense_date: today, note: 'Monthly membership dues' },
+          { id: 'exp_alex_9', expense_name: 'Alo Yoga Mat & Studio Pass', amount: 195.00, category: 'Personal & Wellness', expense_date: today, note: 'Mindful physical wellness reset' },
+          { id: 'exp_alex_10', expense_name: 'Erewhon Grab-and-Go Lunch & Smoothie', amount: 154.50, category: 'Groceries & Food', expense_date: today, note: 'Coconut cloud tonic & macro bowl' },
+          { id: 'exp_alex_11', expense_name: 'SFO Airport Rental Car Reservation', amount: 230.00, category: 'Transport & Travel', expense_date: today, note: 'EV compact for Bay Area client meetings' },
+          { id: 'exp_alex_12', expense_name: 'Uber Reserve Airport JFK Black', amount: 78.40, category: 'Transport & Travel', expense_date: today, note: 'Comfortable early-morning ride to airport' },
+          { id: 'exp_alex_13', expense_name: 'Tesla Supercharger Fast Charge', amount: 42.00, category: 'Transport & Travel', expense_date: today, note: 'Full road-trip recharge' },
+          { id: 'exp_alex_14', expense_name: 'Kinfolk Magazine & Creative Workshop', amount: 186.00, category: 'Personal & Wellness', expense_date: today, note: 'ADHD focus notebook & creative sprint ticket' },
+          { id: 'exp_alex_15', expense_name: 'Soundcore Sleep Earplugs & App', amount: 39.00, category: 'Personal & Wellness', expense_date: today, note: 'Sensory quietness & restful sleep' },
+          { id: 'exp_alex_16', expense_name: 'Apple One Premier Bundle Subscription', amount: 37.95, category: 'Personal & Wellness', expense_date: today, note: 'iCloud 2TB, Apple Music & Fitness+' },
+          { id: 'exp_alex_17', expense_name: 'NYC Metro OMNY Card Tap Reload', amount: 35.00, category: 'Transport & Travel', expense_date: today, note: 'Subway & transit commuter pass' },
+          { id: 'exp_alex_18', expense_name: 'Blue Bottle Single-Origin Pour-Over & Pastry', amount: 23.43, category: 'Personal & Wellness', expense_date: today, note: 'Morning focus work session at corner cafe' },
+          { id: 'exp_alex_19', expense_name: 'Matcha Latte & Vegan Energy Cookie', amount: 19.00, category: 'Personal & Wellness', expense_date: today, note: 'Afternoon calm focus treat' }
+        ],
+        habitState: {
+          waterGlasses: 6,
+          waterGoal: 8,
+          breathingMinutes: 3,
+          mealsLogged: {
+            breakfast: true,
+            lunch: true,
+            dinner: false,
+            snack: true
+          },
+          habits: [
+            { id: 'h_water', title: 'Hydration Reset', category: 'Health', icon: 'droplet', desc: 'Drink 8 glasses of pure fresh water', completed: false, streak: 8 },
+            { id: 'h_meds', title: 'Morning ADHD Meds & Focus Stack', category: 'Routine', icon: 'pill', desc: 'Daily prescription & Omega-3 with breakfast', completed: true, streak: 21 },
+            { id: 'h_breathing', title: '1-Min Box Breathing Pause (4-4-4)', category: 'Mindfulness', icon: 'wind', desc: 'Grounding nervous system reset', completed: true, streak: 14 },
+            { id: 'h_movement', title: 'Reformer Pilates / Body Movement', category: 'Body', icon: 'activity', desc: 'Gentle physical stretch & core focus', completed: false, streak: 5 },
+            { id: 'h_budget', title: 'Calm Mindful Money Check', category: 'Mindful Money', icon: 'wallet', desc: "Glance at today's safe remaining buffer without anxiety", completed: true, streak: 12 },
+            { id: 'h_walk', title: '15-Min Morning Sunlight Walk', category: 'Energy', icon: 'sun', desc: 'Circadian rhythm reset with Blue Bottle coffee', completed: true, streak: 7 }
+          ]
+        },
+        selfCareState: {
+          energy: 'high',
+          dopamineCategory: 'appetizers',
+          completedDopamine: ['Morning pour-over coffee in quiet sunshine', '10-min instrumental lo-fi playlist session'],
+          groundingStep: 0,
+          wins: [
+            { id: 'w_1', text: 'Packed wholesome snacks for flight instead of buying junk food ✈️', time: '10:15 AM' },
+            { id: 'w_2', text: 'SoHo loft rent paid on the 1st with zero late stress 🏙️', time: '11:30 AM' },
+            { id: 'w_3', text: 'Kept a healthy $3,109.02 unspent safe buffer in HYSA 🌸', time: '1:45 PM' },
+            { id: 'w_4', text: 'Paused 5 minutes before impulse checkout on Amazon 🧘', time: '3:20 PM' }
+          ]
+        },
+        debts: [
+          { id: 'debt_1', name: 'Amex Gold Travel Card', type: 'Credit Card', balance: 640, startingBalance: 2800, interestRate: 18.24, minPayment: 65, dueDay: 15 },
+          { id: 'debt_2', name: 'Apple Card 0% APR Installment', type: 'Installment', balance: 320, startingBalance: 1200, interestRate: 0, minPayment: 100, dueDay: 20 },
+          { id: 'debt_3', name: 'Loft Security Deposit Loan', type: 'Loan', balance: 0, startingBalance: 1500, interestRate: 5.5, minPayment: 0, dueDay: 28 }
+        ],
+        adhdTax: {
+          incidents: [
+            { id: 'tax_1', title: 'Forgotten Equinox Guest Locker Fee', category: 'Subscription', amount: 25, date: '2026-11-04', rule: 'Attach locker key tag directly to gym water bottle' },
+            { id: 'tax_2', title: 'Unreturned Nordstrom Package (Past 30 Days)', category: 'Late Fee', amount: 68, date: '2026-10-28', rule: 'Put returns inside car or by front door immediately' },
+            { id: 'tax_3', title: 'Spoiled Organic Raspberries in Crisper Drawer', category: 'Wasted Food', amount: 16, date: '2026-11-02', rule: 'Wash, prep, and store berries at eye-level on shelf' }
+          ],
+          safeguards: {
+            autopay: true,
+            trialAlarm: true,
+            pauseRule: true,
+            emergencyMeals: true,
+            returnBag: true
+          }
+        },
+        moneyBack: [
+          { id: 'mb_1', title: 'SFO Conference Dinner Split (Sarah K.)', debtor: 'Sarah K.', amount: 142, category: 'Friend', date: '2026-11-05', expectedDate: '2026-11-09', status: 'pending' },
+          { id: 'mb_2', title: 'Nordstrom Online Return Refund', debtor: 'Nordstrom', amount: 85, category: 'Return', date: '2026-11-02', expectedDate: '2026-11-08', status: 'pending' },
+          { id: 'mb_3', title: 'United Airlines Baggage Delay Credit', debtor: 'United Airlines', amount: 70, category: 'Travel', date: '2026-10-31', expectedDate: '2026-11-12', status: 'pending' }
+        ],
+        focusSpace: {
+          completedSessions: 3,
+          activeTarget: 'Complete Q4 Creative Strategy & Etsy Listing Video',
+          brainDump: [
+            { id: 'bd_1', text: 'Confirm SFO airport rental car pickup confirmation', date: '2026-11-05' },
+            { id: 'bd_2', text: 'Pack noise-canceling headphones & charger for flight', date: '2026-11-05' },
+            { id: 'bd_3', text: 'Text Sarah about 7:45 PM dinner table reservation', date: '2026-11-05' }
+          ]
+        },
+        moodEnergy: {
+          today: {
+            spoons: 4,
+            energy: 'High',
+            mood: 'Calm & Flowing',
+            note: 'Feeling grounded and prepared for SFO trip. Budget feels clear and spacious!',
+            date: today
+          },
+          history: [
+            { id: 'me_1', date: '2026-11-04', spoons: 4, energy: 'High', mood: 'Focused', note: 'Steady momentum, finished all daily tasks.' },
+            { id: 'me_2', date: '2026-11-03', spoons: 3, energy: 'Medium', mood: 'Calm', note: 'Relaxed evening walk, early night rest.' },
+            { id: 'me_2', date: '2026-11-03', spoons: 3, energy: 'Medium', mood: 'Calm', note: 'Relaxed evening walk, early night rest.' },
+            { id: 'me_3', date: '2026-11-02', spoons: 5, energy: 'High', mood: 'Hyperfocused', note: 'Great creative sprint, organized finances.' }
+          ]
+        },
+        mealsGroceries: {
+          todayMeals: {
+            breakfast: 'Sourdough avocado toast with poached eggs & Blue Bottle brew',
+            lunch: 'Sweetgreen warm harvest bowl with roasted chicken & sweet potatoes',
+            dinner: 'SoHo dinner at Balthazar with team & friends'
+          },
+          spoilingSoon: [
+            { id: 'sp_1', name: 'Organic Fresh Raspberries', daysLeft: 1, eaten: false },
+            { id: 'sp_2', name: 'Baby Spinach Bag', daysLeft: 2, eaten: false }
+          ],
+          emergencyMeals: [
+            { id: 'em_1', name: 'Sourdough aged cheddar grilled cheese + tomato bisque', time: '5 mins' },
+            { id: 'em_2', name: "Trader Joe's steamed pork soup dumplings + chili crunch", time: '6 mins' },
+            { id: 'em_3', name: 'High-protein Greek yogurt bowl with honey & walnuts', time: '3 mins' },
+            { id: 'em_4', name: 'Warm garlic & olive oil penne pasta with parmesan', time: '7 mins' }
+          ],
+          groceries: [
+            { id: 'gr_1', name: 'Malk Almond Milk & Organic Oat Yogurt', category: 'Fridge & Dairy', bought: true, cost: 8.50 },
+            { id: 'gr_2', name: 'Fresh Gala Apples, Lemons & Avocados', category: 'Produce & Fresh', bought: true, cost: 12.40 },
+            { id: 'gr_3', name: 'Dark Chocolate Sea Salt Peanut Butter Cups', category: 'Dopamine Snacks', bought: false, cost: 5.99 },
+            { id: 'gr_4', name: 'Country Sourdough Loaf (Fresh Bakery)', category: 'Pantry & Carbs', bought: true, cost: 7.50 }
+          ]
+        }
       };
+    }
+
+    // Default Seed Data (Alex Morgan $10,000 Financial Suite)
+    function getDefaultInitialData(userId, currency = '$', totalBudget = 10000) {
+      return getAlex10kShowcaseData(userId, currency);
     }
 
     // --- 4. DATA MIGRATION & RECALCULATIONS ---
@@ -9344,7 +9586,11 @@
       'ETSY-VIP-2025',
       'ETSY-ADHD-BUDGET',
       'ADHD-BUDGET-VIP',
-      'MINDFUL-VIP-2025'
+      'MINDFUL-VIP-2025',
+      'ALEX',
+      'ALEX10K',
+      'SHOWCASE',
+      'DEMO'
     ];
 
     function isAccessAuthorized() {
@@ -9355,7 +9601,7 @@
       if (!token) return false;
       const clean = token.trim().toUpperCase();
       if (VALID_ACCESS_TOKENS.map(t => t.toUpperCase()).includes(clean)) return true;
-      if (clean.startsWith('ETSY-') || clean.startsWith('VIP-') || clean.startsWith('ORDER-')) return true;
+      if (clean.startsWith('ETSY-') || clean.startsWith('VIP-') || clean.startsWith('ORDER-') || clean.includes('ALEX')) return true;
       return false;
     }
 
@@ -9786,6 +10032,16 @@
       initTheme();
       initDate();
 
+      // Direct 1-Click Launch for Alex ($10K Showcase Demo for Etsy Video)
+      try {
+        const urlParams = new URLSearchParams(window.location.search);
+        const demoMode = (urlParams.get('demo') || urlParams.get('showcase') || urlParams.get('user') || '').toLowerCase();
+        if (demoMode === 'alex' || urlParams.has('alex') || urlParams.get('access') === 'ALEX10K') {
+          window.launchAlexShowcase();
+          return;
+        }
+      } catch (e) {}
+
       // 1. Etsy Magic Access Link Check (?access=...)
       try {
         const urlParams = new URLSearchParams(window.location.search);
@@ -9905,8 +10161,37 @@
       showAuthPage('welcome');
     }
 
+    window.launchAlexShowcase = function() {
+      const alexUser = {
+        id: 'user_alex_morgan_10k',
+        fullName: 'Alex Morgan',
+        username: 'alex',
+        email: 'alex@example.com',
+        currency: '$',
+        onboarded: true
+      };
+      localStorage.setItem('adhd_etsy_access_granted', 'true');
+      localStorage.setItem('adhd_onboarded_' + alexUser.id, 'true');
+      const alexData = getAlex10kShowcaseData(alexUser.id, '$');
+      localStorage.setItem(STORAGE_KEY_USER_DATA_PREFIX + alexUser.id, JSON.stringify(alexData));
+      localStorage.setItem('adhd_last_saved_' + alexUser.id, Date.now().toString());
+      persistUserSession(alexUser);
+      setActiveSession(alexUser, true);
+      currentUser = alexUser;
+      currentUserData = alexData;
+      ensureDataIntegrity(currentUserData);
+      calculateFinancials(currentUserData);
+      document.documentElement.classList.remove('is-restricted');
+      updatePersonalizedHeader();
+      updateSettingsForm();
+      renderAll();
+      showAuthPage('app');
+      showToast('Alex $10,000 Showcase Loaded! Ready for Etsy Recording 🎬✨');
+      checkMonthlyBudgetReview();
+    };
+
     function launchDemoPreview() {
-      showAuthPage('signup');
+      window.launchAlexShowcase();
     }
 
     document.addEventListener('DOMContentLoaded', () => {
