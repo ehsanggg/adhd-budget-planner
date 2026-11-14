@@ -14,7 +14,7 @@
   <script>
     (function() {
       try {
-        var APP_CACHE_VERSION = 'v5.1_multilingual_de_fr_es';
+        var APP_CACHE_VERSION = 'v5.2_dark_theme_lighter_white_text';
         if (localStorage.getItem('adhd_app_version') !== APP_CACHE_VERSION) {
           localStorage.removeItem('adhd_db_data_demo_user_sunny');
           localStorage.removeItem('adhd_user_sunny');
@@ -104,15 +104,15 @@
               badge: '#F9DFEB'
             },
             forest: {
-              bg: '#1D1220',       // Deep plum/charcoal dark background
-              surface: '#28182D',  // Dark mauve cards
-              surfaceMuted: '#34213B',
-              border: '#412B4A',
-              borderMuted: '#321F38',
-              text: '#FDF7FB',     // Readable light text
-              textMuted: '#D4BFD2',
-              textSubtle: '#A692A4',
-              mint: '#E889B5'      // Soft pink highlight for dark mode
+              bg: '#281d2e',       // Softer, slightly lighter dark background (was #1D1220)
+              surface: '#34253c',  // Soft dark mauve cards (was #28182D)
+              surfaceMuted: '#3d2c46',
+              border: '#4c3855',
+              borderMuted: '#3e2c48',
+              text: '#FFFFFF',     // 100% pure white text
+              textMuted: '#FFFFFF',// 100% pure white text
+              textSubtle: '#FFFFFF',// 100% pure white text
+              mint: '#FFFFFF'      // Pure white highlights
             }
           },
           boxShadow: {
@@ -405,6 +405,114 @@
     html.is-authenticated #page-welcome,
     html.is-authenticated #page-signup,
     html.is-authenticated #page-onboarding { display: none !important; }
+
+    /* ======================================================= */
+    /* DARK THEME: SOFTER LIGHTER BACKGROUND + 100% WHITE TEXT */
+    /* ======================================================= */
+    html.dark,
+    html.dark body {
+      background-color: #281d2e !important;
+      color: #ffffff !important;
+    }
+
+    html.dark #app-shell {
+      background-color: #281d2e !important;
+    }
+
+    html.dark #app-sidebar {
+      background: linear-gradient(to bottom, #2f2237, #33243c, #2b1d31) !important;
+      border-color: #4c3855 !important;
+    }
+
+    /* Cards, containers & modal panels in dark mode */
+    html.dark aside,
+    html.dark [class*="dark:bg-[#28182D]"],
+    html.dark [class*="dark:bg-[#201024]"],
+    html.dark [class*="dark:bg-[#34213B]"],
+    html.dark [class*="dark:bg-[#34203A]"],
+    html.dark [class*="dark:bg-[#2E1B32]"],
+    html.dark [class*="dark:bg-[#26152B]"],
+    html.dark [class*="dark:bg-forest-surface"] {
+      background-color: #34253c !important;
+      border-color: #4c3855 !important;
+    }
+
+    html.dark [class*="dark:bg-[#3E2242]"] {
+      background-color: #412f4b !important;
+    }
+
+    /* Hero gradient card in overview */
+    html.dark [class*="dark:from-[#341F39]"],
+    html.dark [class*="dark:from-[#3E2242]"] {
+      background: linear-gradient(135deg, #382741, #302138, #3e2b48) !important;
+      border-color: #4c3855 !important;
+    }
+
+    /* Frosted glass buttons & pills in dark mode */
+    html.dark .ios-glass-btn {
+      background-color: rgba(58, 42, 66, 0.8) !important;
+      border-color: #4c3855 !important;
+    }
+
+    /* ALL TEXT IN DARK MODE: PURE 100% WHITE */
+    html.dark h1,
+    html.dark h2,
+    html.dark h3,
+    html.dark h4,
+    html.dark h5,
+    html.dark h6,
+    html.dark p,
+    html.dark span:not(.nav-dot):not([class*="bg-emerald"]):not([class*="bg-rose"]):not([class*="bg-amber"]),
+    html.dark label,
+    html.dark a,
+    html.dark th,
+    html.dark td,
+    html.dark li,
+    html.dark div:not([class*="bg-"]):not(.progress-fill),
+    html.dark [class*="dark:text-[#"],
+    html.dark [class*="dark:text-forest-text"],
+    html.dark [class*="dark:text-warm-text"],
+    html.dark [class*="text-[#38283A]"],
+    html.dark [class*="text-[#4A2D4B]"],
+    html.dark [class*="text-[#887487]"],
+    html.dark [class*="text-[#A796A6]"],
+    html.dark [class*="text-[#994B78]"],
+    html.dark [class*="text-[#5C3B61]"],
+    html.dark [class*="text-warm-text"],
+    html.dark [class*="text-warm-textMuted"],
+    html.dark [class*="text-warm-textSubtle"] {
+      color: #ffffff !important;
+      -webkit-text-fill-color: #ffffff !important;
+    }
+
+    /* Form Inputs in dark mode */
+    html.dark input:not([type="checkbox"]):not([type="radio"]),
+    html.dark select,
+    html.dark textarea {
+      background-color: #2b1d30 !important;
+      border-color: #4c3855 !important;
+      color: #ffffff !important;
+      -webkit-text-fill-color: #ffffff !important;
+    }
+
+    html.dark input::placeholder,
+    html.dark textarea::placeholder {
+      color: rgba(255, 255, 255, 0.65) !important;
+      -webkit-text-fill-color: rgba(255, 255, 255, 0.65) !important;
+    }
+
+    /* Icons in dark mode */
+    html.dark svg:not([class*="text-white"]):not([class*="text-emerald"]):not([class*="text-rose"]):not([class*="text-amber"]):not([class*="text-yellow"]),
+    html.dark i:not([class*="text-white"]):not([class*="text-emerald"]):not([class*="text-rose"]):not([class*="text-amber"]):not([class*="text-yellow"]) {
+      color: #ffffff !important;
+      stroke: #ffffff !important;
+    }
+
+    /* Keep active nav item distinctive with white text */
+    html.dark .ios-nav-active {
+      background: linear-gradient(to right, #994B78, #BA5382) !important;
+      color: #ffffff !important;
+    }
   </style>
 </head>
 <body class="bg-warm-bg text-warm-text dark:bg-forest-bg dark:text-forest-text min-h-screen font-sans antialiased selection:bg-sage-200 dark:selection:bg-sage-800">
